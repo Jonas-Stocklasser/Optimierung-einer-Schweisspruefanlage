@@ -15,7 +15,7 @@ class ReallySwitch(ctk.CTkToplevel):  # top level window class for checking if y
         super().__init__(parent)
         self.geometry("350x150")
         self.resizable(False, False)
-        self.title("!ATTENTION!")
+        self.title("!ACHTUNG!")
         self.attributes("-topmost", "true")  # the window is at the top at all times
 
         # calling the create_widgets method to create all widgets that are children of ReallySwitch and passing "which"
@@ -28,7 +28,7 @@ class ReallySwitch(ctk.CTkToplevel):  # top level window class for checking if y
                                                width=340,
                                                height=20,
                                                corner_radius=5,
-                                               text="Do you really want to go back?",
+                                               text="Wirklich zurück gehen?",
                                                text_color=text_colorSET,
                                                font=("bold", 15))
         top_level_indicator_bar.place(x=5,
@@ -46,7 +46,7 @@ class ReallySwitch(ctk.CTkToplevel):  # top level window class for checking if y
                                                width=100,
                                                height=50,
                                                corner_radius=10,
-                                               text="Yes",
+                                               text="Ja",
                                                font=("bold", 20),
                                                command=lambda: (self.master.switch_window(which), self.destroy()))
         # the command call the switch_window method and passes "which" as an argument, then destroys itself
@@ -58,7 +58,7 @@ class ReallySwitch(ctk.CTkToplevel):  # top level window class for checking if y
                                               width=100,
                                               height=50,
                                               corner_radius=10,
-                                              text="No",
+                                              text="Nein",
                                               font=("bold", 20),
                                               command=lambda: self.destroy())  # the command destroys the window
         startscreen_no_button.place(x=235,

@@ -6,15 +6,15 @@
 
 import customtkinter as ctk
 # Shared variables----------------------------------------
-from .sharedVar import geometry, colorSET, text_colorSET, \
-    back_button_image  # import of shared variables located in the sharedVar file
+from .sharedVar import window_geometry, colorSET, text_colorSET, \
+    back_arrow_image  # import of shared variables located in the sharedVar file
 
 
 class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
     def __init__(self, parent):  # the parent is App()
         super().__init__(parent,  # parameters of the CTkFrame object
-                         width=(geometry[0] - 10),
-                         height=(geometry[1] - 10),
+                         width=(window_geometry[0] - 10),
+                         height=(window_geometry[1] - 10),
                          fg_color="transparent")
         self.place(x=5,  # placing the object at coordinates x5 - y5 relative to the top left corner of the parent
                    y=5)
@@ -26,7 +26,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
         # top bar------------------------------------------------------------
         optionsscreen_indicator_bar = ctk.CTkLabel(master=self,  # top bar that indicates the screen where you are
                                                    fg_color=colorSET,
-                                                   width=geometry[0] - 70,
+                                                   width=window_geometry[0] - 70,
                                                    height=40,
                                                    corner_radius=10,
                                                    text="Options - Screen",
@@ -41,7 +41,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
                                                   width=340,
                                                   height=80)
         optionsscreen_button_frame.place(x=450,
-                                         y=(geometry[1] / 2) - 280)
+                                         y=(window_geometry[1] / 2) - 280)
 
         # back button------------------------------------------------------------
         optionsscreen_back_button = ctk.CTkButton(master=self,  # back button
@@ -49,7 +49,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
                                                   height=40,
                                                   corner_radius=10,
                                                   text="",
-                                                  image=back_button_image,
+                                                  image=back_arrow_image,
                                                   command=lambda: self.master.switch_window("0"))
         # the command doesn't call the switch_window method because there is no unsaved content to loose
         optionsscreen_back_button.place(x=1215,

@@ -2,7 +2,6 @@
 # Date: 19.06.24
 # Author: Stocklasser
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
-import json
 
 import customtkinter as ctk
 import pandas as pd
@@ -12,7 +11,8 @@ from Package.OptionsScreen import OptionsScreen
 from Package.ReallySwitch import ReallySwitch
 # Shared variables----------------------------------------
 from Package.sharedVar import window_geometry, name_of_app, \
-    start_window, GetStartupVariables, appearance_mode  # import of shared variables located in the sharedVar file
+    start_window, GetStartupVariables, appearance_mode, y_size, \
+    x_size  # import of shared variables located in the sharedVar file
 
 
 class App(ctk.CTk):  # main window class, every other window class is called from here
@@ -22,12 +22,11 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         ctk.set_appearance_mode(appearance_mode[0])
         ctk.set_default_color_theme("blue")
         self.title(title)
-        self.geometry(f"{window_geometry[0]}x{window_geometry[1]}")
+        self.geometry(f"{window_geometry[x_size]}x{window_geometry[y_size]}")
         self.resizable(False, False)
 
         # windows----------------------------------------
         self.startscreen = StartScreen(self)  # ID = 0      other classes
-
         # self.newtestscreen = NewTestScreen(self)  # ID = 1
         self.optionsscreen = OptionsScreen(self)  # ID = 2
 
@@ -61,20 +60,34 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
     # Function for changing appearance mode----------------------------------------
     def appearance_mode_switch(self, mode):  # method for switching the appearance mode to dark/light mode
         ctk.set_appearance_mode(mode)  # the attribute "mode" is given by the menu widget in the OptionsScreen class
-        data = pd.read_csv("../Other/startup_var.csv", encoding="latin1")
+        data = pd.read_json("../Other/startup_var.json", encoding="latin1")
         if mode == "light":
-            mode_list = ["light", "dark"]
-            mode_json = json.dumps(mode_list)
-            data.at[5, 1] = mode_json
-            data.to_csv("../Other/startup_var.csv")
+            index = data.index[data['var'] == "appearance_mode"].tolist()
+            data.at[index[0], 'val'] = ["light", "dark"]
+            with open("../Other/startup_var.json", "w") as file:
+                data.to_json(file, orient="records", indent=2)
         elif mode == "dark":
-            mode_list = ["dark", "light"]
-            mode_json = json.dumps(mode_list)
-            data.at[5, 1] = mode_json
-            data.to_csv("../Other/startup_var.csv")
+            index = data.index[data['var'] == "appearance_mode"].tolist()
+            data.at[index[0], 'val'] = ["dark", "light"]
+            with open("../Other/startup_var.json", "w") as file:
+                data.to_json(file, orient="records", indent=2)
 
+    def window_size_switch(self, size):
+        print("Neustart fuer Aenderung erforderlich")
+        data = pd.read_json("../Other/startup_var.json", encoding="latin1")
+        if size == "HD":
+            index = data.index[data['var'] == "window_size"].tolist()
+            data.at[index[0], 'val'] = [1280, 720, 1920, 1080]
+            with open("../Other/startup_var.json", "w") as file:
+                data.to_json(file, orient="records", indent=2)
+
+        elif size == "FullHD":
+            index = data.index[data['var'] == "window_size"].tolist()
+            data.at[index[0], 'val'] = [1920, 1080, 1280, 720]
+            with open("../Other/startup_var.json", "w") as file:
+                data.to_json(file, orient="records", indent=2)
 
 
 if __name__ == "__main__":  # when the file this is in is called main then it is run
-    GetStartupVariables()   # run GetStartupVariables from sharedVar
+    GetStartupVariables()  # run GetStartupVariables from sharedVar
     App(name_of_app)  # calls the App class and passes the sharedVar name_of_app as the attribute "title"

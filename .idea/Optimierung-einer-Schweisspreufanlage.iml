@@ -4,7 +4,7 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/Optimierung-einer-Schweisspreufanlage" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.10 (Optimierung-einer-Schweisspreufanlage)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.11" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

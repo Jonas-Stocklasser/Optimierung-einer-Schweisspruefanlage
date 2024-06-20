@@ -7,7 +7,7 @@
 import customtkinter as ctk
 # Shared variables----------------------------------------
 from .sharedVar import window_geometry, color_SET, text_color_SET, \
-    back_arrow_image, appearance_mode
+    back_arrow_image, appearance_mode, window_size
 
 
 class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
@@ -39,7 +39,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
         # button frame------------------------------------------------------------
         optionsscreen_button_frame = ctk.CTkFrame(master=self,  # frame for the buttons and the menu
                                                   width=340,
-                                                  height=80)
+                                                  height=160)
         optionsscreen_button_frame.place(x=450,
                                          y=(window_geometry[1] / 2) - 280)
 
@@ -79,3 +79,28 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
                                                 font=("bold", 20))
         options_light_dark_label.place(x=20,
                                        y=20)
+
+        # Window size ------------------------------------------------------------
+        # option menu
+        options_window_size_menu = ctk.CTkOptionMenu(master=optionsscreen_button_frame,  # menu for light / dark
+                                                     width=100,
+                                                     height=40,
+                                                     font=("bold", 20),
+                                                     dropdown_font=("bold", 20),
+                                                     corner_radius=5,
+                                                     values=window_size,
+                                                     command=self.master.window_size_switch)
+        # the command automatically passes the current value as an argument to the specified method
+        options_window_size_menu.place(x=220,
+                                       y=70)
+        # label
+        options_light_dark_label = ctk.CTkLabel(master=optionsscreen_button_frame,  # label to describe the menu above
+                                                fg_color=color_SET,
+                                                width=180,
+                                                height=40,
+                                                corner_radius=5,
+                                                text="Window size",
+                                                text_color=text_color_SET,
+                                                font=("bold", 20))
+        options_light_dark_label.place(x=20,
+                                       y=70)

@@ -5,6 +5,7 @@
 # StartFenster
 
 import customtkinter as ctk
+import sys
 # Shared variables----------------------------------------
 from .sharedVar import window_geometry, color_SET, text_color_SET, \
     start_image  # import of shared variables located in the sharedVar file
@@ -39,7 +40,7 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
         # button frame------------------------------------------------------------
         startscreen_button_frame = ctk.CTkFrame(master=self,  # a frame for the buttons
                                                 width=340,
-                                                height=220)
+                                                height=320)
         startscreen_button_frame.place(x=30,
                                        y=(window_geometry[1] / 2) - 280)
 
@@ -66,6 +67,18 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
         # the command calls the App lasses switch_window function and passes "3" as the "which" attribute
         startscreen_options_button.place(x=20,
                                          y=120)
+
+        # quit button------------------------------------------------------------
+        startscreen_quit_button = ctk.CTkButton(master=startscreen_button_frame,  # button to open the OptionsScreen
+                                                width=300,
+                                                height=80,
+                                                corner_radius=10,
+                                                text="Desktop",
+                                                font=("bold", 40),
+                                                command=lambda: sys.exit(0))
+        # the command calls the App lasses switch_window function and passes "3" as the "which" attribute
+        startscreen_quit_button.place(x=20,
+                                      y=220)
 
         # image frame------------------------------------------------------------
         startscreen_image_frame = ctk.CTkFrame(master=self,  # Frame for the StartScreen image

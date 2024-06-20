@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-# Date: 09.02.24
+# Date: 19.06.24
 # Author: Stocklasser
-# DA Ideas
-#
+# Diplomarbeit, Optimierung einer Schweisspruefanlage
+# Top Level Window Really Switch
 
 import customtkinter as ctk
 # Shared variables----------------------------------------

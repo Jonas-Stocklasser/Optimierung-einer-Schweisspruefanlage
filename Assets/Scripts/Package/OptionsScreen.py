@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-# Date: 09.02.24
+# Date: 19.06.24
 # Author: Stocklasser
-# DA Ideas
-#
+# Diplomarbeit, Optimierung einer Schweisspruefanlage
+# OptionenFenster
 
 import customtkinter as ctk
 # Shared variables----------------------------------------
@@ -49,10 +49,11 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
                                                   height=40,
                                                   corner_radius=10,
                                                   text="",
+                                                  anchor="ne",
                                                   image=back_arrow_image,
                                                   command=lambda: self.master.switch_window("0"))
         # the command doesn't call the switch_window method because there is no unsaved content to loose
-        optionsscreen_back_button.place(x=1215,
+        optionsscreen_back_button.place(x=window_geometry[0]-65,
                                         y=0)
 
         # light mode / dark mode ------------------------------------------------------------
@@ -82,7 +83,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
 
         # Window size ------------------------------------------------------------
         # option menu
-        options_window_size_menu = ctk.CTkOptionMenu(master=optionsscreen_button_frame,  # menu for light / dark
+        options_window_size_menu = ctk.CTkOptionMenu(master=optionsscreen_button_frame,
                                                      width=100,
                                                      height=40,
                                                      font=("bold", 20),

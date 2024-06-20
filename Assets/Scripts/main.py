@@ -11,8 +11,7 @@ from Package.OptionsScreen import OptionsScreen
 from Package.ReallySwitch import ReallySwitch
 # Shared variables----------------------------------------
 from Package.sharedVar import window_geometry, name_of_app, \
-    start_window, GetStartupVariables, appearance_mode, y_size, \
-    x_size  # import of shared variables located in the sharedVar file
+    start_window, GetStartupVariables, appearance_mode  # import of shared variables located in the sharedVar file
 
 
 class App(ctk.CTk):  # main window class, every other window class is called from here
@@ -22,7 +21,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         ctk.set_appearance_mode(appearance_mode[0])
         ctk.set_default_color_theme("blue")
         self.title(title)
-        self.geometry(f"{window_geometry[x_size]}x{window_geometry[y_size]}")
+        self.geometry(f"{window_geometry[0]}x{window_geometry[1]}")
         self.resizable(False, False)
 
         # windows----------------------------------------
@@ -37,7 +36,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         self.switch_window(start_window)
 
         # run the app----------------------------------------
-        self.mainloop()  # the main App window is runned (mainloop)
+        self.mainloop()  # the main App window is run (mainloop)
 
     def open_top_level_window_really_switch(self, which):  # method for creating or focusing the top level window
         # "which" is an attribute given by the back button which calls this function
@@ -76,14 +75,18 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         print("Neustart fuer Aenderung erforderlich")
         data = pd.read_json("../Other/startup_var.json", encoding="latin1")
         if size == "HD":
+            index = data.index[data['var'] == "window_geometry"].tolist()
+            data.at[index[0], 'val'] = [1280, 720]
             index = data.index[data['var'] == "window_size"].tolist()
-            data.at[index[0], 'val'] = [1280, 720, 1920, 1080]
+            data.at[index[0], 'val'] = ["HD", "FullHD"]
             with open("../Other/startup_var.json", "w") as file:
                 data.to_json(file, orient="records", indent=2)
 
         elif size == "FullHD":
+            index = data.index[data['var'] == "window_geometry"].tolist()
+            data.at[index[0], 'val'] = [1920, 1080]
             index = data.index[data['var'] == "window_size"].tolist()
-            data.at[index[0], 'val'] = [1920, 1080, 1280, 720]
+            data.at[index[0], 'val'] = ["FullHD", "HD"]
             with open("../Other/startup_var.json", "w") as file:
                 data.to_json(file, orient="records", indent=2)
 

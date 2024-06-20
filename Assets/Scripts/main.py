@@ -2,23 +2,24 @@
 # Date: 19.06.24
 # Author: Stocklasser
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
-
+import json
 
 import customtkinter as ctk
+import pandas as pd
 
 from Package.StartScreen import StartScreen  # imports of other files of the package
 from Package.OptionsScreen import OptionsScreen
 from Package.ReallySwitch import ReallySwitch
 # Shared variables----------------------------------------
-from Package.sharedVar import window_geometry, nameofapp, \
-    startwindow  # import of shared variables located in the sharedVar file
+from Package.sharedVar import window_geometry, name_of_app, \
+    start_window, GetStartupVariables, appearance_mode  # import of shared variables located in the sharedVar file
 
 
 class App(ctk.CTk):  # main window class, every other window class is called from here
     def __init__(self, title):  # title is given as an attribute from the class call
         # main initialization----------------------------------------
         super().__init__()
-        ctk.set_appearance_mode("light")
+        ctk.set_appearance_mode(appearance_mode[0])
         ctk.set_default_color_theme("blue")
         self.title(title)
         self.geometry(f"{window_geometry[0]}x{window_geometry[1]}")
@@ -34,7 +35,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         self.reallyswitch = None
 
         # show start screen initially----------------------------------------
-        self.switch_window(startwindow)
+        self.switch_window(start_window)
 
         # run the app----------------------------------------
         self.mainloop()  # the main App window is runned (mainloop)
@@ -60,7 +61,20 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
     # Function for changing appearance mode----------------------------------------
     def appearance_mode_switch(self, mode):  # method for switching the appearance mode to dark/light mode
         ctk.set_appearance_mode(mode)  # the attribute "mode" is given by the menu widget in the OptionsScreen class
+        data = pd.read_csv("../Other/startup_var.csv", encoding="latin1")
+        if mode == "light":
+            mode_list = ["light", "dark"]
+            mode_json = json.dumps(mode_list)
+            data.at[5, 1] = mode_json
+            data.to_csv("../Other/startup_var.csv")
+        elif mode == "dark":
+            mode_list = ["dark", "light"]
+            mode_json = json.dumps(mode_list)
+            data.at[5, 1] = mode_json
+            data.to_csv("../Other/startup_var.csv")
 
 
-if __name__ == "__main__":  # when the file this is in is called main then it is runned
-    App(nameofapp)  # calls the App class and passes the sharedVar nameofapp as the attribute "title"
+
+if __name__ == "__main__":  # when the file this is in is called main then it is run
+    GetStartupVariables()   # run GetStartupVariables from sharedVar
+    App(name_of_app)  # calls the App class and passes the sharedVar name_of_app as the attribute "title"

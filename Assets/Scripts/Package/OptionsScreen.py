@@ -6,8 +6,8 @@
 
 import customtkinter as ctk
 # Shared variables----------------------------------------
-from .sharedVar import window_geometry, colorSET, text_colorSET, \
-    back_arrow_image  # import of shared variables located in the sharedVar file
+from .sharedVar import window_geometry, color_SET, text_color_SET, \
+    back_arrow_image, appearance_mode
 
 
 class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
@@ -25,12 +25,12 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
     def create_widgets(self):
         # top bar------------------------------------------------------------
         optionsscreen_indicator_bar = ctk.CTkLabel(master=self,  # top bar that indicates the screen where you are
-                                                   fg_color=colorSET,
+                                                   fg_color=color_SET,
                                                    width=window_geometry[0] - 70,
                                                    height=40,
                                                    corner_radius=10,
                                                    text="Options - Screen",
-                                                   text_color=text_colorSET,
+                                                   text_color=text_color_SET,
                                                    font=("bold", 20),
                                                    anchor="w")
         optionsscreen_indicator_bar.place(x=0,
@@ -63,19 +63,19 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
                                                     font=("bold", 20),
                                                     dropdown_font=("bold", 20),
                                                     corner_radius=5,
-                                                    values=["light", "dark"],
+                                                    values=appearance_mode,
                                                     command=self.master.appearance_mode_switch)
-        # the command automatically passes the current calue as an argument to the specified method
+        # the command automatically passes the current value as an argument to the specified method
         options_light_dark_menu.place(x=220,
                                       y=20)
         # label
         options_light_dark_label = ctk.CTkLabel(master=optionsscreen_button_frame,  # label to describe the menu above
-                                                fg_color=colorSET,
+                                                fg_color=color_SET,
                                                 width=180,
                                                 height=40,
                                                 corner_radius=5,
                                                 text="Appearance mode",
-                                                text_color=text_colorSET,
+                                                text_color=text_color_SET,
                                                 font=("bold", 20))
         options_light_dark_label.place(x=20,
                                        y=20)

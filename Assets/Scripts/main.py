@@ -82,6 +82,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             with open("../Other/startup_var.json", "w") as file:
                 data.to_json(file, orient="records", indent=2)
 
+
         elif size == "FullHD":
             index = data.index[data['var'] == "window_geometry"].tolist()
             data.at[index[0], 'val'] = [1920, 1080]

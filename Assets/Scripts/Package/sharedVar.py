@@ -6,11 +6,12 @@
 
 import customtkinter as ctk
 import pandas as pd
-from PIL import Image   # library for image handling
+from PIL import Image  # library for image handling
 
 # Pictures----------------------------------------
 start_image = ctk.CTkImage(Image.open("../Images/Placeholder.png"), size=(600, 600))
 back_arrow_image = ctk.CTkImage(dark_image=Image.open("../Images/Back_Arrow.png"), size=(30, 30))
+
 
 # Startup variables----------------------------------------
 class GetStartupVariables:

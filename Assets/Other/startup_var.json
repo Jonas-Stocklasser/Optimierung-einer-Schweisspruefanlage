@@ -25,15 +25,15 @@
   {
     "var":"appearance_mode",
     "val":[
-      "light",
-      "dark"
+      "dark",
+      "light"
     ]
   },
   {
     "var":"window_size",
     "val":[
-      "HD",
-      "FullHD"
+      "HD - 1280x720",
+      "FullHD - 1920x1080"
     ]
   }
 ]

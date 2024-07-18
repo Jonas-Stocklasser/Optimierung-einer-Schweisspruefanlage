@@ -9,6 +9,7 @@ import pandas as pd
 from Package.StartScreen import StartScreen  # imports of other files of the package
 from Package.OptionsScreen import OptionsScreen
 from Package.ReallySwitch import ReallySwitch
+from Package.NewTestScreen_01 import NewTestScreen_01
 # Shared variables----------------------------------------
 from Package.sharedVar import window_geometry, name_of_app, \
     start_window, GetStartupVariables, appearance_mode  # import of shared variables located in the sharedVar file
@@ -26,7 +27,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
 
         # windows----------------------------------------
         self.startscreen = StartScreen(self)  # ID = 0      other classes
-        # self.newtestscreen = NewTestScreen(self)  # ID = 1
+        self.newtestscreen01 = NewTestScreen_01(self)  # ID = 1
         self.optionsscreen = OptionsScreen(self)  # ID = 2
 
         # top level windows----------------------------------------
@@ -49,12 +50,15 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         if which == "0":
             self.startscreen.place(x=5, y=5)  # the wanted window is placed and all others are deleted from the window
             self.optionsscreen.place_forget()
+            self.newtestscreen01.place_forget()
         elif which == "1":
+            self.newtestscreen01.place(x=5, y=5)
             self.startscreen.place_forget()
             self.optionsscreen.place_forget()
         elif which == "2":
-            self.startscreen.place_forget()
             self.optionsscreen.place(x=5, y=5)
+            self.startscreen.place_forget()
+            self.newtestscreen01.place_forget()
 
     # Function for changing appearance mode----------------------------------------
     def appearance_mode_switch(self, mode):  # method for switching the appearance mode to dark/light mode
@@ -74,20 +78,20 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
     def window_size_switch(self, size):
         print("Neustart fuer Aenderung erforderlich")
         data = pd.read_json("../Other/startup_var.json", encoding="latin1")
-        if size == "HD":
+        if size == "HD - 1280x720":
             index = data.index[data['var'] == "window_geometry"].tolist()
             data.at[index[0], 'val'] = [1280, 720]
             index = data.index[data['var'] == "window_size"].tolist()
-            data.at[index[0], 'val'] = ["HD", "FullHD"]
+            data.at[index[0], 'val'] = ["HD - 1280x720", "FullHD - 1920x1080"]
             with open("../Other/startup_var.json", "w") as file:
                 data.to_json(file, orient="records", indent=2)
 
 
-        elif size == "FullHD":
+        elif size == "FullHD - 1920x1080":
             index = data.index[data['var'] == "window_geometry"].tolist()
             data.at[index[0], 'val'] = [1920, 1080]
             index = data.index[data['var'] == "window_size"].tolist()
-            data.at[index[0], 'val'] = ["FullHD", "HD"]
+            data.at[index[0], 'val'] = ["FullHD - 1920x1080", "HD - 1280x720"]
             with open("../Other/startup_var.json", "w") as file:
                 data.to_json(file, orient="records", indent=2)
 

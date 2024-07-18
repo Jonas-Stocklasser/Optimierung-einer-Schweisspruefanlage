@@ -42,7 +42,7 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
                                                 width=340,
                                                 height=320)
         startscreen_button_frame.place(x=30,
-                                       y=(window_geometry[1] / 2) - 280)
+                                       y=75)
 
         # new test button------------------------------------------------------------
         startscreen_new_test_button = ctk.CTkButton(master=startscreen_button_frame,  # button to start a new test

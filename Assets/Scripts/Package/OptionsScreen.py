@@ -29,7 +29,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
                                                    width=window_geometry[0] - 70,
                                                    height=40,
                                                    corner_radius=10,
-                                                   text="Options - Screen",
+                                                   text="Optionen",
                                                    text_color=text_color_SET,
                                                    font=("bold", 20),
                                                    anchor="w")
@@ -38,10 +38,10 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
 
         # button frame------------------------------------------------------------
         optionsscreen_button_frame = ctk.CTkFrame(master=self,  # frame for the buttons and the menu
-                                                  width=340,
+                                                  width=460,
                                                   height=130)
-        optionsscreen_button_frame.place(x=450,
-                                         y=(window_geometry[1] / 2) - 280)
+        optionsscreen_button_frame.place(x=30,
+                                         y=75)
 
         # back button------------------------------------------------------------
         optionsscreen_back_button = ctk.CTkButton(master=self,  # back button
@@ -75,7 +75,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
                                                 width=180,
                                                 height=40,
                                                 corner_radius=5,
-                                                text="Appearance mode",
+                                                text="Anzeigemodus",
                                                 text_color=text_color_SET,
                                                 font=("bold", 20))
         options_light_dark_label.place(x=20,
@@ -100,9 +100,8 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
                                                  width=180,
                                                  height=40,
                                                  corner_radius=5,
-                                                 text="Window size",
+                                                 text="Fenstergröße",
                                                  text_color=text_color_SET,
                                                  font=("bold", 20))
         options_window_size_label.place(x=20,
                                         y=70)
-

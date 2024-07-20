@@ -16,6 +16,8 @@ class NewTestScreen_01(ctk.CTkFrame):  # class for the NewTestScreen window
                          height=(window_geometry[1] - 10),
                          fg_color="transparent")
 
+        self.app = parent
+
         self.place(x=5,  # placing the object at coordinates x5 - y5 relative to the top left corner of the parent
                    y=5)
 
@@ -156,10 +158,8 @@ class NewTestScreen_01(ctk.CTkFrame):  # class for the NewTestScreen window
 
             if len(firstName.strip()) + len(lastName.strip()) + len(birthDate.strip()) >= 14:
                 newtestscreen01_continue_button.configure(state="normal")
-                print(f"Vorname: {firstName}")
-                print(f"Nachname: {lastName}")
-                print(f"Geburtsdatum: {birthDate}")
+                personal_infos = [firstName, lastName, birthDate]
+                self.app.changeListInJson("personal_var", "personal_infos", personal_infos)
             else:
                 newtestscreen01_continue_button.configure(state="disabled")
                 print("Date-Format wrong or the sum of first name plus surname not at least 4 digits")
-

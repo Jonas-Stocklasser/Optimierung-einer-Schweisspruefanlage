@@ -60,41 +60,31 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.startscreen.place_forget()
             self.newtestscreen01.place_forget()
 
+    def changeListInJson(self, json, variable, value):
+        data = pd.read_json("../Other/" + json + ".json", encoding="latin1")
+        index = data.index[data['var'] == variable].tolist()
+        data.at[index[0], 'val'] = value
+        with open("../Other/" + json + ".json", "w") as file:
+            data.to_json(file, orient="records", indent=2)
+
     # Function for changing appearance mode----------------------------------------
     def appearance_mode_switch(self, mode):  # method for switching the appearance mode to dark/light mode
         ctk.set_appearance_mode(mode)  # the attribute "mode" is given by the menu widget in the OptionsScreen class
-        data = pd.read_json("../Other/startup_var.json", encoding="latin1")
         if mode == "light":
-            index = data.index[data['var'] == "appearance_mode"].tolist()
-            data.at[index[0], 'val'] = ["light", "dark"]
-            with open("../Other/startup_var.json", "w") as file:
-                data.to_json(file, orient="records", indent=2)
+            self.changeListInJson("startup_var", "appearance_mode", ["light", "dark"])
+
         elif mode == "dark":
-            index = data.index[data['var'] == "appearance_mode"].tolist()
-            data.at[index[0], 'val'] = ["dark", "light"]
-            with open("../Other/startup_var.json", "w") as file:
-                data.to_json(file, orient="records", indent=2)
+            self.changeListInJson("startup_var", "appearance_mode", ["dark", "light"])
 
     def window_size_switch(self, size):
         print("Neustart fuer Aenderung erforderlich")
-        data = pd.read_json("../Other/startup_var.json", encoding="latin1")
         if size == "HD - 1280x720":
-            index = data.index[data['var'] == "window_geometry"].tolist()
-            data.at[index[0], 'val'] = [1280, 720]
-            index = data.index[data['var'] == "window_size"].tolist()
-            data.at[index[0], 'val'] = ["HD - 1280x720", "FullHD - 1920x1080"]
-            with open("../Other/startup_var.json", "w") as file:
-                data.to_json(file, orient="records", indent=2)
+            self.changeListInJson("startup_var", "window_geometry", [1280, 720])
+            self.changeListInJson("startup_var", "window_size", ["HD - 1280x720", "FullHD - 1920x1080"])
 
         elif size == "FullHD - 1920x1080":
-            index = data.index[data['var'] == "window_geometry"].tolist()
-            data.at[index[0], 'val'] = [1920, 1080]
-            index = data.index[data['var'] == "window_size"].tolist()
-            data.at[index[0], 'val'] = ["FullHD - 1920x1080", "HD - 1280x720"]
-            with open("../Other/startup_var.json", "w") as file:
-                data.to_json(file, orient="records", indent=2)
-
-    #def changeListInJson(self, json, variable, value)
+            self.changeListInJson("startup_var", "window_geometry", [1920, 1080])
+            self.changeListInJson("startup_var", "window_size", ["FullHD - 1920x1080", "HD - 1280x720"])
 
 
 if __name__ == "__main__":  # when the file this is in is called main then it is run

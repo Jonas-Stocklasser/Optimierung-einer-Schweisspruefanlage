@@ -27,7 +27,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
 
         # windows----------------------------------------
         self.startscreen = StartScreen(self)  # ID = 0      other classes
-        self.newtestscreen01 = NewTestScreen_01(self)  # ID = 1
+        self.newtestscreen01 = NewTestScreen_01(self)  # ID = 1.0
         self.optionsscreen = OptionsScreen(self)  # ID = 2
 
         # top level windows----------------------------------------
@@ -51,7 +51,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.startscreen.place(x=5, y=5)  # the wanted window is placed and all others are deleted from the window
             self.optionsscreen.place_forget()
             self.newtestscreen01.place_forget()
-        elif which == "1":
+        elif which == "1.0":
             self.newtestscreen01.place(x=5, y=5)
             self.startscreen.place_forget()
             self.optionsscreen.place_forget()
@@ -86,7 +86,6 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             with open("../Other/startup_var.json", "w") as file:
                 data.to_json(file, orient="records", indent=2)
 
-
         elif size == "FullHD - 1920x1080":
             index = data.index[data['var'] == "window_geometry"].tolist()
             data.at[index[0], 'val'] = [1920, 1080]
@@ -94,6 +93,8 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             data.at[index[0], 'val'] = ["FullHD - 1920x1080", "HD - 1280x720"]
             with open("../Other/startup_var.json", "w") as file:
                 data.to_json(file, orient="records", indent=2)
+
+    #def changeListInJson(self, json, variable, value)
 
 
 if __name__ == "__main__":  # when the file this is in is called main then it is run

@@ -51,7 +51,7 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
                                                     corner_radius=10,
                                                     text="Neuer Test",
                                                     font=("bold", 40),
-                                                    command=lambda: self.master.switch_window("1"))
+                                                    command=lambda: self.master.switch_window("1.0"))
         # the command calls the App lasses switch_window function and passes "1" as the "which" attribute
         startscreen_new_test_button.place(x=20,
                                           y=20)

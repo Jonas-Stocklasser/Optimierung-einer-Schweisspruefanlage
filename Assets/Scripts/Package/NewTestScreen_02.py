@@ -5,8 +5,10 @@
 # Neuer Test Fenster 2; ID=1.1
 
 import customtkinter as ctk
+import tkinter as tk
 # Shared variables----------------------------------------
-from .sharedVar import window_geometry, color_SET, text_color_SET, back_arrow_image, personal_infos_examiner
+from .sharedVar import window_geometry, color_SET, text_color_SET, back_arrow_image, personal_infos_examiner, \
+    last_chosen_examiner, examiner_list
 
 
 class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
@@ -38,13 +40,31 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
                                                      anchor="w")
         newtestscreen02_indicator_bar.place(x=0,
                                             y=0)
+        # options menu examiner------------------------------------------------------------
+        newtestscreen02_examiner_option_menu_frame = ctk.CTkFrame(master=self,  # frame for the entries
+                                                                  width=120,
+                                                                  height=70)
+        newtestscreen02_examiner_option_menu_frame.place(x=30,
+                                                         y=75)
 
-        # button frame------------------------------------------------------------
+        options_menu_examiner = ctk.CTkOptionMenu(master=newtestscreen02_examiner_option_menu_frame,
+                                                  width=100,
+                                                  height=50,
+                                                  font=("bold", 20),
+                                                  dropdown_font=("bold", 20),
+                                                  corner_radius=5,
+                                                  variable=tk.StringVar(value=last_chosen_examiner),
+                                                  values=examiner_list,
+                                                  command=self.master.appearance_mode_switch)
+        # the command automatically passes the current value as an argument to the specified method
+        options_menu_examiner.place(x=10,
+                                    y=10)
+        # entry frame------------------------------------------------------------
         newtestscreen02_entry_frame = ctk.CTkFrame(master=self,  # frame for the entries
                                                    width=340,
                                                    height=360)
         newtestscreen02_entry_frame.place(x=30,
-                                          y=75)
+                                          y=175)
 
         # back button------------------------------------------------------------
         newtestscreen02_back_button = ctk.CTkButton(master=self,  # back button
@@ -165,7 +185,7 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
                                                     width=380,
                                                     height=70)
         newtestscreen02_button_frame.place(x=30,
-                                           y=500)
+                                           y=570)
 
         newtestscreen02_change_button = ctk.CTkButton(master=newtestscreen02_button_frame,  # continue button
                                                       width=120,
@@ -214,7 +234,6 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
             newtestscreen02_continue_button.configure(state="disabled")
 
         def saveEntryDataExaminer():
-            global personal_infos_examiner
             personal_infos_examiner = [newtestscreen02_first_name_entry.get(),
                                        newtestscreen02_last_name_entry.get(),
                                        newtestscreen02_birth_date_entry.get()]
@@ -223,14 +242,13 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
                     len(personal_infos_examiner[1].strip()) +
                     len(personal_infos_examiner[2].strip()) >= 14):
                 newtestscreen02_continue_button.configure(state="normal")
-                self.app.changeListInJson("personal_var", "personal_infos_examiner", personal_infos_examiner)
+                self.app.changeListInJson("personal_var", ("personal_infos_examiner_" + last_chosen_examiner),
+                                          personal_infos_examiner)
 
                 newtestscreen02_first_name_entry_unchanged_overlay_label.place(x=10, y=60)
-                newtestscreen02_first_name_entry_unchanged_overlay_label.configure(text=personal_infos_examiner[0])
                 newtestscreen02_last_name_entry_unchanged_overlay_label.place(x=10, y=180)
-                newtestscreen02_last_name_entry_unchanged_overlay_label.configure(text=personal_infos_examiner[1])
                 newtestscreen02_birth_date_entry_unchanged_overlay_label.place(x=10, y=300)
-                newtestscreen02_birth_date_entry_unchanged_overlay_label.configure(text=personal_infos_examiner[2])
+                updateLabels(personal_infos_examiner)
 
                 newtestscreen02_first_name_entry.configure(state="disabled")
                 newtestscreen02_last_name_entry.configure(state="disabled")
@@ -242,3 +260,8 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
             else:
                 newtestscreen02_continue_button.configure(state="disabled")
                 print("Date-Format wrong or the sum of first name plus surname not at least 4 digits")
+
+        def updateLabels(infos):
+            newtestscreen02_first_name_entry_unchanged_overlay_label.configure(text=infos[0])
+            newtestscreen02_last_name_entry_unchanged_overlay_label.configure(text=infos[1])
+            newtestscreen02_birth_date_entry_unchanged_overlay_label.configure(text=infos[2])

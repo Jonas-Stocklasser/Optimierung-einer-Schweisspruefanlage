@@ -77,6 +77,13 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         with open("../Other/" + json + ".json", "w") as file:
             data.to_json(file, orient="records", indent=2)
 
+    def changeVarInJson(self, json, variable, value):
+        data = pd.read_json("../Other/" + json + ".json", encoding="latin1")
+        index = data.index[data['var'] == variable].variable[0]
+        data.at[index[0], 'val'] = value
+        with open("../Other/" + json + ".json", "w") as file:
+            data.to_json(file, orient="records", indent=2)
+
     # Function for changing appearance mode----------------------------------------
     def appearance_mode_switch(self, mode):  # method for switching the appearance mode to dark/light mode
         ctk.set_appearance_mode(mode)  # the attribute "mode" is given by the menu widget in the OptionsScreen class

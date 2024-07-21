@@ -2,7 +2,7 @@
 # Date: 18.07.24
 # Author: Stocklasser
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
-# Neuer Test Fenster; ID=1.0
+# Neuer Test Fenster 1; ID=1.0
 
 import customtkinter as ctk
 # Shared variables----------------------------------------
@@ -31,7 +31,8 @@ class NewTestScreen_01(ctk.CTkFrame):  # class for the NewTestScreen window
                                                      width=window_geometry[0] - 70,
                                                      height=40,
                                                      corner_radius=10,
-                                                     text="Neuer Test - Schritt 1: persönliche Daten eingeben",
+                                                     text=("Neuer Test - Schritt 1:" +
+                                                           " persönliche Daten des Prüflings eingeben"),
                                                      text_color=text_color_SET,
                                                      font=("bold", 20),
                                                      anchor="w")
@@ -136,7 +137,7 @@ class NewTestScreen_01(ctk.CTkFrame):  # class for the NewTestScreen window
                                                     corner_radius=10,
                                                     text="Speichern",
                                                     font=("bold", 20),
-                                                    command=lambda: saveEntryData())
+                                                    command=lambda: saveEntryDataExaminee())
         newtestscreen01_save_button.place(x=10,
                                           y=10)
 
@@ -147,19 +148,20 @@ class NewTestScreen_01(ctk.CTkFrame):  # class for the NewTestScreen window
                                                         text="Weiter",
                                                         font=("bold", 20),
                                                         state="disabled",
-                                                        command=lambda: self.master.switch_window("0"))
+                                                        command=lambda: self.master.switch_window("1.1"))
         newtestscreen01_continue_button.place(x=140,
                                               y=10)
 
-        def saveEntryData():
-            firstName = newtestscreen01_first_name_entry.get()
-            lastName = newtestscreen01_last_name_entry.get()
-            birthDate = newtestscreen01_birth_date_entry.get()
+        def saveEntryDataExaminee():
+            personal_infos_examinee = [newtestscreen01_first_name_entry.get(),
+                                       newtestscreen01_last_name_entry.get(),
+                                       newtestscreen01_birth_date_entry.get()]
 
-            if len(firstName.strip()) + len(lastName.strip()) + len(birthDate.strip()) >= 14:
+            if (len(personal_infos_examinee[0].strip()) +
+                    len(personal_infos_examinee[1].strip()) +
+                    len(personal_infos_examinee[2].strip()) >= 14):
                 newtestscreen01_continue_button.configure(state="normal")
-                personal_infos = [firstName, lastName, birthDate]
-                self.app.changeListInJson("personal_var", "personal_infos", personal_infos)
+                self.app.changeListInJson("personal_var", "personal_infos_examinee", personal_infos_examinee)
             else:
                 newtestscreen01_continue_button.configure(state="disabled")
                 print("Date-Format wrong or the sum of first name plus surname not at least 4 digits")

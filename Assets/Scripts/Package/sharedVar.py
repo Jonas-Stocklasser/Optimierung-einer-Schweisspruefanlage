@@ -25,6 +25,10 @@ class GetStartupVariables:
     appearance_mode = data.loc[data['var'] == "appearance_mode", "val"].values[0]
     window_size = data.loc[data["var"] == "window_size", "val"].values[0]
 
+    with open("../Other/personal_var.json") as file:
+        data = pd.read_json(file)
+    personal_infos_examiner = data.loc[data['var'] == "personal_infos_examiner", "val"].values[0]
+
 
 name_of_app = GetStartupVariables.name_of_app
 window_geometry = GetStartupVariables.window_geometry
@@ -33,3 +37,5 @@ text_color_SET = GetStartupVariables.text_color_SET
 start_window = GetStartupVariables.start_window
 appearance_mode = GetStartupVariables.appearance_mode
 window_size = GetStartupVariables.window_size
+
+personal_infos_examiner = GetStartupVariables.personal_infos_examiner

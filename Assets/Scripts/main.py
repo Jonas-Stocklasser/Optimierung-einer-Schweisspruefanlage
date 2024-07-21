@@ -10,6 +10,7 @@ from Package.StartScreen import StartScreen  # imports of other files of the pac
 from Package.OptionsScreen import OptionsScreen
 from Package.ReallySwitch import ReallySwitch
 from Package.NewTestScreen_01 import NewTestScreen_01
+from Package.NewTestScreen_02 import NewTestScreen_02
 # Shared variables----------------------------------------
 from Package.sharedVar import window_geometry, name_of_app, \
     start_window, GetStartupVariables, appearance_mode  # import of shared variables located in the sharedVar file
@@ -28,6 +29,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         # windows----------------------------------------
         self.startscreen = StartScreen(self)  # ID = 0      other classes
         self.newtestscreen01 = NewTestScreen_01(self)  # ID = 1.0
+        self.newtestscreen02 = NewTestScreen_02(self)  # ID = 1.1
         self.optionsscreen = OptionsScreen(self)  # ID = 2
 
         # top level windows----------------------------------------
@@ -51,14 +53,22 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.startscreen.place(x=5, y=5)  # the wanted window is placed and all others are deleted from the window
             self.optionsscreen.place_forget()
             self.newtestscreen01.place_forget()
+            self.newtestscreen02.place_forget()
         elif which == "1.0":
             self.newtestscreen01.place(x=5, y=5)
+            self.startscreen.place_forget()
+            self.optionsscreen.place_forget()
+            self.newtestscreen02.place_forget()
+        elif which == "1.1":
+            self.newtestscreen02.place(x=5, y=5)
+            self.newtestscreen01.place_forget()
             self.startscreen.place_forget()
             self.optionsscreen.place_forget()
         elif which == "2":
             self.optionsscreen.place(x=5, y=5)
             self.startscreen.place_forget()
             self.newtestscreen01.place_forget()
+            self.newtestscreen02.place_forget()
 
     def changeListInJson(self, json, variable, value):
         data = pd.read_json("../Other/" + json + ".json", encoding="latin1")

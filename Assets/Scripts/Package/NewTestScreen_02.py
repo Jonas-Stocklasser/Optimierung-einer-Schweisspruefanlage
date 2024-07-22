@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# Date: 18.07.24
+# Date: 21.07.24
 # Author: Stocklasser
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
 # Neuer Test Fenster 2; ID=1.1
@@ -40,10 +40,22 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
                                                  y=0)
         # options menu examiner------------------------------------------------------------
         self.newtestscreen02_examiner_option_menu_frame = ctk.CTkFrame(master=self,  # frame for the entries
-                                                                       width=120,
+                                                                       width=340,
                                                                        height=70)
         self.newtestscreen02_examiner_option_menu_frame.place(x=30,
                                                               y=75)
+
+        self.newtestscreen02_examiner_option_menu_label = ctk.CTkLabel(
+            master=self.newtestscreen02_examiner_option_menu_frame,
+            fg_color=color_SET,
+            width=200,
+            height=50,
+            corner_radius=10,
+            text="Voreinstellungen",
+            text_color=text_color_SET,
+            font=("bold", 20))
+        self.newtestscreen02_examiner_option_menu_label.place(x=10,
+                                                              y=10)
 
         self.options_menu_examiner = ctk.CTkOptionMenu(master=self.newtestscreen02_examiner_option_menu_frame,
                                                        width=100,
@@ -55,7 +67,7 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
                                                        values=examiner_list,
                                                        command=self.examinerSelect)
         # the command automatically passes the current value as an argument to the specified method
-        self.options_menu_examiner.place(x=10,
+        self.options_menu_examiner.place(x=230,
                                          y=10)
         # entry frame------------------------------------------------------------
         self.newtestscreen02_entry_frame = ctk.CTkFrame(master=self,  # frame for the entries
@@ -103,7 +115,7 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
             master=self.newtestscreen02_entry_frame,
             width=250,
             height=50,
-            fg_color="transparent",
+            fg_color=color_SET,
             anchor="w",
             corner_radius=10,
             text=personal_infos_examiner[0],
@@ -137,7 +149,7 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
             master=self.newtestscreen02_entry_frame,
             width=250,
             height=50,
-            fg_color="transparent",
+            fg_color=color_SET,
             anchor="w",
             corner_radius=10,
             text=personal_infos_examiner[1],
@@ -171,7 +183,7 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
             master=self.newtestscreen02_entry_frame,
             width=250,
             height=50,
-            fg_color="transparent",
+            fg_color=color_SET,
             anchor="w",
             corner_radius=10,
             text=personal_infos_examiner[2],
@@ -218,7 +230,7 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
                                                              text="Weiter",
                                                              font=("bold", 20),
                                                              state="normal",
-                                                             command=lambda: self.master.switch_window("0"))
+                                                             command=lambda: self.master.switch_window("1.2"))
         self.newtestscreen02_continue_button.place(x=270,
                                                    y=10)
 
@@ -283,5 +295,5 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
             data = pd.read_json(file)
         last_chosen_examiner = data.loc[data['var'] == "last_chosen_examiner", "val"].values[0]
         personal_infos_examiner = \
-        data.loc[data['var'] == ("personal_infos_examiner_" + last_chosen_examiner), "val"].values[0]
+            data.loc[data['var'] == ("personal_infos_examiner_" + last_chosen_examiner), "val"].values[0]
         self.updateLabels(personal_infos_examiner)

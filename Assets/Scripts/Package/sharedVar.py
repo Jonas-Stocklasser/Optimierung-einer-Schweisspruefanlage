@@ -31,6 +31,12 @@ class GetStartupVariables:
     personal_infos_examiner = data.loc[data['var'] == ("personal_infos_examiner_"+last_chosen_examiner), "val"].values[0]
     examiner_list = data.loc[data['var'] == "examiner_list", "val"].values[0]
 
+    with open("../Other/item_var.json") as file:
+        data = pd.read_json(file)
+    last_chosen_item = data.loc[data['var'] == "last_chosen_item", "val"].values[0]
+    infos_item = data.loc[data['var'] == ("infos_item_"+last_chosen_item), "val"].values[0]
+    item_list = data.loc[data['var'] == "item_list", "val"].values[0]
+
 
 name_of_app = GetStartupVariables.name_of_app
 window_geometry = GetStartupVariables.window_geometry
@@ -43,3 +49,7 @@ window_size = GetStartupVariables.window_size
 last_chosen_examiner = GetStartupVariables.last_chosen_examiner
 personal_infos_examiner = GetStartupVariables.personal_infos_examiner
 examiner_list = GetStartupVariables.examiner_list
+
+last_chosen_item = GetStartupVariables.last_chosen_item
+infos_item = GetStartupVariables.infos_item
+item_list = GetStartupVariables.item_list

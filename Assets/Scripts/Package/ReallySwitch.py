@@ -18,48 +18,46 @@ class ReallySwitch(ctk.CTkToplevel):  # top level window class for checking if y
         self.title("!ACHTUNG!")
         self.attributes("-topmost", "true")  # the window is at the top at all times
 
-        # calling the create_widgets method to create all widgets that are children of ReallySwitch and passing "which"
-        self.create_widgets(which)
-
-    def create_widgets(self, which):
         # top bar------------------------------------------------------------
-        top_level_indicator_bar = ctk.CTkLabel(master=self,  # top bar that indicates the screen where you are
-                                               fg_color=color_SET,
-                                               width=340,
-                                               height=20,
-                                               corner_radius=5,
-                                               text="Wirklich zurück gehen?",
-                                               text_color=text_color_SET,
-                                               font=("bold", 15))
-        top_level_indicator_bar.place(x=5,
-                                      y=5)
+        self.top_level_indicator_bar = ctk.CTkLabel(master=self,  # top bar that indicates the screen where you are
+                                                    fg_color=color_SET,
+                                                    width=340,
+                                                    height=20,
+                                                    corner_radius=5,
+                                                    text="Wirklich zurück gehen?",
+                                                    text_color=text_color_SET,
+                                                    font=("bold", 15))
+        self.top_level_indicator_bar.place(x=5,
+                                           y=5)
 
         # button frame------------------------------------------------------------
-        top_level_button_frame = ctk.CTkFrame(master=self,  # frame for the buttons
-                                              width=340,
-                                              height=115)
-        top_level_button_frame.place(x=5,
-                                     y=30)
+        self.top_level_button_frame = ctk.CTkFrame(master=self,  # frame for the buttons
+                                                   width=340,
+                                                   height=115)
+        self.top_level_button_frame.place(x=5,
+                                          y=30)
 
         # yes button------------------------------------------------------------
-        startscreen_yes_button = ctk.CTkButton(master=top_level_button_frame,  # yes button to continue going back
-                                               width=100,
-                                               height=50,
-                                               corner_radius=10,
-                                               text="Ja",
-                                               font=("bold", 20),
-                                               command=lambda: (self.master.switch_window(which), self.destroy()))
+        self.startscreen_yes_button = ctk.CTkButton(master=self.top_level_button_frame,
+                                                    # yes button to continue going back
+                                                    width=100,
+                                                    height=50,
+                                                    corner_radius=10,
+                                                    text="Ja",
+                                                    font=("bold", 20),
+                                                    command=lambda: (self.master.switch_window(which), self.destroy()))
         # the command call the switch_window method and passes "which" as an argument, then destroys itself
-        startscreen_yes_button.place(x=5,
-                                     y=32.5)
+        self.startscreen_yes_button.place(x=5,
+                                          y=32.5)
 
         # no button------------------------------------------------------------
-        startscreen_no_button = ctk.CTkButton(master=top_level_button_frame,  # no button for canceling going back
-                                              width=100,
-                                              height=50,
-                                              corner_radius=10,
-                                              text="Nein",
-                                              font=("bold", 20),
-                                              command=lambda: self.destroy())  # the command destroys the window
-        startscreen_no_button.place(x=235,
-                                    y=32.5)
+        self.startscreen_no_button = ctk.CTkButton(master=self.top_level_button_frame,
+                                                   # no button for canceling going back
+                                                   width=100,
+                                                   height=50,
+                                                   corner_radius=10,
+                                                   text="Nein",
+                                                   font=("bold", 20),
+                                                   command=lambda: self.destroy())  # the command destroys the window
+        self.startscreen_no_button.place(x=235,
+                                         y=32.5)

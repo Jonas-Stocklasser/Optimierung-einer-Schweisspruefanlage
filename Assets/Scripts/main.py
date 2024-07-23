@@ -12,9 +12,11 @@ from Package.ReallySwitch import ReallySwitch
 from Package.NewTestScreen_01 import NewTestScreen_01
 from Package.NewTestScreen_02 import NewTestScreen_02
 from Package.NewTestScreen_03 import NewTestScreen_03
+
 # Shared variables----------------------------------------
 from Package.sharedVar import window_geometry, name_of_app, \
-    start_window, GetStartupVariables, appearance_mode  # import of shared variables located in the sharedVar file
+    start_window, GetStartupVariables, GetPersonalVariables, GetItemVariables, \
+    appearance_mode  # import of shared variables located in the sharedVar file
 
 
 class App(ctk.CTk):  # main window class, every other window class is called from here
@@ -99,7 +101,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.changeListInJson("startup_var", "appearance_mode", ["dark", "light"])
 
     def window_size_switch(self, size):
-        print("Neustart fuer Aenderung erforderlich")
+        print("Neustart für Änderung erforderlich")
         if size == "HD - 1280x720":
             self.changeListInJson("startup_var", "window_geometry", [1280, 720])
             self.changeListInJson("startup_var", "window_size", ["HD - 1280x720", "FullHD - 1920x1080"])
@@ -111,4 +113,6 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
 
 if __name__ == "__main__":  # when the file this is in is called main then it is run
     GetStartupVariables()  # run GetStartupVariables from sharedVar
+    GetPersonalVariables()  # run GetPersonalVariables from sharedVar
+    GetItemVariables()  # run GetItemVariables from sharedVar
     App(name_of_app)  # calls the App class and passes the sharedVar name_of_app as the attribute "title"

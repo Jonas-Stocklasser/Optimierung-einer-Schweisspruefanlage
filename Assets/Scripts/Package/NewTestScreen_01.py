@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# Date: 18.07.24
+# Date: 26.07.24
 # Author: Stocklasser
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
 # Neuer Test Fenster 1; ID=1.0

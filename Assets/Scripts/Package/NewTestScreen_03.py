@@ -7,6 +7,7 @@
 import customtkinter as ctk
 import tkinter as tk
 import pandas as pd
+import tkcalendar as tkc
 # Shared variables----------------------------------------
 from .sharedVar import window_geometry, color_SET_blue, text_color_SET, back_arrow_image, personal_infos_examiner, \
     last_chosen_examiner, examiner_list, color_SET_gray
@@ -170,14 +171,14 @@ class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
         self.birth_date_entry_label.place(x=10,
                                           y=250)
 
-        self.birth_date_entry = ctk.CTkEntry(master=self.entry_frame,
-                                             width=250,
-                                             height=50,
-                                             font=("bold", 20),
-                                             state="disabled"
-                                             )
-        self.birth_date_entry.place(x=10,
-                                    y=300)
+        self.birth_date_entry = tkc.DateEntry(master=self.entry_frame,
+                                              font=("bold", 20),
+                                              date_pattern='dd.mm.yyyy',
+                                              year=2000,
+                                              month=1,
+                                              day=1)
+        self.birth_date_entry.place(x=15,
+                                    y=375)
 
         self.birth_date_entry_unchanged_overlay_label = ctk.CTkLabel(
             master=self.entry_frame,
@@ -241,7 +242,6 @@ class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
 
         self.first_name_entry.configure(state="normal", placeholder_text="Vorname")
         self.last_name_entry.configure(state="normal", placeholder_text="Nachname")
-        self.birth_date_entry.configure(state="normal", placeholder_text="dd.mm.yyyy")
 
         self.change_button.configure(state="disabled")
         self.save_button.configure(state="normal")
@@ -250,7 +250,6 @@ class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
     def saveEntryDataExaminer(self):
         global personal_infos_examiner
         global last_chosen_examiner
-        print(last_chosen_examiner)
         personal_infos_examiner = [self.first_name_entry.get(),
                                    self.last_name_entry.get(),
                                    self.birth_date_entry.get()]
@@ -269,7 +268,6 @@ class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
 
             self.first_name_entry.configure(state="disabled")
             self.last_name_entry.configure(state="disabled")
-            self.birth_date_entry.configure(state="disabled")
 
             self.change_button.configure(state="normal")
             self.save_button.configure(state="disabled")

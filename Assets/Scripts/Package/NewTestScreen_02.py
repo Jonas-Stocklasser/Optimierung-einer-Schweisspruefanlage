@@ -5,6 +5,7 @@
 # Neuer Test Fenster 2; ID=1.1
 
 import customtkinter as ctk
+import tkcalendar as tkc
 # Shared variables----------------------------------------
 from .sharedVar import window_geometry, color_SET_blue, text_color_SET, back_arrow_image
 
@@ -111,15 +112,14 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
         self.birth_date_entry_label.place(x=10,
                                           y=250)
 
-        self.birth_date_entry = ctk.CTkEntry(master=self.entry_frame,
-                                             placeholder_text="dd.mm.yyyy",
-                                             width=250,
-                                             height=50,
-                                             font=("bold", 20)
-                                             )
-        self.birth_date_entry.place(x=10,
-                                    y=300)
-
+        self.birth_date_entry = tkc.DateEntry(master=self.entry_frame,
+                                              font=("bold", 20),
+                                              date_pattern='dd.mm.yyyy',
+                                              year=2000,
+                                              month=1,
+                                              day=1)
+        self.birth_date_entry.place(x=15,
+                                    y=375)
         # save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
@@ -154,10 +154,8 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
             personal_infos_examinee = [self.first_name_entry.get(),
                                        self.last_name_entry.get(),
                                        self.birth_date_entry.get()]
-
-            if (len(personal_infos_examinee[0].strip()) +
-                    len(personal_infos_examinee[1].strip()) +
-                    len(personal_infos_examinee[2].strip()) >= 14):
+            if len(personal_infos_examinee[0].strip()) + len(personal_infos_examinee[1].strip()) + len(
+                    personal_infos_examinee[2].strip()) >= 14:
                 self.continue_button.configure(state="normal")
                 self.app.changeListInJson("personal_var", "personal_infos_examinee", personal_infos_examinee)
             else:

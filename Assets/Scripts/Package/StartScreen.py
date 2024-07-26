@@ -7,7 +7,7 @@
 import customtkinter as ctk
 import sys
 # Shared variables----------------------------------------
-from .sharedVar import window_geometry, color_SET, text_color_SET, \
+from .sharedVar import window_geometry, color_SET_blue, text_color_SET, \
     start_image  # import of shared variables located in the sharedVar file
 
 
@@ -22,7 +22,7 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
 
         # top bar------------------------------------------------------------
         self.startscreen_indicator_bar = ctk.CTkLabel(master=self,  # top bar that indicates the screen where you are
-                                                      fg_color=color_SET,
+                                                      fg_color=color_SET_blue,
                                                       width=window_geometry[0] - 10,
                                                       height=40,
                                                       corner_radius=10,

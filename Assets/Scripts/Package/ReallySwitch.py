@@ -6,7 +6,7 @@
 
 import customtkinter as ctk
 # Shared variables----------------------------------------
-from .sharedVar import color_SET, text_color_SET  # import of shared variables located in the sharedVar file
+from .sharedVar import color_SET_blue, text_color_SET  # import of shared variables located in the sharedVar file
 
 
 class ReallySwitch(ctk.CTkToplevel):  # top level window class for checking if you really want to go back
@@ -20,7 +20,7 @@ class ReallySwitch(ctk.CTkToplevel):  # top level window class for checking if y
 
         # top bar------------------------------------------------------------
         self.top_level_indicator_bar = ctk.CTkLabel(master=self,  # top bar that indicates the screen where you are
-                                                    fg_color=color_SET,
+                                                    fg_color=color_SET_blue,
                                                     width=340,
                                                     height=20,
                                                     corner_radius=5,

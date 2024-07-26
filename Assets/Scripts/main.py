@@ -12,6 +12,7 @@ from Package.ReallySwitch import ReallySwitch
 from Package.NewTestScreen_01 import NewTestScreen_01
 from Package.NewTestScreen_02 import NewTestScreen_02
 from Package.NewTestScreen_03 import NewTestScreen_03
+from Package.NewTestScreen_04 import NewTestScreen_04
 
 # Shared variables----------------------------------------
 from Package.sharedVar import window_geometry, name_of_app, \
@@ -34,6 +35,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         self.newtestscreen01 = NewTestScreen_01(self)  # ID = 1.0
         self.newtestscreen02 = NewTestScreen_02(self)  # ID = 1.1
         self.newtestscreen03 = NewTestScreen_03(self)  # ID = 1.2
+        self.newtestscreen04 = NewTestScreen_04(self)  # ID = 1.3
         self.optionsscreen = OptionsScreen(self)  # ID = 2
 
         # top level windows----------------------------------------
@@ -59,20 +61,31 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.newtestscreen01.place_forget()
             self.newtestscreen02.place_forget()
             self.newtestscreen03.place_forget()
+            self.newtestscreen04.place_forget()
         elif which == "1.0":
             self.newtestscreen01.place(x=5, y=5)
             self.startscreen.place_forget()
             self.optionsscreen.place_forget()
             self.newtestscreen02.place_forget()
             self.newtestscreen03.place_forget()
+            self.newtestscreen04.place_forget()
         elif which == "1.1":
             self.newtestscreen02.place(x=5, y=5)
             self.newtestscreen01.place_forget()
             self.startscreen.place_forget()
             self.optionsscreen.place_forget()
             self.newtestscreen03.place_forget()
+            self.newtestscreen04.place_forget()
         elif which == "1.2":
             self.newtestscreen03.place(x=5, y=5)
+            self.newtestscreen02.place_forget()
+            self.newtestscreen01.place_forget()
+            self.startscreen.place_forget()
+            self.optionsscreen.place_forget()
+            self.newtestscreen04.place_forget()
+        elif which == "1.3":
+            self.newtestscreen04.place(x=5, y=5)
+            self.newtestscreen03.place_forget()
             self.newtestscreen02.place_forget()
             self.newtestscreen01.place_forget()
             self.startscreen.place_forget()
@@ -83,11 +96,19 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.newtestscreen01.place_forget()
             self.newtestscreen02.place_forget()
             self.newtestscreen03.place_forget()
+            self.newtestscreen04.place_forget()
 
     def changeListInJson(self, json, variable, value):
         data = pd.read_json("../Other/" + json + ".json", encoding="latin1")
         index = data.index[data['var'] == variable].tolist()
         data.at[index[0], 'val'] = value
+        with open("../Other/" + json + ".json", "w") as file:
+            data.to_json(file, orient="records", indent=2)
+
+    def changeVarInJson(self, json, variable, value):
+        data = pd.read_json("../Other/" + json + ".json", encoding="latin1")
+        index = data[data['var'] == variable].index
+        data.loc[index[0], 'val'] = value
         with open("../Other/" + json + ".json", "w") as file:
             data.to_json(file, orient="records", indent=2)
 

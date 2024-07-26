@@ -11,8 +11,12 @@
     "val":"Schweisspruefung"
   },
   {
-    "var":"color_SET",
+    "var":"color_SET_blue",
     "val":"#3B8ED0"
+  },
+  {
+    "var":"color_SET_gray",
+    "val":"#454545"
   },
   {
     "var":"text_color_SET",
@@ -35,5 +39,9 @@
       "HD - 1280x720",
       "FullHD - 1920x1080"
     ]
+  },
+  {
+    "var":"save_path",
+    "val":"D:\/beautiful_sound_waves"
   }
 ]

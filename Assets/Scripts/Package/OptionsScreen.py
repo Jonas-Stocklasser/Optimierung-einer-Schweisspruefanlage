@@ -6,7 +6,7 @@
 
 import customtkinter as ctk
 # Shared variables----------------------------------------
-from .sharedVar import window_geometry, color_SET, text_color_SET, \
+from .sharedVar import window_geometry, color_SET_blue, text_color_SET, \
     back_arrow_image, appearance_mode, window_size
 
 
@@ -21,7 +21,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
 
         # top bar------------------------------------------------------------
         self.optionsscreen_indicator_bar = ctk.CTkLabel(master=self,  # top bar that indicates the screen where you are
-                                                        fg_color=color_SET,
+                                                        fg_color=color_SET_blue,
                                                         width=window_geometry[0] - 70,
                                                         height=40,
                                                         corner_radius=10,
@@ -69,7 +69,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
         # label
         self.options_light_dark_label = ctk.CTkLabel(master=self.optionsscreen_button_frame,
                                                      # label to describe the menu above
-                                                     fg_color=color_SET,
+                                                     fg_color=color_SET_blue,
                                                      width=180,
                                                      height=40,
                                                      corner_radius=5,
@@ -95,7 +95,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
         # label
         self.options_window_size_label = ctk.CTkLabel(master=self.optionsscreen_button_frame,
                                                       # label to describe the menu above
-                                                      fg_color=color_SET,
+                                                      fg_color=color_SET_blue,
                                                       width=180,
                                                       height=40,
                                                       corner_radius=5,

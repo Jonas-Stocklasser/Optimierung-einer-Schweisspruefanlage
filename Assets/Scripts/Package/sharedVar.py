@@ -19,11 +19,13 @@ class GetStartupVariables:
         data = pd.read_json(file)
     name_of_app = data.loc[data['var'] == "name_of_app", "val"].values[0]
     window_geometry = data.loc[data['var'] == "window_geometry", "val"].values[0]
-    color_SET = data.loc[data['var'] == "color_SET", "val"].values[0]
+    color_SET_blue = data.loc[data['var'] == "color_SET_blue", "val"].values[0]
+    color_SET_gray = data.loc[data['var'] == "color_SET_gray", "val"].values[0]
     text_color_SET = data.loc[data['var'] == "text_color_SET", "val"].values[0]
     start_window = data.loc[data['var'] == "start_window", "val"].values[0]
     appearance_mode = data.loc[data['var'] == "appearance_mode", "val"].values[0]
-    window_size = data.loc[data["var"] == "window_size", "val"].values[0]
+    window_size = data.loc[data['var'] == "window_size", "val"].values[0]
+    save_path = data.loc[data['var'] == "save_path", "val"].values[0]
 
 
 # Personal variables----------------------------------------
@@ -31,25 +33,29 @@ class GetPersonalVariables:
     with open("../Other/personal_var.json") as file:
         data = pd.read_json(file)
     last_chosen_examiner = data.loc[data['var'] == "last_chosen_examiner", "val"].values[0]
-    personal_infos_examiner = data.loc[data['var'] == ("personal_infos_examiner_"+last_chosen_examiner), "val"].values[0]
+    personal_infos_examiner = \
+        data.loc[data['var'] == ("personal_infos_examiner_" + last_chosen_examiner), "val"].values[0]
     examiner_list = data.loc[data['var'] == "examiner_list", "val"].values[0]
+
 
 # Item variables----------------------------------------
 class GetItemVariables:
     with open("../Other/item_var.json") as file:
         data = pd.read_json(file)
     last_chosen_item = data.loc[data['var'] == "last_chosen_item", "val"].values[0]
-    infos_item = data.loc[data['var'] == ("infos_item_"+last_chosen_item), "val"].values[0]
+    infos_item = data.loc[data['var'] == ("infos_item_" + last_chosen_item), "val"].values[0]
     item_list = data.loc[data['var'] == "item_list", "val"].values[0]
 
 
 name_of_app = GetStartupVariables.name_of_app
 window_geometry = GetStartupVariables.window_geometry
-color_SET = GetStartupVariables.color_SET
+color_SET_blue = GetStartupVariables.color_SET_blue
+color_SET_gray = GetStartupVariables.color_SET_gray
 text_color_SET = GetStartupVariables.text_color_SET
 start_window = GetStartupVariables.start_window
 appearance_mode = GetStartupVariables.appearance_mode
 window_size = GetStartupVariables.window_size
+save_path = GetStartupVariables.save_path
 
 last_chosen_examiner = GetPersonalVariables.last_chosen_examiner
 personal_infos_examiner = GetPersonalVariables.personal_infos_examiner

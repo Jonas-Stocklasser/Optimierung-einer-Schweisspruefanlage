@@ -2,14 +2,14 @@
   {
     "var":"personal_infos_examinee",
     "val":[
-      "Jonas",
-      "Stocklasser",
-      "21.09.2005"
+      "Jasmina",
+      "Stojanovic",
+      "14.08.2003"
     ]
   },
   {
     "var":"last_chosen_examiner",
-    "val":"02"
+    "val":"03"
   },
   {
     "var":"examiner_list",

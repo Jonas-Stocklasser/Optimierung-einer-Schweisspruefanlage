@@ -9,4 +9,5 @@
 from .OptionsScreen import OptionsScreen
 from .ReallySwitch import ReallySwitch
 from .StartScreen import StartScreen
+from .JsonFunctions import *
 from .sharedVar import *

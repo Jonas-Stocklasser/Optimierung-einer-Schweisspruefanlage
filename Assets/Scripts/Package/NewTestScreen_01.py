@@ -8,6 +8,7 @@ import customtkinter as ctk
 # Shared variables----------------------------------------
 from .sharedVar import window_geometry, color_SET_blue, text_color_SET, back_arrow_image, save_path, color_SET_gray
 from tkinter import filedialog
+from .JsonFunctions import json_writer
 
 
 class NewTestScreen_01(ctk.CTkFrame):  # class for the NewTestScreen window
@@ -108,4 +109,4 @@ class NewTestScreen_01(ctk.CTkFrame):  # class for the NewTestScreen window
             save_path = filedialog.askdirectory()
             self.path_display_label.configure(text=save_path)
 
-            self.app.changeVarInJson("startup_var", "save_path", save_path)
+            json_writer("startup_var", "save_path", save_path, "../Other/")

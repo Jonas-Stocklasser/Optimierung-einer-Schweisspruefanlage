@@ -11,6 +11,7 @@ import tkcalendar as tkc
 # Shared variables----------------------------------------
 from .sharedVar import window_geometry, color_SET_blue, text_color_SET, back_arrow_image, personal_infos_examiner, \
     last_chosen_examiner, examiner_list, color_SET_gray
+from .JsonFunctions import json_writer
 
 
 class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
@@ -258,8 +259,8 @@ class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
                 len(personal_infos_examiner[1].strip()) +
                 len(personal_infos_examiner[2].strip()) >= 14):
             self.continue_button.configure(state="normal")
-            self.app.changeListInJson("personal_var", ("personal_infos_examiner_" + last_chosen_examiner),
-                                      personal_infos_examiner)
+            json_writer("personal_var", ("personal_infos_examiner_" + last_chosen_examiner),
+                        personal_infos_examiner, "../Other/")
 
             self.first_name_entry_unchanged_overlay_label.place(x=10, y=60)
             self.last_name_entry_unchanged_overlay_label.place(x=10, y=180)

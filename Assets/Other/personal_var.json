@@ -8,6 +8,14 @@
     ]
   },
   {
+    "var":"personal_folder_path",
+    "val":"C:\/Users\/jonas\/Desktop\/Stojan\u00f6vic_J\u00e4smina\/"
+  },
+  {
+    "var":"personal_json_name",
+    "val":"Stojan\u00f6vic_J\u00e4smina"
+  },
+  {
     "var":"last_chosen_examiner",
     "val":"03"
   },

@@ -10,6 +10,7 @@ import pandas as pd
 # Shared variables----------------------------------------
 from .sharedVar import window_geometry, color_SET_blue, text_color_SET, back_arrow_image, infos_item, \
     last_chosen_item, item_list, color_SET_gray
+from .JsonFunctions import json_writer
 
 
 class NewTestScreen_04(ctk.CTkFrame):  # class for the NewTestScreen window
@@ -342,7 +343,7 @@ class NewTestScreen_04(ctk.CTkFrame):  # class for the NewTestScreen window
                 len(infos_item[3].strip()) +
                 len(infos_item[4].strip()) >= 10):
             self.continue_button.configure(state="normal")
-            self.app.changeListInJson("item_var", ("infos_item_" + last_chosen_item), infos_item)
+            json_writer("item_var", ("infos_item_" + last_chosen_item), infos_item, "../Other/")
 
             self.title_entry_unchanged_overlay_label.place(x=10, y=60)
             self.info1_entry_unchanged_overlay_label.place(x=10, y=180)

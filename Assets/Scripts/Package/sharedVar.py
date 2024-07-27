@@ -5,8 +5,8 @@
 # Shared Variables
 
 import customtkinter as ctk
-import pandas as pd
 from PIL import Image  # library for image handling
+from .JsonFunctions import json_reader
 
 # Pictures----------------------------------------
 start_image = ctk.CTkImage(Image.open("../Images/Placeholder.png"), size=(600, 600))
@@ -15,36 +15,30 @@ back_arrow_image = ctk.CTkImage(dark_image=Image.open("../Images/Back_Arrow.png"
 
 # Startup variables----------------------------------------
 class GetStartupVariables:
-    with open("../Other/startup_var.json") as file:
-        data = pd.read_json(file)
-    name_of_app = data.loc[data['var'] == "name_of_app", "val"].values[0]
-    window_geometry = data.loc[data['var'] == "window_geometry", "val"].values[0]
-    color_SET_blue = data.loc[data['var'] == "color_SET_blue", "val"].values[0]
-    color_SET_gray = data.loc[data['var'] == "color_SET_gray", "val"].values[0]
-    text_color_SET = data.loc[data['var'] == "text_color_SET", "val"].values[0]
-    start_window = data.loc[data['var'] == "start_window", "val"].values[0]
-    appearance_mode = data.loc[data['var'] == "appearance_mode", "val"].values[0]
-    window_size = data.loc[data['var'] == "window_size", "val"].values[0]
-    save_path = data.loc[data['var'] == "save_path", "val"].values[0]
+    name_of_app = json_reader("startup_var", "name_of_app", "../Other/")
+    window_geometry = json_reader("startup_var", "window_geometry", "../Other/")
+    color_SET_blue = json_reader("startup_var", "color_SET_blue", "../Other/")
+    color_SET_gray = json_reader("startup_var", "color_SET_gray", "../Other/")
+    text_color_SET = json_reader("startup_var", "text_color_SET", "../Other/")
+    start_window = json_reader("startup_var", "start_window", "../Other/")
+    appearance_mode = json_reader("startup_var", "appearance_mode", "../Other/")
+    window_size = json_reader("startup_var", "window_size", "../Other/")
+    save_path = json_reader("startup_var", "save_path", "../Other/")
 
 
 # Personal variables----------------------------------------
 class GetPersonalVariables:
-    with open("../Other/personal_var.json") as file:
-        data = pd.read_json(file)
-    last_chosen_examiner = data.loc[data['var'] == "last_chosen_examiner", "val"].values[0]
-    personal_infos_examiner = \
-        data.loc[data['var'] == ("personal_infos_examiner_" + last_chosen_examiner), "val"].values[0]
-    examiner_list = data.loc[data['var'] == "examiner_list", "val"].values[0]
+    last_chosen_examiner = json_reader("personal_var", "last_chosen_examiner", "../Other/")
+    personal_infos_examiner = json_reader("personal_var", f"personal_infos_examiner_{last_chosen_examiner}",
+                                          "../Other/")
+    examiner_list = json_reader("personal_var", "examiner_list", "../Other/")
 
 
 # Item variables----------------------------------------
 class GetItemVariables:
-    with open("../Other/item_var.json") as file:
-        data = pd.read_json(file)
-    last_chosen_item = data.loc[data['var'] == "last_chosen_item", "val"].values[0]
-    infos_item = data.loc[data['var'] == ("infos_item_" + last_chosen_item), "val"].values[0]
-    item_list = data.loc[data['var'] == "item_list", "val"].values[0]
+    last_chosen_item = json_reader("item_var", "last_chosen_item", "../Other/")
+    infos_item = json_reader("item_var", f"infos_item_{last_chosen_item}", "../Other/")
+    item_list = json_reader("item_var", "item_list", "../Other/")
 
 
 name_of_app = GetStartupVariables.name_of_app

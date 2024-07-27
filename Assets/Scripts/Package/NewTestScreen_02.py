@@ -6,8 +6,10 @@
 
 import customtkinter as ctk
 import tkcalendar as tkc
+import os
 # Shared variables----------------------------------------
 from .sharedVar import window_geometry, color_SET_blue, text_color_SET, back_arrow_image
+from .JsonFunctions import json_writer, json_reader, json_creator
 
 
 class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
@@ -146,7 +148,8 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
                                              text="Weiter",
                                              font=("bold", 20),
                                              state="disabled",
-                                             command=lambda: self.master.switch_window("1.2"))
+                                             command=lambda: (
+                                                 self.master.switch_window("1.2"), create_Examinee_Folder_and_Json()))
         self.continue_button.place(x=140,
                                    y=10)
 
@@ -157,7 +160,34 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
             if len(personal_infos_examinee[0].strip()) + len(personal_infos_examinee[1].strip()) + len(
                     personal_infos_examinee[2].strip()) >= 14:
                 self.continue_button.configure(state="normal")
-                self.app.changeListInJson("personal_var", "personal_infos_examinee", personal_infos_examinee)
+                json_writer("personal_var", "personal_infos_examinee", personal_infos_examinee, "../Other/")
             else:
                 self.continue_button.configure(state="disabled")
                 print("Date-Format wrong or the sum of first name plus surname not at least 4 digits")
+
+        def create_Examinee_Folder_and_Json():
+            personal_infos_examinee = [self.first_name_entry.get(),
+                                       self.last_name_entry.get(),
+                                       self.birth_date_entry.get()]
+            error_append = ""
+            error_num = 0
+            save_path = json_reader("startup_var", "save_path", "../Other/")
+            new_folder = f"{save_path}/{self.last_name_entry.get()}_{self.first_name_entry.get()}" + error_append
+            while True:
+                try:
+                    os.mkdir(new_folder)
+                    break
+                except FileExistsError:
+                    error_num += 1
+                    error_append = str(error_num)
+                    new_folder = f"{save_path}/{self.last_name_entry.get()}_{self.first_name_entry.get()}{error_append}"
+
+            json_creator(f"{self.last_name_entry.get()}_{self.first_name_entry.get()}", f"{new_folder}/",
+                         "personal_infos_examinee", personal_infos_examinee)
+            json_writer("personal_var", "personal_folder_path",
+                        f"{new_folder}/", "../Other/")
+            json_writer("personal_var", "personal_json_name",
+                        f"{self.last_name_entry.get()}_{self.first_name_entry.get()}", "../Other/")
+            personal_folder_path = json_reader("personal_var", "personal_folder_path", "../Other/")
+            personal_json_name = json_reader("personal_var", "personal_json_name", "../Other/")
+            json_writer(personal_json_name, "TestVar", "Test", personal_folder_path)

@@ -4,7 +4,6 @@
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
 
 import customtkinter as ctk
-import pandas as pd
 
 from Package.StartScreen import StartScreen  # imports of other files of the package
 from Package.OptionsScreen import OptionsScreen
@@ -13,6 +12,7 @@ from Package.NewTestScreen_01 import NewTestScreen_01
 from Package.NewTestScreen_02 import NewTestScreen_02
 from Package.NewTestScreen_03 import NewTestScreen_03
 from Package.NewTestScreen_04 import NewTestScreen_04
+from Package.JsonFunctions import json_writer
 
 # Shared variables----------------------------------------
 from Package.sharedVar import window_geometry, name_of_app, \
@@ -98,38 +98,24 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.newtestscreen03.place_forget()
             self.newtestscreen04.place_forget()
 
-    def changeListInJson(self, json, variable, value):
-        data = pd.read_json("../Other/" + json + ".json", encoding="latin1")
-        index = data.index[data['var'] == variable].tolist()
-        data.at[index[0], 'val'] = value
-        with open("../Other/" + json + ".json", "w") as file:
-            data.to_json(file, orient="records", indent=2)
-
-    def changeVarInJson(self, json, variable, value):
-        data = pd.read_json("../Other/" + json + ".json", encoding="latin1")
-        index = data[data['var'] == variable].index
-        data.loc[index[0], 'val'] = value
-        with open("../Other/" + json + ".json", "w") as file:
-            data.to_json(file, orient="records", indent=2)
-
     # Function for changing appearance mode----------------------------------------
     def appearance_mode_switch(self, mode):  # method for switching the appearance mode to dark/light mode
         ctk.set_appearance_mode(mode)  # the attribute "mode" is given by the menu widget in the OptionsScreen class
         if mode == "light":
-            self.changeListInJson("startup_var", "appearance_mode", ["light", "dark"])
+            json_writer("startup_var", "appearance_mode", ["light", "dark"], "../Other/")
 
         elif mode == "dark":
-            self.changeListInJson("startup_var", "appearance_mode", ["dark", "light"])
+            json_writer("startup_var", "appearance_mode", ["dark", "light"], "../Other/")
 
     def window_size_switch(self, size):
         print("Neustart für Änderung erforderlich")
         if size == "HD - 1280x720":
-            self.changeListInJson("startup_var", "window_geometry", [1280, 720])
-            self.changeListInJson("startup_var", "window_size", ["HD - 1280x720", "FullHD - 1920x1080"])
+            json_writer("startup_var", "window_geometry", [1280, 720], "../Other/")
+            json_writer("startup_var", "window_size", ["HD - 1280x720", "FullHD - 1920x1080"], "../Other/")
 
         elif size == "FullHD - 1920x1080":
-            self.changeListInJson("startup_var", "window_geometry", [1920, 1080])
-            self.changeListInJson("startup_var", "window_size", ["FullHD - 1920x1080", "HD - 1280x720"])
+            json_writer("startup_var", "window_geometry", [1920, 1080], "../Other/")
+            json_writer("startup_var", "window_size", ["FullHD - 1920x1080", "HD - 1280x720"], "../Other/")
 
 
 if __name__ == "__main__":  # when the file this is in is called main then it is run

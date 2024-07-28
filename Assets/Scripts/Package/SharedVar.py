@@ -39,22 +39,3 @@ class GetItemVariables:
     last_chosen_item = json_reader("item_var", "last_chosen_item", "../Other/")
     infos_item = json_reader("item_var", f"infos_item_{last_chosen_item}", "../Other/")
     item_list = json_reader("item_var", "item_list", "../Other/")
-
-
-name_of_app = GetStartupVariables.name_of_app
-window_geometry = GetStartupVariables.window_geometry
-color_SET_blue = GetStartupVariables.color_SET_blue
-color_SET_gray = GetStartupVariables.color_SET_gray
-text_color_SET = GetStartupVariables.text_color_SET
-start_window = GetStartupVariables.start_window
-appearance_mode = GetStartupVariables.appearance_mode
-window_size = GetStartupVariables.window_size
-save_path = GetStartupVariables.save_path
-
-last_chosen_examiner = GetPersonalVariables.last_chosen_examiner
-personal_infos_examiner = GetPersonalVariables.personal_infos_examiner
-examiner_list = GetPersonalVariables.examiner_list
-
-last_chosen_item = GetItemVariables.last_chosen_item
-infos_item = GetItemVariables.infos_item
-item_list = GetItemVariables.item_list

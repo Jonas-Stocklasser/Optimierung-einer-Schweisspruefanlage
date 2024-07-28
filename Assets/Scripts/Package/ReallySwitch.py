@@ -6,7 +6,7 @@
 
 import customtkinter as ctk
 # Shared variables----------------------------------------
-from .sharedVar import color_SET_blue, text_color_SET  # import of shared variables located in the sharedVar file
+from .SharedVar import GetStartupVariables  # import of shared variables located in the sharedVar file
 
 
 class ReallySwitch(ctk.CTkToplevel):  # top level window class for checking if you really want to go back
@@ -20,12 +20,12 @@ class ReallySwitch(ctk.CTkToplevel):  # top level window class for checking if y
 
         # top bar------------------------------------------------------------
         self.top_level_indicator_bar = ctk.CTkLabel(master=self,  # top bar that indicates the screen where you are
-                                                    fg_color=color_SET_blue,
+                                                    fg_color=GetStartupVariables.color_SET_blue,
                                                     width=340,
                                                     height=20,
                                                     corner_radius=5,
                                                     text="Wirklich zurück gehen?",
-                                                    text_color=text_color_SET,
+                                                    text_color=GetStartupVariables.text_color_SET,
                                                     font=("bold", 15))
         self.top_level_indicator_bar.place(x=5,
                                            y=5)
@@ -45,7 +45,7 @@ class ReallySwitch(ctk.CTkToplevel):  # top level window class for checking if y
                                                     corner_radius=10,
                                                     text="Ja",
                                                     font=("bold", 20),
-                                                    command=lambda: (self.master.switch_window(which), self.destroy()))
+                                                    command=lambda: self.yes_button_function(which))
         # the command call the switch_window method and passes "which" as an argument, then destroys itself
         self.startscreen_yes_button.place(x=5,
                                           y=32.5)
@@ -61,3 +61,7 @@ class ReallySwitch(ctk.CTkToplevel):  # top level window class for checking if y
                                                    command=lambda: self.destroy())  # the command destroys the window
         self.startscreen_no_button.place(x=235,
                                          y=32.5)
+
+    def yes_button_function(self, which):
+        self.master.switch_window(which)
+        self.destroy()

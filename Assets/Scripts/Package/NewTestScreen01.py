@@ -6,16 +6,16 @@
 
 import customtkinter as ctk
 # Shared variables----------------------------------------
-from .sharedVar import window_geometry, color_SET_blue, text_color_SET, back_arrow_image, color_SET_gray, save_path
+from .SharedVar import GetStartupVariables, back_arrow_image
 from tkinter import filedialog
 from .JsonFunctions import json_writer
 
 
-class NewTestScreen_01(ctk.CTkFrame):  # class for the NewTestScreen window
+class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen window
     def __init__(self, parent):  # the parent is App()
         super().__init__(parent,  # parameters of the CTkFrame object
-                         width=(window_geometry[0] - 10),
-                         height=(window_geometry[1] - 10),
+                         width=(GetStartupVariables.window_geometry[0] - 10),
+                         height=(GetStartupVariables.window_geometry[1] - 10),
                          fg_color="transparent")
 
         self.app = parent
@@ -26,13 +26,13 @@ class NewTestScreen_01(ctk.CTkFrame):  # class for the NewTestScreen window
         # top bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
-                                          fg_color=color_SET_blue,
-                                          width=window_geometry[0] - 70,
+                                          fg_color=GetStartupVariables.color_SET_blue,
+                                          width=GetStartupVariables.window_geometry[0] - 70,
                                           height=40,
                                           corner_radius=10,
                                           text=("Neuer Test - Schritt 1:" +
                                                 " Speicherort generierter Daten angeben"),
-                                          text_color=text_color_SET,
+                                          text_color=GetStartupVariables.text_color_SET,
                                           font=("bold", 20),
                                           anchor="w")
         self.indicator_bar.place(x=0,
@@ -56,29 +56,29 @@ class NewTestScreen_01(ctk.CTkFrame):  # class for the NewTestScreen window
                                          command=lambda: self.master.open_top_level_window_really_switch(
                                              "0"))
         # the command does call the switch_window method because there is unsaved content to loose
-        self.back_button.place(x=window_geometry[0] - 65,
+        self.back_button.place(x=GetStartupVariables.window_geometry[0] - 65,
                                y=0)
 
         # path choose------------------------------------------------------------
         self.path_label = ctk.CTkLabel(master=self.frame,
-                                       fg_color=color_SET_blue,
+                                       fg_color=GetStartupVariables.color_SET_blue,
                                        width=100,
                                        height=40,
                                        corner_radius=10,
                                        text="Pfad:",
-                                       text_color=text_color_SET,
+                                       text_color=GetStartupVariables.text_color_SET,
                                        font=("bold", 20))
         self.path_label.place(x=10,
                               y=10)
 
         self.path_display_label = ctk.CTkLabel(master=self.frame,
-                                               fg_color=color_SET_gray,
+                                               fg_color=GetStartupVariables.color_SET_gray,
                                                width=820,
                                                height=40,
                                                corner_radius=10,
-                                               text=save_path,
+                                               text=GetStartupVariables.save_path,
                                                anchor="w",
-                                               text_color=text_color_SET,
+                                               text_color=GetStartupVariables.text_color_SET,
                                                font=("bold", 20))
         self.path_display_label.place(x=120,
                                       y=10)
@@ -86,17 +86,17 @@ class NewTestScreen_01(ctk.CTkFrame):  # class for the NewTestScreen window
         self.change_button = ctk.CTkButton(master=self.frame,  # back button
                                            width=40,
                                            height=40,
-                                           fg_color=color_SET_blue,
+                                           fg_color=GetStartupVariables.color_SET_blue,
                                            corner_radius=10,
                                            text="...",
-                                           command=lambda: changePath())
+                                           command=self.change_path)
         self.change_button.place(x=950,
                                  y=10)
 
         self.continue_button = ctk.CTkButton(master=self.frame,  # back button
                                              width=100,
                                              height=40,
-                                             fg_color=color_SET_blue,
+                                             fg_color=GetStartupVariables.color_SET_blue,
                                              font=("bold", 20),
                                              corner_radius=10,
                                              text="Weiter",
@@ -104,9 +104,8 @@ class NewTestScreen_01(ctk.CTkFrame):  # class for the NewTestScreen window
         self.continue_button.place(x=1000,
                                    y=10)
 
-        def changePath():
-            global save_path
-            save_path = filedialog.askdirectory()
-            self.path_display_label.configure(text=save_path)
+    def change_path(self):
+        GetStartupVariables.save_path = filedialog.askdirectory()
+        self.path_display_label.configure(text=GetStartupVariables.save_path)
 
-            json_writer("startup_var", "save_path", save_path, "../Other/")
+        json_writer("startup_var", "save_path", GetStartupVariables.save_path, "../Other/")

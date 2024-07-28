@@ -9,15 +9,14 @@ import tkinter as tk
 import tkcalendar as tkc
 from .JsonFunctions import json_reader, json_writer
 # Shared variables----------------------------------------
-from .sharedVar import window_geometry, color_SET_blue, text_color_SET, back_arrow_image, examiner_list, \
-    color_SET_gray, last_chosen_examiner, personal_infos_examiner
+from .SharedVar import GetStartupVariables, GetPersonalVariables, back_arrow_image
 
 
-class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
+class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen window
     def __init__(self, parent):  # the parent is App()
         super().__init__(parent,  # parameters of the CTkFrame object
-                         width=(window_geometry[0] - 10),
-                         height=(window_geometry[1] - 10),
+                         width=(GetStartupVariables.window_geometry[0] - 10),
+                         height=(GetStartupVariables.window_geometry[1] - 10),
                          fg_color="transparent")
 
         self.app = parent
@@ -28,13 +27,13 @@ class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
         # top bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
-                                          fg_color=color_SET_blue,
-                                          width=window_geometry[0] - 70,
+                                          fg_color=GetStartupVariables.color_SET_blue,
+                                          width=GetStartupVariables.window_geometry[0] - 70,
                                           height=40,
                                           corner_radius=10,
                                           text=("Neuer Test - Schritt 3:" +
                                                 " persönliche Daten des Prüfers eingeben"),
-                                          text_color=text_color_SET,
+                                          text_color=GetStartupVariables.text_color_SET,
                                           font=("bold", 20),
                                           anchor="w")
         self.indicator_bar.place(x=0,
@@ -48,12 +47,12 @@ class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
 
         self.examiner_option_menu_label = ctk.CTkLabel(
             master=self.examiner_option_menu_frame,
-            fg_color=color_SET_blue,
+            fg_color=GetStartupVariables.color_SET_blue,
             width=200,
             height=50,
             corner_radius=10,
             text="Voreinstellungen",
-            text_color=text_color_SET,
+            text_color=GetStartupVariables.text_color_SET,
             font=("bold", 20))
         self.examiner_option_menu_label.place(x=10,
                                               y=10)
@@ -64,9 +63,10 @@ class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
                                                        font=("bold", 20),
                                                        dropdown_font=("bold", 20),
                                                        corner_radius=5,
-                                                       variable=tk.StringVar(value=last_chosen_examiner),
-                                                       values=examiner_list,
-                                                       command=self.examinerSelect)
+                                                       variable=tk.StringVar(
+                                                           value=GetPersonalVariables.last_chosen_examiner),
+                                                       values=GetPersonalVariables.examiner_list,
+                                                       command=self.examiner_select)
         # the command automatically passes the current value as an argument to the specified method
         self.options_menu_examiner.place(x=230,
                                          y=10)
@@ -88,17 +88,17 @@ class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
                                          command=lambda: self.master.open_top_level_window_really_switch(
                                              "1.1"))
         # the command does call the switch_window method because there is unsaved content to loose
-        self.back_button.place(x=window_geometry[0] - 65,
+        self.back_button.place(x=GetStartupVariables.window_geometry[0] - 65,
                                y=0)
 
         # first name entry------------------------------------------------------------
         self.first_name_entry_label = ctk.CTkLabel(master=self.entry_frame,
-                                                   fg_color=color_SET_blue,
+                                                   fg_color=GetStartupVariables.color_SET_blue,
                                                    width=100,
                                                    height=40,
                                                    corner_radius=10,
                                                    text="Vorname",
-                                                   text_color=text_color_SET,
+                                                   text_color=GetStartupVariables.text_color_SET,
                                                    font=("bold", 20))
         self.first_name_entry_label.place(x=10,
                                           y=10)
@@ -116,23 +116,23 @@ class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
             master=self.entry_frame,
             width=250,
             height=50,
-            fg_color=color_SET_gray,
+            fg_color=GetStartupVariables.color_SET_gray,
             anchor="w",
             corner_radius=10,
-            text=personal_infos_examiner[0],
-            text_color=text_color_SET,
+            text=GetPersonalVariables.personal_infos_examiner[0],
+            text_color=GetStartupVariables.text_color_SET,
             font=("bold", 20))
         self.first_name_entry_unchanged_overlay_label.place(x=10,
                                                             y=60)
 
         # last name entry------------------------------------------------------------
         self.last_name_entry_label = ctk.CTkLabel(master=self.entry_frame,
-                                                  fg_color=color_SET_blue,
+                                                  fg_color=GetStartupVariables.color_SET_blue,
                                                   width=100,
                                                   height=40,
                                                   corner_radius=10,
                                                   text="Nachname",
-                                                  text_color=text_color_SET,
+                                                  text_color=GetStartupVariables.text_color_SET,
                                                   font=("bold", 20))
         self.last_name_entry_label.place(x=10,
                                          y=130)
@@ -150,23 +150,23 @@ class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
             master=self.entry_frame,
             width=250,
             height=50,
-            fg_color=color_SET_gray,
+            fg_color=GetStartupVariables.color_SET_gray,
             anchor="w",
             corner_radius=10,
-            text=personal_infos_examiner[1],
-            text_color=text_color_SET,
+            text=GetPersonalVariables.personal_infos_examiner[1],
+            text_color=GetStartupVariables.text_color_SET,
             font=("bold", 20))
         self.last_name_entry_unchanged_overlay_label.place(x=10,
                                                            y=180)
 
         # birth date entry------------------------------------------------------------
         self.birth_date_entry_label = ctk.CTkLabel(master=self.entry_frame,
-                                                   fg_color=color_SET_blue,
+                                                   fg_color=GetStartupVariables.color_SET_blue,
                                                    width=100,
                                                    height=40,
                                                    corner_radius=10,
                                                    text="Geburtsdatum",
-                                                   text_color=text_color_SET,
+                                                   text_color=GetStartupVariables.text_color_SET,
                                                    font=("bold", 20))
         self.birth_date_entry_label.place(x=10,
                                           y=250)
@@ -184,11 +184,11 @@ class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
             master=self.entry_frame,
             width=250,
             height=50,
-            fg_color=color_SET_gray,
+            fg_color=GetStartupVariables.color_SET_gray,
             anchor="w",
             corner_radius=10,
-            text=personal_infos_examiner[2],
-            text_color=text_color_SET,
+            text=GetPersonalVariables.personal_infos_examiner[2],
+            text_color=GetStartupVariables.text_color_SET,
             font=("bold", 20))
         self.birth_date_entry_unchanged_overlay_label.place(x=10,
                                                             y=300)
@@ -208,7 +208,7 @@ class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
                                            text="Ändern",
                                            font=("bold", 20),
                                            state="normal",
-                                           command=lambda: self.changeEntryDataExaminer())
+                                           command=lambda: self.change_entry_data_examiner())
         self.change_button.place(x=10,
                                  y=10)
 
@@ -219,7 +219,7 @@ class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
                                          text="Speichern",
                                          font=("bold", 20),
                                          state="disabled",
-                                         command=lambda: self.saveEntryDataExaminer())
+                                         command=lambda: self.save_entry_data_examiner())
         self.save_button.place(x=140,
                                y=10)
 
@@ -231,12 +231,15 @@ class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
                                              text="Weiter",
                                              font=("bold", 20),
                                              state="normal",
-                                             command=lambda: (
-                                                 self.master.switch_window("1.3"), self.write_personal_json()))
+                                             command=self.continue_button_function)
         self.continue_button.place(x=270,
                                    y=10)
 
-    def changeEntryDataExaminer(self):
+    def continue_button_function(self):
+        self.master.switch_window("1.3")
+        self.write_personal_json()
+
+    def change_entry_data_examiner(self):
         self.first_name_entry_unchanged_overlay_label.place_forget()
         self.last_name_entry_unchanged_overlay_label.place_forget()
         self.birth_date_entry_unchanged_overlay_label.place_forget()
@@ -248,12 +251,11 @@ class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
         self.save_button.configure(state="normal")
         self.continue_button.configure(state="disabled")
 
-    def saveEntryDataExaminer(self):
-        global personal_infos_examiner
-        global last_chosen_examiner
+    def save_entry_data_examiner(self):
         personal_infos_examiner = [self.first_name_entry.get(),
                                    self.last_name_entry.get(),
                                    self.birth_date_entry.get()]
+        last_chosen_examiner = json_reader("personal_var", "last_chosen_examiner", "../Other/")
 
         if (len(personal_infos_examiner[0].strip()) +
                 len(personal_infos_examiner[1].strip()) +
@@ -265,7 +267,7 @@ class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
             self.first_name_entry_unchanged_overlay_label.place(x=10, y=60)
             self.last_name_entry_unchanged_overlay_label.place(x=10, y=180)
             self.birth_date_entry_unchanged_overlay_label.place(x=10, y=300)
-            self.updateLabels(personal_infos_examiner)
+            self.update_labels(personal_infos_examiner)
 
             self.first_name_entry.configure(state="disabled")
             self.last_name_entry.configure(state="disabled")
@@ -277,17 +279,18 @@ class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
             self.continue_button.configure(state="disabled")
             print("Date-Format wrong or the sum of first name plus surname not at least 4 digits")
 
-    def updateLabels(self, infos):
+    def update_labels(self, infos):
         self.first_name_entry_unchanged_overlay_label.configure(text=infos[0])
         self.last_name_entry_unchanged_overlay_label.configure(text=infos[1])
         self.birth_date_entry_unchanged_overlay_label.configure(text=infos[2])
 
-    def examinerSelect(self, which):
+    def examiner_select(self, which):
         json_writer("personal_var", "last_chosen_examiner", which, "../Other/")
         personal_infos_examiner = json_reader("personal_var", f"personal_infos_examiner_{which}", "../Other/")
-        self.updateLabels(personal_infos_examiner)
+        self.update_labels(personal_infos_examiner)
 
-    def write_personal_json(self):
+    @staticmethod
+    def write_personal_json():
         last_chosen_examiner = json_reader("personal_var", "last_chosen_examiner", "../Other/")
         personal_infos_examiner = json_reader("personal_var", f"personal_infos_examiner_{last_chosen_examiner}",
                                               "../Other/")

@@ -3,8 +3,8 @@
 # Author: Stocklasser
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
 # json functions
-import json
 
+import json
 import pandas as pd
 
 
@@ -39,8 +39,8 @@ def json_reader(json_name, variable, json_path):
 def json_creator(json_name, json_path, first_var, first_val):
     data = [
         {
-            'var':first_var,
-            'val':first_val,
+            'var': first_var,
+            'val': first_val,
         }
     ]
     with open(f"{json_path}{json_name}.json", "w", encoding="utf-8") as file:

@@ -6,27 +6,27 @@
 
 import customtkinter as ctk
 # Shared variables----------------------------------------
-from .sharedVar import window_geometry, color_SET_blue, text_color_SET, \
-    back_arrow_image, appearance_mode, window_size
+from .SharedVar import GetStartupVariables, back_arrow_image
+from .JsonFunctions import json_writer
 
 
 class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
     def __init__(self, parent):  # the parent is App()
         super().__init__(parent,  # parameters of the CTkFrame object
-                         width=(window_geometry[0] - 10),
-                         height=(window_geometry[1] - 10),
+                         width=(GetStartupVariables.window_geometry[0] - 10),
+                         height=(GetStartupVariables.window_geometry[1] - 10),
                          fg_color="transparent")
         self.place(x=5,  # placing the object at coordinates x5 - y5 relative to the top left corner of the parent
                    y=5)
 
         # top bar------------------------------------------------------------
         self.optionsscreen_indicator_bar = ctk.CTkLabel(master=self,  # top bar that indicates the screen where you are
-                                                        fg_color=color_SET_blue,
-                                                        width=window_geometry[0] - 70,
+                                                        fg_color=GetStartupVariables.color_SET_blue,
+                                                        width=GetStartupVariables.window_geometry[0] - 70,
                                                         height=40,
                                                         corner_radius=10,
                                                         text="Optionen",
-                                                        text_color=text_color_SET,
+                                                        text_color=GetStartupVariables.text_color_SET,
                                                         font=("bold", 20),
                                                         anchor="w")
         self.optionsscreen_indicator_bar.place(x=0,
@@ -49,7 +49,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
                                                        image=back_arrow_image,
                                                        command=lambda: self.master.switch_window("0"))
         # the command doesn't call the switch_window method because there is no unsaved content to loose
-        self.optionsscreen_back_button.place(x=window_geometry[0] - 65,
+        self.optionsscreen_back_button.place(x=GetStartupVariables.window_geometry[0] - 65,
                                              y=0)
 
         # light mode / dark mode ------------------------------------------------------------
@@ -61,20 +61,20 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
                                                          font=("bold", 20),
                                                          dropdown_font=("bold", 20),
                                                          corner_radius=5,
-                                                         values=appearance_mode,
-                                                         command=self.master.appearance_mode_switch)
+                                                         values=GetStartupVariables.appearance_mode,
+                                                         command=self.appearance_mode_switch)
         # the command automatically passes the current value as an argument to the specified method
         self.options_light_dark_menu.place(x=220,
                                            y=20)
         # label
         self.options_light_dark_label = ctk.CTkLabel(master=self.optionsscreen_button_frame,
                                                      # label to describe the menu above
-                                                     fg_color=color_SET_blue,
+                                                     fg_color=GetStartupVariables.color_SET_blue,
                                                      width=180,
                                                      height=40,
                                                      corner_radius=5,
                                                      text="Anzeigemodus",
-                                                     text_color=text_color_SET,
+                                                     text_color=GetStartupVariables.text_color_SET,
                                                      font=("bold", 20))
         self.options_light_dark_label.place(x=20,
                                             y=20)
@@ -87,20 +87,42 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
                                                           font=("bold", 20),
                                                           dropdown_font=("bold", 20),
                                                           corner_radius=5,
-                                                          values=window_size,
-                                                          command=self.master.window_size_switch)
+                                                          values=GetStartupVariables.window_size,
+                                                          command=self.window_size_switch)
         # the command automatically passes the current value as an argument to the specified method
         self.options_window_size_menu.place(x=220,
                                             y=70)
         # label
         self.options_window_size_label = ctk.CTkLabel(master=self.optionsscreen_button_frame,
                                                       # label to describe the menu above
-                                                      fg_color=color_SET_blue,
+                                                      fg_color=GetStartupVariables.color_SET_blue,
                                                       width=180,
                                                       height=40,
                                                       corner_radius=5,
                                                       text="Fenstergröße",
-                                                      text_color=text_color_SET,
+                                                      text_color=GetStartupVariables.text_color_SET,
                                                       font=("bold", 20))
         self.options_window_size_label.place(x=20,
                                              y=70)
+
+        # Function for changing appearance mode----------------------------------------
+
+    @staticmethod
+    def appearance_mode_switch(mode):  # method for switching the appearance mode to dark/light mode
+        ctk.set_appearance_mode(mode)  # the attribute "mode" is given by the menu widget in the OptionsScreen class
+        if mode == "light":
+            json_writer("startup_var", "appearance_mode", ["light", "dark"], "../Other/")
+
+        elif mode == "dark":
+            json_writer("startup_var", "appearance_mode", ["dark", "light"], "../Other/")
+
+    @staticmethod
+    def window_size_switch(size):
+        print("Neustart für Änderung erforderlich")
+        if size == "HD - 1280x720":
+            json_writer("startup_var", "window_geometry", [1280, 720], "../Other/")
+            json_writer("startup_var", "window_size", ["HD - 1280x720", "FullHD - 1920x1080"], "../Other/")
+
+        elif size == "FullHD - 1920x1080":
+            json_writer("startup_var", "window_geometry", [1920, 1080], "../Other/")
+            json_writer("startup_var", "window_size", ["FullHD - 1920x1080", "HD - 1280x720"], "../Other/")

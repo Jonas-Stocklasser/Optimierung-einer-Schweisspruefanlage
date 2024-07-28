@@ -7,27 +7,26 @@
 import customtkinter as ctk
 import sys
 # Shared variables----------------------------------------
-from .sharedVar import window_geometry, color_SET_blue, text_color_SET, \
-    start_image  # import of shared variables located in the sharedVar file
+from .SharedVar import GetStartupVariables, start_image  # import of shared variables located in the sharedVar file
 
 
 class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
     def __init__(self, parent):  # the parent is App()
         super().__init__(parent,  # parameters of the CTkFrame object
-                         width=(window_geometry[0] - 10),
-                         height=(window_geometry[1] - 10),
+                         width=(GetStartupVariables.window_geometry[0] - 10),
+                         height=(GetStartupVariables.window_geometry[1] - 10),
                          fg_color="transparent")
         self.place(x=5,  # placing the object at coordinates x5 - y5 relative to the top left corner of the parent
                    y=5)
 
         # top bar------------------------------------------------------------
         self.startscreen_indicator_bar = ctk.CTkLabel(master=self,  # top bar that indicates the screen where you are
-                                                      fg_color=color_SET_blue,
-                                                      width=window_geometry[0] - 10,
+                                                      fg_color=GetStartupVariables.color_SET_blue,
+                                                      width=GetStartupVariables.window_geometry[0] - 10,
                                                       height=40,
                                                       corner_radius=10,
                                                       text="Start",
-                                                      text_color=text_color_SET,
+                                                      text_color=GetStartupVariables.text_color_SET,
                                                       font=("bold", 20),
                                                       anchor="w")
         self.startscreen_indicator_bar.place(x=0,
@@ -84,7 +83,7 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
                                                     width=600,
                                                     height=600)
         self.startscreen_image_frame.place(x=640,
-                                           y=(window_geometry[1] / 2) - 280)
+                                           y=(GetStartupVariables.window_geometry[1] / 2) - 280)
 
         # image label----------------------------------------
         self.image_label = ctk.CTkLabel(master=self.startscreen_image_frame,  # StartScreen image

@@ -6,18 +6,16 @@
 
 import customtkinter as ctk
 import tkinter as tk
-import pandas as pd
 # Shared variables----------------------------------------
-from .sharedVar import window_geometry, color_SET_blue, text_color_SET, back_arrow_image, infos_item, \
-    last_chosen_item, item_list, color_SET_gray
+from .SharedVar import GetStartupVariables, GetItemVariables, back_arrow_image
 from .JsonFunctions import json_writer, json_reader
 
 
-class NewTestScreen_04(ctk.CTkFrame):  # class for the NewTestScreen window
+class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen window
     def __init__(self, parent):  # the parent is App()
         super().__init__(parent,  # parameters of the CTkFrame object
-                         width=(window_geometry[0] - 10),
-                         height=(window_geometry[1] - 10),
+                         width=(GetStartupVariables.window_geometry[0] - 10),
+                         height=(GetStartupVariables.window_geometry[1] - 10),
                          fg_color="transparent")
 
         self.app = parent
@@ -28,13 +26,13 @@ class NewTestScreen_04(ctk.CTkFrame):  # class for the NewTestScreen window
         # top bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
-                                          fg_color=color_SET_blue,
-                                          width=window_geometry[0] - 70,
+                                          fg_color=GetStartupVariables.color_SET_blue,
+                                          width=GetStartupVariables.window_geometry[0] - 70,
                                           height=40,
                                           corner_radius=10,
                                           text=("Neuer Test - Schritt 4:" +
                                                 " Daten des Prüfstückes überprüfen"),
-                                          text_color=text_color_SET,
+                                          text_color=GetStartupVariables.text_color_SET,
                                           font=("bold", 20),
                                           anchor="w")
         self.indicator_bar.place(x=0,
@@ -46,15 +44,14 @@ class NewTestScreen_04(ctk.CTkFrame):  # class for the NewTestScreen window
         self.item_option_menu_frame.place(x=30,
                                           y=75)
 
-        self.item_option_menu_label = ctk.CTkLabel(
-            master=self.item_option_menu_frame,
-            fg_color=color_SET_blue,
-            width=200,
-            height=50,
-            corner_radius=10,
-            text="Voreinstellungen",
-            text_color=text_color_SET,
-            font=("bold", 20))
+        self.item_option_menu_label = ctk.CTkLabel(master=self.item_option_menu_frame,
+                                                   fg_color=GetStartupVariables.color_SET_blue,
+                                                   width=200,
+                                                   height=50,
+                                                   corner_radius=10,
+                                                   text="Voreinstellungen",
+                                                   text_color=GetStartupVariables.text_color_SET,
+                                                   font=("bold", 20))
         self.item_option_menu_label.place(x=10,
                                           y=10)
 
@@ -64,9 +61,9 @@ class NewTestScreen_04(ctk.CTkFrame):  # class for the NewTestScreen window
                                                    font=("bold", 20),
                                                    dropdown_font=("bold", 20),
                                                    corner_radius=5,
-                                                   variable=tk.StringVar(value=last_chosen_item),
-                                                   values=item_list,
-                                                   command=self.itemSelect)
+                                                   variable=tk.StringVar(value=GetItemVariables.last_chosen_item),
+                                                   values=GetItemVariables.item_list,
+                                                   command=self.item_select)
         # the command automatically passes the current value as an argument to the specified method
         self.options_menu_item.place(x=230,
                                      y=10)
@@ -95,17 +92,17 @@ class NewTestScreen_04(ctk.CTkFrame):  # class for the NewTestScreen window
                                          command=lambda: self.master.open_top_level_window_really_switch(
                                              "1.2"))
         # the command does call the switch_window method because there is unsaved content to loose
-        self.back_button.place(x=window_geometry[0] - 65,
+        self.back_button.place(x=GetStartupVariables.window_geometry[0] - 65,
                                y=0)
 
         # title entry------------------------------------------------------------
         self.title_entry_label = ctk.CTkLabel(master=self.entry_frame1,
-                                              fg_color=color_SET_blue,
+                                              fg_color=GetStartupVariables.color_SET_blue,
                                               width=100,
                                               height=40,
                                               corner_radius=10,
                                               text="Titel",
-                                              text_color=text_color_SET,
+                                              text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", 20))
         self.title_entry_label.place(x=10,
                                      y=10)
@@ -119,27 +116,26 @@ class NewTestScreen_04(ctk.CTkFrame):  # class for the NewTestScreen window
         self.title_entry.place(x=10,
                                y=60)
 
-        self.title_entry_unchanged_overlay_label = ctk.CTkLabel(
-            master=self.entry_frame1,
-            width=250,
-            height=50,
-            fg_color=color_SET_gray,
-            anchor="w",
-            corner_radius=10,
-            text=infos_item[0],
-            text_color=text_color_SET,
-            font=("bold", 20))
+        self.title_entry_unchanged_overlay_label = ctk.CTkLabel(master=self.entry_frame1,
+                                                                width=250,
+                                                                height=50,
+                                                                fg_color=GetStartupVariables.color_SET_gray,
+                                                                anchor="w",
+                                                                corner_radius=10,
+                                                                text=GetItemVariables.infos_item[0],
+                                                                text_color=GetStartupVariables.text_color_SET,
+                                                                font=("bold", 20))
         self.title_entry_unchanged_overlay_label.place(x=10,
                                                        y=60)
 
         # info1 entry------------------------------------------------------------
         self.info1_entry_label = ctk.CTkLabel(master=self.entry_frame1,
-                                              fg_color=color_SET_blue,
+                                              fg_color=GetStartupVariables.color_SET_blue,
                                               width=100,
                                               height=40,
                                               corner_radius=10,
                                               text="Info1",
-                                              text_color=text_color_SET,
+                                              text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", 20))
         self.info1_entry_label.place(x=10,
                                      y=130)
@@ -153,27 +149,26 @@ class NewTestScreen_04(ctk.CTkFrame):  # class for the NewTestScreen window
         self.info1_entry.place(x=10,
                                y=180)
 
-        self.info1_entry_unchanged_overlay_label = ctk.CTkLabel(
-            master=self.entry_frame1,
-            width=250,
-            height=50,
-            fg_color=color_SET_gray,
-            anchor="w",
-            corner_radius=10,
-            text=infos_item[1],
-            text_color=text_color_SET,
-            font=("bold", 20))
+        self.info1_entry_unchanged_overlay_label = ctk.CTkLabel(master=self.entry_frame1,
+                                                                width=250,
+                                                                height=50,
+                                                                fg_color=GetStartupVariables.color_SET_gray,
+                                                                anchor="w",
+                                                                corner_radius=10,
+                                                                text=GetItemVariables.infos_item[1],
+                                                                text_color=GetStartupVariables.text_color_SET,
+                                                                font=("bold", 20))
         self.info1_entry_unchanged_overlay_label.place(x=10,
                                                        y=180)
 
         # info2 entry------------------------------------------------------------
         self.info2_entry_label = ctk.CTkLabel(master=self.entry_frame1,
-                                              fg_color=color_SET_blue,
+                                              fg_color=GetStartupVariables.color_SET_blue,
                                               width=100,
                                               height=40,
                                               corner_radius=10,
                                               text="Info2",
-                                              text_color=text_color_SET,
+                                              text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", 20))
         self.info2_entry_label.place(x=10,
                                      y=250)
@@ -191,23 +186,23 @@ class NewTestScreen_04(ctk.CTkFrame):  # class for the NewTestScreen window
             master=self.entry_frame1,
             width=250,
             height=50,
-            fg_color=color_SET_gray,
+            fg_color=GetStartupVariables.color_SET_gray,
             anchor="w",
             corner_radius=10,
-            text=infos_item[2],
-            text_color=text_color_SET,
+            text=GetItemVariables.infos_item[2],
+            text_color=GetStartupVariables.text_color_SET,
             font=("bold", 20))
         self.info2_entry_unchanged_overlay_label.place(x=10,
                                                        y=300)
 
         # info3 entry------------------------------------------------------------
         self.info3_entry_label = ctk.CTkLabel(master=self.entry_frame2,
-                                              fg_color=color_SET_blue,
+                                              fg_color=GetStartupVariables.color_SET_blue,
                                               width=100,
                                               height=40,
                                               corner_radius=10,
                                               text="Info3",
-                                              text_color=text_color_SET,
+                                              text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", 20))
         self.info3_entry_label.place(x=10,
                                      y=10)
@@ -225,23 +220,23 @@ class NewTestScreen_04(ctk.CTkFrame):  # class for the NewTestScreen window
             master=self.entry_frame2,
             width=250,
             height=50,
-            fg_color=color_SET_gray,
+            fg_color=GetStartupVariables.color_SET_gray,
             anchor="w",
             corner_radius=10,
-            text=infos_item[3],
-            text_color=text_color_SET,
+            text=GetItemVariables.infos_item[3],
+            text_color=GetStartupVariables.text_color_SET,
             font=("bold", 20))
         self.info3_entry_unchanged_overlay_label.place(x=10,
                                                        y=60)
 
         # info4 entry------------------------------------------------------------
         self.info4_entry_label = ctk.CTkLabel(master=self.entry_frame2,
-                                              fg_color=color_SET_blue,
+                                              fg_color=GetStartupVariables.color_SET_blue,
                                               width=100,
                                               height=40,
                                               corner_radius=10,
                                               text="Info4",
-                                              text_color=text_color_SET,
+                                              text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", 20))
         self.info4_entry_label.place(x=10,
                                      y=130)
@@ -259,11 +254,11 @@ class NewTestScreen_04(ctk.CTkFrame):  # class for the NewTestScreen window
             master=self.entry_frame2,
             width=250,
             height=50,
-            fg_color=color_SET_gray,
+            fg_color=GetStartupVariables.color_SET_gray,
             anchor="w",
             corner_radius=10,
-            text=infos_item[4],
-            text_color=text_color_SET,
+            text=GetItemVariables.infos_item[4],
+            text_color=GetStartupVariables.text_color_SET,
             font=("bold", 20))
         self.info4_entry_unchanged_overlay_label.place(x=10,
                                                        y=180)
@@ -283,7 +278,7 @@ class NewTestScreen_04(ctk.CTkFrame):  # class for the NewTestScreen window
                                            text="Ändern",
                                            font=("bold", 20),
                                            state="normal",
-                                           command=lambda: self.changeEntryDataItem())
+                                           command=lambda: self.change_entry_data_item())
         self.change_button.place(x=10,
                                  y=10)
 
@@ -294,7 +289,7 @@ class NewTestScreen_04(ctk.CTkFrame):  # class for the NewTestScreen window
                                          text="Speichern",
                                          font=("bold", 20),
                                          state="disabled",
-                                         command=lambda: self.saveEntryDataItem())
+                                         command=lambda: self.save_entry_data_item())
         self.save_button.place(x=140,
                                y=10)
 
@@ -306,11 +301,15 @@ class NewTestScreen_04(ctk.CTkFrame):  # class for the NewTestScreen window
                                              text="Weiter",
                                              font=("bold", 20),
                                              state="normal",
-                                             command=lambda: self.master.switch_window("0"))
+                                             command=self.continue_button_function)
         self.continue_button.place(x=270,
                                    y=10)
 
-    def changeEntryDataItem(self):
+    def continue_button_function(self):
+        self.master.switch_window("1.4")
+        self.write_personal_json()
+
+    def change_entry_data_item(self):
         self.title_entry_unchanged_overlay_label.place_forget()
         self.info1_entry_unchanged_overlay_label.place_forget()
         self.info2_entry_unchanged_overlay_label.place_forget()
@@ -327,10 +326,7 @@ class NewTestScreen_04(ctk.CTkFrame):  # class for the NewTestScreen window
         self.save_button.configure(state="normal")
         self.continue_button.configure(state="disabled")
 
-    def saveEntryDataItem(self):
-        global infos_item
-        global last_chosen_item
-        print(last_chosen_item)
+    def save_entry_data_item(self):
         infos_item = [self.title_entry.get(),
                       self.info1_entry.get(),
                       self.info2_entry.get(),
@@ -343,6 +339,7 @@ class NewTestScreen_04(ctk.CTkFrame):  # class for the NewTestScreen window
                 len(infos_item[3].strip()) +
                 len(infos_item[4].strip()) >= 10):
             self.continue_button.configure(state="normal")
+            last_chosen_item = json_reader("personal_var", "last_chosen_item", "../Other/")
             json_writer("item_var", ("infos_item_" + last_chosen_item), infos_item, "../Other/")
 
             self.title_entry_unchanged_overlay_label.place(x=10, y=60)
@@ -350,7 +347,7 @@ class NewTestScreen_04(ctk.CTkFrame):  # class for the NewTestScreen window
             self.info2_entry_unchanged_overlay_label.place(x=10, y=300)
             self.info3_entry_unchanged_overlay_label.place(x=10, y=60)
             self.info4_entry_unchanged_overlay_label.place(x=10, y=180)
-            self.updateLabels(infos_item)
+            self.update_labels(infos_item)
 
             self.title_entry.configure(state="disabled")
             self.info1_entry.configure(state="disabled")
@@ -365,16 +362,23 @@ class NewTestScreen_04(ctk.CTkFrame):  # class for the NewTestScreen window
             self.continue_button.configure(state="disabled")
             print("Date-Format wrong or the sum of first name plus surname not at least 4 digits")
 
-    def updateLabels(self, infos):
+    def update_labels(self, infos):
         self.title_entry_unchanged_overlay_label.configure(text=infos[0])
         self.info1_entry_unchanged_overlay_label.configure(text=infos[1])
         self.info2_entry_unchanged_overlay_label.configure(text=infos[2])
         self.info3_entry_unchanged_overlay_label.configure(text=infos[3])
         self.info4_entry_unchanged_overlay_label.configure(text=infos[4])
 
-    def itemSelect(self, which):
-        global last_chosen_item
+    def item_select(self, which):
         json_writer("item_var", "last_chosen_item", which, "../Other/")
         last_chosen_item = json_reader("item_var", "last_chosen_item", "../Other/")
         infos = json_reader("item_var", f"infos_item_{last_chosen_item}", "../Other/")
-        self.updateLabels(infos)
+        self.update_labels(infos)
+
+    @staticmethod
+    def write_personal_json():
+        last_chosen_item = json_reader("item_var", "last_chosen_item", "../Other/")
+        infos_item = json_reader("item_var", f"infos_item_{last_chosen_item}", "../Other/")
+        personal_folder_path = json_reader("personal_var", "personal_folder_path", "../Other/")
+        personal_json_name = json_reader("personal_var", "personal_json_name", "../Other/")
+        json_writer(personal_json_name, "infos_item", infos_item, personal_folder_path)

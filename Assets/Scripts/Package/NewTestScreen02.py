@@ -7,16 +7,17 @@
 import customtkinter as ctk
 import tkcalendar as tkc
 import os
+from datetime import datetime
 # Shared variables----------------------------------------
-from .sharedVar import window_geometry, color_SET_blue, text_color_SET, back_arrow_image
+from .SharedVar import GetStartupVariables, back_arrow_image
 from .JsonFunctions import json_writer, json_reader, json_creator
 
 
-class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
+class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen window
     def __init__(self, parent):  # the parent is App()
         super().__init__(parent,  # parameters of the CTkFrame object
-                         width=(window_geometry[0] - 10),
-                         height=(window_geometry[1] - 10),
+                         width=(GetStartupVariables.window_geometry[0] - 10),
+                         height=(GetStartupVariables.window_geometry[1] - 10),
                          fg_color="transparent")
 
         self.app = parent
@@ -27,13 +28,13 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
         # top bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
-                                          fg_color=color_SET_blue,
-                                          width=window_geometry[0] - 70,
+                                          fg_color=GetStartupVariables.color_SET_blue,
+                                          width=GetStartupVariables.window_geometry[0] - 70,
                                           height=40,
                                           corner_radius=10,
                                           text=("Neuer Test - Schritt 2:" +
                                                 " persönliche Daten des Prüflings eingeben"),
-                                          text_color=text_color_SET,
+                                          text_color=GetStartupVariables.text_color_SET,
                                           font=("bold", 20),
                                           anchor="w")
         self.indicator_bar.place(x=0,
@@ -57,17 +58,17 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
                                          command=lambda: self.master.open_top_level_window_really_switch(
                                              "1.0"))
         # the command does call the switch_window method because there is unsaved content to loose
-        self.back_button.place(x=window_geometry[0] - 65,
+        self.back_button.place(x=GetStartupVariables.window_geometry[0] - 65,
                                y=0)
 
         # first name entry------------------------------------------------------------
         self.first_name_entry_label = ctk.CTkLabel(master=self.entry_frame,
-                                                   fg_color=color_SET_blue,
+                                                   fg_color=GetStartupVariables.color_SET_blue,
                                                    width=100,
                                                    height=40,
                                                    corner_radius=10,
                                                    text="Vorname",
-                                                   text_color=text_color_SET,
+                                                   text_color=GetStartupVariables.text_color_SET,
                                                    font=("bold", 20))
         self.first_name_entry_label.place(x=10,
                                           y=10)
@@ -83,12 +84,12 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
 
         # last name entry------------------------------------------------------------
         self.last_name_entry_label = ctk.CTkLabel(master=self.entry_frame,
-                                                  fg_color=color_SET_blue,
+                                                  fg_color=GetStartupVariables.color_SET_blue,
                                                   width=100,
                                                   height=40,
                                                   corner_radius=10,
                                                   text="Nachname",
-                                                  text_color=text_color_SET,
+                                                  text_color=GetStartupVariables.text_color_SET,
                                                   font=("bold", 20))
         self.last_name_entry_label.place(x=10,
                                          y=130)
@@ -104,12 +105,12 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
 
         # birth date entry------------------------------------------------------------
         self.birth_date_entry_label = ctk.CTkLabel(master=self.entry_frame,
-                                                   fg_color=color_SET_blue,
+                                                   fg_color=GetStartupVariables.color_SET_blue,
                                                    width=100,
                                                    height=40,
                                                    corner_radius=10,
                                                    text="Geburtsdatum",
-                                                   text_color=text_color_SET,
+                                                   text_color=GetStartupVariables.text_color_SET,
                                                    font=("bold", 20))
         self.birth_date_entry_label.place(x=10,
                                           y=250)
@@ -136,7 +137,7 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
                                          corner_radius=10,
                                          text="Speichern",
                                          font=("bold", 20),
-                                         command=lambda: saveEntryDataExaminee())
+                                         command=self.save_entry_data_examinee)
         self.save_button.place(x=10,
                                y=10)
 
@@ -148,41 +149,49 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
                                              text="Weiter",
                                              font=("bold", 20),
                                              state="disabled",
-                                             command=lambda: (
-                                                 self.master.switch_window("1.2"), create_Examinee_Folder_and_Json()))
+                                             command=self.continue_button_function)
         self.continue_button.place(x=140,
                                    y=10)
 
-        def saveEntryDataExaminee():
-            personal_infos_examinee = [self.first_name_entry.get(),
-                                       self.last_name_entry.get(),
-                                       self.birth_date_entry.get()]
-            if len(personal_infos_examinee[0].strip()) + len(personal_infos_examinee[1].strip()) + len(
-                    personal_infos_examinee[2].strip()) >= 14:
-                self.continue_button.configure(state="normal")
-                json_writer("personal_var", "personal_infos_examinee", personal_infos_examinee, "../Other/")
-            else:
-                self.continue_button.configure(state="disabled")
-                print("Date-Format wrong or the sum of first name plus surname not at least 4 digits")
+    def continue_button_function(self):
+        self.master.switch_window("1.2")
+        self.create_examinee_folder_and_json()
 
-        def create_Examinee_Folder_and_Json():
-            personal_infos_examinee = json_reader("personal_var", "personal_infos_examinee", "../Other/")
-            error_append = ""
-            error_num = 0
-            save_path = json_reader("startup_var", "save_path", "../Other/")
-            new_folder = f"{save_path}/{personal_infos_examinee[1]}_{personal_infos_examinee[0]}" + error_append
-            while True:
-                try:
-                    os.mkdir(new_folder)
-                    break
-                except FileExistsError:
-                    error_num += 1
-                    error_append = str(error_num)
-                    new_folder = f"{save_path}/{personal_infos_examinee[1]}_{personal_infos_examinee[0]}{error_append}"
+    def save_entry_data_examinee(self):
+        personal_infos_examinee = [self.first_name_entry.get(),
+                                   self.last_name_entry.get(),
+                                   self.birth_date_entry.get()]
+        if len(personal_infos_examinee[0].strip()) + len(personal_infos_examinee[1].strip()) + len(
+                personal_infos_examinee[2].strip()) >= 14:
+            self.continue_button.configure(state="normal")
+            json_writer("personal_var", "personal_infos_examinee", personal_infos_examinee, "../Other/")
+        else:
+            self.continue_button.configure(state="disabled")
+            print("Date-Format wrong or the sum of first name plus surname not at least 4 digits")
 
-            json_creator(f"{personal_infos_examinee[1]}_{personal_infos_examinee[0]}", f"{new_folder}/",
-                         "personal_infos_examinee", personal_infos_examinee)
-            json_writer("personal_var", "personal_folder_path",
-                        f"{new_folder}/", "../Other/")
-            json_writer("personal_var", "personal_json_name",
-                        f"{personal_infos_examinee[1]}_{personal_infos_examinee[0]}", "../Other/")
+    @staticmethod
+    def create_examinee_folder_and_json():
+        personal_infos_examinee = json_reader("personal_var", "personal_infos_examinee", "../Other/")
+        exam_date = f"{datetime.now().day}.{datetime.now().month}.{datetime.now().year}"
+        error_append = ""
+        error_num = 0
+        save_path = json_reader("startup_var", "save_path", "../Other/")
+        new_folder = f"{save_path}/{personal_infos_examinee[1]}_{personal_infos_examinee[0]}" + error_append
+        while True:
+            try:
+                os.mkdir(new_folder)
+                break
+            except FileExistsError:
+                error_num += 1
+                error_append = str(error_num)
+                new_folder = f"{save_path}/{personal_infos_examinee[1]}_{personal_infos_examinee[0]}{error_append}"
+
+        json_creator(f"{personal_infos_examinee[1]}_{personal_infos_examinee[0]}", f"{new_folder}/",
+                     "personal_infos_examinee", personal_infos_examinee)
+        json_writer("personal_var", "personal_folder_path",
+                    f"{new_folder}/", "../Other/")
+        json_writer("personal_var", "personal_json_name",
+                    f"{personal_infos_examinee[1]}_{personal_infos_examinee[0]}", "../Other/")
+        personal_folder_path = json_reader("personal_var", "personal_folder_path", "../Other/")
+        personal_json_name = json_reader("personal_var", "personal_json_name", "../Other/")
+        json_writer(personal_json_name, "exam_date", exam_date, personal_folder_path)

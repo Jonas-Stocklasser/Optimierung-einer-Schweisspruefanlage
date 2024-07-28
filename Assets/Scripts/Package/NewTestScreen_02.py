@@ -166,13 +166,11 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
                 print("Date-Format wrong or the sum of first name plus surname not at least 4 digits")
 
         def create_Examinee_Folder_and_Json():
-            personal_infos_examinee = [self.first_name_entry.get(),
-                                       self.last_name_entry.get(),
-                                       self.birth_date_entry.get()]
+            personal_infos_examinee = json_reader("personal_var", "personal_infos_examinee", "../Other/")
             error_append = ""
             error_num = 0
             save_path = json_reader("startup_var", "save_path", "../Other/")
-            new_folder = f"{save_path}/{self.last_name_entry.get()}_{self.first_name_entry.get()}" + error_append
+            new_folder = f"{save_path}/{personal_infos_examinee[1]}_{personal_infos_examinee[0]}" + error_append
             while True:
                 try:
                     os.mkdir(new_folder)
@@ -180,14 +178,11 @@ class NewTestScreen_02(ctk.CTkFrame):  # class for the NewTestScreen window
                 except FileExistsError:
                     error_num += 1
                     error_append = str(error_num)
-                    new_folder = f"{save_path}/{self.last_name_entry.get()}_{self.first_name_entry.get()}{error_append}"
+                    new_folder = f"{save_path}/{personal_infos_examinee[1]}_{personal_infos_examinee[0]}{error_append}"
 
-            json_creator(f"{self.last_name_entry.get()}_{self.first_name_entry.get()}", f"{new_folder}/",
+            json_creator(f"{personal_infos_examinee[1]}_{personal_infos_examinee[0]}", f"{new_folder}/",
                          "personal_infos_examinee", personal_infos_examinee)
             json_writer("personal_var", "personal_folder_path",
                         f"{new_folder}/", "../Other/")
             json_writer("personal_var", "personal_json_name",
-                        f"{self.last_name_entry.get()}_{self.first_name_entry.get()}", "../Other/")
-            personal_folder_path = json_reader("personal_var", "personal_folder_path", "../Other/")
-            personal_json_name = json_reader("personal_var", "personal_json_name", "../Other/")
-            json_writer(personal_json_name, "TestVar", "Test", personal_folder_path)
+                        f"{personal_infos_examinee[1]}_{personal_infos_examinee[0]}", "../Other/")

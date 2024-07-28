@@ -6,7 +6,7 @@
 
 import customtkinter as ctk
 # Shared variables----------------------------------------
-from .sharedVar import window_geometry, color_SET_blue, text_color_SET, back_arrow_image, save_path, color_SET_gray
+from .sharedVar import window_geometry, color_SET_blue, text_color_SET, back_arrow_image, color_SET_gray, save_path
 from tkinter import filedialog
 from .JsonFunctions import json_writer
 

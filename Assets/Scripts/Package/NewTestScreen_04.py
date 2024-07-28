@@ -10,7 +10,7 @@ import pandas as pd
 # Shared variables----------------------------------------
 from .sharedVar import window_geometry, color_SET_blue, text_color_SET, back_arrow_image, infos_item, \
     last_chosen_item, item_list, color_SET_gray
-from .JsonFunctions import json_writer
+from .JsonFunctions import json_writer, json_reader
 
 
 class NewTestScreen_04(ctk.CTkFrame):  # class for the NewTestScreen window
@@ -374,14 +374,7 @@ class NewTestScreen_04(ctk.CTkFrame):  # class for the NewTestScreen window
 
     def itemSelect(self, which):
         global last_chosen_item
-        data = pd.read_json("../Other/item_var.json", encoding="latin1")
-        index = data[data['var'] == "last_chosen_item"].index
-        data.loc[index[0], 'val'] = which
-        with open("../Other/item_var.json", "w") as file:
-            data.to_json(file, orient="records", indent=2)
-
-        with open("../Other/item_var.json") as file:
-            data = pd.read_json(file)
-        last_chosen_item = data.loc[data['var'] == "last_chosen_item", "val"].values[0]
-        infos_item = data.loc[data['var'] == ("infos_item_" + last_chosen_item), "val"].values[0]
-        self.updateLabels(infos_item)
+        json_writer("item_var", "last_chosen_item", which, "../Other/")
+        last_chosen_item = json_reader("item_var", "last_chosen_item", "../Other/")
+        infos = json_reader("item_var", f"infos_item_{last_chosen_item}", "../Other/")
+        self.updateLabels(infos)

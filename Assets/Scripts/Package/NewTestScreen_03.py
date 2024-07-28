@@ -6,12 +6,11 @@
 
 import customtkinter as ctk
 import tkinter as tk
-import pandas as pd
 import tkcalendar as tkc
+from .JsonFunctions import json_reader, json_writer
 # Shared variables----------------------------------------
-from .sharedVar import window_geometry, color_SET_blue, text_color_SET, back_arrow_image, personal_infos_examiner, \
-    last_chosen_examiner, examiner_list, color_SET_gray
-from .JsonFunctions import json_writer
+from .sharedVar import window_geometry, color_SET_blue, text_color_SET, back_arrow_image, examiner_list, \
+    color_SET_gray, last_chosen_examiner, personal_infos_examiner
 
 
 class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
@@ -232,7 +231,8 @@ class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
                                              text="Weiter",
                                              font=("bold", 20),
                                              state="normal",
-                                             command=lambda: self.master.switch_window("1.3"))
+                                             command=lambda: (
+                                                 self.master.switch_window("1.3"), self.write_personal_json()))
         self.continue_button.place(x=270,
                                    y=10)
 
@@ -283,16 +283,14 @@ class NewTestScreen_03(ctk.CTkFrame):  # class for the NewTestScreen window
         self.birth_date_entry_unchanged_overlay_label.configure(text=infos[2])
 
     def examinerSelect(self, which):
-        global last_chosen_examiner
-        data = pd.read_json("../Other/personal_var.json", encoding="latin1")
-        index = data[data['var'] == "last_chosen_examiner"].index
-        data.loc[index[0], 'val'] = which
-        with open("../Other/personal_var.json", "w") as file:
-            data.to_json(file, orient="records", indent=2)
-
-        with open("../Other/personal_var.json") as file:
-            data = pd.read_json(file)
-        last_chosen_examiner = data.loc[data['var'] == "last_chosen_examiner", "val"].values[0]
-        personal_infos_examiner = \
-            data.loc[data['var'] == ("personal_infos_examiner_" + last_chosen_examiner), "val"].values[0]
+        json_writer("personal_var", "last_chosen_examiner", which, "../Other/")
+        personal_infos_examiner = json_reader("personal_var", f"personal_infos_examiner_{which}", "../Other/")
         self.updateLabels(personal_infos_examiner)
+
+    def write_personal_json(self):
+        last_chosen_examiner = json_reader("personal_var", "last_chosen_examiner", "../Other/")
+        personal_infos_examiner = json_reader("personal_var", f"personal_infos_examiner_{last_chosen_examiner}",
+                                              "../Other/")
+        personal_folder_path = json_reader("personal_var", "personal_folder_path", "../Other/")
+        personal_json_name = json_reader("personal_var", "personal_json_name", "../Other/")
+        json_writer(personal_json_name, "personal_infos_examiner", personal_infos_examiner, personal_folder_path)

@@ -9,7 +9,7 @@ import pandas as pd
 
 
 def json_writer(json_name, variable, value, json_path):
-    data = pd.read_json(json_path + json_name + ".json", encoding="latin1")
+    data = pd.read_json(json_path + json_name + ".json", encoding="utf-8")
     index = data.index[data['var'] == variable].tolist()
 
     if index:
@@ -19,12 +19,12 @@ def json_writer(json_name, variable, value, json_path):
         data = pd.concat([data, new_row], ignore_index=True)
         print("NEW ROW ADDED")
 
-    with open(json_path + json_name + ".json", "w") as file:
-        data.to_json(file, orient="records", indent=2)
+    with open(json_path + json_name + ".json", "w", encoding="utf-8") as file:
+        data.to_json(file, orient="records", indent=2, force_ascii=False)
 
 
 def json_reader(json_name, variable, json_path):
-    with open(json_path + json_name + ".json") as file:
+    with open(json_path + json_name + ".json", encoding="utf-8") as file:
         data = pd.read_json(file)
     if variable in data['var'].values:
         read_value = data.loc[data['var'] == variable, "val"].values[0]
@@ -43,5 +43,5 @@ def json_creator(json_name, json_path, first_var, first_val):
             'val':first_val,
         }
     ]
-    with open(f"{json_path}{json_name}.json", "w") as file:
-        json.dump(data, file, indent=4)
+    with open(f"{json_path}{json_name}.json", "w", encoding="utf-8") as file:
+        json.dump(data, file, indent=4, ensure_ascii=False)

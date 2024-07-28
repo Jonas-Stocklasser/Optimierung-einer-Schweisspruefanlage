@@ -2,22 +2,22 @@
   {
     "var":"personal_infos_examinee",
     "val":[
-      "Jasmina",
-      "Stojanovic",
-      "14.08.2003"
+      "aa",
+      "bb",
+      "01.01.2000"
     ]
   },
   {
     "var":"personal_folder_path",
-    "val":"C:\/Users\/jonas\/Desktop\/Stojan\u00f6vic_J\u00e4smina\/"
+    "val":"C:\/GIT\/Optimierung-einer-Schweisspreufanlage\/Tests\/bb_aa\/"
   },
   {
     "var":"personal_json_name",
-    "val":"Stojan\u00f6vic_J\u00e4smina"
+    "val":"bb_aa"
   },
   {
     "var":"last_chosen_examiner",
-    "val":"03"
+    "val":"02"
   },
   {
     "var":"examiner_list",

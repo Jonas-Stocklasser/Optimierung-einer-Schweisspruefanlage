@@ -39,3 +39,10 @@ class GetItemVariables:
     last_chosen_item = json_reader("item_var", "last_chosen_item", "../Other/")
     infos_item = json_reader("item_var", f"infos_item_{last_chosen_item}", "../Other/")
     item_list = json_reader("item_var", "item_list", "../Other/")
+
+
+# Exam Parameter variables----------------------------------------
+class GetExamParameterVariables:
+    last_chosen_parameter_list = json_reader("exam_parameter_var", "last_chosen_parameter_list", "../Other/")
+    parameter_list = json_reader("exam_parameter_var", f"parameter_list_{last_chosen_parameter_list}", "../Other/")
+    parameter_list_indexes = json_reader("exam_parameter_var", "parameter_list_indexes", "../Other/")

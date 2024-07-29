@@ -95,7 +95,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen window
                                              text="Weiter",
                                              font=("bold", 20),
                                              state="disabled",
-                                             command=lambda: self.master.switch_window("0"))
+                                             command=lambda: self.master.switch_window("1.5"))
         self.continue_button.place(x=140,
                                    y=10)
 

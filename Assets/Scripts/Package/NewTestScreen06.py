@@ -47,7 +47,7 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen window
                                          anchor="ne",
                                          image=back_arrow_image,
                                          command=lambda: self.master.open_top_level_window_really_switch(
-                                             "1.1"))
+                                             "1.4"))
         # the command does call the switch_window method because there is unsaved content to loose
         self.back_button.place(x=GetStartupVariables.window_geometry[0] - 65,
                                y=0)
@@ -55,7 +55,8 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen window
         # options menu parameter------------------------------------------------------------
         self.parameter_option_menu_frame = ctk.CTkFrame(master=self,  # frame for the entries
                                                         width=340,
-                                                        height=70)
+                                                        height=70,
+                                                        corner_radius=20)
         self.parameter_option_menu_frame.place(x=30,
                                                y=75)
 
@@ -87,7 +88,8 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen window
         # entry frame------------------------------------------------------------
         self.entry_frame = ctk.CTkFrame(master=self,  # frame for the entries
                                         width=340,
-                                        height=240)
+                                        height=240,
+                                        corner_radius=20)
         self.entry_frame.place(x=30,
                                y=175)
 
@@ -112,18 +114,22 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen window
         self.pressure_entry.place(x=10,
                                   y=60)
 
+        self.pressure_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame,
+                                                                         width=250,
+                                                                         height=50,
+                                                                         corner_radius=10)
+        self.pressure_entry_unchanged_overlay_label_frame.place(x=10,
+                                                                y=60)
+
         self.pressure_entry_unchanged_overlay_label = ctk.CTkLabel(
-            master=self.entry_frame,
-            width=250,
+            master=self.pressure_entry_unchanged_overlay_label_frame,
+            width=230,
             height=50,
-            fg_color=GetStartupVariables.color_SET_gray,
             anchor="w",
-            corner_radius=10,
             text=f"{GetExamParameterVariables.parameter_list[0]} bar",
-            text_color=GetStartupVariables.text_color_SET,
             font=("bold", 20))
         self.pressure_entry_unchanged_overlay_label.place(x=10,
-                                                          y=60)
+                                                          y=0)
 
         # duration entry------------------------------------------------------------
         self.duration_entry_label = ctk.CTkLabel(master=self.entry_frame,
@@ -146,24 +152,29 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen window
         self.duration_entry.place(x=10,
                                   y=180)
 
+        self.duration_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame,
+                                                                         width=250,
+                                                                         height=50,
+                                                                         corner_radius=10)
+        self.duration_entry_unchanged_overlay_label_frame.place(x=10,
+                                                                y=180)
+
         self.duration_entry_unchanged_overlay_label = ctk.CTkLabel(
-            master=self.entry_frame,
-            width=250,
+            master=self.duration_entry_unchanged_overlay_label_frame,
+            width=230,
             height=50,
-            fg_color=GetStartupVariables.color_SET_gray,
             anchor="w",
-            corner_radius=10,
             text=f"{GetExamParameterVariables.parameter_list[1]} min",
-            text_color=GetStartupVariables.text_color_SET,
             font=("bold", 20))
         self.duration_entry_unchanged_overlay_label.place(x=10,
-                                                          y=180)
+                                                          y=0)
 
         # save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
                                          width=380,
-                                         height=70)
+                                         height=70,
+                                         corner_radius=20)
         self.button_frame.place(x=30,
                                 y=450)
 
@@ -202,12 +213,14 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen window
                                    y=10)
 
     def continue_button_function(self):
-        self.master.switch_window("0")
+        self.master.switch_window("2.0")
         self.write_personal_json()
 
     def change_entry_data_exam_parameter(self):
         self.pressure_entry_unchanged_overlay_label.place_forget()
+        self.pressure_entry_unchanged_overlay_label_frame.place_forget()
         self.duration_entry_unchanged_overlay_label.place_forget()
+        self.pressure_entry_unchanged_overlay_label_frame.place_forget()
 
         self.pressure_entry.configure(state="normal", placeholder_text="Druck in Bar")
         self.duration_entry.configure(state="normal", placeholder_text="Maximale Dauer in Minuten")
@@ -227,8 +240,10 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen window
             json_writer("exam_parameter_var", ("parameter_list_" + last_chosen_parameter_list),
                         parameter_list, "../Other/")
 
-            self.pressure_entry_unchanged_overlay_label.place(x=10, y=60)
-            self.duration_entry_unchanged_overlay_label.place(x=10, y=180)
+            self.pressure_entry_unchanged_overlay_label_frame.place(x=10, y=60)
+            self.pressure_entry_unchanged_overlay_label.place(x=10, y=0)
+            self.duration_entry_unchanged_overlay_label_frame.place(x=10, y=180)
+            self.duration_entry_unchanged_overlay_label.place(x=10, y=0)
             self.update_labels(parameter_list)
 
             self.pressure_entry.configure(state="disabled")

@@ -46,7 +46,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen window
                                          anchor="ne",
                                          image=back_arrow_image,
                                          command=lambda: self.master.open_top_level_window_really_switch(
-                                             "1.2"))
+                                             "1.3"))
         # the command does call the switch_window method because there is unsaved content to loose
         self.back_button.place(x=GetStartupVariables.window_geometry[0] - 65,
                                y=0)
@@ -54,7 +54,8 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen window
         # textbox frame ------------------------------------------------------------
         self.textbox_frame = ctk.CTkFrame(master=self,  # frame for the textbox
                                           width=910,
-                                          height=455)
+                                          height=455,
+                                          corner_radius=20)
         self.textbox_frame.place(x=30,
                                  y=80)
 
@@ -64,7 +65,8 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen window
                                       width=890,
                                       height=435,
                                       border_width=5,
-                                      font=("bold", 20))
+                                      font=("bold", 20),
+                                      corner_radius=10)
         self.textbox.place(x=10,
                            y=10)
 
@@ -72,7 +74,8 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen window
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
                                          width=250,
-                                         height=70)
+                                         height=70,
+                                         corner_radius=20)
         self.button_frame.place(x=30,
                                 y=570)
 

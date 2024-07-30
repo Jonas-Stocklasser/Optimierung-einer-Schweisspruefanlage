@@ -43,7 +43,8 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen window
         # button frame------------------------------------------------------------
         self.entry_frame = ctk.CTkFrame(master=self,  # frame for the entries
                                         width=340,
-                                        height=360)
+                                        height=360,
+                                        corner_radius=20)
         self.entry_frame.place(x=30,
                                y=75)
 
@@ -122,12 +123,13 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen window
                                               month=1,
                                               day=1)
         self.birth_date_entry.place(x=15,
-                                    y=375)
+                                    y=300)
         # save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
                                          width=250,
-                                         height=70)
+                                         height=70,
+                                         corner_radius=20)
         self.button_frame.place(x=30,
                                 y=500)
 

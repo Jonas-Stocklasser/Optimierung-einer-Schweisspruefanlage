@@ -14,6 +14,7 @@ from Package.NewTestScreen03 import NewTestScreen03
 from Package.NewTestScreen04 import NewTestScreen04
 from Package.NewTestScreen05 import NewTestScreen05
 from Package.NewTestScreen06 import NewTestScreen06
+from Package.TestPreparations01 import TestPreparations01
 
 # Shared variables----------------------------------------
 from Package.SharedVar import GetStartupVariables
@@ -38,7 +39,8 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         self.newtestscreen04 = NewTestScreen04(self)  # ID = 1.3
         self.newtestscreen05 = NewTestScreen05(self)  # ID = 1.4
         self.newtestscreen06 = NewTestScreen06(self)  # ID = 1.5
-        self.optionsscreen = OptionsScreen(self)  # ID = 2
+        self.testpreparations01 = TestPreparations01(self) # ID = 2.0
+        self.optionsscreen = OptionsScreen(self)  # ID = 3
 
         # top level windows----------------------------------------
         self.reallyswitch = None
@@ -66,6 +68,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.newtestscreen04.place_forget()
             self.newtestscreen05.place_forget()
             self.newtestscreen06.place_forget()
+            self.testpreparations01.place_forget()
         elif which == "1.0":
             self.newtestscreen01.place(x=5, y=5)
             self.startscreen.place_forget()
@@ -75,6 +78,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.newtestscreen04.place_forget()
             self.newtestscreen05.place_forget()
             self.newtestscreen06.place_forget()
+            self.testpreparations01.place_forget()
         elif which == "1.1":
             self.newtestscreen02.place(x=5, y=5)
             self.newtestscreen01.place_forget()
@@ -84,6 +88,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.newtestscreen04.place_forget()
             self.newtestscreen05.place_forget()
             self.newtestscreen06.place_forget()
+            self.testpreparations01.place_forget()
         elif which == "1.2":
             self.newtestscreen03.place(x=5, y=5)
             self.newtestscreen02.place_forget()
@@ -93,6 +98,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.newtestscreen04.place_forget()
             self.newtestscreen05.place_forget()
             self.newtestscreen06.place_forget()
+            self.testpreparations01.place_forget()
         elif which == "1.3":
             self.newtestscreen04.place(x=5, y=5)
             self.newtestscreen03.place_forget()
@@ -102,6 +108,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.optionsscreen.place_forget()
             self.newtestscreen05.place_forget()
             self.newtestscreen06.place_forget()
+            self.testpreparations01.place_forget()
         elif which == "1.4":
             self.newtestscreen05.place(x=5, y=5)
             self.newtestscreen04.place_forget()
@@ -111,6 +118,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.startscreen.place_forget()
             self.optionsscreen.place_forget()
             self.newtestscreen06.place_forget()
+            self.testpreparations01.place_forget()
         elif which == "1.5":
             self.newtestscreen06.place(x=5, y=5)
             self.newtestscreen05.place_forget()
@@ -120,7 +128,18 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.newtestscreen01.place_forget()
             self.startscreen.place_forget()
             self.optionsscreen.place_forget()
-        elif which == "2":
+            self.testpreparations01.place_forget()
+        elif which == "2.0":
+            self.testpreparations01.place(x=5, y=5)
+            self.newtestscreen06.place_forget()
+            self.newtestscreen05.place_forget()
+            self.newtestscreen04.place_forget()
+            self.newtestscreen03.place_forget()
+            self.newtestscreen02.place_forget()
+            self.newtestscreen01.place_forget()
+            self.startscreen.place_forget()
+            self.optionsscreen.place_forget()
+        elif which == "3":
             self.optionsscreen.place(x=5, y=5)
             self.startscreen.place_forget()
             self.newtestscreen01.place_forget()
@@ -129,6 +148,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.newtestscreen04.place_forget()
             self.newtestscreen05.place_forget()
             self.newtestscreen06.place_forget()
+            self.testpreparations01.place_forget()
 
 
 if __name__ == "__main__":  # when the file this is in is called main then it is run

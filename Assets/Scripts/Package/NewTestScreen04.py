@@ -40,7 +40,8 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen window
         # options menu examiner------------------------------------------------------------
         self.item_option_menu_frame = ctk.CTkFrame(master=self,  # frame for the entries
                                                    width=340,
-                                                   height=70)
+                                                   height=70,
+                                                   corner_radius=20)
         self.item_option_menu_frame.place(x=30,
                                           y=75)
 
@@ -70,14 +71,16 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen window
         # entry frame 1------------------------------------------------------------
         self.entry_frame1 = ctk.CTkFrame(master=self,  # frame for the entries
                                          width=340,
-                                         height=360)
+                                         height=360,
+                                         corner_radius=20)
         self.entry_frame1.place(x=30,
                                 y=175)
 
         # entry frame 2------------------------------------------------------------
         self.entry_frame2 = ctk.CTkFrame(master=self,  # frame for the entries
                                          width=340,
-                                         height=240)
+                                         height=240,
+                                         corner_radius=20)
         self.entry_frame2.place(x=380,
                                 y=295)
 
@@ -116,17 +119,21 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen window
         self.title_entry.place(x=10,
                                y=60)
 
-        self.title_entry_unchanged_overlay_label = ctk.CTkLabel(master=self.entry_frame1,
-                                                                width=250,
+        self.title_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame1,
+                                                                      width=250,
+                                                                      height=50,
+                                                                      corner_radius=10)
+        self.title_entry_unchanged_overlay_label_frame.place(x=10,
+                                                             y=60)
+
+        self.title_entry_unchanged_overlay_label = ctk.CTkLabel(master=self.title_entry_unchanged_overlay_label_frame,
+                                                                width=230,
                                                                 height=50,
-                                                                fg_color=GetStartupVariables.color_SET_gray,
                                                                 anchor="w",
-                                                                corner_radius=10,
                                                                 text=GetItemVariables.infos_item[0],
-                                                                text_color=GetStartupVariables.text_color_SET,
                                                                 font=("bold", 20))
         self.title_entry_unchanged_overlay_label.place(x=10,
-                                                       y=60)
+                                                       y=0)
 
         # info1 entry------------------------------------------------------------
         self.info1_entry_label = ctk.CTkLabel(master=self.entry_frame1,
@@ -149,17 +156,21 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen window
         self.info1_entry.place(x=10,
                                y=180)
 
-        self.info1_entry_unchanged_overlay_label = ctk.CTkLabel(master=self.entry_frame1,
-                                                                width=250,
+        self.info1_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame1,
+                                                                      width=250,
+                                                                      height=50,
+                                                                      corner_radius=10)
+        self.info1_entry_unchanged_overlay_label_frame.place(x=10,
+                                                             y=180)
+
+        self.info1_entry_unchanged_overlay_label = ctk.CTkLabel(master=self.info1_entry_unchanged_overlay_label_frame,
+                                                                width=230,
                                                                 height=50,
-                                                                fg_color=GetStartupVariables.color_SET_gray,
                                                                 anchor="w",
-                                                                corner_radius=10,
                                                                 text=GetItemVariables.infos_item[1],
-                                                                text_color=GetStartupVariables.text_color_SET,
                                                                 font=("bold", 20))
         self.info1_entry_unchanged_overlay_label.place(x=10,
-                                                       y=180)
+                                                       y=0)
 
         # info2 entry------------------------------------------------------------
         self.info2_entry_label = ctk.CTkLabel(master=self.entry_frame1,
@@ -182,18 +193,22 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen window
         self.info2_entry.place(x=10,
                                y=300)
 
+        self.info2_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame1,
+                                                                      width=250,
+                                                                      height=50,
+                                                                      corner_radius=10)
+        self.info2_entry_unchanged_overlay_label_frame.place(x=10,
+                                                             y=300)
+
         self.info2_entry_unchanged_overlay_label = ctk.CTkLabel(
-            master=self.entry_frame1,
-            width=250,
+            master=self.info2_entry_unchanged_overlay_label_frame,
+            width=230,
             height=50,
-            fg_color=GetStartupVariables.color_SET_gray,
             anchor="w",
-            corner_radius=10,
             text=GetItemVariables.infos_item[2],
-            text_color=GetStartupVariables.text_color_SET,
             font=("bold", 20))
         self.info2_entry_unchanged_overlay_label.place(x=10,
-                                                       y=300)
+                                                       y=00)
 
         # info3 entry------------------------------------------------------------
         self.info3_entry_label = ctk.CTkLabel(master=self.entry_frame2,
@@ -216,18 +231,22 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen window
         self.info3_entry.place(x=10,
                                y=60)
 
+        self.info3_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame2,
+                                                                      width=250,
+                                                                      height=50,
+                                                                      corner_radius=10)
+        self.info3_entry_unchanged_overlay_label_frame.place(x=10,
+                                                             y=60)
+
         self.info3_entry_unchanged_overlay_label = ctk.CTkLabel(
-            master=self.entry_frame2,
-            width=250,
+            master=self.info3_entry_unchanged_overlay_label_frame,
+            width=230,
             height=50,
-            fg_color=GetStartupVariables.color_SET_gray,
             anchor="w",
-            corner_radius=10,
             text=GetItemVariables.infos_item[3],
-            text_color=GetStartupVariables.text_color_SET,
             font=("bold", 20))
         self.info3_entry_unchanged_overlay_label.place(x=10,
-                                                       y=60)
+                                                       y=0)
 
         # info4 entry------------------------------------------------------------
         self.info4_entry_label = ctk.CTkLabel(master=self.entry_frame2,
@@ -250,24 +269,29 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen window
         self.info4_entry.place(x=10,
                                y=180)
 
+        self.info4_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame2,
+                                                                      width=250,
+                                                                      height=50,
+                                                                      corner_radius=10)
+        self.info4_entry_unchanged_overlay_label_frame.place(x=10,
+                                                             y=180)
+
         self.info4_entry_unchanged_overlay_label = ctk.CTkLabel(
-            master=self.entry_frame2,
-            width=250,
+            master=self.info4_entry_unchanged_overlay_label_frame,
+            width=230,
             height=50,
-            fg_color=GetStartupVariables.color_SET_gray,
             anchor="w",
-            corner_radius=10,
             text=GetItemVariables.infos_item[4],
-            text_color=GetStartupVariables.text_color_SET,
             font=("bold", 20))
         self.info4_entry_unchanged_overlay_label.place(x=10,
-                                                       y=180)
+                                                       y=0)
 
         # save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
                                          width=380,
-                                         height=70)
+                                         height=70,
+                                         corner_radius=20)
         self.button_frame.place(x=30,
                                 y=570)
 
@@ -311,10 +335,15 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen window
 
     def change_entry_data_item(self):
         self.title_entry_unchanged_overlay_label.place_forget()
+        self.title_entry_unchanged_overlay_label_frame.place_forget()
         self.info1_entry_unchanged_overlay_label.place_forget()
+        self.info1_entry_unchanged_overlay_label_frame.place_forget()
         self.info2_entry_unchanged_overlay_label.place_forget()
+        self.info2_entry_unchanged_overlay_label_frame.place_forget()
         self.info3_entry_unchanged_overlay_label.place_forget()
+        self.info3_entry_unchanged_overlay_label_frame.place_forget()
         self.info4_entry_unchanged_overlay_label.place_forget()
+        self.info4_entry_unchanged_overlay_label_frame.place_forget()
 
         self.title_entry.configure(state="normal", placeholder_text="Titel")
         self.info1_entry.configure(state="normal", placeholder_text="Info1")
@@ -342,11 +371,16 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen window
             last_chosen_item = json_reader("personal_var", "last_chosen_item", "../Other/")
             json_writer("item_var", ("infos_item_" + last_chosen_item), infos_item, "../Other/")
 
-            self.title_entry_unchanged_overlay_label.place(x=10, y=60)
-            self.info1_entry_unchanged_overlay_label.place(x=10, y=180)
-            self.info2_entry_unchanged_overlay_label.place(x=10, y=300)
-            self.info3_entry_unchanged_overlay_label.place(x=10, y=60)
-            self.info4_entry_unchanged_overlay_label.place(x=10, y=180)
+            self.title_entry_unchanged_overlay_label_frame.place(x=10, y=60)
+            self.title_entry_unchanged_overlay_label.place(x=10, y=0)
+            self.info1_entry_unchanged_overlay_label_frame.place(x=10, y=180)
+            self.info1_entry_unchanged_overlay_label.place(x=10, y=0)
+            self.info2_entry_unchanged_overlay_label_frame.place(x=10, y=300)
+            self.info2_entry_unchanged_overlay_label.place(x=10, y=0)
+            self.info3_entry_unchanged_overlay_label_frame.place(x=10, y=60)
+            self.info3_entry_unchanged_overlay_label.place(x=10, y=0)
+            self.info4_entry_unchanged_overlay_label_frame.place(x=10, y=180)
+            self.info4_entry_unchanged_overlay_label.place(x=10, y=0)
             self.update_labels(infos_item)
 
             self.title_entry.configure(state="disabled")

@@ -24,7 +24,7 @@
   },
   {
     "var":"start_window",
-    "val":"1.5"
+    "val":"2.0"
   },
   {
     "var":"appearance_mode",
@@ -42,6 +42,6 @@
   },
   {
     "var":"save_path",
-    "val":"C:\/GIT\/Optimierung-einer-Schweisspreufanlage\/Tests"
+    "val":"E:\/GIT\/Optimierung-einer-Schweisspreufanlage\/Assets\/Test"
   }
 ]

@@ -3,21 +3,21 @@
     "var":"personal_infos_examinee",
     "val":[
       "aa",
-      "bb",
+      "aa",
       "01.01.2000"
     ]
   },
   {
     "var":"personal_folder_path",
-    "val":"C:\/GIT\/Optimierung-einer-Schweisspreufanlage\/Tests\/bb_aa\/"
+    "val":"E:\/GIT\/Optimierung-einer-Schweisspreufanlage\/Assets\/Test\/aa_aa9\/"
   },
   {
     "var":"personal_json_name",
-    "val":"bb_aa"
+    "val":"aa_aa"
   },
   {
     "var":"last_chosen_examiner",
-    "val":"01"
+    "val":"02"
   },
   {
     "var":"examiner_list",

@@ -35,7 +35,8 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
         # button frame------------------------------------------------------------
         self.startscreen_button_frame = ctk.CTkFrame(master=self,  # a frame for the buttons
                                                      width=340,
-                                                     height=320)
+                                                     height=320,
+                                                     corner_radius=30)
         self.startscreen_button_frame.place(x=30,
                                             y=75)
 
@@ -60,7 +61,7 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
                                                         corner_radius=10,
                                                         text="Options",
                                                         font=("bold", 40),
-                                                        command=lambda: self.master.switch_window("2"))
+                                                        command=lambda: self.master.switch_window("3"))
         # the command calls the App lasses switch_window function and passes "3" as the "which" attribute
         self.startscreen_options_button.place(x=20,
                                               y=120)

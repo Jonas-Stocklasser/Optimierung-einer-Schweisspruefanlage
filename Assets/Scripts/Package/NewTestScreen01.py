@@ -41,7 +41,8 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen window
         # button frame------------------------------------------------------------
         self.frame = ctk.CTkFrame(master=self,  # frame for the widgets
                                   width=1110,
-                                  height=60)
+                                  height=60,
+                                  corner_radius=20)
         self.frame.place(x=30,
                          y=75)
 
@@ -71,17 +72,21 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen window
         self.path_label.place(x=10,
                               y=10)
 
-        self.path_display_label = ctk.CTkLabel(master=self.frame,
-                                               fg_color=GetStartupVariables.color_SET_gray,
-                                               width=820,
+        self.path_display_label_frame = ctk.CTkFrame(master=self.frame,
+                                                     width=820,
+                                                     height=40,
+                                                     corner_radius=10)
+        self.path_display_label_frame.place(x=120,
+                                            y=10)
+
+        self.path_display_label = ctk.CTkLabel(master=self.path_display_label_frame,
+                                               width=800,
                                                height=40,
-                                               corner_radius=10,
                                                text=GetStartupVariables.save_path,
                                                anchor="w",
-                                               text_color=GetStartupVariables.text_color_SET,
                                                font=("bold", 20))
-        self.path_display_label.place(x=120,
-                                      y=10)
+        self.path_display_label.place(x=10,
+                                      y=0)
 
         self.change_button = ctk.CTkButton(master=self.frame,  # back button
                                            width=40,

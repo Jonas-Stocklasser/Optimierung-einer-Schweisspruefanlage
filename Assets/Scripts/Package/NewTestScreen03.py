@@ -41,7 +41,8 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen window
         # options menu examiner------------------------------------------------------------
         self.examiner_option_menu_frame = ctk.CTkFrame(master=self,  # frame for the entries
                                                        width=340,
-                                                       height=70)
+                                                       height=70,
+                                                       corner_radius=20)
         self.examiner_option_menu_frame.place(x=30,
                                               y=75)
 
@@ -73,7 +74,8 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen window
         # entry frame------------------------------------------------------------
         self.entry_frame = ctk.CTkFrame(master=self,  # frame for the entries
                                         width=340,
-                                        height=360)
+                                        height=360,
+                                        corner_radius=20)
         self.entry_frame.place(x=30,
                                y=175)
 
@@ -112,18 +114,22 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen window
         self.first_name_entry.place(x=10,
                                     y=60)
 
+        self.first_name_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame,
+                                                                           width=250,
+                                                                           height=50,
+                                                                          corner_radius=10)
+        self.first_name_entry_unchanged_overlay_label_frame.place(x=10,
+                                                                  y=60)
+
         self.first_name_entry_unchanged_overlay_label = ctk.CTkLabel(
-            master=self.entry_frame,
-            width=250,
+            master=self.first_name_entry_unchanged_overlay_label_frame,
+            width=230,
             height=50,
-            fg_color=GetStartupVariables.color_SET_gray,
             anchor="w",
-            corner_radius=10,
             text=GetPersonalVariables.personal_infos_examiner[0],
-            text_color=GetStartupVariables.text_color_SET,
             font=("bold", 20))
         self.first_name_entry_unchanged_overlay_label.place(x=10,
-                                                            y=60)
+                                                            y=0)
 
         # last name entry------------------------------------------------------------
         self.last_name_entry_label = ctk.CTkLabel(master=self.entry_frame,
@@ -141,23 +147,26 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen window
                                             width=250,
                                             height=50,
                                             font=("bold", 20),
-                                            state="disabled"
-                                            )
+                                            state="disabled")
         self.last_name_entry.place(x=10,
                                    y=180)
 
+        self.last_name_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame,
+                                                                          width=250,
+                                                                          height=50,
+                                                                          corner_radius=10)
+        self.last_name_entry_unchanged_overlay_label_frame.place(x=10,
+                                                                 y=180)
+
         self.last_name_entry_unchanged_overlay_label = ctk.CTkLabel(
-            master=self.entry_frame,
-            width=250,
+            master=self.last_name_entry_unchanged_overlay_label_frame,
+            width=230,
             height=50,
-            fg_color=GetStartupVariables.color_SET_gray,
             anchor="w",
-            corner_radius=10,
             text=GetPersonalVariables.personal_infos_examiner[1],
-            text_color=GetStartupVariables.text_color_SET,
             font=("bold", 20))
         self.last_name_entry_unchanged_overlay_label.place(x=10,
-                                                           y=180)
+                                                           y=0)
 
         # birth date entry------------------------------------------------------------
         self.birth_date_entry_label = ctk.CTkLabel(master=self.entry_frame,
@@ -174,30 +183,35 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen window
         self.birth_date_entry = tkc.DateEntry(master=self.entry_frame,
                                               font=("bold", 20),
                                               date_pattern='dd.mm.yyyy',
-                                              year=2000,
-                                              month=1,
+                                              year=1976,
+                                              month=2,
                                               day=1)
         self.birth_date_entry.place(x=15,
-                                    y=375)
+                                    y=300)
+
+        self.birth_date_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame,
+                                                                           width=250,
+                                                                           height=50,
+                                                                           corner_radius=10)
+        self.birth_date_entry_unchanged_overlay_label_frame.place(x=10,
+                                                                  y=300)
 
         self.birth_date_entry_unchanged_overlay_label = ctk.CTkLabel(
-            master=self.entry_frame,
-            width=250,
+            master=self.birth_date_entry_unchanged_overlay_label_frame,
+            width=230,
             height=50,
-            fg_color=GetStartupVariables.color_SET_gray,
             anchor="w",
-            corner_radius=10,
             text=GetPersonalVariables.personal_infos_examiner[2],
-            text_color=GetStartupVariables.text_color_SET,
             font=("bold", 20))
         self.birth_date_entry_unchanged_overlay_label.place(x=10,
-                                                            y=300)
+                                                            y=0)
 
         # save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
                                          width=380,
-                                         height=70)
+                                         height=70,
+                                         corner_radius=20)
         self.button_frame.place(x=30,
                                 y=570)
 
@@ -241,8 +255,11 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen window
 
     def change_entry_data_examiner(self):
         self.first_name_entry_unchanged_overlay_label.place_forget()
+        self.first_name_entry_unchanged_overlay_label_frame.place_forget()
         self.last_name_entry_unchanged_overlay_label.place_forget()
+        self.last_name_entry_unchanged_overlay_label_frame.place_forget()
         self.birth_date_entry_unchanged_overlay_label.place_forget()
+        self.birth_date_entry_unchanged_overlay_label_frame.place_forget()
 
         self.first_name_entry.configure(state="normal", placeholder_text="Vorname")
         self.last_name_entry.configure(state="normal", placeholder_text="Nachname")
@@ -264,9 +281,12 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen window
             json_writer("personal_var", ("personal_infos_examiner_" + last_chosen_examiner),
                         personal_infos_examiner, "../Other/")
 
-            self.first_name_entry_unchanged_overlay_label.place(x=10, y=60)
-            self.last_name_entry_unchanged_overlay_label.place(x=10, y=180)
-            self.birth_date_entry_unchanged_overlay_label.place(x=10, y=300)
+            self.first_name_entry_unchanged_overlay_label_frame.place(x=10, y=60)
+            self.first_name_entry_unchanged_overlay_label.place(x=10, y=0)
+            self.last_name_entry_unchanged_overlay_label_frame.place(x=10, y=180)
+            self.last_name_entry_unchanged_overlay_label.place(x=10, y=0)
+            self.birth_date_entry_unchanged_overlay_label_frame.place(x=10, y=300)
+            self.birth_date_entry_unchanged_overlay_label.place(x=10, y=0)
             self.update_labels(personal_infos_examiner)
 
             self.first_name_entry.configure(state="disabled")

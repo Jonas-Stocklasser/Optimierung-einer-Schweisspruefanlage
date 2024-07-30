@@ -2,7 +2,7 @@
 # Date: 19.06.24
 # Author: Stocklasser
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
-# OptionenFenster
+# OptionenFenster; ID = 3
 
 import customtkinter as ctk
 # Shared variables----------------------------------------
@@ -35,7 +35,8 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
         # button frame------------------------------------------------------------
         self.optionsscreen_button_frame = ctk.CTkFrame(master=self,  # frame for the buttons and the menu
                                                        width=460,
-                                                       height=130)
+                                                       height=130,
+                                                        corner_radius=20)
         self.optionsscreen_button_frame.place(x=30,
                                               y=75)
 

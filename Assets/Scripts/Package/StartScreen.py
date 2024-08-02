@@ -7,7 +7,7 @@
 import customtkinter as ctk
 import sys
 # Shared variables----------------------------------------
-from .SharedVar import GetStartupVariables, start_image  # import of shared variables located in the sharedVar file
+from .SharedVar import GetStartupVariables, pruefstueck_image  # import of shared variables located in the sharedVar file
 
 
 class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
@@ -81,14 +81,14 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
 
         # image frame------------------------------------------------------------
         self.startscreen_image_frame = ctk.CTkFrame(master=self,  # Frame for the StartScreen image
-                                                    width=600,
-                                                    height=600)
-        self.startscreen_image_frame.place(x=640,
-                                           y=(GetStartupVariables.window_geometry[1] / 2) - 280)
+                                                    width=616,
+                                                    height=364)
+        self.startscreen_image_frame.place(x=630,
+                                           y=75)
 
         # image label----------------------------------------
         self.image_label = ctk.CTkLabel(master=self.startscreen_image_frame,  # StartScreen image
                                         text="",
-                                        image=start_image)  # Here goes a render of the test object (maybe a gif)
-        self.image_label.place(x=0,
-                               y=0)
+                                        image=pruefstueck_image)  # Here goes a render of the test object (maybe a gif)
+        self.image_label.place(x=20,
+                               y=20)

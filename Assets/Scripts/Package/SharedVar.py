@@ -11,6 +11,7 @@ from .JsonFunctions import json_reader
 # Pictures----------------------------------------
 start_image = ctk.CTkImage(Image.open("../Images/Placeholder.png"), size=(600, 600))
 back_arrow_image = ctk.CTkImage(dark_image=Image.open("../Images/Back_Arrow.png"), size=(30, 30))
+pruefstueck_image = ctk.CTkImage(dark_image=Image.open("../Images/Pruefstueck_Dark.png") ,light_image=Image.open("../Images/Pruefstueck_Light.png"), size=(576, 324))
 
 
 # Startup variables----------------------------------------

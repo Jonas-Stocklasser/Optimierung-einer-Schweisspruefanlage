@@ -59,7 +59,7 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
                                                         width=300,
                                                         height=80,
                                                         corner_radius=10,
-                                                        text="Options",
+                                                        text="Optionen",
                                                         font=("bold", 40),
                                                         command=lambda: self.master.switch_window("3"))
         # the command calls the App lasses switch_window function and passes "3" as the "which" attribute

@@ -2,18 +2,18 @@
   {
     "var":"personal_infos_examinee",
     "val":[
-      "aa",
-      "aa",
+      "Jonas",
+      "Stocklasser",
       "01.01.2000"
     ]
   },
   {
     "var":"personal_folder_path",
-    "val":"E:\/GIT\/Optimierung-einer-Schweisspreufanlage\/Assets\/Test\/aa_aa9\/"
+    "val":"E:\/GIT\/Optimierung-einer-Schweisspreufanlage\/Assets\/Test\/Stocklasser_Jonas\/"
   },
   {
     "var":"personal_json_name",
-    "val":"aa_aa"
+    "val":"Stocklasser_Jonas"
   },
   {
     "var":"last_chosen_examiner",

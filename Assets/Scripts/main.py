@@ -3,9 +3,9 @@
 # Author: Stocklasser
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
 
-import customtkinter as ctk
+import customtkinter as ctk  # import of the customtkinter library
 
-from Package.StartScreen import StartScreen  # imports of other files of the package
+from Package.StartScreen import StartScreen  # import of all the other files of the python package
 from Package.OptionsScreen import OptionsScreen
 from Package.ReallySwitch import ReallySwitch
 from Package.NewTestScreen01 import NewTestScreen01
@@ -17,12 +17,13 @@ from Package.NewTestScreen06 import NewTestScreen06
 from Package.TestPreparations01 import TestPreparations01
 
 # Shared variables----------------------------------------
+# import of the startup variables located in the sharedVar file
 from Package.SharedVar import GetStartupVariables
-# import of shared variables located in the sharedVar file
 
 
 class App(ctk.CTk):  # main window class, every other window class is called from here
     def __init__(self, title):  # title is given as an attribute from the class call
+
         # main initialization----------------------------------------
         super().__init__()
         ctk.set_appearance_mode(GetStartupVariables.appearance_mode[0])
@@ -31,19 +32,19 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         self.geometry(f"{GetStartupVariables.window_geometry[0]}x{GetStartupVariables.window_geometry[1]}")
         self.resizable(False, False)
 
-        # windows----------------------------------------
-        self.startscreen = StartScreen(self)  # ID = 0      other classes
+        # windows of the other classes----------------------------------------
+        self.startscreen = StartScreen(self)  # ID = 0
         self.newtestscreen01 = NewTestScreen01(self)  # ID = 1.0
         self.newtestscreen02 = NewTestScreen02(self)  # ID = 1.1
         self.newtestscreen03 = NewTestScreen03(self)  # ID = 1.2
         self.newtestscreen04 = NewTestScreen04(self)  # ID = 1.3
         self.newtestscreen05 = NewTestScreen05(self)  # ID = 1.4
         self.newtestscreen06 = NewTestScreen06(self)  # ID = 1.5
-        self.testpreparations01 = TestPreparations01(self) # ID = 2.0
+        self.testpreparations01 = TestPreparations01(self)  # ID = 2.0
         self.optionsscreen = OptionsScreen(self)  # ID = 3
 
         # top level windows----------------------------------------
-        self.reallyswitch = None
+        self.reallyswitch = None    # initializes the window variable as "None"
 
         # show start screen initially----------------------------------------
         self.switch_window(GetStartupVariables.start_window)
@@ -51,10 +52,11 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         # run the app----------------------------------------
         self.mainloop()  # the main App window is run (mainloop)
 
+    # methods----------------------------------------
     def open_top_level_window_really_switch(self, which):  # method for creating or focusing the top level window
-        # "which" is an attribute given by the back button which calls this function
+        # "which" is an attribute given by each back button when calling this method
         if self.reallyswitch is None or not self.reallyswitch.winfo_exists():  # checking if the window exists
-            self.reallyswitch = ReallySwitch(self, which)  # the top level window class from the other file is called
+            self.reallyswitch = ReallySwitch(self, which)  # the top level window class (Package.ReallySwitch)is called
         else:
             self.reallyswitch.focus()  # focus the window if it exists
 

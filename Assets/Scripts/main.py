@@ -32,16 +32,16 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         self.geometry(f"{GetStartupVariables.window_geometry[0]}x{GetStartupVariables.window_geometry[1]}")
         self.resizable(False, False)
 
-        # windows of the other classes----------------------------------------
-        self.startscreen = StartScreen(self)  # ID = 0
-        self.newtestscreen01 = NewTestScreen01(self)  # ID = 1.0
-        self.newtestscreen02 = NewTestScreen02(self)  # ID = 1.1
-        self.newtestscreen03 = NewTestScreen03(self)  # ID = 1.2
-        self.newtestscreen04 = NewTestScreen04(self)  # ID = 1.3
-        self.newtestscreen05 = NewTestScreen05(self)  # ID = 1.4
-        self.newtestscreen06 = NewTestScreen06(self)  # ID = 1.5
-        self.testpreparations01 = TestPreparations01(self)  # ID = 2.0
-        self.optionsscreen = OptionsScreen(self)  # ID = 3
+        # dictionary for all window frames----------------------------------------
+        self.windows = {"0": StartScreen(self),
+                        "1.0": NewTestScreen01(self),
+                        "1.1": NewTestScreen02(self),
+                        "1.2": NewTestScreen03(self),
+                        "1.3": NewTestScreen04(self),
+                        "1.4": NewTestScreen05(self),
+                        "1.5": NewTestScreen06(self),
+                        "2.0": TestPreparations01(self),
+                        "3": OptionsScreen(self)}
 
         # top level windows----------------------------------------
         self.reallyswitch = None    # initializes the window variable as "None"
@@ -61,96 +61,11 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.reallyswitch.focus()  # focus the window if it exists
 
     def switch_window(self, which):  # method for switching windows with the attribute "which"
-        if which == "0":
-            self.startscreen.place(x=5, y=5)  # the wanted window is placed and all others are deleted from the window
-            self.optionsscreen.place_forget()
-            self.newtestscreen01.place_forget()
-            self.newtestscreen02.place_forget()
-            self.newtestscreen03.place_forget()
-            self.newtestscreen04.place_forget()
-            self.newtestscreen05.place_forget()
-            self.newtestscreen06.place_forget()
-            self.testpreparations01.place_forget()
-        elif which == "1.0":
-            self.newtestscreen01.place(x=5, y=5)
-            self.startscreen.place_forget()
-            self.optionsscreen.place_forget()
-            self.newtestscreen02.place_forget()
-            self.newtestscreen03.place_forget()
-            self.newtestscreen04.place_forget()
-            self.newtestscreen05.place_forget()
-            self.newtestscreen06.place_forget()
-            self.testpreparations01.place_forget()
-        elif which == "1.1":
-            self.newtestscreen02.place(x=5, y=5)
-            self.newtestscreen01.place_forget()
-            self.startscreen.place_forget()
-            self.optionsscreen.place_forget()
-            self.newtestscreen03.place_forget()
-            self.newtestscreen04.place_forget()
-            self.newtestscreen05.place_forget()
-            self.newtestscreen06.place_forget()
-            self.testpreparations01.place_forget()
-        elif which == "1.2":
-            self.newtestscreen03.place(x=5, y=5)
-            self.newtestscreen02.place_forget()
-            self.newtestscreen01.place_forget()
-            self.startscreen.place_forget()
-            self.optionsscreen.place_forget()
-            self.newtestscreen04.place_forget()
-            self.newtestscreen05.place_forget()
-            self.newtestscreen06.place_forget()
-            self.testpreparations01.place_forget()
-        elif which == "1.3":
-            self.newtestscreen04.place(x=5, y=5)
-            self.newtestscreen03.place_forget()
-            self.newtestscreen02.place_forget()
-            self.newtestscreen01.place_forget()
-            self.startscreen.place_forget()
-            self.optionsscreen.place_forget()
-            self.newtestscreen05.place_forget()
-            self.newtestscreen06.place_forget()
-            self.testpreparations01.place_forget()
-        elif which == "1.4":
-            self.newtestscreen05.place(x=5, y=5)
-            self.newtestscreen04.place_forget()
-            self.newtestscreen03.place_forget()
-            self.newtestscreen02.place_forget()
-            self.newtestscreen01.place_forget()
-            self.startscreen.place_forget()
-            self.optionsscreen.place_forget()
-            self.newtestscreen06.place_forget()
-            self.testpreparations01.place_forget()
-        elif which == "1.5":
-            self.newtestscreen06.place(x=5, y=5)
-            self.newtestscreen05.place_forget()
-            self.newtestscreen04.place_forget()
-            self.newtestscreen03.place_forget()
-            self.newtestscreen02.place_forget()
-            self.newtestscreen01.place_forget()
-            self.startscreen.place_forget()
-            self.optionsscreen.place_forget()
-            self.testpreparations01.place_forget()
-        elif which == "2.0":
-            self.testpreparations01.place(x=5, y=5)
-            self.newtestscreen06.place_forget()
-            self.newtestscreen05.place_forget()
-            self.newtestscreen04.place_forget()
-            self.newtestscreen03.place_forget()
-            self.newtestscreen02.place_forget()
-            self.newtestscreen01.place_forget()
-            self.startscreen.place_forget()
-            self.optionsscreen.place_forget()
-        elif which == "3":
-            self.optionsscreen.place(x=5, y=5)
-            self.startscreen.place_forget()
-            self.newtestscreen01.place_forget()
-            self.newtestscreen02.place_forget()
-            self.newtestscreen03.place_forget()
-            self.newtestscreen04.place_forget()
-            self.newtestscreen05.place_forget()
-            self.newtestscreen06.place_forget()
-            self.testpreparations01.place_forget()
+        for window in self.windows.values():
+            window.place_forget()
+
+        if which in self.windows:
+            self.windows[which].place(x=5, y=5)
 
 
 if __name__ == "__main__":  # when the file this is in is called main then it is run

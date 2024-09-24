@@ -92,3 +92,10 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
                                         image=pruefstueck_image)  # Here goes a render of the test object (maybe a gif)
         self.image_label.place(x=20,
                                y=20)
+
+    def button_functions(self, which):
+        if which == "1.0":
+            self.master.switch_window((lambda: self.master.newtestscreen01), (startscreen))
+
+        elif which == "3":
+            self.master.switch_window((optionsscreen), (startscreen))

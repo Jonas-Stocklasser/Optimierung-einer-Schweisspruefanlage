@@ -17,11 +17,11 @@ from Package.NewTestScreen06 import NewTestScreen06
 from Package.TestPreparations01 import TestPreparations01
 
 # Shared variables----------------------------------------
-# import of the startup variables located in the sharedVar file
+# import of the GetStartupVariables class located in the sharedVar file
 from Package.SharedVar import GetStartupVariables
 
 
-class App(ctk.CTk):  # main window class, every other window class is called from here
+class App(ctk.CTk):  # main window class, every other window class is called from here and is a child of this
     def __init__(self, title):  # title is given as an attribute from the class call
 
         # main initialization----------------------------------------
@@ -62,13 +62,13 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
 
     def switch_window(self, which):  # method for switching windows with the attribute "which"
         for window in self.windows.values():
-            window.place_forget()
+            window.place_forget()   # forget every window that is in the dictionary
 
         if which in self.windows:
-            self.windows[which].place(x=5, y=5)
+            self.windows[which].place(x=5, y=5)  # place the window with the matching index to the attribute "which"
 
 
-if __name__ == "__main__":  # when the file this is in is called main then it is run
+if __name__ == "__main__":  # when the file this is in is called "main" then it is run
     GetStartupVariables()  # run GetStartupVariables from sharedVar
     App(GetStartupVariables.name_of_app)
     # calls the App class and passes the sharedVar name_of_app as the attribute "title"

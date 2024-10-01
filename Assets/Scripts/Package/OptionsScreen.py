@@ -19,43 +19,43 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
         self.place(x=5,  # placing the object at coordinates x5 - y5 relative to the top left corner of the parent
                    y=5)
 
-        # top bar------------------------------------------------------------
-        self.optionsscreen_indicator_bar = ctk.CTkLabel(master=self,  # top bar that indicates the screen where you are
-                                                        fg_color=GetStartupVariables.color_SET_blue,
-                                                        width=GetStartupVariables.window_geometry[0] - 70,
-                                                        height=40,
-                                                        corner_radius=10,
-                                                        text="Optionen",
-                                                        text_color=GetStartupVariables.text_color_SET,
-                                                        font=("bold", 20),
-                                                        anchor="w")
-        self.optionsscreen_indicator_bar.place(x=0,
-                                               y=0)
+        # indicator bar------------------------------------------------------------
+        self.indicator_bar = ctk.CTkLabel(master=self,  # top bar that indicates the screen where you are
+                                          fg_color=GetStartupVariables.color_SET_blue,
+                                          width=GetStartupVariables.window_geometry[0] - 70,
+                                          height=40,
+                                          corner_radius=10,
+                                          text="Optionen",
+                                          text_color=GetStartupVariables.text_color_SET,
+                                          font=("bold", 20),
+                                          anchor="w")
+        self.indicator_bar.place(x=0,
+                                 y=0)
 
         # button frame------------------------------------------------------------
-        self.optionsscreen_button_frame = ctk.CTkFrame(master=self,  # frame for the buttons and the menu
-                                                       width=460,
-                                                       height=130,
-                                                        corner_radius=20)
-        self.optionsscreen_button_frame.place(x=30,
-                                              y=75)
+        self.button_frame = ctk.CTkFrame(master=self,  # frame for the buttons and the menu
+                                         width=460,
+                                         height=130,
+                                         corner_radius=20)
+        self.button_frame.place(x=30,
+                                y=75)
 
         # back button------------------------------------------------------------
-        self.optionsscreen_back_button = ctk.CTkButton(master=self,  # back button
-                                                       width=40,
-                                                       height=40,
-                                                       corner_radius=10,
-                                                       text="",
-                                                       anchor="ne",
-                                                       image=back_arrow_image,
-                                                       command=lambda: self.master.switch_window("0"))
+        self.back_button = ctk.CTkButton(master=self,  # back button
+                                         width=40,
+                                         height=40,
+                                         corner_radius=10,
+                                         text="",
+                                         anchor="ne",
+                                         image=back_arrow_image,
+                                         command=lambda: self.master.switch_window("0"))
         # the command doesn't call the switch_window method because there is no unsaved content to loose
-        self.optionsscreen_back_button.place(x=GetStartupVariables.window_geometry[0] - 65,
-                                             y=0)
+        self.back_button.place(x=GetStartupVariables.window_geometry[0] - 65,
+                               y=0)
 
         # light mode / dark mode ------------------------------------------------------------
         # option menu
-        self.options_light_dark_menu = ctk.CTkOptionMenu(master=self.optionsscreen_button_frame,
+        self.options_light_dark_menu = ctk.CTkOptionMenu(master=self.button_frame,
                                                          # menu for light / dark
                                                          width=100,
                                                          height=40,
@@ -68,7 +68,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
         self.options_light_dark_menu.place(x=220,
                                            y=20)
         # label
-        self.options_light_dark_label = ctk.CTkLabel(master=self.optionsscreen_button_frame,
+        self.options_light_dark_label = ctk.CTkLabel(master=self.button_frame,
                                                      # label to describe the menu above
                                                      fg_color=GetStartupVariables.color_SET_blue,
                                                      width=180,
@@ -82,7 +82,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
 
         # Window size ------------------------------------------------------------
         # option menu
-        self.options_window_size_menu = ctk.CTkOptionMenu(master=self.optionsscreen_button_frame,
+        self.options_window_size_menu = ctk.CTkOptionMenu(master=self.button_frame,
                                                           width=100,
                                                           height=40,
                                                           font=("bold", 20),
@@ -94,7 +94,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
         self.options_window_size_menu.place(x=220,
                                             y=70)
         # label
-        self.options_window_size_label = ctk.CTkLabel(master=self.optionsscreen_button_frame,
+        self.options_window_size_label = ctk.CTkLabel(master=self.button_frame,
                                                       # label to describe the menu above
                                                       fg_color=GetStartupVariables.color_SET_blue,
                                                       width=180,
@@ -112,18 +112,18 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
     def appearance_mode_switch(mode):  # method for switching the appearance mode to dark/light mode
         ctk.set_appearance_mode(mode)  # the attribute "mode" is given by the menu widget in the OptionsScreen class
         if mode == "light":
-            json_writer("startup_var", "appearance_mode", ["light", "dark"], "../Other/")
+            json_writer("startup_var", "appearance_mode", ["light", "dark"], "../JSON/")
 
         elif mode == "dark":
-            json_writer("startup_var", "appearance_mode", ["dark", "light"], "../Other/")
+            json_writer("startup_var", "appearance_mode", ["dark", "light"], "../JSON/")
 
     @staticmethod
     def window_size_switch(size):
         print("Neustart für Änderung erforderlich")
         if size == "HD - 1280x720":
-            json_writer("startup_var", "window_geometry", [1280, 720], "../Other/")
-            json_writer("startup_var", "window_size", ["HD - 1280x720", "FullHD - 1920x1080"], "../Other/")
+            json_writer("startup_var", "window_geometry", [1280, 720], "../JSON/")
+            json_writer("startup_var", "window_size", ["HD - 1280x720", "FullHD - 1920x1080"], "../JSON/")
 
         elif size == "FullHD - 1920x1080":
-            json_writer("startup_var", "window_geometry", [1920, 1080], "../Other/")
-            json_writer("startup_var", "window_size", ["FullHD - 1920x1080", "HD - 1280x720"], "../Other/")
+            json_writer("startup_var", "window_geometry", [1920, 1080], "../JSON/")
+            json_writer("startup_var", "window_size", ["FullHD - 1920x1080", "HD - 1280x720"], "../JSON/")

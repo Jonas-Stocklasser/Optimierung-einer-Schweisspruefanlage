@@ -13,7 +13,7 @@ from .SharedVar import GetStartupVariables, back_arrow_image
 from .JsonFunctions import json_writer, json_reader, json_creator
 
 
-class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen window
+class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
     def __init__(self, parent):  # the parent is App()
         super().__init__(parent,  # parameters of the CTkFrame object
                          width=(GetStartupVariables.window_geometry[0] - 10),
@@ -25,7 +25,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen window
         self.place(x=5,  # placing the object at coordinates x5 - y5 relative to the top left corner of the parent
                    y=5)
 
-        # top bar------------------------------------------------------------
+        # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
@@ -40,7 +40,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen window
         self.indicator_bar.place(x=0,
                                  y=0)
 
-        # button frame------------------------------------------------------------
+        # entry frame------------------------------------------------------------
         self.entry_frame = ctk.CTkFrame(master=self,  # frame for the entries
                                         width=340,
                                         height=360,
@@ -121,9 +121,10 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen window
                                               date_pattern='dd.mm.yyyy',
                                               year=2000,
                                               month=1,
-                                              day=1)
+                                              day=1,
+                                              state="readonly")
         self.birth_date_entry.place(x=15,
-                                    y=300)
+                                    y=375)
         # save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
@@ -155,29 +156,29 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen window
         self.continue_button.place(x=140,
                                    y=10)
 
-    def continue_button_function(self):
+    def continue_button_function(self):  # method for the button actions
         self.master.switch_window("1.2")
         self.create_examinee_folder_and_json()
 
-    def save_entry_data_examinee(self):
+    def save_entry_data_examinee(self):  # method to save the entry data
         personal_infos_examinee = [self.first_name_entry.get(),
                                    self.last_name_entry.get(),
                                    self.birth_date_entry.get()]
-        if len(personal_infos_examinee[0].strip()) + len(personal_infos_examinee[1].strip()) + len(
-                personal_infos_examinee[2].strip()) >= 14:
-            self.continue_button.configure(state="normal")
-            json_writer("personal_var", "personal_infos_examinee", personal_infos_examinee, "../Other/")
+        if len(personal_infos_examinee[0].strip()) + len(
+                personal_infos_examinee[1].strip()) >= 4:  # integrity evaluation
+            self.continue_button.configure(state="normal")  # unlock the continue button
+            json_writer("personal_var", "personal_infos_examinee", personal_infos_examinee, "../JSON/")
         else:
-            self.continue_button.configure(state="disabled")
-            print("Date-Format wrong or the sum of first name plus surname not at least 4 digits")
+            self.continue_button.configure(state="disabled")  # lock the continue button
+            print("Sum of first name plus surname not at least 4 digits")
 
     @staticmethod
-    def create_examinee_folder_and_json():
-        personal_infos_examinee = json_reader("personal_var", "personal_infos_examinee", "../Other/")
+    def create_examinee_folder_and_json():  # create a new folder for all the created files for the examinee
+        personal_infos_examinee = json_reader("personal_var", "personal_infos_examinee", "../JSON/")
         exam_date = f"{datetime.now().day}.{datetime.now().month}.{datetime.now().year}"
         error_append = ""
         error_num = 0
-        save_path = json_reader("startup_var", "save_path", "../Other/")
+        save_path = json_reader("startup_var", "save_path", "../JSON/")
         new_folder = f"{save_path}/{personal_infos_examinee[1]}_{personal_infos_examinee[0]}" + error_append
         while True:
             try:
@@ -191,9 +192,9 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen window
         json_creator(f"{personal_infos_examinee[1]}_{personal_infos_examinee[0]}", f"{new_folder}/",
                      "personal_infos_examinee", personal_infos_examinee)
         json_writer("personal_var", "personal_folder_path",
-                    f"{new_folder}/", "../Other/")
+                    f"{new_folder}/", "../JSON/")
         json_writer("personal_var", "personal_json_name",
-                    f"{personal_infos_examinee[1]}_{personal_infos_examinee[0]}", "../Other/")
-        personal_folder_path = json_reader("personal_var", "personal_folder_path", "../Other/")
-        personal_json_name = json_reader("personal_var", "personal_json_name", "../Other/")
+                    f"{personal_infos_examinee[1]}_{personal_infos_examinee[0]}", "../JSON/")
+        personal_folder_path = json_reader("personal_var", "personal_folder_path", "../JSON/")
+        personal_json_name = json_reader("personal_var", "personal_json_name", "../JSON/")
         json_writer(personal_json_name, "exam_date", exam_date, personal_folder_path)

@@ -12,7 +12,7 @@ from .JsonFunctions import json_reader, json_writer
 from .SharedVar import GetStartupVariables, GetPersonalVariables, back_arrow_image
 
 
-class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen window
+class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
     def __init__(self, parent):  # the parent is App()
         super().__init__(parent,  # parameters of the CTkFrame object
                          width=(GetStartupVariables.window_geometry[0] - 10),
@@ -24,7 +24,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen window
         self.place(x=5,  # placing the object at coordinates x5 - y5 relative to the top left corner of the parent
                    y=5)
 
-        # top bar------------------------------------------------------------
+        # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
@@ -38,7 +38,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen window
                                           anchor="w")
         self.indicator_bar.place(x=0,
                                  y=0)
-        # options menu examiner------------------------------------------------------------
+        # option menu examiner------------------------------------------------------------
         self.examiner_option_menu_frame = ctk.CTkFrame(master=self,  # frame for the entries
                                                        width=340,
                                                        height=70,
@@ -185,9 +185,10 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen window
                                               date_pattern='dd.mm.yyyy',
                                               year=1976,
                                               month=2,
-                                              day=1)
+                                              day=1,
+                                              state="readonly")
         self.birth_date_entry.place(x=15,
-                                    y=300)
+                                    y=375)
 
         self.birth_date_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame,
                                                                            width=250,
@@ -206,7 +207,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen window
         self.birth_date_entry_unchanged_overlay_label.place(x=10,
                                                             y=0)
 
-        # save and continue button------------------------------------------------------------
+        # change, save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
                                          width=380,
@@ -253,7 +254,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen window
         self.master.switch_window("1.3")
         self.write_personal_json()
 
-    def change_entry_data_examiner(self):
+    def change_entry_data_examiner(self):  # make the entrys typable
         self.first_name_entry_unchanged_overlay_label.place_forget()
         self.first_name_entry_unchanged_overlay_label_frame.place_forget()
         self.last_name_entry_unchanged_overlay_label.place_forget()
@@ -272,14 +273,13 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen window
         personal_infos_examiner = [self.first_name_entry.get(),
                                    self.last_name_entry.get(),
                                    self.birth_date_entry.get()]
-        last_chosen_examiner = json_reader("personal_var", "last_chosen_examiner", "../Other/")
+        last_chosen_examiner = json_reader("personal_var", "last_chosen_examiner", "../JSON/")
 
         if (len(personal_infos_examiner[0].strip()) +
-                len(personal_infos_examiner[1].strip()) +
-                len(personal_infos_examiner[2].strip()) >= 14):
+                len(personal_infos_examiner[1].strip()) >= 4):
             self.continue_button.configure(state="normal")
             json_writer("personal_var", ("personal_infos_examiner_" + last_chosen_examiner),
-                        personal_infos_examiner, "../Other/")
+                        personal_infos_examiner, "../JSON/")
 
             self.first_name_entry_unchanged_overlay_label_frame.place(x=10, y=60)
             self.first_name_entry_unchanged_overlay_label.place(x=10, y=0)
@@ -297,7 +297,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen window
             self.continue_button.configure(state="normal")
         else:
             self.continue_button.configure(state="disabled")
-            print("Date-Format wrong or the sum of first name plus surname not at least 4 digits")
+            print("Sum of first name plus surname not at least 4 digits")
 
     def update_labels(self, infos):
         self.first_name_entry_unchanged_overlay_label.configure(text=infos[0])
@@ -305,15 +305,15 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen window
         self.birth_date_entry_unchanged_overlay_label.configure(text=infos[2])
 
     def examiner_select(self, which):
-        json_writer("personal_var", "last_chosen_examiner", which, "../Other/")
-        personal_infos_examiner = json_reader("personal_var", f"personal_infos_examiner_{which}", "../Other/")
+        json_writer("personal_var", "last_chosen_examiner", which, "../JSON/")
+        personal_infos_examiner = json_reader("personal_var", f"personal_infos_examiner_{which}", "../JSON/")
         self.update_labels(personal_infos_examiner)
 
     @staticmethod
     def write_personal_json():
-        last_chosen_examiner = json_reader("personal_var", "last_chosen_examiner", "../Other/")
+        last_chosen_examiner = json_reader("personal_var", "last_chosen_examiner", "../JSON/")
         personal_infos_examiner = json_reader("personal_var", f"personal_infos_examiner_{last_chosen_examiner}",
-                                              "../Other/")
-        personal_folder_path = json_reader("personal_var", "personal_folder_path", "../Other/")
-        personal_json_name = json_reader("personal_var", "personal_json_name", "../Other/")
+                                              "../JSON/")
+        personal_folder_path = json_reader("personal_var", "personal_folder_path", "../JSON/")
+        personal_json_name = json_reader("personal_var", "personal_json_name", "../JSON/")
         json_writer(personal_json_name, "personal_infos_examiner", personal_infos_examiner, personal_folder_path)

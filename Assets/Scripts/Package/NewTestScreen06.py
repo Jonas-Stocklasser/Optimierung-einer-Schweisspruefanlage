@@ -11,7 +11,7 @@ from .JsonFunctions import json_reader, json_writer
 from .SharedVar import GetStartupVariables, GetExamParameterVariables, back_arrow_image
 
 
-class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen window
+class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
     def __init__(self, parent):  # the parent is App()
         super().__init__(parent,  # parameters of the CTkFrame object
                          width=(GetStartupVariables.window_geometry[0] - 10),
@@ -23,7 +23,7 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen window
         self.place(x=5,  # placing the object at coordinates x5 - y5 relative to the top left corner of the parent
                    y=5)
 
-        # top bar------------------------------------------------------------
+        # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
@@ -169,7 +169,7 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen window
         self.duration_entry_unchanged_overlay_label.place(x=10,
                                                           y=0)
 
-        # save and continue button------------------------------------------------------------
+        # change, save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
                                          width=380,
@@ -232,13 +232,13 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen window
     def save_entry_data_exam_parameter(self):
         parameter_list = [self.pressure_entry.get(),
                           self.duration_entry.get()]
-        last_chosen_parameter_list = json_reader("exam_parameter_var", "last_chosen_parameter_list", "../Other/")
+        last_chosen_parameter_list = json_reader("exam_parameter_var", "last_chosen_parameter_list", "../JSON/")
 
         if (len(parameter_list[0].strip()) +
                 len(parameter_list[1].strip()) >= 3):
             self.continue_button.configure(state="normal")
             json_writer("exam_parameter_var", ("parameter_list_" + last_chosen_parameter_list),
-                        parameter_list, "../Other/")
+                        parameter_list, "../JSON/")
 
             self.pressure_entry_unchanged_overlay_label_frame.place(x=10, y=60)
             self.pressure_entry_unchanged_overlay_label.place(x=10, y=0)
@@ -261,15 +261,15 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen window
         self.duration_entry_unchanged_overlay_label.configure(text=f"{infos[1]} min")
 
     def parameter_list_select(self, which):
-        json_writer("exam_parameter_var", "last_chosen_parameter_list", which, "../Other/")
-        parameter_list = json_reader("exam_parameter_var", f"parameter_list_{which}", "../Other/")
+        json_writer("exam_parameter_var", "last_chosen_parameter_list", which, "../JSON/")
+        parameter_list = json_reader("exam_parameter_var", f"parameter_list_{which}", "../JSON/")
         self.update_labels(parameter_list)
 
     @staticmethod
     def write_personal_json():
-        last_chosen_parameter_list = json_reader("exam_parameter_var", "last_chosen_parameter_list", "../Other/")
+        last_chosen_parameter_list = json_reader("exam_parameter_var", "last_chosen_parameter_list", "../JSON/")
         parameter_list = json_reader("exam_parameter_var", f"parameter_list_{last_chosen_parameter_list}",
-                                     "../Other/")
-        personal_folder_path = json_reader("personal_var", "personal_folder_path", "../Other/")
-        personal_json_name = json_reader("personal_var", "personal_json_name", "../Other/")
+                                     "../JSON/")
+        personal_folder_path = json_reader("personal_var", "personal_folder_path", "../JSON/")
+        personal_json_name = json_reader("personal_var", "personal_json_name", "../JSON/")
         json_writer(personal_json_name, "exam_parameter", parameter_list, personal_folder_path)

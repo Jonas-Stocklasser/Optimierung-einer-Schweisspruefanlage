@@ -11,7 +11,7 @@ from tkinter import filedialog
 from .JsonFunctions import json_writer
 
 
-class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen window
+class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
     def __init__(self, parent):  # the parent is App()
         super().__init__(parent,  # parameters of the CTkFrame object
                          width=(GetStartupVariables.window_geometry[0] - 10),
@@ -23,7 +23,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen window
         self.place(x=5,  # placing the object at coordinates x5 - y5 relative to the top left corner of the parent
                    y=5)
 
-        # top bar------------------------------------------------------------
+        # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
@@ -38,7 +38,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen window
         self.indicator_bar.place(x=0,
                                  y=0)
 
-        # button frame------------------------------------------------------------
+        # frame------------------------------------------------------------
         self.frame = ctk.CTkFrame(master=self,  # frame for the widgets
                                   width=1110,
                                   height=60,
@@ -109,8 +109,8 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen window
         self.continue_button.place(x=1000,
                                    y=10)
 
-    def change_path(self):
+    def change_path(self):  # method to change the save-path
         GetStartupVariables.save_path = filedialog.askdirectory()
         self.path_display_label.configure(text=GetStartupVariables.save_path)
 
-        json_writer("startup_var", "save_path", GetStartupVariables.save_path, "../Other/")
+        json_writer("startup_var", "save_path", GetStartupVariables.save_path, "../JSON/")

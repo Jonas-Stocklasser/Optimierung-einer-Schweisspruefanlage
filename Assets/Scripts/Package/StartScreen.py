@@ -7,7 +7,8 @@
 import customtkinter as ctk
 import sys
 # Shared variables----------------------------------------
-from .SharedVar import GetStartupVariables, pruefstueck_image  # import of shared variables located in the sharedVar file
+from .SharedVar import GetStartupVariables, \
+    pruefstueck_image  # import of shared variables located in the sharedVar file
 
 
 class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
@@ -19,83 +20,76 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
         self.place(x=5,  # placing the object at coordinates x5 - y5 relative to the top left corner of the parent
                    y=5)
 
-        # top bar------------------------------------------------------------
-        self.startscreen_indicator_bar = ctk.CTkLabel(master=self,  # top bar that indicates the screen where you are
-                                                      fg_color=GetStartupVariables.color_SET_blue,
-                                                      width=GetStartupVariables.window_geometry[0] - 10,
-                                                      height=40,
-                                                      corner_radius=10,
-                                                      text="Start",
-                                                      text_color=GetStartupVariables.text_color_SET,
-                                                      font=("bold", 20),
-                                                      anchor="w")
-        self.startscreen_indicator_bar.place(x=0,
-                                             y=0)
+        # indicator bar------------------------------------------------------------
+        self.indicator_bar = ctk.CTkLabel(master=self,  # top bar that indicates the screen where you are
+                                          fg_color=GetStartupVariables.color_SET_blue,
+                                          width=GetStartupVariables.window_geometry[0] - 10,
+                                          height=40,
+                                          corner_radius=10,
+                                          text="Start",
+                                          text_color=GetStartupVariables.text_color_SET,
+                                          font=("bold", 20),
+                                          anchor="w")
+        self.indicator_bar.place(x=0,
+                                 y=0)
 
         # button frame------------------------------------------------------------
-        self.startscreen_button_frame = ctk.CTkFrame(master=self,  # a frame for the buttons
-                                                     width=340,
-                                                     height=320,
-                                                     corner_radius=30)
-        self.startscreen_button_frame.place(x=30,
-                                            y=75)
+        self.button_frame = ctk.CTkFrame(master=self,  # a frame for the buttons
+                                         width=340,
+                                         height=320,
+                                         corner_radius=30)
+        self.button_frame.place(x=30,
+                                y=75)
 
         # new test button------------------------------------------------------------
-        self.startscreen_new_test_button = ctk.CTkButton(master=self.startscreen_button_frame,
-                                                         # button to start a new test
-                                                         width=300,
-                                                         height=80,
-                                                         corner_radius=10,
-                                                         text="Neuer Test",
-                                                         font=("bold", 40),
-                                                         command=lambda: self.master.switch_window("1.0"))
+        self.new_test_button = ctk.CTkButton(master=self.button_frame,
+                                             # button to start a new test
+                                             width=300,
+                                             height=80,
+                                             corner_radius=10,
+                                             text="Neuer Test",
+                                             font=("bold", 40),
+                                             command=lambda: self.master.switch_window("1.0"))
         # the command calls the App lasses switch_window function and passes "1" as the "which" attribute
-        self.startscreen_new_test_button.place(x=20,
-                                               y=20)
+        self.new_test_button.place(x=20,
+                                   y=20)
 
         # options button------------------------------------------------------------
-        self.startscreen_options_button = ctk.CTkButton(master=self.startscreen_button_frame,
-                                                        # button to open the OptionsScreen
-                                                        width=300,
-                                                        height=80,
-                                                        corner_radius=10,
-                                                        text="Optionen",
-                                                        font=("bold", 40),
-                                                        command=lambda: self.master.switch_window("3"))
+        self.options_button = ctk.CTkButton(master=self.button_frame,
+                                            # button to open the OptionsScreen
+                                            width=300,
+                                            height=80,
+                                            corner_radius=10,
+                                            text="Optionen",
+                                            font=("bold", 40),
+                                            command=lambda: self.master.switch_window("3"))
         # the command calls the App lasses switch_window function and passes "3" as the "which" attribute
-        self.startscreen_options_button.place(x=20,
-                                              y=120)
+        self.options_button.place(x=20,
+                                  y=120)
 
         # quit button------------------------------------------------------------
-        self.startscreen_quit_button = ctk.CTkButton(master=self.startscreen_button_frame,
-                                                     # button to open the OptionsScreen
-                                                     width=300,
-                                                     height=80,
-                                                     corner_radius=10,
-                                                     text="Desktop",
-                                                     font=("bold", 40),
-                                                     command=lambda: sys.exit(0))
+        self.quit_button = ctk.CTkButton(master=self.button_frame,
+                                         # button to open the OptionsScreen
+                                         width=300,
+                                         height=80,
+                                         corner_radius=10,
+                                         text="Desktop",
+                                         font=("bold", 40),
+                                         command=lambda: sys.exit(0))
         # the command calls the App lasses switch_window function and passes "3" as the "which" attribute
-        self.startscreen_quit_button.place(x=20,
-                                           y=220)
+        self.quit_button.place(x=20,
+                               y=220)
 
         # image frame------------------------------------------------------------
-        self.startscreen_image_frame = ctk.CTkFrame(master=self,  # Frame for the StartScreen image
-                                                    width=616,
-                                                    height=364)
-        self.startscreen_image_frame.place(x=630,
-                                           y=75)
+        self.image_frame = ctk.CTkFrame(master=self,  # Frame for the StartScreen image
+                                        width=616,
+                                        height=364)
+        self.image_frame.place(x=630,
+                               y=75)
 
         # image label----------------------------------------
-        self.image_label = ctk.CTkLabel(master=self.startscreen_image_frame,  # StartScreen image
+        self.image_label = ctk.CTkLabel(master=self.image_frame,  # StartScreen image
                                         text="",
                                         image=pruefstueck_image)  # Here goes a render of the test object (maybe a gif)
         self.image_label.place(x=20,
                                y=20)
-
-    def button_functions(self, which):
-        if which == "1.0":
-            self.master.switch_window((lambda: self.master.newtestscreen01), (startscreen))
-
-        elif which == "3":
-            self.master.switch_window((optionsscreen), (startscreen))

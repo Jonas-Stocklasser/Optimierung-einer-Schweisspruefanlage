@@ -11,7 +11,7 @@ from .SharedVar import GetStartupVariables, GetItemVariables, back_arrow_image
 from .JsonFunctions import json_writer, json_reader
 
 
-class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen window
+class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
     def __init__(self, parent):  # the parent is App()
         super().__init__(parent,  # parameters of the CTkFrame object
                          width=(GetStartupVariables.window_geometry[0] - 10),
@@ -23,7 +23,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen window
         self.place(x=5,  # placing the object at coordinates x5 - y5 relative to the top left corner of the parent
                    y=5)
 
-        # top bar------------------------------------------------------------
+        # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
@@ -37,7 +37,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen window
                                           anchor="w")
         self.indicator_bar.place(x=0,
                                  y=0)
-        # options menu examiner------------------------------------------------------------
+        # options menu item------------------------------------------------------------
         self.item_option_menu_frame = ctk.CTkFrame(master=self,  # frame for the entries
                                                    width=340,
                                                    height=70,
@@ -286,7 +286,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen window
         self.info4_entry_unchanged_overlay_label.place(x=10,
                                                        y=0)
 
-        # save and continue button------------------------------------------------------------
+        # change, save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
                                          width=380,
@@ -368,8 +368,8 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen window
                 len(infos_item[3].strip()) +
                 len(infos_item[4].strip()) >= 10):
             self.continue_button.configure(state="normal")
-            last_chosen_item = json_reader("personal_var", "last_chosen_item", "../Other/")
-            json_writer("item_var", ("infos_item_" + last_chosen_item), infos_item, "../Other/")
+            last_chosen_item = json_reader("personal_var", "last_chosen_item", "../JSON/")
+            json_writer("item_var", ("infos_item_" + last_chosen_item), infos_item, "../JSON/")
 
             self.title_entry_unchanged_overlay_label_frame.place(x=10, y=60)
             self.title_entry_unchanged_overlay_label.place(x=10, y=0)
@@ -404,15 +404,15 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen window
         self.info4_entry_unchanged_overlay_label.configure(text=infos[4])
 
     def item_select(self, which):
-        json_writer("item_var", "last_chosen_item", which, "../Other/")
-        last_chosen_item = json_reader("item_var", "last_chosen_item", "../Other/")
-        infos = json_reader("item_var", f"infos_item_{last_chosen_item}", "../Other/")
+        json_writer("item_var", "last_chosen_item", which, "../JSON/")
+        last_chosen_item = json_reader("item_var", "last_chosen_item", "../JSON/")
+        infos = json_reader("item_var", f"infos_item_{last_chosen_item}", "../JSON/")
         self.update_labels(infos)
 
     @staticmethod
     def write_personal_json():
-        last_chosen_item = json_reader("item_var", "last_chosen_item", "../Other/")
-        infos_item = json_reader("item_var", f"infos_item_{last_chosen_item}", "../Other/")
-        personal_folder_path = json_reader("personal_var", "personal_folder_path", "../Other/")
-        personal_json_name = json_reader("personal_var", "personal_json_name", "../Other/")
+        last_chosen_item = json_reader("item_var", "last_chosen_item", "../JSON/")
+        infos_item = json_reader("item_var", f"infos_item_{last_chosen_item}", "../JSON/")
+        personal_folder_path = json_reader("personal_var", "personal_folder_path", "../JSON/")
+        personal_json_name = json_reader("personal_var", "personal_json_name", "../JSON/")
         json_writer(personal_json_name, "infos_item", infos_item, personal_folder_path)

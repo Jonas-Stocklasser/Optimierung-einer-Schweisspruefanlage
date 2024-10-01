@@ -10,7 +10,7 @@ from .SharedVar import GetStartupVariables, back_arrow_image
 from .JsonFunctions import json_writer, json_reader
 
 
-class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen window
+class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
     def __init__(self, parent):  # the parent is App()
         super().__init__(parent,  # parameters of the CTkFrame object
                          width=(GetStartupVariables.window_geometry[0] - 10),
@@ -22,7 +22,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen window
         self.place(x=5,  # placing the object at coordinates x5 - y5 relative to the top left corner of the parent
                    y=5)
 
-        # top bar------------------------------------------------------------
+        # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
@@ -103,9 +103,12 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen window
                                    y=10)
 
     def save_textbox_data(self):
-        self.continue_button.configure(state="normal")
-        self.save_button.configure(state="disabled")
         visual_grade = self.textbox.get("1.0", "end")
-        personal_folder_path = json_reader("personal_var", "personal_folder_path", "../Other/")
-        personal_json_name = json_reader("personal_var", "personal_json_name", "../Other/")
-        json_writer(personal_json_name, "visual_grade", visual_grade, personal_folder_path)
+
+        if visual_grade != "\n":
+            self.continue_button.configure(state="normal")
+            personal_folder_path = json_reader("personal_var", "personal_folder_path", "../JSON/")
+            personal_json_name = json_reader("personal_var", "personal_json_name", "../JSON/")
+            json_writer(personal_json_name, "visual_grade", visual_grade, personal_folder_path)
+        else:
+            print("Type something! An empty field is not permitted!")

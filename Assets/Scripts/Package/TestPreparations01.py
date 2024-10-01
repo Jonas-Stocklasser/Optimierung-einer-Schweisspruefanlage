@@ -124,9 +124,9 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations window
 
     @staticmethod
     def write_personal_json():
-        last_chosen_parameter_list = json_reader("exam_parameter_var", "last_chosen_parameter_list", "../Other/")
+        last_chosen_parameter_list = json_reader("exam_parameter_var", "last_chosen_parameter_list", "../JSON/")
         parameter_list = json_reader("exam_parameter_var", f"parameter_list_{last_chosen_parameter_list}",
-                                     "../Other/")
-        personal_folder_path = json_reader("personal_var", "personal_folder_path", "../Other/")
-        personal_json_name = json_reader("personal_var", "personal_json_name", "../Other/")
+                                     "../JSON/")
+        personal_folder_path = json_reader("personal_var", "personal_folder_path", "../JSON/")
+        personal_json_name = json_reader("personal_var", "personal_json_name", "../JSON/")
         json_writer(personal_json_name, "exam_parameter", parameter_list, personal_folder_path)

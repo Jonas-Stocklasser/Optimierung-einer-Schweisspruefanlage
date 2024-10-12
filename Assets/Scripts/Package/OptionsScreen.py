@@ -6,7 +6,7 @@
 
 import customtkinter as ctk
 # Shared variables----------------------------------------
-from .SharedVar import GetStartupVariables, back_arrow_image
+from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location
 from .JsonFunctions import json_writer
 
 
@@ -112,18 +112,20 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
     def appearance_mode_switch(mode):  # method for switching the appearance mode to dark/light mode
         ctk.set_appearance_mode(mode)  # the attribute "mode" is given by the menu widget in the OptionsScreen class
         if mode == "light":
-            json_writer("startup_var", "appearance_mode", ["light", "dark"], "../JSON/")
+            json_writer("startup_var", "appearance_mode", ["light", "dark"], main_pi_location + "../JSON/")
 
         elif mode == "dark":
-            json_writer("startup_var", "appearance_mode", ["dark", "light"], "../JSON/")
+            json_writer("startup_var", "appearance_mode", ["dark", "light"], main_pi_location + "../JSON/")
 
     @staticmethod
     def window_size_switch(size):
         print("Neustart für Änderung erforderlich")
         if size == "HD - 1280x720":
-            json_writer("startup_var", "window_geometry", [1280, 720], "../JSON/")
-            json_writer("startup_var", "window_size", ["HD - 1280x720", "FullHD - 1920x1080"], "../JSON/")
+            json_writer("startup_var", "window_geometry", [1280, 720], main_pi_location + "../JSON/")
+            json_writer("startup_var", "window_size", ["HD - 1280x720", "FullHD - 1920x1080"],
+                        main_pi_location + "../JSON/")
 
         elif size == "FullHD - 1920x1080":
-            json_writer("startup_var", "window_geometry", [1920, 1080], "../JSON/")
-            json_writer("startup_var", "window_size", ["FullHD - 1920x1080", "HD - 1280x720"], "../JSON/")
+            json_writer("startup_var", "window_geometry", [1920, 1080], main_pi_location + "../JSON/")
+            json_writer("startup_var", "window_size", ["FullHD - 1920x1080", "HD - 1280x720"],
+                        main_pi_location + "../JSON/")

@@ -6,7 +6,7 @@
 
 import customtkinter as ctk
 # Shared variables----------------------------------------
-from .SharedVar import GetStartupVariables, back_arrow_image
+from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location
 from .JsonFunctions import json_writer, json_reader
 
 
@@ -107,8 +107,8 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
 
         if visual_grade != "\n":
             self.continue_button.configure(state="normal")
-            personal_folder_path = json_reader("personal_var", "personal_folder_path", "../JSON/")
-            personal_json_name = json_reader("personal_var", "personal_json_name", "../JSON/")
+            personal_folder_path = json_reader("personal_var", "personal_folder_path", main_pi_location + "../JSON/")
+            personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
             json_writer(personal_json_name, "visual_grade", visual_grade, personal_folder_path)
         else:
             print("Type something! An empty field is not permitted!")

@@ -8,7 +8,7 @@ import customtkinter as ctk
 import tkinter as tk
 from .JsonFunctions import json_reader, json_writer
 # Shared variables----------------------------------------
-from .SharedVar import GetStartupVariables, GetExamParameterVariables, back_arrow_image
+from .SharedVar import GetStartupVariables, GetExamParameterVariables, back_arrow_image, main_pi_location
 
 
 class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
@@ -232,13 +232,14 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
     def save_entry_data_exam_parameter(self):
         parameter_list = [self.pressure_entry.get(),
                           self.duration_entry.get()]
-        last_chosen_parameter_list = json_reader("exam_parameter_var", "last_chosen_parameter_list", "../JSON/")
+        last_chosen_parameter_list = json_reader("exam_parameter_var", "last_chosen_parameter_list",
+                                                 main_pi_location + "../JSON/")
 
         if (len(parameter_list[0].strip()) +
                 len(parameter_list[1].strip()) >= 3):
             self.continue_button.configure(state="normal")
             json_writer("exam_parameter_var", ("parameter_list_" + last_chosen_parameter_list),
-                        parameter_list, "../JSON/")
+                        parameter_list, main_pi_location + "../JSON/")
 
             self.pressure_entry_unchanged_overlay_label_frame.place(x=10, y=60)
             self.pressure_entry_unchanged_overlay_label.place(x=10, y=0)
@@ -261,15 +262,16 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
         self.duration_entry_unchanged_overlay_label.configure(text=f"{infos[1]} min")
 
     def parameter_list_select(self, which):
-        json_writer("exam_parameter_var", "last_chosen_parameter_list", which, "../JSON/")
-        parameter_list = json_reader("exam_parameter_var", f"parameter_list_{which}", "../JSON/")
+        json_writer("exam_parameter_var", "last_chosen_parameter_list", which, main_pi_location + "../JSON/")
+        parameter_list = json_reader("exam_parameter_var", f"parameter_list_{which}", main_pi_location + "../JSON/")
         self.update_labels(parameter_list)
 
     @staticmethod
     def write_personal_json():
-        last_chosen_parameter_list = json_reader("exam_parameter_var", "last_chosen_parameter_list", "../JSON/")
+        last_chosen_parameter_list = json_reader("exam_parameter_var", "last_chosen_parameter_list",
+                                                 main_pi_location + "../JSON/")
         parameter_list = json_reader("exam_parameter_var", f"parameter_list_{last_chosen_parameter_list}",
-                                     "../JSON/")
-        personal_folder_path = json_reader("personal_var", "personal_folder_path", "../JSON/")
-        personal_json_name = json_reader("personal_var", "personal_json_name", "../JSON/")
+                                     main_pi_location + "../JSON/")
+        personal_folder_path = json_reader("personal_var", "personal_folder_path", main_pi_location + "../JSON/")
+        personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
         json_writer(personal_json_name, "exam_parameter", parameter_list, personal_folder_path)

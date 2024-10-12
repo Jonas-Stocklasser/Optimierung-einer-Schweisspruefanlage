@@ -9,7 +9,7 @@ import tkinter as tk
 import tkcalendar as tkc
 from .JsonFunctions import json_reader, json_writer
 # Shared variables----------------------------------------
-from .SharedVar import GetStartupVariables, GetPersonalVariables, back_arrow_image
+from .SharedVar import GetStartupVariables, GetPersonalVariables, back_arrow_image, main_pi_location
 
 
 class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
@@ -117,7 +117,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
         self.first_name_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame,
                                                                            width=250,
                                                                            height=50,
-                                                                          corner_radius=10)
+                                                                           corner_radius=10)
         self.first_name_entry_unchanged_overlay_label_frame.place(x=10,
                                                                   y=60)
 
@@ -273,13 +273,13 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
         personal_infos_examiner = [self.first_name_entry.get(),
                                    self.last_name_entry.get(),
                                    self.birth_date_entry.get()]
-        last_chosen_examiner = json_reader("personal_var", "last_chosen_examiner", "../JSON/")
+        last_chosen_examiner = json_reader("personal_var", "last_chosen_examiner", main_pi_location + "../JSON/")
 
         if (len(personal_infos_examiner[0].strip()) +
                 len(personal_infos_examiner[1].strip()) >= 4):
             self.continue_button.configure(state="normal")
             json_writer("personal_var", ("personal_infos_examiner_" + last_chosen_examiner),
-                        personal_infos_examiner, "../JSON/")
+                        personal_infos_examiner, main_pi_location + "../JSON/")
 
             self.first_name_entry_unchanged_overlay_label_frame.place(x=10, y=60)
             self.first_name_entry_unchanged_overlay_label.place(x=10, y=0)
@@ -305,15 +305,16 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
         self.birth_date_entry_unchanged_overlay_label.configure(text=infos[2])
 
     def examiner_select(self, which):
-        json_writer("personal_var", "last_chosen_examiner", which, "../JSON/")
-        personal_infos_examiner = json_reader("personal_var", f"personal_infos_examiner_{which}", "../JSON/")
+        json_writer("personal_var", "last_chosen_examiner", which, main_pi_location + "../JSON/")
+        personal_infos_examiner = json_reader("personal_var", f"personal_infos_examiner_{which}",
+                                              main_pi_location + "../JSON/")
         self.update_labels(personal_infos_examiner)
 
     @staticmethod
     def write_personal_json():
-        last_chosen_examiner = json_reader("personal_var", "last_chosen_examiner", "../JSON/")
+        last_chosen_examiner = json_reader("personal_var", "last_chosen_examiner", main_pi_location + "../JSON/")
         personal_infos_examiner = json_reader("personal_var", f"personal_infos_examiner_{last_chosen_examiner}",
-                                              "../JSON/")
-        personal_folder_path = json_reader("personal_var", "personal_folder_path", "../JSON/")
-        personal_json_name = json_reader("personal_var", "personal_json_name", "../JSON/")
+                                              main_pi_location + "../JSON/")
+        personal_folder_path = json_reader("personal_var", "personal_folder_path", main_pi_location + "../JSON/")
+        personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
         json_writer(personal_json_name, "personal_infos_examiner", personal_infos_examiner, personal_folder_path)

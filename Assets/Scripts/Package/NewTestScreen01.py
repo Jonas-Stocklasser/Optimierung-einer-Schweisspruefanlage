@@ -6,7 +6,7 @@
 
 import customtkinter as ctk
 # Shared variables----------------------------------------
-from .SharedVar import GetStartupVariables, back_arrow_image
+from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location
 from tkinter import filedialog
 from .JsonFunctions import json_writer
 
@@ -113,4 +113,4 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
         GetStartupVariables.save_path = filedialog.askdirectory()
         self.path_display_label.configure(text=GetStartupVariables.save_path)
 
-        json_writer("startup_var", "save_path", GetStartupVariables.save_path, "../JSON/")
+        json_writer("startup_var", "save_path", GetStartupVariables.save_path, main_pi_location + "../JSON/")

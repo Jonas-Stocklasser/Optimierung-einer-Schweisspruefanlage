@@ -9,7 +9,7 @@ from PIL import Image  # library for image handling
 from .JsonFunctions import json_reader
 
 # path when on raspberry pi for the .desktop execution file to work
-# main_pi_location = "/home/admin/Schweisspruefung/Optimierung-einer-Schweisspruefanlage/Assets/Scripts"
+# main_pi_location = "/home/admin/Schweisspruefung/Optimierung-einer-Schweisspruefanlage/Assets/Scripts/"
 
 # path when on PyCharm
 main_pi_location = ""

@@ -46,6 +46,25 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
         self.frame.place(x=30,
                          y=75)
 
+        # frame2------------------------------------------------------------
+        self.frame2 = ctk.CTkFrame(master=self,  # frame for the widgets
+                                   width=1110,
+                                   height=60,
+                                   corner_radius=20)
+        self.frame2.place(x=30,
+                          y=175)
+
+        self.help_label = ctk.CTkLabel(master=self.frame2,
+                                       fg_color=GetStartupVariables.color_SET_blue,
+                                       width=1100,
+                                       height=40,
+                                       corner_radius=10,
+                                       text="USB-Stick ist wahrscheinlich in /media/admin/; USB-Stick in Schwarzen Port stecken!",
+                                       text_color=GetStartupVariables.text_color_SET,
+                                       font=("bold", 20))
+        self.help_label.place(x=10,
+                              y=10)
+
         # back button------------------------------------------------------------
         self.back_button = ctk.CTkButton(master=self,  # back button
                                          width=40,

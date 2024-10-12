@@ -9,7 +9,7 @@ import tkcalendar as tkc
 import os
 from datetime import datetime
 # Shared variables----------------------------------------
-from .SharedVar import GetStartupVariables, back_arrow_image
+from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location
 from .JsonFunctions import json_writer, json_reader, json_creator
 
 
@@ -167,18 +167,19 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
         if len(personal_infos_examinee[0].strip()) + len(
                 personal_infos_examinee[1].strip()) >= 4:  # integrity evaluation
             self.continue_button.configure(state="normal")  # unlock the continue button
-            json_writer("personal_var", "personal_infos_examinee", personal_infos_examinee, "../JSON/")
+            json_writer("personal_var", "personal_infos_examinee", personal_infos_examinee,
+                        main_pi_location + "../JSON/")
         else:
             self.continue_button.configure(state="disabled")  # lock the continue button
             print("Sum of first name plus surname not at least 4 digits")
 
     @staticmethod
     def create_examinee_folder_and_json():  # create a new folder for all the created files for the examinee
-        personal_infos_examinee = json_reader("personal_var", "personal_infos_examinee", "../JSON/")
+        personal_infos_examinee = json_reader("personal_var", "personal_infos_examinee", main_pi_location + "../JSON/")
         exam_date = f"{datetime.now().day}.{datetime.now().month}.{datetime.now().year}"
         error_append = ""
         error_num = 0
-        save_path = json_reader("startup_var", "save_path", "../JSON/")
+        save_path = json_reader("startup_var", "save_path", main_pi_location + "../JSON/")
         new_folder = f"{save_path}/{personal_infos_examinee[1]}_{personal_infos_examinee[0]}" + error_append
         while True:
             try:
@@ -192,9 +193,9 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
         json_creator(f"{personal_infos_examinee[1]}_{personal_infos_examinee[0]}", f"{new_folder}/",
                      "personal_infos_examinee", personal_infos_examinee)
         json_writer("personal_var", "personal_folder_path",
-                    f"{new_folder}/", "../JSON/")
+                    f"{new_folder}/", main_pi_location + "../JSON/")
         json_writer("personal_var", "personal_json_name",
-                    f"{personal_infos_examinee[1]}_{personal_infos_examinee[0]}", "../JSON/")
-        personal_folder_path = json_reader("personal_var", "personal_folder_path", "../JSON/")
-        personal_json_name = json_reader("personal_var", "personal_json_name", "../JSON/")
+                    f"{personal_infos_examinee[1]}_{personal_infos_examinee[0]}", main_pi_location + "../JSON/")
+        personal_folder_path = json_reader("personal_var", "personal_folder_path", main_pi_location + "../JSON/")
+        personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
         json_writer(personal_json_name, "exam_date", exam_date, personal_folder_path)

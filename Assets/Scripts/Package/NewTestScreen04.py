@@ -7,7 +7,7 @@
 import customtkinter as ctk
 import tkinter as tk
 # Shared variables----------------------------------------
-from .SharedVar import GetStartupVariables, GetItemVariables, back_arrow_image
+from .SharedVar import GetStartupVariables, GetItemVariables, back_arrow_image, main_pi_location
 from .JsonFunctions import json_writer, json_reader
 
 
@@ -368,8 +368,8 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                 len(infos_item[3].strip()) +
                 len(infos_item[4].strip()) >= 10):
             self.continue_button.configure(state="normal")
-            last_chosen_item = json_reader("personal_var", "last_chosen_item", "../JSON/")
-            json_writer("item_var", ("infos_item_" + last_chosen_item), infos_item, "../JSON/")
+            last_chosen_item = json_reader("personal_var", "last_chosen_item", main_pi_location + "../JSON/")
+            json_writer("item_var", ("infos_item_" + last_chosen_item), infos_item, main_pi_location + "../JSON/")
 
             self.title_entry_unchanged_overlay_label_frame.place(x=10, y=60)
             self.title_entry_unchanged_overlay_label.place(x=10, y=0)
@@ -404,15 +404,15 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info4_entry_unchanged_overlay_label.configure(text=infos[4])
 
     def item_select(self, which):
-        json_writer("item_var", "last_chosen_item", which, "../JSON/")
-        last_chosen_item = json_reader("item_var", "last_chosen_item", "../JSON/")
-        infos = json_reader("item_var", f"infos_item_{last_chosen_item}", "../JSON/")
+        json_writer("item_var", "last_chosen_item", which, main_pi_location + "../JSON/")
+        last_chosen_item = json_reader("item_var", "last_chosen_item", main_pi_location + "../JSON/")
+        infos = json_reader("item_var", f"infos_item_{last_chosen_item}", main_pi_location + "../JSON/")
         self.update_labels(infos)
 
     @staticmethod
     def write_personal_json():
-        last_chosen_item = json_reader("item_var", "last_chosen_item", "../JSON/")
-        infos_item = json_reader("item_var", f"infos_item_{last_chosen_item}", "../JSON/")
-        personal_folder_path = json_reader("personal_var", "personal_folder_path", "../JSON/")
-        personal_json_name = json_reader("personal_var", "personal_json_name", "../JSON/")
+        last_chosen_item = json_reader("item_var", "last_chosen_item", main_pi_location + "../JSON/")
+        infos_item = json_reader("item_var", f"infos_item_{last_chosen_item}", main_pi_location + "../JSON/")
+        personal_folder_path = json_reader("personal_var", "personal_folder_path", main_pi_location + "../JSON/")
+        personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
         json_writer(personal_json_name, "infos_item", infos_item, personal_folder_path)

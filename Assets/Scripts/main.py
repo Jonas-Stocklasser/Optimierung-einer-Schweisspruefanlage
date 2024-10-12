@@ -4,6 +4,7 @@
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
 
 import customtkinter as ctk  # import of the customtkinter library
+import os
 
 from Package.StartScreen import StartScreen  # import of all the other files of the python package
 from Package.OptionsScreen import OptionsScreen
@@ -20,6 +21,8 @@ from Package.TestPreparations01 import TestPreparations01
 # import of the GetStartupVariables class located in the sharedVar file
 from Package.SharedVar import GetStartupVariables
 
+# os.chdir('/home/admin/Schweisspruefung/Optimierung-einer-Schweisspruefanlage/Assets/Scripts')
+# line above is needed when executing file in linus with a .desktop file
 
 class App(ctk.CTk):  # main window class, every other window class is called from here and is a child of this
     def __init__(self, title):  # title is given as an attribute from the class call

@@ -124,7 +124,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
                                               day=1,
                                               state="readonly")
         self.birth_date_entry.place(x=15,
-                                    y=375)
+                                    y=300)
         # save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button

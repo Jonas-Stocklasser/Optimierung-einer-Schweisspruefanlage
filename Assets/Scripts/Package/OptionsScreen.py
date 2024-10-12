@@ -34,7 +34,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
 
         # button frame------------------------------------------------------------
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the buttons and the menu
-                                         width=460,
+                                         width=470,
                                          height=130,
                                          corner_radius=20)
         self.button_frame.place(x=30,

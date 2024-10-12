@@ -188,7 +188,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
                                               day=1,
                                               state="readonly")
         self.birth_date_entry.place(x=15,
-                                    y=375)
+                                    y=300)
 
         self.birth_date_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame,
                                                                            width=250,

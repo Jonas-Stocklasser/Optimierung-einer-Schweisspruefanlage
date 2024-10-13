@@ -20,9 +20,6 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations window
 
         self.app = parent
 
-        # self.place(x=5,  # placing the object at coordinates x5 - y5 relative to the top left corner of the parent
-                   # y=5)
-
         # top bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are

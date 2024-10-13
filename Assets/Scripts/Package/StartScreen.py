@@ -17,8 +17,8 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
                          width=(GetStartupVariables.window_geometry[0] - 10),
                          height=(GetStartupVariables.window_geometry[1] - 10),
                          fg_color="transparent")
-        self.place(x=5,  # placing the object at coordinates x5 - y5 relative to the top left corner of the parent
-                   y=5)
+        # self.place(x=5,  # placing the object at coordinates x5 - y5 relative to the top left corner of the parent
+                   # y=5)
 
         # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,  # top bar that indicates the screen where you are

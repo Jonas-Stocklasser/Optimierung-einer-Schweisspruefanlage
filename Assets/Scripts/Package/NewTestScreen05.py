@@ -19,8 +19,8 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
 
         self.app = parent
 
-        self.place(x=5,  # placing the object at coordinates x5 - y5 relative to the top left corner of the parent
-                   y=5)
+        # self.place(x=5,  # placing the object at coordinates x5 - y5 relative to the top left corner of the parent
+                   # y=5)
 
         # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,

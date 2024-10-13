@@ -59,7 +59,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
                                        width=1100,
                                        height=40,
                                        corner_radius=10,
-                                       text="USB-Stick ist wahrscheinlich in /media/admin/; USB-Stick in Schwarzen Port stecken!",
+                                       text="USB-Stick ist wahrscheinlich in /media/admin/; USB-Stick in schwarzen Port stecken!",
                                        text_color=GetStartupVariables.text_color_SET,
                                        font=("bold", 20))
         self.help_label.place(x=10,

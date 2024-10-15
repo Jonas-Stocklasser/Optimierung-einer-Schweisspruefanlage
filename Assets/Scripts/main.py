@@ -15,6 +15,7 @@ from Package.NewTestScreen04 import NewTestScreen04
 from Package.NewTestScreen05 import NewTestScreen05
 from Package.NewTestScreen06 import NewTestScreen06
 from Package.TestPreparations01 import TestPreparations01
+from Package.TestRun01 import TestRun01
 
 # Shared variables----------------------------------------
 # import of the GetStartupVariables class located in the sharedVar file
@@ -41,7 +42,8 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
                         "1.4": NewTestScreen05(self),
                         "1.5": NewTestScreen06(self),
                         "2.0": TestPreparations01(self),
-                        "3": OptionsScreen(self)}
+                        "3": OptionsScreen(self),
+                        "4.0": TestRun01(self)}
 
         # top level windows----------------------------------------
         self.reallyswitch = None    # initializes the window variable as "None"

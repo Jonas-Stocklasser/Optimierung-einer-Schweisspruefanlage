@@ -11,7 +11,7 @@ from .JsonFunctions import json_reader, json_writer
 from .SharedVar import GetStartupVariables, GetExamParameterVariables, back_arrow_image
 
 
-class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations window
+class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 window
     def __init__(self, parent):  # the parent is App()
         super().__init__(parent,  # parameters of the CTkFrame object
                          width=(GetStartupVariables.window_geometry[0] - 10),
@@ -20,7 +20,7 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations window
 
         self.app = parent
 
-        # top bar------------------------------------------------------------
+        # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
@@ -116,4 +116,4 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations window
                                      y=10)
 
     def continue_button_function(self):
-        self.master.switch_window("0")
+        self.master.switch_window("4.0")

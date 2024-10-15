@@ -4,12 +4,12 @@
     "val":[
       "Jonas",
       "Stocklasser",
-      "01.01.2000"
+      "21.09.2005"
     ]
   },
   {
     "var":"personal_folder_path",
-    "val":"C:\/Users\/jonas\/Desktop\/test\/Stocklasser_Jonas\/"
+    "val":"C:\/GIT\/Optimierung-einer-Schweisspreufanlage\/Assets\/Tests\/Stocklasser_Jonas\/"
   },
   {
     "var":"personal_json_name",
@@ -17,7 +17,7 @@
   },
   {
     "var":"last_chosen_examiner",
-    "val":"01"
+    "val":"03"
   },
   {
     "var":"examiner_list",

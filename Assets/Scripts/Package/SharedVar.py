@@ -9,10 +9,10 @@ from PIL import Image  # library for image handling
 from .JsonFunctions import json_reader
 
 # path when on raspberry pi for the .desktop execution file to work
-main_pi_location = "/home/admin/Schweisspruefung/Optimierung-einer-Schweisspruefanlage/Assets/Scripts/"
+# main_pi_location = "/home/admin/Schweisspruefung/Optimierung-einer-Schweisspruefanlage/Assets/Scripts/"
 
 # path when on PyCharm
-# main_pi_location = ""
+main_pi_location = ""
 
 # Pictures----------------------------------------
 start_image = ctk.CTkImage(Image.open(main_pi_location + "../Images/Placeholder.png"), size=(600, 600))

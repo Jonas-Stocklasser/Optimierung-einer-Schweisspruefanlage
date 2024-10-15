@@ -11,3 +11,4 @@ from .ReallySwitch import ReallySwitch
 from .StartScreen import StartScreen
 from .JsonFunctions import *
 from .SharedVar import *
+from .TestRun01 import *

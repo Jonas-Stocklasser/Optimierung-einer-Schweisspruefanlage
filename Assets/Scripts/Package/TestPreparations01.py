@@ -43,7 +43,7 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
                                          text="",
                                          anchor="ne",
                                          image=back_arrow_image,
-                                         command=lambda: self.master.comfirm_go_back("1.5"))
+                                         command=lambda: self.master.confirm_go_back("1.5"))
         # the command does call the switch_window method because there is unsaved content to loose
         self.back_button.place(x=GetStartupVariables.window_geometry[0] - 65,
                                y=0)

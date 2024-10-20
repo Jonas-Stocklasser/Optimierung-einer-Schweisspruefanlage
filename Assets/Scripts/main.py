@@ -56,7 +56,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         self.mainloop()  # the main App window is run (mainloop)
 
     # methods----------------------------------------
-    def comfirm_go_back(self, which):
+    def confirm_go_back(self, which):
         if messagebox.askokcancel("Wirklich zurück gehen?",
                                   "Wollen Sie wirklich zum vorherigen Bildschirm zurückgehen?"):
             self.switch_window(which)

@@ -5,6 +5,7 @@
 # Neuer Test Fenster 1; ID=1.0
 
 import customtkinter as ctk
+from tkinter import messagebox
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location
 from tkinter import filedialog
@@ -70,8 +71,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
                                          text="",
                                          anchor="ne",
                                          image=back_arrow_image,
-                                         command=lambda: self.master.open_top_level_window_really_switch(
-                                             "0"))
+                                         command=lambda: self.master.comfirm_go_back("0"))
         # the command does call the switch_window method because there is unsaved content to loose
         self.back_button.place(x=GetStartupVariables.window_geometry[0] - 65,
                                y=0)

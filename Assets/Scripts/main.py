@@ -8,7 +8,6 @@ from tkinter import messagebox
 
 from Package.StartScreen import StartScreen  # import of all the other files of the python package
 from Package.OptionsScreen import OptionsScreen
-from Package.ReallySwitch import ReallySwitch
 from Package.NewTestScreen01 import NewTestScreen01
 from Package.NewTestScreen02 import NewTestScreen02
 from Package.NewTestScreen03 import NewTestScreen03
@@ -57,12 +56,17 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         self.mainloop()  # the main App window is run (mainloop)
 
     # methods----------------------------------------
-    def open_top_level_window_really_switch(self, which):  # method for creating or focusing the top level window
+    #def open_top_level_window_really_switch(self, which):  # method for creating or focusing the top level window
         # "which" is an attribute given by each back button when calling this method
-        if self.reallyswitch is None or not self.reallyswitch.winfo_exists():  # checking if the window exists
-            self.reallyswitch = ReallySwitch(self, which)  # the top level window class (Package.ReallySwitch)is called
+        #if self.reallyswitch is None or not self.reallyswitch.winfo_exists():  # checking if the window exists
+            #self.reallyswitch = ReallySwitch(self, which)  # the top level window class (Package.ReallySwitch)is called
+        #else:
+            #elf.reallyswitch.focus()  # focus the window if it exists
+    def comfirm_go_back(self, which):
+        if messagebox.askokcancel("Wirklich zurück gehen?", "Wollen Sie wirklich zu vorherigen Bildschirm zurückgehen?"):
+            self.switch_window(which)
         else:
-            self.reallyswitch.focus()  # focus the window if it exists
+            pass
 
     def switch_window(self, which):  # method for switching windows with the attribute "which"
         for window in self.windows.values():
@@ -72,7 +76,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.windows[which].place(x=5, y=5)  # place the window with the matching index to the attribute "which"
 
     def close_commands(self):
-        if messagebox.confirm_exit("Applikation beenden", "Möchten Sie die Applikation wirklich beenden?")
+        if messagebox.askokcancel("Applikation beenden", "Möchten Sie die Applikation wirklich beenden?"):
             if "4.0" in self.windows:
                 test_run_01 = self.windows["4.0"]
                 if hasattr(test_run_01, "cancel_after_on_closing"):

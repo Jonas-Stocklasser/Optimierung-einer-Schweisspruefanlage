@@ -5,6 +5,7 @@
 
 import customtkinter as ctk  # import of the customtkinter library
 from tkinter import messagebox
+from Package.JsonFunctions import json_writer
 
 from Package.StartScreen import StartScreen  # import of all the other files of the python package
 from Package.OptionsScreen import OptionsScreen
@@ -19,7 +20,7 @@ from Package.TestRun01 import TestRun01
 
 # Shared variables----------------------------------------
 # import of the GetStartupVariables class located in the sharedVar file
-from Package.SharedVar import GetStartupVariables
+from Package.SharedVar import GetStartupVariables, main_pi_location
 
 
 class App(ctk.CTk):  # main window class, every other window class is called from here and is a child of this
@@ -30,13 +31,15 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         ctk.set_appearance_mode(GetStartupVariables.appearance_mode[0])
         ctk.set_default_color_theme("blue")
         self.title(title)
-        self.geometry(f"{GetStartupVariables.window_geometry[0]}x{GetStartupVariables.window_geometry[1]}")
-        self.resizable(False, False)
 
         screenheight = self.winfo_screenheight()
-        print(f"screenheight = {screenheight}")
-        screenwidth = screenheight * 4/3
-        print(f"screenwidth = {screenwidth}")
+        screenwidth = int(screenheight * 4 / 3)
+        window_geometry = (screenwidth, screenheight)
+        json_writer("startup_var", "window_geometry", window_geometry, main_pi_location + "../JSON/")
+
+        self.geometry(f"{window_geometry[0]}x{window_geometry[1]}")
+        self.resizable(False, True)
+        # self.after(100, lambda: self.state("zoomed"))
 
         # dictionary for all window frames----------------------------------------
         self.windows = {"0": StartScreen(self),

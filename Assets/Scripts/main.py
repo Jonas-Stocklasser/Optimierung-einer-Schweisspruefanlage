@@ -4,6 +4,7 @@
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
 
 import customtkinter as ctk  # import of the customtkinter library
+from tkinter import messagebox
 
 from Package.StartScreen import StartScreen  # import of all the other files of the python package
 from Package.OptionsScreen import OptionsScreen
@@ -71,11 +72,14 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.windows[which].place(x=5, y=5)  # place the window with the matching index to the attribute "which"
 
     def close_commands(self):
-        if "4.0" in self.windows:
-            test_run_01 = self.windows["4.0"]
-            if hasattr(test_run_01, "cancel_after_on_closing"):
-                test_run_01.cancel_after_on_closing()
-        self.destroy()
+        if messagebox.confirm_exit("Applikation beenden", "Möchten Sie die Applikation wirklich beenden?")
+            if "4.0" in self.windows:
+                test_run_01 = self.windows["4.0"]
+                if hasattr(test_run_01, "cancel_after_on_closing"):
+                    test_run_01.cancel_after_on_closing()
+            self.destroy()
+        else:
+            pass
 
 
 

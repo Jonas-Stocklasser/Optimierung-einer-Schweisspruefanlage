@@ -10,9 +10,11 @@ from .JsonFunctions import json_reader
 
 # path when on raspberry pi for the .desktop execution file to work
 main_pi_location = "/home/admin/Schweisspruefung/Optimierung-einer-Schweisspruefanlage/Assets/Scripts/"
+w1temp_location = "/sys/bus/w1/devices/28*"
 
 # path when on PyCharm
 # main_pi_location = ""
+# w1temp_location = "../default_temp.txt"
 
 # Pictures----------------------------------------
 start_image = ctk.CTkImage(Image.open(main_pi_location + "../Images/Placeholder.png"), size=(600, 600))

@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from .JsonFunctions import json_reader, json_writer
 # Shared variables----------------------------------------
-from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location
+from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location, w1temp_location
 
 timer_id = None
 
@@ -82,9 +82,9 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         # mathplot
         self.figure, self.ax = plt.subplots(figsize=(10, 6))
-        self.ax.set_title("Druckverlauf (letzte 60 Sekunden)")
+        self.ax.set_title("Temperaturverlauf (letzte 60 Sekunden)")
         self.ax.set_xlabel("Testzeit [s]")
-        self.ax.set_ylabel("Druck [Bar]")
+        self.ax.set_ylabel("Temperatur [°C]")
 
         # Embedding the matplotlib plot into tkinter using FigureCanvasTkAgg
         self.canvas = FigureCanvasTkAgg(self.figure, self)
@@ -106,10 +106,11 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             test_timesteps.append(last_entry)
             print(test_timesteps)
 
+        temperature = self.get_temperature_w1()
         random_pressure = random.randint(50, 64)
-        random_temperature = random.randint(20, 30)
+
         pressure_values.append(random_pressure)
-        temperature_values.append(random_temperature)
+        temperature_values.append(temperature)
 
         self.update_plot()
 
@@ -132,19 +133,29 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
     def update_plot(self):
         # Limit to last 60 values
         display_timesteps = test_timesteps[-60:]
-        display_pressures = pressure_values[-60:]
+        display_temperatures = temperature_values[-60:]
 
         # Clear the previous plot
         self.ax.clear()
-        self.ax.set_title("Druckverlauf (letzte 60 Sekunden)")
+        self.ax.set_title("Temperaturverlauf (letzte 60 Sekunden)")
         self.ax.set_xlabel("Testzeit [s]")
-        self.ax.set_ylabel("Druck [Bar]")
+        self.ax.set_ylabel("Temperatur [°C]")
 
         # Plot the new data
-        self.ax.plot(display_timesteps, display_pressures, color='blue')
+        self.ax.plot(display_timesteps, display_temperatures, color='blue')
 
         # Redraw the canvas to update the plot
         self.canvas.draw()
+
+    def get_temperature_w1(self):
+        f = open(w1temp_location, "r")
+        lines = f.readlines()
+        f.close()
+        temp_pos = lines[1].find("t=")
+        if temp_pos != 1:
+            temperature = float(int(lines[1][temp_pos + 2:]) / 1000)
+            print(f"temperatur = {temperature}")
+        return temperature
 
     @staticmethod
     def write_personal_json():

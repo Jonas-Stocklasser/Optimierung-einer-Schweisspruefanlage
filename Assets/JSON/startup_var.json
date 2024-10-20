@@ -29,8 +29,8 @@
   {
     "var":"appearance_mode",
     "val":[
-      "dark",
-      "light"
+      "light",
+      "dark"
     ]
   },
   {
@@ -42,6 +42,6 @@
   },
   {
     "var":"save_path",
-    "val":"C:\/GIT\/Optimierung-einer-Schweisspreufanlage\/Assets\/Tests"
+    "val":"E:\/GIT\/Optimierung-einer-Schweisspruefanlage\/Assets\/Tests"
   }
 ]

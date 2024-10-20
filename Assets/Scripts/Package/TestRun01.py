@@ -157,6 +157,12 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             print(f"temperatur = {temperature}")
         return temperature
 
+    def cancel_after_on_closing(self):
+        global timer_id
+        if timer_id is not None:
+            self.after_cancel(timer_id)
+            timer_id = None
+
     @staticmethod
     def write_personal_json():
         global pressure_values

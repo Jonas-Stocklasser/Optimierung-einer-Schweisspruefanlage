@@ -51,6 +51,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         # show start screen initially----------------------------------------
         self.switch_window(GetStartupVariables.start_window)
 
+        self.protocol("WM_DELETE_WINDOW", lambda: self.close_commands())
         # run the app----------------------------------------
         self.mainloop()  # the main App window is run (mainloop)
 
@@ -68,6 +69,15 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
 
         if which in self.windows:
             self.windows[which].place(x=5, y=5)  # place the window with the matching index to the attribute "which"
+
+    def close_commands(self):
+        if "4.0" in self.windows:
+            test_run_01 = self.windows["4.0"]
+            if hasattr(test_run_01, "cancel_after_on_closing"):
+                test_run_01.cancel_after_on_closing()
+        self.destroy()
+
+
 
 
 if __name__ == "__main__":  # when the file this is in is called "main" then it is run

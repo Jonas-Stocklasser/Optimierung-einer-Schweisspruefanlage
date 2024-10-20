@@ -46,7 +46,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
                         "4.0": TestRun01(self)}
 
         # top level windows----------------------------------------
-        self.reallyswitch = None    # initializes the window variable as "None"
+        self.reallyswitch = None  # initializes the window variable as "None"
 
         # show start screen initially----------------------------------------
         self.switch_window(GetStartupVariables.start_window)
@@ -56,21 +56,16 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         self.mainloop()  # the main App window is run (mainloop)
 
     # methods----------------------------------------
-    #def open_top_level_window_really_switch(self, which):  # method for creating or focusing the top level window
-        # "which" is an attribute given by each back button when calling this method
-        #if self.reallyswitch is None or not self.reallyswitch.winfo_exists():  # checking if the window exists
-            #self.reallyswitch = ReallySwitch(self, which)  # the top level window class (Package.ReallySwitch)is called
-        #else:
-            #elf.reallyswitch.focus()  # focus the window if it exists
     def comfirm_go_back(self, which):
-        if messagebox.askokcancel("Wirklich zurück gehen?", "Wollen Sie wirklich zu vorherigen Bildschirm zurückgehen?"):
+        if messagebox.askokcancel("Wirklich zurück gehen?",
+                                  "Wollen Sie wirklich zum vorherigen Bildschirm zurückgehen?"):
             self.switch_window(which)
         else:
             pass
 
     def switch_window(self, which):  # method for switching windows with the attribute "which"
         for window in self.windows.values():
-            window.place_forget()   # forget every window that is in the dictionary
+            window.place_forget()  # forget every window that is in the dictionary
 
         if which in self.windows:
             self.windows[which].place(x=5, y=5)  # place the window with the matching index to the attribute "which"
@@ -84,8 +79,6 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.destroy()
         else:
             pass
-
-
 
 
 if __name__ == "__main__":  # when the file this is in is called "main" then it is run

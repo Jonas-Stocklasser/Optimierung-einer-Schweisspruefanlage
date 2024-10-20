@@ -35,6 +35,8 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
 
         screenheight = self.winfo_screenheight()
         print(f"screenheight = {screenheight}")
+        screenwidth = screenheight * 4/3
+        print(f"screenwidth = {screenwidth}")
 
         # dictionary for all window frames----------------------------------------
         self.windows = {"0": StartScreen(self),

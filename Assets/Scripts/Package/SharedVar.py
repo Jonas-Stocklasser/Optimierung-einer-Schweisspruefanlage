@@ -10,7 +10,8 @@ from .JsonFunctions import json_reader
 
 # path when on raspberry pi for the .desktop execution file to work
 main_pi_location = "/home/admin/Schweisspruefung/Optimierung-einer-Schweisspruefanlage/Assets/Scripts/"
-w1temp_location = "/sys/bus/w1/devices/28*"
+w1temp_location_incomplete = "/sys/bus/w1/devices/28*"
+w1temp_location = (w1temp_location_incomplete + "/w1_slave")
 
 # path when on PyCharm
 # main_pi_location = ""

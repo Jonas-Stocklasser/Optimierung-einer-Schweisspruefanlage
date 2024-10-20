@@ -33,6 +33,9 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         self.geometry(f"{GetStartupVariables.window_geometry[0]}x{GetStartupVariables.window_geometry[1]}")
         self.resizable(False, False)
 
+        screenheight = self.winfo_screenheight()
+        print(f"screenheight = {screenheight}")
+
         # dictionary for all window frames----------------------------------------
         self.windows = {"0": StartScreen(self),
                         "1.0": NewTestScreen01(self),

@@ -6,6 +6,7 @@
 
 import customtkinter as ctk
 import random
+import RPi.GPIO as GPIO
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from .JsonFunctions import json_reader, json_writer
@@ -13,6 +14,11 @@ from .JsonFunctions import json_reader, json_writer
 from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location, w1temp_location
 
 timer_id = None
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(14, GPIO.OUT)
+GPIO.output(14, False)
+output = 0
 
 pressure_values = []
 temperature_values = []
@@ -78,6 +84,18 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
                                          command=lambda: self.stop_button_function())
         self.stop_button.place(x=150,
                                y=50)
+
+        # Toggle relais button------------------------------------------------------------
+        self.toggle_relais_button = ctk.CTkButton(master=self,
+                                                  width=100,
+                                                  height=50,
+                                                  corner_radius=10,
+                                                  text="Toggle Relais",
+                                                  font=("bold", 20),
+                                                  state="disabled",
+                                                  command=lambda: self.toggle_relais_button_function())
+        self.toggle_relais_button.place(x=400,
+                                        y=50)
 
         # mathplot
         self.figure, self.ax = plt.subplots(figsize=(10, 6))
@@ -161,6 +179,15 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         if timer_id is not None:
             self.after_cancel(timer_id)
             timer_id = None
+
+    def toggle_relais_button_function(self):
+        global output
+        if output == 0:
+            GPIO.output(14, True)
+            output = 1
+        elif output == 1:
+            GPIO.output(14, False)
+            output = 0
 
     @staticmethod
     def write_personal_json():

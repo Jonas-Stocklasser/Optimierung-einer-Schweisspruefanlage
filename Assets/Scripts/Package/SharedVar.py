@@ -16,8 +16,8 @@ device_folder = glob.glob(w1temp_base_dir + "28*")[0]
 w1temp_location = device_folder + "/w1_slave"
 
 # path when on PyCharm
-#main_pi_location = ""
-#w1temp_location = "../default_temp.txt"
+# main_pi_location = ""
+# w1temp_location = "../default_temp.txt"
 
 # Pictures----------------------------------------
 start_image = ctk.CTkImage(Image.open(main_pi_location + "../Images/Placeholder.png"), size=(600, 600))

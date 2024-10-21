@@ -92,7 +92,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
                                                   corner_radius=10,
                                                   text="Toggle Relais",
                                                   font=("bold", 20),
-                                                  state="disabled",
+                                                  state="normal",
                                                   command=lambda: self.toggle_relais_button_function())
         self.toggle_relais_button.place(x=400,
                                         y=50)

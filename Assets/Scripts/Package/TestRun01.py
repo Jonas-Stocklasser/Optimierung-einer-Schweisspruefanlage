@@ -129,6 +129,11 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pressure_values.append(random_pressure)
         temperature_values.append(temperature)
 
+        if temperature >= 30.0:
+            GPIO.output(14, True)
+        else:
+            GPIO.output(14, False)
+
         self.update_plot()
 
         timer_id = self.after(1000, self.to_do)

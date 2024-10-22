@@ -12,6 +12,7 @@ from tkinter import filedialog
 from .JsonFunctions import json_writer
 
 window_geometry = GetStartupVariables.window_geometry
+font_size = window_geometry[1] / 40
 
 
 class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
@@ -33,35 +34,35 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
                                           text=("Neuer Test - Schritt 1:" +
                                                 " Speicherort generierter Daten angeben"),
                                           text_color=GetStartupVariables.text_color_SET,
-                                          font=("bold", 20),
+                                          font=("bold", font_size),
                                           anchor="w")
         self.indicator_bar.place(x=0,
                                  y=0)
 
         # frame------------------------------------------------------------
         self.frame = ctk.CTkFrame(master=self,  # frame for the widgets
-                                  width=1110,
-                                  height=60,
+                                  width=window_geometry[0] - 80,
+                                  height=window_geometry[1] / 15,
                                   corner_radius=20)
         self.frame.place(x=30,
-                         y=75)
+                         y=window_geometry[1] / 15)
 
         # frame2------------------------------------------------------------
         self.frame2 = ctk.CTkFrame(master=self,  # frame for the widgets
-                                   width=1110,
-                                   height=60,
+                                   width=window_geometry[0] - 80,
+                                   height=window_geometry[1] / 15,
                                    corner_radius=20)
         self.frame2.place(x=30,
-                          y=175)
+                          y=window_geometry[1] / 6.5)
 
         self.help_label = ctk.CTkLabel(master=self.frame2,
                                        fg_color=GetStartupVariables.color_SET_blue,
-                                       width=1100,
-                                       height=40,
+                                       width=window_geometry[0] - 100,
+                                       height=window_geometry[1] / 15 - 20,
                                        corner_radius=10,
                                        text="USB-Stick ist wahrscheinlich in /media/admin/; USB-Stick in schwarzen Port stecken!",
                                        text_color=GetStartupVariables.text_color_SET,
-                                       font=("bold", 20))
+                                       font=("bold", font_size))
         self.help_label.place(x=10,
                               y=10)
 
@@ -81,50 +82,50 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
         # path choose------------------------------------------------------------
         self.path_label = ctk.CTkLabel(master=self.frame,
                                        fg_color=GetStartupVariables.color_SET_blue,
-                                       width=100,
-                                       height=40,
+                                       width=window_geometry[0] / 20,
+                                       height=window_geometry[1] / 15 - 20,
                                        corner_radius=10,
                                        text="Pfad:",
                                        text_color=GetStartupVariables.text_color_SET,
-                                       font=("bold", 20))
+                                       font=("bold", font_size))
         self.path_label.place(x=10,
                               y=10)
 
         self.path_display_label_frame = ctk.CTkFrame(master=self.frame,
-                                                     width=820,
-                                                     height=40,
+                                                     width=window_geometry[0] / 1.5,
+                                                     height=window_geometry[1] / 15 - 20,
                                                      corner_radius=10)
-        self.path_display_label_frame.place(x=120,
+        self.path_display_label_frame.place(x=window_geometry[0] / 13,
                                             y=10)
 
         self.path_display_label = ctk.CTkLabel(master=self.path_display_label_frame,
-                                               width=800,
-                                               height=40,
+                                               width=window_geometry[0] / 1.5 - 20,
+                                               height=window_geometry[1] / 15 - 20,
                                                text=GetStartupVariables.save_path,
                                                anchor="w",
-                                               font=("bold", 20))
+                                               font=("bold", font_size))
         self.path_display_label.place(x=10,
                                       y=0)
 
         self.change_button = ctk.CTkButton(master=self.frame,  # back button
-                                           width=40,
-                                           height=40,
+                                           width=window_geometry[0] / 15 - 30,
+                                           height=window_geometry[1] / 15 - 20,
                                            fg_color=GetStartupVariables.color_SET_blue,
                                            corner_radius=10,
                                            text="...",
                                            command=self.change_path)
-        self.change_button.place(x=950,
+        self.change_button.place(x=window_geometry[0] / 1.325,
                                  y=10)
 
         self.continue_button = ctk.CTkButton(master=self.frame,  # back button
-                                             width=100,
-                                             height=40,
+                                             width=window_geometry[0] / 9,
+                                             height=window_geometry[1] / 15 - 20,
                                              fg_color=GetStartupVariables.color_SET_blue,
-                                             font=("bold", 20),
+                                             font=("bold", font_size),
                                              corner_radius=10,
                                              text="Weiter",
                                              command=lambda: self.app.switch_window("1.1"))
-        self.continue_button.place(x=1000,
+        self.continue_button.place(x=window_geometry[0] / 1.24,
                                    y=10)
 
     def change_path(self):  # method to change the save-path

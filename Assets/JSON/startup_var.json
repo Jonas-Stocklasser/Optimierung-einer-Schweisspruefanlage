@@ -2,8 +2,8 @@
   {
     "var":"window_geometry",
     "val":[
-      1152,
-      864
+      1280,
+      960
     ]
   },
   {
@@ -42,6 +42,6 @@
   },
   {
     "var":"save_path",
-    "val":"C:\/GIT\/Optimierung-einer-Schweisspreufanlage\/Assets\/Tests"
+    "val":""
   }
 ]

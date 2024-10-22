@@ -19,13 +19,6 @@ w1temp_location = device_folder + "/w1_slave"
 #main_pi_location = ""
 #w1temp_location = "../default_temp.txt"
 
-# Pictures----------------------------------------
-start_image = ctk.CTkImage(Image.open(main_pi_location + "../Images/Placeholder.png"), size=(600, 600))
-back_arrow_image = ctk.CTkImage(dark_image=Image.open(main_pi_location + "../Images/Back_Arrow.png"), size=(30, 30))
-pruefstueck_image = ctk.CTkImage(dark_image=Image.open(main_pi_location + "../Images/Pruefstueck_Dark.png"),
-                                 light_image=Image.open(main_pi_location + "../Images/Pruefstueck_Light.png"),
-                                 size=(576, 324))
-
 
 # Startup variables----------------------------------------
 class GetStartupVariables:
@@ -62,3 +55,12 @@ class GetExamParameterVariables:
     parameter_list = json_reader("exam_parameter_var", f"parameter_list_{last_chosen_parameter_list}",
                                  main_pi_location + "../JSON/")
     parameter_list_indexes = json_reader("exam_parameter_var", "parameter_list_indexes", main_pi_location + "../JSON/")
+
+
+# Pictures----------------------------------------
+start_image = ctk.CTkImage(Image.open(main_pi_location + "../Images/Placeholder.png"), size=(600, 600))
+back_arrow_image = ctk.CTkImage(dark_image=Image.open(main_pi_location + "../Images/Back_Arrow.png"), size=(30, 30))
+pruefstueck_image = ctk.CTkImage(dark_image=Image.open(main_pi_location + "../Images/Pruefstueck_Dark.png"),
+                                 light_image=Image.open(main_pi_location + "../Images/Pruefstueck_Light.png"),
+                                 size=((GetStartupVariables.window_geometry[1] / 1.3) - 40,
+                                       (GetStartupVariables.window_geometry[0] / 3) - 40))

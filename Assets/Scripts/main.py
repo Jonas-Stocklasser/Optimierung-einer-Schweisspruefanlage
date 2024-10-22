@@ -36,10 +36,11 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         screenwidth = int(screenheight * 4 / 3)
         window_geometry = (screenwidth, screenheight)
         json_writer("startup_var", "window_geometry", window_geometry, main_pi_location + "../JSON/")
-
+        GetStartupVariables.window_geometry = window_geometry
+        print(GetStartupVariables.window_geometry)
         self.geometry(f"{window_geometry[0]}x{window_geometry[1]}")
-        self.resizable(False, True)
-        # self.after(100, lambda: self.state("zoomed"))
+        self.resizable(True, True)
+        self.after(1000, lambda: self.state("zoomed"))
 
         # dictionary for all window frames----------------------------------------
         self.windows = {"0": StartScreen(self),

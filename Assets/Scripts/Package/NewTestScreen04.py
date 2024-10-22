@@ -86,7 +86,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         # back button------------------------------------------------------------
         self.back_button = ctk.CTkButton(master=self,  # back button
                                          width=40,
-                                         height=40,
+                                         height=window_geometry[1] / 20,
                                          corner_radius=10,
                                          text="",
                                          anchor="ne",

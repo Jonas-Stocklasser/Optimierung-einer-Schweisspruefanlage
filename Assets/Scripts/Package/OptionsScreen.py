@@ -9,19 +9,20 @@ import customtkinter as ctk
 from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location
 from .JsonFunctions import json_writer
 
+window_geometry = GetStartupVariables.window_geometry
 
 class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
     def __init__(self, parent):  # the parent is App()
         super().__init__(parent,  # parameters of the CTkFrame object
-                         width=(GetStartupVariables.window_geometry[0] - 10),
-                         height=(GetStartupVariables.window_geometry[1] - 10),
+                         width=(window_geometry[0] - 10),
+                         height=(window_geometry[1] - 10),
                          fg_color="transparent")
 
         # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,  # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
-                                          width=GetStartupVariables.window_geometry[0] - 70,
-                                          height=40,
+                                          width=window_geometry[0] - 70,
+                                          height=window_geometry[1] / 20,
                                           corner_radius=10,
                                           text="Optionen",
                                           text_color=GetStartupVariables.text_color_SET,

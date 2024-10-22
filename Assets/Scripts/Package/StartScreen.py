@@ -8,21 +8,23 @@ import customtkinter as ctk
 import sys
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, \
-    pruefstueck_image  # import of shared variables located in the sharedVar file
+    pruefstueck_image  # import of shared variables located in the sharedVar-file
+
+window_geometry = GetStartupVariables.window_geometry
 
 
 class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
     def __init__(self, parent):  # the parent is App()
         super().__init__(parent,  # parameters of the CTkFrame object
-                         width=(GetStartupVariables.window_geometry[0] - 10),
-                         height=(GetStartupVariables.window_geometry[1] - 10),
+                         width=(window_geometry[0] - 10),
+                         height=(window_geometry[1] - 10),
                          fg_color="transparent")
 
         # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,  # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
-                                          width=GetStartupVariables.window_geometry[0] - 10,
-                                          height=40,
+                                          width=window_geometry[0] - 10,
+                                          height=window_geometry[1] / 20,
                                           corner_radius=10,
                                           text="Start",
                                           text_color=GetStartupVariables.text_color_SET,

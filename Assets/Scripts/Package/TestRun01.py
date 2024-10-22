@@ -6,18 +6,20 @@
 
 import customtkinter as ctk
 import random
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from .JsonFunctions import json_reader, json_writer
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location, w1temp_location
 
+window_geometry = GetStartupVariables.window_geometry
+
 timer_id = None
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(14, GPIO.OUT)
-GPIO.output(14, False)
+#GPIO.setmode(GPIO.BCM)
+#GPIO.setup(14, GPIO.OUT)
+#GPIO.output(14, False)
 output = 0
 
 pressure_values = []
@@ -28,8 +30,8 @@ test_timesteps = []
 class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
     def __init__(self, parent):  # the parent is App()
         super().__init__(parent,  # parameters of the CTkFrame object
-                         width=(GetStartupVariables.window_geometry[0] - 10),
-                         height=(GetStartupVariables.window_geometry[1] - 10),
+                         width=(window_geometry[0] - 10),
+                         height=(window_geometry[1] - 10),
                          fg_color="transparent")
 
         self.app = parent
@@ -38,8 +40,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
-                                          width=GetStartupVariables.window_geometry[0] - 70,
-                                          height=40,
+                                          width=window_geometry[0] - 70,
+                                          height=window_geometry[1] / 20,
                                           corner_radius=10,
                                           text="Testdurchlauf",
                                           text_color=GetStartupVariables.text_color_SET,
@@ -183,10 +185,10 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
     def toggle_relais_button_function(self):
         global output
         if output == 0:
-            GPIO.output(14, True)
+            #GPIO.output(14, True)
             output = 1
         elif output == 1:
-            GPIO.output(14, False)
+            #GPIO.output(14, False)
             output = 0
 
     @staticmethod

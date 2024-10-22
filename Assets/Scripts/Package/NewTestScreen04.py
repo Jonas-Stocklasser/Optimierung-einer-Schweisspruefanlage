@@ -10,6 +10,8 @@ import tkinter as tk
 from .SharedVar import GetStartupVariables, GetItemVariables, back_arrow_image, main_pi_location
 from .JsonFunctions import json_writer, json_reader
 
+window_geometry = GetStartupVariables.window_geometry
+
 
 class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
     def __init__(self, parent):  # the parent is App()
@@ -24,8 +26,8 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
-                                          width=GetStartupVariables.window_geometry[0] - 70,
-                                          height=40,
+                                          width=window_geometry[0] - 70,
+                                          height=window_geometry[1] / 20,
                                           corner_radius=10,
                                           text=("Neuer Test - Schritt 4:" +
                                                 " Daten des Prüfstückes überprüfen"),

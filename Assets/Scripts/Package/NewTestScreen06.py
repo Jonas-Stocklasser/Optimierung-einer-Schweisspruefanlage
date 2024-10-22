@@ -10,12 +10,14 @@ from .JsonFunctions import json_reader, json_writer
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, GetExamParameterVariables, back_arrow_image, main_pi_location
 
+window_geometry = GetStartupVariables.window_geometry
+
 
 class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
     def __init__(self, parent):  # the parent is App()
         super().__init__(parent,  # parameters of the CTkFrame object
-                         width=(GetStartupVariables.window_geometry[0] - 10),
-                         height=(GetStartupVariables.window_geometry[1] - 10),
+                         width=(window_geometry[0] - 10),
+                         height=(window_geometry[1] - 10),
                          fg_color="transparent")
 
         self.app = parent
@@ -24,8 +26,8 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
-                                          width=GetStartupVariables.window_geometry[0] - 70,
-                                          height=40,
+                                          width=window_geometry[0] - 70,
+                                          height=window_geometry[1] / 20,
                                           corner_radius=10,
                                           text=("Neuer Test - Schritt 6:" +
                                                 " Prüfparameter einstellen"),

@@ -29,7 +29,6 @@ class GetStartupVariables:
     text_color_SET = json_reader("startup_var", "text_color_SET", main_pi_location + "../JSON/")
     start_window = json_reader("startup_var", "start_window", main_pi_location + "../JSON/")
     appearance_mode = json_reader("startup_var", "appearance_mode", main_pi_location + "../JSON/")
-    window_size = json_reader("startup_var", "window_size", main_pi_location + "../JSON/")
     save_path = json_reader("startup_var", "save_path", main_pi_location + "../JSON/")
 
 
@@ -59,8 +58,7 @@ class GetExamParameterVariables:
 
 # Pictures----------------------------------------
 start_image = ctk.CTkImage(Image.open(main_pi_location + "../Images/Placeholder.png"), size=(600, 600))
-back_arrow_image = ctk.CTkImage(dark_image=Image.open(main_pi_location + "../Images/Back_Arrow.png"), size=(30, 30))
+back_arrow_image = ctk.CTkImage(dark_image=Image.open(main_pi_location + "../Images/Back_Arrow.png"), size=(1, 1))
 pruefstueck_image = ctk.CTkImage(dark_image=Image.open(main_pi_location + "../Images/Pruefstueck_Dark.png"),
                                  light_image=Image.open(main_pi_location + "../Images/Pruefstueck_Light.png"),
-                                 size=((GetStartupVariables.window_geometry[1] / 1.3) - 40,
-                                       (GetStartupVariables.window_geometry[0] / 3) - 40))
+                                 size=(16, 9))

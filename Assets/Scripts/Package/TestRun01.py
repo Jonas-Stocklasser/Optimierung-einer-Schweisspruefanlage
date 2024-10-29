@@ -27,7 +27,7 @@ output = 0
 ina = INA219(shunt_ohms=0.1,
              busnum=1,
              max_expected_amps=0.02,
-             address=0x400)
+             address=0x40)
 
 ina.configure(voltage_range=ina.RANGE_32V,
               gain=ina.GAIN_AUTO,

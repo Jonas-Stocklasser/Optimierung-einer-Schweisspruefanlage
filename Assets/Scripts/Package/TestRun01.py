@@ -139,7 +139,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         temperature = self.get_temperature_w1()
         pressure = ina.current()
-        print(f"pressure-amp: {pressure}mA\npressure-volt: {ina.voltage()}V\npressure-power: {ina.power()}W")
+        print(f"pressure-amp: {pressure}mA\nbus-voltage: {ina.voltage()}V\nshunt-voltage: {ina.shunt_voltage()}V\npressure-power: {ina.power()}W")
 
         pressure_values.append(pressure)
         temperature_values.append(temperature)

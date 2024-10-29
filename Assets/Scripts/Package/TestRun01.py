@@ -25,6 +25,7 @@ GPIO.output(14, False)
 output = 0
 
 ina = INA219(shunt_ohms=0.1,
+             busnum=1,
              max_expected_amps=0.02,
              address=0x40)
 

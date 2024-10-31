@@ -27,7 +27,8 @@ output = 0
 
 i2c = busio.I2C(board.SCL, board.SDA)
 
-ina = INA219(shunt_ohms=0.1,
+ina = INA219(i2c,
+             shunt_ohms=0.1,
              max_expected_amps = 0.03,
              address=0x40)
 

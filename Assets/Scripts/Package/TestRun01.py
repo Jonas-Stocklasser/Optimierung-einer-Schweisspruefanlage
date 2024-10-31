@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from .JsonFunctions import json_reader, json_writer
 # Shared variables----------------------------------------
-from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location#, w1temp_location
+from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location, w1temp_location
 from ina219 import INA219
 
 window_geometry = GetStartupVariables.window_geometry
@@ -180,15 +180,15 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         self.canvas.draw()
 
     def get_temperature_w1(self):
-        """f = open(w1temp_location, "r")
+        f = open(w1temp_location, "r")
         lines = f.readlines()
         f.close()
         temp_pos = lines[1].find("t=")
         if temp_pos != 1:
             temperature = float(int(lines[1][temp_pos + 2:]) / 1000)
-            print(f"temperatur = {temperature}")"""
-        #return temperature
-        return 1
+            print(f"temperatur = {temperature}")
+        return temperature
+
 
     def cancel_after_on_closing(self):
         global timer_id

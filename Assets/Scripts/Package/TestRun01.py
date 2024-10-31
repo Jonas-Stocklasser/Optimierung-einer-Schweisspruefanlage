@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from .JsonFunctions import json_reader, json_writer
 # Shared variables----------------------------------------
-from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location, w1temp_location
+from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location#, w1temp_location
 from ina219 import INA219
 
 window_geometry = GetStartupVariables.window_geometry

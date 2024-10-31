@@ -40,7 +40,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         #self.after(1000, lambda: self.state("zoomed"))
 
         self.last_resize_time = 0  # Timestamp of the last resize event
-        self.resize_interval = 0.02  # Time in seconds to wait before processing the next resize event
+        self.resize_interval = 0.05  # Time in seconds to wait before processing the next resize event
 
         # dictionary for all window frames----------------------------------------
         self.windows = {"0": StartScreen(self),
@@ -65,6 +65,10 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         # Bind events
         self.bind("<Configure>", self.on_resize)
         self.bind("<Unmap>", self.on_unmap)
+
+        # update the window size once at the beginning
+        initial_font_size = self.winfo_height() / 40
+        self.update_sizes(initial_font_size)
 
         # run the app----------------------------------------
         self.mainloop()  # the main App window is run (mainloop)
@@ -103,22 +107,19 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.geometry(f"{width}x{new_height}")  # Update geometry to maintain aspect ratio
             font_size = new_height / 40
             print(font_size)
-            self.update_fonts(font_size)
+            self.update_sizes(font_size)
 
 
-    def update_fonts(self, font_size):
+    def update_sizes(self, font_size):
         for window in self.windows.values():
-            # Assuming each window has a method to update its fonts
-            if hasattr(window, 'update_font_size'):
-                window.update_font_size(font_size)
-
+            if hasattr(window, 'update_size'):
+                window.update_size(font_size)
 
     def on_unmap(self, event):
         # Handle the window being unmaximized
         width = self.winfo_width()
         new_height = int(width / self.aspect_ratio)
         self.geometry(f"{width}x{new_height}")  # Adjust the size to maintain aspect ratio
-
 
     def close_commands(self):
         if messagebox.askokcancel("Applikation beenden", "Möchten Sie die Applikation wirklich beenden?"):

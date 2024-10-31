@@ -6,18 +6,18 @@
 
 import customtkinter as ctk
 import random
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from .JsonFunctions import json_reader, json_writer
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location, w1temp_location
-from ina219 import INA219
+#from ina219 import INA219
 
 window_geometry = GetStartupVariables.window_geometry
 
 timer_id = None
-
+"""
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(14, GPIO.OUT)
 GPIO.output(14, False)
@@ -32,7 +32,7 @@ ina.configure(voltage_range=ina.RANGE_16V,
               gain=ina.GAIN_AUTO,
               bus_adc=ina.ADC_128SAMP,
               shunt_adc=ina.ADC_128SAMP)
-
+"""
 
 pressure_values = []
 temperature_values = []
@@ -138,10 +138,10 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             print(test_timesteps)
 
         temperature = self.get_temperature_w1()
-        pressure = ina.current()
-        print(f"pressure-amp: {pressure}mA\nbus-voltage: {ina.voltage()}V\nshunt-voltage: {ina.power()}W")
+        #pressure = ina.current()
+        #print(f"pressure-amp: {pressure}mA\nbus-voltage: {ina.voltage()}V\nshunt-voltage: {ina.power()}W")
 
-        pressure_values.append(pressure)
+        #pressure_values.append(pressure)
         temperature_values.append(temperature)
 
         self.update_plot()
@@ -199,10 +199,10 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
     def toggle_relais_button_function(self):
         global output
         if output == 0:
-            GPIO.output(14, True)
+            #GPIO.output(14, True)
             output = 1
         elif output == 1:
-            GPIO.output(14, False)
+            #GPIO.output(14, False)
             output = 0
 
     @staticmethod

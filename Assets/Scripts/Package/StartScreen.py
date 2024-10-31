@@ -96,7 +96,7 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
                                         image=pruefstueck_image)  # Here goes a render of the test object (maybe a gif)
         self.image_label.place(relx=0.5, rely=0.5, anchor="center")
 
-    def update_font_size(self, font_size):
+    def update_size(self, font_size):
         self.indicator_bar.configure(font=("bold", font_size), height=font_size)
         self.new_test_button.configure(font=("bold", 2*font_size))
         self.options_button.configure(font=("bold", 2*font_size))

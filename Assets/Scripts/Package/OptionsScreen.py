@@ -12,6 +12,7 @@ from .JsonFunctions import json_writer
 window_geometry = GetStartupVariables.window_geometry
 font_size = window_geometry[1] / 40
 
+
 class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
     def __init__(self, parent):  # the parent is App()
         super().__init__(parent,  # parameters of the CTkFrame object
@@ -47,8 +48,8 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
 
         # button frame------------------------------------------------------------
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the buttons and the menu
-                                         corner_radius=20)
-        self.button_frame.grid(row=4, column=2, columnspan=15, rowspan=4, sticky="nesw")
+                                         corner_radius=10)
+        self.button_frame.grid(row=4, column=2, columnspan=15, rowspan=2, sticky="nesw")
 
         self.button_frame.grid_columnconfigure(0, weight=1)
         self.button_frame.grid_columnconfigure(1, weight=5)
@@ -82,16 +83,17 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
         self.options_light_dark_menu.grid(row=1, column=4, columnspan=1, rowspan=1, sticky="new")
 
 
-    @staticmethod
-    def appearance_mode_switch(mode):  # method for switching the appearance mode to dark/light mode
+    def appearance_mode_switch(self, mode):  # method for switching the appearance mode to dark/light mode
         if mode == "light":
             json_writer("startup_var", "appearance_mode", ["light", "dark"], main_pi_location + "../JSON/")
 
         elif mode == "dark":
             json_writer("startup_var", "appearance_mode", ["dark", "light"], main_pi_location + "../JSON/")
 
+        ctk.set_appearance_mode(mode)
 
-    def update_font_size(self, font_size):
+
+    def update_size(self, font_size):
         self.indicator_bar.configure(font=("bold", font_size), height=font_size)
         self.back_button.configure(width=font_size,
                                    height=font_size)

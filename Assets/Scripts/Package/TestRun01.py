@@ -28,7 +28,8 @@ output = 0
 
 i2c = busio.I2C(board.SCL, board.SDA)
 ina = INA219(i2c)
-ina.configure()
+ina.current_lsb = 0.1
+ina.shunt_resistance = 0.1
 
 pressure_values = []
 temperature_values = []

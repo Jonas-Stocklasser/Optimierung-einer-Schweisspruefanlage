@@ -13,8 +13,6 @@ from .JsonFunctions import json_reader, json_writer
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location, w1temp_location
 from ina219 import INA219
-import board
-import busio
 
 window_geometry = GetStartupVariables.window_geometry
 
@@ -25,12 +23,10 @@ GPIO.setup(14, GPIO.OUT)
 GPIO.output(14, False)
 output = 0
 
-i2c = busio.I2C(board.SCL, board.SDA)
-
-ina = INA219(i2c,
-             shunt_ohms=0.1,
+ina = INA219(shunt_ohms=0.1,
              max_expected_amps = 0.03,
-             address=0x40)
+             address=0x40,
+             busnum=1)
 
 ina.configure(voltage_range=ina.RANGE_32V,
               gain=ina.GAIN_AUTO,

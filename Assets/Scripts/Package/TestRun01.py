@@ -13,7 +13,9 @@ from .JsonFunctions import json_reader, json_writer
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location, w1temp_location
 from time import sleep
-from ina219 import INA219
+import board
+import busio
+from adafruit_ina219 import INA219
 
 window_geometry = GetStartupVariables.window_geometry
 
@@ -24,15 +26,9 @@ GPIO.setup(14, GPIO.OUT)
 GPIO.output(14, False)
 output = 0
 
-ina = INA219(shunt_ohms=0.1,
-             busnum=1,
-             max_expected_amps=0.02,
-             address=0x40)
-
-ina.configure(voltage_range=ina.RANGE_16V,
-              gain=ina.GAIN_AUTO,
-              bus_adc=ina.ADC_128SAMP,
-              shunt_adc=ina.ADC_128SAMP)
+i2c = busio.I2C(board.SCL, board.SDA)
+ina = INA219(i2c)
+ina.configure()
 
 pressure_values = []
 temperature_values = []
@@ -139,7 +135,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         temperature = self.get_temperature_w1()
         pressure = ina.current()
-        print(f"pressure-amp: {pressure}mA\nbus-voltage: {ina.voltage()}V\nshunt-voltage: {ina.shunt_voltage()}V\npressure-power: {ina.power()}W")
+        print(f"pressure-amp: {pressure}mA\nbus-voltage: {ina.bus_voltage()}V\nshunt-voltage: {ina.shunt_voltage()}mV")
 
         pressure_values.append(pressure)
         temperature_values.append(temperature)

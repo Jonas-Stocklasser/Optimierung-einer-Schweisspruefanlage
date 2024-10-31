@@ -26,10 +26,15 @@ GPIO.setup(14, GPIO.OUT)
 GPIO.output(14, False)
 output = 0
 
-i2c = busio.I2C(board.SCL, board.SDA)
-ina = INA219(i2c)
-ina.shunt_resistance = 0.1
-ina.set_calibration_32V_2A()
+ina = INA219(shunt_ohms=0.1,
+             max_expected_amps = 0.03,
+             address=0x40)
+
+ina.configure(voltage_range=ina.RANGE_32V,
+              gain=ina.GAIN_AUTO,
+              bus_adc=ina.ADC_128SAMP,
+              shunt_adc=ina.ADC_128SAMP)
+
 
 pressure_values = []
 temperature_values = []
@@ -135,8 +140,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             print(test_timesteps)
 
         temperature = self.get_temperature_w1()
-        pressure = ina.current
-        print(f"pressure-amp: {pressure:.3f}mA\nbus-voltage: {ina.bus_voltage:.3f}V\nshunt-voltage: {ina.shunt_voltage:.3f}mV")
+        pressure = ina.current()
+        print(f"pressure-amp: {pressure}mA\nbus-voltage: {ina.voltage()}V\nshunt-voltage: {ina.power()}W")
 
         pressure_values.append(pressure)
         temperature_values.append(temperature)

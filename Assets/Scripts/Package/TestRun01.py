@@ -26,12 +26,8 @@ GPIO.setup(14, GPIO.OUT)
 GPIO.output(14, False)
 output = 0
 
-GPIO.setup(2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
 i2c = busio.I2C(board.SCL, board.SDA)
 ina = INA219(i2c)
-ina.current_lsb = 0.1
 ina.shunt_resistance = 0.1
 
 pressure_values = []

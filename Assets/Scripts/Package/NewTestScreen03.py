@@ -89,6 +89,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
                                                        command=self.examiner_select)
         # the command automatically passes the current value as an argument to the specified method
         self.options_menu_examiner.grid(row=1, column=3, columnspan=1, rowspan=1, sticky="new")
+
         # entry frame------------------------------------------------------------
         self.entry_frame = ctk.CTkFrame(master=self,  # frame for the entries
                                         corner_radius=20)
@@ -237,11 +238,11 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
 
     def change_entry_data_examiner(self):  # make the entries typeable
         self.first_name_entry_unchanged_overlay_label.grid_forget()
-        self.first_name_entry_unchanged_overlay_label_frame.grid_forget()
+        self.first_name_entry_unchanged_overlay_label_frame.place_forget()
         self.last_name_entry_unchanged_overlay_label.grid_forget()
-        self.last_name_entry_unchanged_overlay_label_frame.grid_forget()
+        self.last_name_entry_unchanged_overlay_label_frame.place_forget()
         self.birth_date_entry_unchanged_overlay_label.grid_forget()
-        self.birth_date_entry_unchanged_overlay_label_frame.grid_forget()
+        self.birth_date_entry_unchanged_overlay_label_frame.place_forget()
 
         self.first_name_entry.configure(state="normal", placeholder_text="Vorname")
         self.last_name_entry.configure(state="normal", placeholder_text="Nachname")

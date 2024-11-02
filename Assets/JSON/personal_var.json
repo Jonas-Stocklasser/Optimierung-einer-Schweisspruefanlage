@@ -9,7 +9,7 @@
   },
   {
     "var":"personal_folder_path",
-    "val":"E:\/GIT\/Optimierung-einer-Schweisspruefanlage\/Assets\/Tests\/aa_aa6\/"
+    "val":"E:\/GIT\/Optimierung-einer-Schweisspruefanlage\/Assets\/Tests\/aa_aa7\/"
   },
   {
     "var":"personal_json_name",
@@ -53,9 +53,9 @@
   {
     "var":"personal_infos_examiner_03",
     "val":[
-      "Jonas",
-      "Stocklasser",
-      "21.09.2005"
+      "Max",
+      "Mustermann",
+      "01.02.1976"
     ]
   },
   {

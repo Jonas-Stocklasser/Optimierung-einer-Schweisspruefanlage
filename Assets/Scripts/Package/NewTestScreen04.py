@@ -6,11 +6,13 @@
 
 import customtkinter as ctk
 import tkinter as tk
+import math
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, GetItemVariables, back_arrow_image, main_pi_location
 from .JsonFunctions import json_writer, json_reader
 
 window_geometry = GetStartupVariables.window_geometry
+font_size = window_geometry[1] / 40
 
 
 class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
@@ -22,325 +24,292 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
 
         self.app = parent
 
+        # Grid configuration
+        self.grid_columnconfigure(0, weight=3)
+        self.grid_columnconfigure(tuple(range(1, 80)), weight=10)
+        self.grid_columnconfigure(81, weight=3)
+        self.grid_rowconfigure(0, weight=4)
+        self.grid_rowconfigure(tuple(range(1, 60)), weight=10)
+        self.grid_rowconfigure(61, weight=4)
+
         # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
-                                          width=window_geometry[0] - 70,
-                                          height=window_geometry[1] / 20,
                                           corner_radius=10,
                                           text=("Neuer Test - Schritt 4:" +
                                                 " Daten des Prüfstückes überprüfen"),
                                           text_color=GetStartupVariables.text_color_SET,
-                                          font=("bold", 20),
+                                          font=("bold", font_size),
                                           anchor="w")
-        self.indicator_bar.place(x=0,
-                                 y=0)
-        # options menu item------------------------------------------------------------
-        self.item_option_menu_frame = ctk.CTkFrame(master=self,  # frame for the entries
-                                                   width=340,
-                                                   height=70,
-                                                   corner_radius=20)
-        self.item_option_menu_frame.place(x=30,
-                                          y=75)
-
-        self.item_option_menu_label = ctk.CTkLabel(master=self.item_option_menu_frame,
-                                                   fg_color=GetStartupVariables.color_SET_blue,
-                                                   width=200,
-                                                   height=50,
-                                                   corner_radius=10,
-                                                   text="Voreinstellungen",
-                                                   text_color=GetStartupVariables.text_color_SET,
-                                                   font=("bold", 20))
-        self.item_option_menu_label.place(x=10,
-                                          y=10)
-
-        self.options_menu_item = ctk.CTkOptionMenu(master=self.item_option_menu_frame,
-                                                   width=100,
-                                                   height=50,
-                                                   font=("bold", 20),
-                                                   dropdown_font=("bold", 20),
-                                                   corner_radius=5,
-                                                   variable=tk.StringVar(value=GetItemVariables.last_chosen_item),
-                                                   values=GetItemVariables.item_list,
-                                                   command=self.item_select)
-        # the command automatically passes the current value as an argument to the specified method
-        self.options_menu_item.place(x=230,
-                                     y=10)
-        # entry frame 1------------------------------------------------------------
-        self.entry_frame1 = ctk.CTkFrame(master=self,  # frame for the entries
-                                         width=340,
-                                         height=360,
-                                         corner_radius=20)
-        self.entry_frame1.place(x=30,
-                                y=175)
-
-        # entry frame 2------------------------------------------------------------
-        self.entry_frame2 = ctk.CTkFrame(master=self,  # frame for the entries
-                                         width=340,
-                                         height=240,
-                                         corner_radius=20)
-        self.entry_frame2.place(x=380,
-                                y=295)
+        self.indicator_bar.grid(row=1, column=1, columnspan=77, rowspan=1, sticky="nesw")
 
         # back button------------------------------------------------------------
         self.back_button = ctk.CTkButton(master=self,  # back button
-                                         width=40,
-                                         height=window_geometry[1] / 20,
                                          corner_radius=10,
                                          text="",
-                                         anchor="ne",
+                                         anchor="center",
                                          image=back_arrow_image,
                                          command=lambda: self.master.confirm_go_back("1.2"))
         # the command does call the switch_window method because there is unsaved content to loose
-        self.back_button.place(x=GetStartupVariables.window_geometry[0] - 65,
-                               y=0)
+        self.back_button.grid(row=1, column=78, columnspan=2, rowspan=1, sticky="nesw")
+
+        # options menu item------------------------------------------------------------
+        self.item_option_menu_frame = ctk.CTkFrame(master=self,  # frame for the entries
+                                                   corner_radius=10)
+        self.item_option_menu_frame.grid(row=4, column=2, columnspan=15, rowspan=2, sticky="nesw")
+
+        # Grid configuration
+        self.item_option_menu_frame.grid_columnconfigure(0, weight=3)
+        self.item_option_menu_frame.grid_columnconfigure(1, weight=20)
+        self.item_option_menu_frame.grid_columnconfigure(2, weight=3)
+        self.item_option_menu_frame.grid_columnconfigure(3, weight=20)
+        self.item_option_menu_frame.grid_columnconfigure(4, weight=3)
+        self.item_option_menu_frame.grid_rowconfigure(0, weight=3)
+        self.item_option_menu_frame.grid_rowconfigure(1, weight=10)
+        self.item_option_menu_frame.grid_rowconfigure(2, weight=3)
+
+        self.item_option_menu_label = ctk.CTkLabel(master=self.item_option_menu_frame,
+                                                   fg_color=GetStartupVariables.color_SET_blue,
+                                                   corner_radius=10,
+                                                   text="Voreinstellungen",
+                                                   text_color=GetStartupVariables.text_color_SET,
+                                                   font=("bold", font_size))
+        self.item_option_menu_label.grid(row=1, column=1, columnspan=1, rowspan=1, sticky="nesw")
+
+        self.options_menu_item = ctk.CTkOptionMenu(master=self.item_option_menu_frame,
+                                                   font=("bold", font_size),
+                                                   dropdown_font=("bold", font_size),
+                                                   corner_radius=5,
+                                                   variable=tk.StringVar(
+                                                       value=GetItemVariables.last_chosen_item),
+                                                   values=GetItemVariables.item_list,
+                                                   command=self.item_select)
+        # the command automatically passes the current value as an argument to the specified method
+        self.options_menu_item.grid(row=1, column=3, columnspan=1, rowspan=1, sticky="new")
+
+        # entry frame 1------------------------------------------------------------
+        self.entry_frame1 = ctk.CTkFrame(master=self,  # frame for the entries
+                                         corner_radius=20)
+        self.entry_frame1.grid(row=8, column=2, columnspan=10, rowspan=15, sticky="nesw")
+
+        # Grid configuration
+        self.entry_frame1.grid_columnconfigure(0, weight=10)
+        self.entry_frame1.grid_columnconfigure(tuple(range(1, 80)), weight=10)
+        self.entry_frame1.grid_columnconfigure(81, weight=10)
+        self.entry_frame1.grid_rowconfigure(0, weight=4)
+        self.entry_frame1.grid_rowconfigure(tuple(range(1, 49)), weight=10)
+        self.entry_frame1.grid_rowconfigure(50, weight=4)
+
+        # entry frame 2------------------------------------------------------------
+        self.entry_frame2 = ctk.CTkFrame(master=self,  # frame for the entries
+                                         corner_radius=20)
+        self.entry_frame2.grid(row=8, column=13, columnspan=10, rowspan=15, sticky="nesw")
+
+        # Grid configuration
+        self.entry_frame2.grid_columnconfigure(0, weight=10)
+        self.entry_frame2.grid_columnconfigure(tuple(range(1, 80)), weight=10)
+        self.entry_frame2.grid_columnconfigure(81, weight=10)
+        self.entry_frame2.grid_rowconfigure(0, weight=4)
+        self.entry_frame2.grid_rowconfigure(tuple(range(1, 49)), weight=10)
+        self.entry_frame2.grid_rowconfigure(50, weight=4)
 
         # title entry------------------------------------------------------------
         self.title_entry_label = ctk.CTkLabel(master=self.entry_frame1,
                                               fg_color=GetStartupVariables.color_SET_blue,
-                                              width=100,
-                                              height=40,
                                               corner_radius=10,
                                               text="Titel",
                                               text_color=GetStartupVariables.text_color_SET,
-                                              font=("bold", 20))
-        self.title_entry_label.place(x=10,
-                                     y=10)
+                                              font=("bold", font_size))
+        self.title_entry_label.grid(row=5, column=20, columnspan=1, rowspan=1, sticky="nesw")
 
         self.title_entry = ctk.CTkEntry(master=self.entry_frame1,
-                                        width=250,
-                                        height=50,
-                                        font=("bold", 20),
+                                        font=("bold", font_size),
                                         state="disabled"
                                         )
-        self.title_entry.place(x=10,
-                               y=60)
+        self.title_entry.grid(row=10, column=20, columnspan=2, rowspan=1, sticky="nesw")
 
         self.title_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame1,
-                                                                      width=250,
-                                                                      height=50,
                                                                       corner_radius=10)
-        self.title_entry_unchanged_overlay_label_frame.place(x=10,
-                                                             y=60)
+        self.title_entry_unchanged_overlay_label_frame.grid(row=10, column=20, columnspan=2, rowspan=1,
+                                                            sticky="nesw")
 
-        self.title_entry_unchanged_overlay_label = ctk.CTkLabel(master=self.title_entry_unchanged_overlay_label_frame,
-                                                                width=230,
-                                                                height=50,
-                                                                anchor="w",
-                                                                text=GetItemVariables.infos_item[0],
-                                                                font=("bold", 20))
-        self.title_entry_unchanged_overlay_label.place(x=10,
-                                                       y=0)
+        self.title_entry_unchanged_overlay_label = ctk.CTkLabel(
+            master=self.title_entry_unchanged_overlay_label_frame,
+            anchor="w",
+            text=GetItemVariables.infos_item[0],
+            font=("bold", font_size))
+        self.title_entry_unchanged_overlay_label.place(relx=0.1,
+                                                       rely=0.3)
 
         # info1 entry------------------------------------------------------------
         self.info1_entry_label = ctk.CTkLabel(master=self.entry_frame1,
                                               fg_color=GetStartupVariables.color_SET_blue,
-                                              width=100,
-                                              height=40,
                                               corner_radius=10,
                                               text="Info1",
                                               text_color=GetStartupVariables.text_color_SET,
-                                              font=("bold", 20))
-        self.info1_entry_label.place(x=10,
-                                     y=130)
+                                              font=("bold", font_size))
+        self.info1_entry_label.grid(row=22, column=20, columnspan=1, rowspan=1, sticky="nesw")
 
         self.info1_entry = ctk.CTkEntry(master=self.entry_frame1,
-                                        width=250,
-                                        height=50,
-                                        font=("bold", 20),
-                                        state="disabled"
-                                        )
-        self.info1_entry.place(x=10,
-                               y=180)
+                                        font=("bold", font_size),
+                                        state="disabled")
+        self.info1_entry.grid(row=27, column=20, columnspan=2, rowspan=1, sticky="nesw")
 
         self.info1_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame1,
-                                                                      width=250,
-                                                                      height=50,
                                                                       corner_radius=10)
-        self.info1_entry_unchanged_overlay_label_frame.place(x=10,
-                                                             y=180)
+        self.info1_entry_unchanged_overlay_label_frame.grid(row=27, column=20, columnspan=2, rowspan=1,
+                                                            sticky="nesw")
 
-        self.info1_entry_unchanged_overlay_label = ctk.CTkLabel(master=self.info1_entry_unchanged_overlay_label_frame,
-                                                                width=230,
-                                                                height=50,
-                                                                anchor="w",
-                                                                text=GetItemVariables.infos_item[1],
-                                                                font=("bold", 20))
-        self.info1_entry_unchanged_overlay_label.place(x=10,
-                                                       y=0)
+        self.info1_entry_unchanged_overlay_label = ctk.CTkLabel(
+            master=self.info1_entry_unchanged_overlay_label_frame,
+            anchor="w",
+            text=GetItemVariables.infos_item[1],
+            font=("bold", font_size))
+        self.info1_entry_unchanged_overlay_label.place(relx=0.1,
+                                                       rely=0.3)
 
         # info2 entry------------------------------------------------------------
         self.info2_entry_label = ctk.CTkLabel(master=self.entry_frame1,
                                               fg_color=GetStartupVariables.color_SET_blue,
-                                              width=100,
-                                              height=40,
                                               corner_radius=10,
                                               text="Info2",
                                               text_color=GetStartupVariables.text_color_SET,
-                                              font=("bold", 20))
-        self.info2_entry_label.place(x=10,
-                                     y=250)
+                                              font=("bold", font_size))
+        self.info2_entry_label.grid(row=39, column=20, columnspan=1, rowspan=1, sticky="nesw")
 
         self.info2_entry = ctk.CTkEntry(master=self.entry_frame1,
-                                        width=250,
-                                        height=50,
-                                        font=("bold", 20),
+                                        font=("bold", font_size),
                                         state="disabled"
                                         )
-        self.info2_entry.place(x=10,
-                               y=300)
+        self.info2_entry.grid(row=44, column=20, columnspan=2, rowspan=1, sticky="nesw")
 
         self.info2_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame1,
-                                                                      width=250,
-                                                                      height=50,
                                                                       corner_radius=10)
-        self.info2_entry_unchanged_overlay_label_frame.place(x=10,
-                                                             y=300)
+        self.info2_entry_unchanged_overlay_label_frame.grid(row=44, column=20, columnspan=2, rowspan=1,
+                                                            sticky="nesw")
 
         self.info2_entry_unchanged_overlay_label = ctk.CTkLabel(
             master=self.info2_entry_unchanged_overlay_label_frame,
-            width=230,
-            height=50,
             anchor="w",
             text=GetItemVariables.infos_item[2],
-            font=("bold", 20))
-        self.info2_entry_unchanged_overlay_label.place(x=10,
-                                                       y=00)
+            font=("bold", font_size))
+        self.info2_entry_unchanged_overlay_label.place(relx=0.1,
+                                                       rely=0.3)
 
         # info3 entry------------------------------------------------------------
         self.info3_entry_label = ctk.CTkLabel(master=self.entry_frame2,
                                               fg_color=GetStartupVariables.color_SET_blue,
-                                              width=100,
-                                              height=40,
                                               corner_radius=10,
                                               text="Info3",
                                               text_color=GetStartupVariables.text_color_SET,
-                                              font=("bold", 20))
-        self.info3_entry_label.place(x=10,
-                                     y=10)
+                                              font=("bold", font_size))
+        self.info3_entry_label.grid(row=5, column=20, columnspan=1, rowspan=1, sticky="nesw")
 
         self.info3_entry = ctk.CTkEntry(master=self.entry_frame2,
-                                        width=250,
-                                        height=50,
-                                        font=("bold", 20),
+                                        font=("bold", font_size),
                                         state="disabled"
                                         )
-        self.info3_entry.place(x=10,
-                               y=60)
+        self.info3_entry.grid(row=10, column=20, columnspan=2, rowspan=1, sticky="nesw")
 
         self.info3_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame2,
-                                                                      width=250,
-                                                                      height=50,
                                                                       corner_radius=10)
-        self.info3_entry_unchanged_overlay_label_frame.place(x=10,
-                                                             y=60)
+        self.info3_entry_unchanged_overlay_label_frame.grid(row=10, column=20, columnspan=2, rowspan=1,
+                                                            sticky="nesw")
 
         self.info3_entry_unchanged_overlay_label = ctk.CTkLabel(
             master=self.info3_entry_unchanged_overlay_label_frame,
-            width=230,
-            height=50,
             anchor="w",
             text=GetItemVariables.infos_item[3],
-            font=("bold", 20))
-        self.info3_entry_unchanged_overlay_label.place(x=10,
-                                                       y=0)
+            font=("bold", font_size))
+        self.info3_entry_unchanged_overlay_label.place(relx=0.1,
+                                                       rely=0.3)
 
         # info4 entry------------------------------------------------------------
         self.info4_entry_label = ctk.CTkLabel(master=self.entry_frame2,
                                               fg_color=GetStartupVariables.color_SET_blue,
-                                              width=100,
-                                              height=40,
                                               corner_radius=10,
                                               text="Info4",
                                               text_color=GetStartupVariables.text_color_SET,
-                                              font=("bold", 20))
-        self.info4_entry_label.place(x=10,
-                                     y=130)
+                                              font=("bold", font_size))
+        self.info4_entry_label.grid(row=22, column=20, columnspan=1, rowspan=1, sticky="nesw")
 
         self.info4_entry = ctk.CTkEntry(master=self.entry_frame2,
-                                        width=250,
-                                        height=50,
-                                        font=("bold", 20),
+                                        font=("bold", font_size),
                                         state="disabled"
                                         )
-        self.info4_entry.place(x=10,
-                               y=180)
+        self.info4_entry.grid(row=27, column=20, columnspan=2, rowspan=1, sticky="nesw")
 
         self.info4_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame2,
-                                                                      width=250,
-                                                                      height=50,
                                                                       corner_radius=10)
-        self.info4_entry_unchanged_overlay_label_frame.place(x=10,
-                                                             y=180)
+        self.info4_entry_unchanged_overlay_label_frame.grid(row=27, column=20, columnspan=2, rowspan=1,
+                                                            sticky="nesw")
 
         self.info4_entry_unchanged_overlay_label = ctk.CTkLabel(
             master=self.info4_entry_unchanged_overlay_label_frame,
-            width=230,
-            height=50,
             anchor="w",
             text=GetItemVariables.infos_item[4],
-            font=("bold", 20))
-        self.info4_entry_unchanged_overlay_label.place(x=10,
-                                                       y=0)
+            font=("bold", font_size))
+        self.info4_entry_unchanged_overlay_label.place(relx=0.1,
+                                                       rely=0.3)
 
         # change, save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
-                                         width=380,
-                                         height=70,
                                          corner_radius=20)
-        self.button_frame.place(x=30,
-                                y=570)
+        self.button_frame.grid(row=25, column=2, columnspan=18, rowspan=2, sticky="nesw")
+
+        # Grid configuration
+        self.button_frame.grid_columnconfigure(0, weight=3)
+        self.button_frame.grid_columnconfigure(1, weight=20)
+        self.button_frame.grid_columnconfigure(2, weight=3)
+        self.button_frame.grid_columnconfigure(3, weight=20)
+        self.button_frame.grid_columnconfigure(4, weight=3)
+        self.button_frame.grid_columnconfigure(5, weight=20)
+        self.button_frame.grid_columnconfigure(6, weight=3)
+        self.button_frame.grid_rowconfigure(0, weight=3)
+        self.button_frame.grid_rowconfigure(1, weight=10)
+        self.button_frame.grid_rowconfigure(2, weight=3)
 
         self.change_button = ctk.CTkButton(master=self.button_frame,  # continue button
-                                           width=120,
-                                           height=50,
                                            corner_radius=10,
                                            text="Ändern",
-                                           font=("bold", 20),
+                                           font=("bold", font_size),
                                            state="normal",
                                            command=lambda: self.change_entry_data_item())
-        self.change_button.place(x=10,
-                                 y=10)
+        self.change_button.grid(row=1, column=1, columnspan=1, rowspan=1, sticky="nesw")
 
         self.save_button = ctk.CTkButton(master=self.button_frame,  # continue button
-                                         width=120,
-                                         height=50,
                                          corner_radius=10,
                                          text="Speichern",
-                                         font=("bold", 20),
+                                         font=("bold", font_size),
                                          state="disabled",
                                          command=lambda: self.save_entry_data_item())
-        self.save_button.place(x=140,
-                               y=10)
+        self.save_button.grid(row=1, column=3, columnspan=1, rowspan=1, sticky="nesw")
 
         self.continue_button = ctk.CTkButton(master=self.button_frame,
                                              # continue button
-                                             width=100,
-                                             height=50,
                                              corner_radius=10,
                                              text="Weiter",
-                                             font=("bold", 20),
+                                             font=("bold", font_size),
                                              state="normal",
                                              command=self.continue_button_function)
-        self.continue_button.place(x=270,
-                                   y=10)
+        self.continue_button.grid(row=1, column=5, columnspan=1, rowspan=1, sticky="nesw")
 
     def continue_button_function(self):
         self.master.switch_window("1.4")
         self.write_personal_json()
 
     def change_entry_data_item(self):
-        self.title_entry_unchanged_overlay_label.place_forget()
+        self.title_entry_unchanged_overlay_label.grid_forget()
         self.title_entry_unchanged_overlay_label_frame.place_forget()
-        self.info1_entry_unchanged_overlay_label.place_forget()
+        self.info1_entry_unchanged_overlay_label.grid_forget()
         self.info1_entry_unchanged_overlay_label_frame.place_forget()
-        self.info2_entry_unchanged_overlay_label.place_forget()
+        self.info2_entry_unchanged_overlay_label.grid_forget()
         self.info2_entry_unchanged_overlay_label_frame.place_forget()
-        self.info3_entry_unchanged_overlay_label.place_forget()
+        self.info3_entry_unchanged_overlay_label.grid_forget()
         self.info3_entry_unchanged_overlay_label_frame.place_forget()
-        self.info4_entry_unchanged_overlay_label.place_forget()
+        self.info4_entry_unchanged_overlay_label.grid_forget()
         self.info4_entry_unchanged_overlay_label_frame.place_forget()
 
         self.title_entry.configure(state="normal", placeholder_text="Titel")
@@ -369,16 +338,26 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
             last_chosen_item = json_reader("personal_var", "last_chosen_item", main_pi_location + "../JSON/")
             json_writer("item_var", ("infos_item_" + last_chosen_item), infos_item, main_pi_location + "../JSON/")
 
-            self.title_entry_unchanged_overlay_label_frame.place(x=10, y=60)
-            self.title_entry_unchanged_overlay_label.place(x=10, y=0)
-            self.info1_entry_unchanged_overlay_label_frame.place(x=10, y=180)
-            self.info1_entry_unchanged_overlay_label.place(x=10, y=0)
-            self.info2_entry_unchanged_overlay_label_frame.place(x=10, y=300)
-            self.info2_entry_unchanged_overlay_label.place(x=10, y=0)
-            self.info3_entry_unchanged_overlay_label_frame.place(x=10, y=60)
-            self.info3_entry_unchanged_overlay_label.place(x=10, y=0)
-            self.info4_entry_unchanged_overlay_label_frame.place(x=10, y=180)
-            self.info4_entry_unchanged_overlay_label.place(x=10, y=0)
+            self.title_entry_unchanged_overlay_label_frame.grid(row=10, column=20, columnspan=2, rowspan=1,
+                                                                sticky="nesw")
+            self.title_entry_unchanged_overlay_label.place(relx=0.1,
+                                                           rely=0.3)
+            self.info1_entry_unchanged_overlay_label_frame.grid(row=27, column=20, columnspan=2, rowspan=1,
+                                                                sticky="nesw")
+            self.info1_entry_unchanged_overlay_label.place(relx=0.1,
+                                                           rely=0.3)
+            self.info2_entry_unchanged_overlay_label_frame.grid(row=44, column=20, columnspan=2, rowspan=1,
+                                                                sticky="nesw")
+            self.info2_entry_unchanged_overlay_label.place(relx=0.1,
+                                                           rely=0.3)
+            self.info3_entry_unchanged_overlay_label_frame.grid(row=10, column=20, columnspan=2, rowspan=1,
+                                                                sticky="nesw")
+            self.info3_entry_unchanged_overlay_label.place(relx=0.1,
+                                                           rely=0.3)
+            self.info4_entry_unchanged_overlay_label_frame.grid(row=27, column=20, columnspan=2, rowspan=1,
+                                                            sticky="nesw")
+            self.info4_entry_unchanged_overlay_label.place(relx=0.1,
+                                                           rely=0.3)
             self.update_labels(infos_item)
 
             self.title_entry.configure(state="disabled")
@@ -414,3 +393,49 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         personal_folder_path = json_reader("personal_var", "personal_folder_path", main_pi_location + "../JSON/")
         personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
         json_writer(personal_json_name, "infos_item", infos_item, personal_folder_path)
+
+    def update_size(self, font_size):
+        self.indicator_bar.configure(font=("bold", font_size), height=font_size)
+        self.back_button.configure(width=font_size,
+                                   height=font_size)
+        back_arrow_image.configure(size=(font_size, font_size))
+        self.title_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 5)
+        self.title_entry.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 10)
+        self.title_entry_unchanged_overlay_label.configure(font=("bold", font_size), height=font_size * 1,
+                                                                width=font_size * 9)
+        self.title_entry_unchanged_overlay_label_frame.configure(height=font_size * 2,
+                                                                      width=font_size * 10)
+        self.info1_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 5)
+        self.info1_entry.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 10)
+        self.info1_entry_unchanged_overlay_label.configure(font=("bold", font_size), height=font_size * 1,
+                                                               width=font_size * 9)
+        self.info1_entry_unchanged_overlay_label_frame.configure(height=font_size * 2,
+                                                                     width=font_size * 10)
+        self.info2_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 5)
+        self.info2_entry.configure(font=("bold", math.ceil(font_size) - 4))
+        self.info2_entry_unchanged_overlay_label.configure(font=("bold", font_size), height=font_size * 1,
+                                                                width=font_size * 9)
+        self.info2_entry_unchanged_overlay_label_frame.configure(height=font_size * 2,
+                                                                      width=font_size * 10)
+
+        self.info3_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 5)
+        self.info3_entry.configure(font=("bold", math.ceil(font_size) - 4))
+        self.info3_entry_unchanged_overlay_label.configure(font=("bold", font_size), height=font_size * 1,
+                                                           width=font_size * 9)
+        self.info3_entry_unchanged_overlay_label_frame.configure(height=font_size * 2,
+                                                                 width=font_size * 10)
+
+        self.info4_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 5)
+        self.info4_entry.configure(font=("bold", math.ceil(font_size) - 4))
+        self.info4_entry_unchanged_overlay_label.configure(font=("bold", font_size), height=font_size * 1,
+                                                           width=font_size * 9)
+        self.info4_entry_unchanged_overlay_label_frame.configure(height=font_size * 2,
+                                                                 width=font_size * 10)
+        self.button_frame.configure(height=font_size*2)
+        self.change_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4)
+        self.save_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4)
+        self.continue_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4)
+
+        self.item_option_menu_frame.configure(height=font_size * 2)
+        self.item_option_menu_label.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4)
+        self.options_menu_item.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4)

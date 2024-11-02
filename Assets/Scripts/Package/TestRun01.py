@@ -132,10 +132,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             test_timesteps = [1]
         else:
             last_entry = test_timesteps[len(test_timesteps) - 1]
-            print(f"last entry = {last_entry}")
             last_entry += 1
             test_timesteps.append(last_entry)
-            print(test_timesteps)
 
         temperature = self.get_temperature_w1()
         #pressure = ina.current()

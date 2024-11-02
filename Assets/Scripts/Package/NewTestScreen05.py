@@ -10,6 +10,7 @@ from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location
 from .JsonFunctions import json_writer, json_reader
 
 window_geometry = GetStartupVariables.window_geometry
+font_size = window_geometry[1] / 40
 
 
 class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
@@ -21,84 +22,80 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
 
         self.app = parent
 
+        # Grid configuration
+        self.grid_columnconfigure(0, weight=3)
+        self.grid_columnconfigure(tuple(range(1, 80)), weight=10)
+        self.grid_columnconfigure(81, weight=3)
+        self.grid_rowconfigure(0, weight=4)
+        self.grid_rowconfigure(tuple(range(1, 60)), weight=10)
+        self.grid_rowconfigure(61, weight=4)
+
         # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
-                                          width=window_geometry[0] - 70,
-                                          height=window_geometry[1] / 20,
                                           corner_radius=10,
                                           text=("Neuer Test - Schritt 5:" +
                                                 " Visuelle Einschätzung vom Prüfer eingeben"),
                                           text_color=GetStartupVariables.text_color_SET,
-                                          font=("bold", 20),
+                                          font=("bold", font_size),
                                           anchor="w")
-        self.indicator_bar.place(x=0,
-                                 y=0)
+        self.indicator_bar.grid(row=1, column=1, columnspan=77, rowspan=1, sticky="nesw")
 
         # back button------------------------------------------------------------
         self.back_button = ctk.CTkButton(master=self,  # back button
-                                         width=40,
-                                         height=window_geometry[1] / 20,
                                          corner_radius=10,
                                          text="",
-                                         anchor="ne",
+                                         anchor="center",
                                          image=back_arrow_image,
                                          command=lambda: self.master.confirm_go_back("1.3"))
         # the command does call the switch_window method because there is unsaved content to loose
-        self.back_button.place(x=GetStartupVariables.window_geometry[0] - 65,
-                               y=0)
+        self.back_button.grid(row=1, column=78, columnspan=2, rowspan=1, sticky="nesw")
 
         # textbox frame ------------------------------------------------------------
         self.textbox_frame = ctk.CTkFrame(master=self,  # frame for the textbox
-                                          width=910,
-                                          height=455,
                                           corner_radius=20)
-        self.textbox_frame.place(x=30,
-                                 y=80)
+        self.textbox_frame.grid(row=4, column=2, columnspan=40, rowspan=30, sticky="nesw")
 
         # textbox ------------------------------------------------------------
-
         self.textbox = ctk.CTkTextbox(master=self.textbox_frame,
-                                      width=890,
-                                      height=435,
                                       border_width=5,
-                                      font=("bold", 20),
+                                      font=("bold", font_size),
                                       corner_radius=10)
-        self.textbox.place(x=10,
-                           y=10)
+        self.textbox.place(relx=0.01,
+                           rely=0.01)
 
         # save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
-                                         width=250,
-                                         height=70,
-                                         corner_radius=20)
-        self.button_frame.place(x=30,
-                                y=570)
+                                         corner_radius=10)
+        self.button_frame.grid(row=40, column=2, columnspan=13, rowspan=2, sticky="nesw")
+
+        self.button_frame.grid_columnconfigure(0, weight=3)
+        self.button_frame.grid_columnconfigure(1, weight=20)
+        self.button_frame.grid_columnconfigure(2, weight=3)
+        self.button_frame.grid_columnconfigure(3, weight=20)
+        self.button_frame.grid_columnconfigure(4, weight=3)
+        self.button_frame.grid_rowconfigure(0, weight=3)
+        self.button_frame.grid_rowconfigure(1, weight=10)
+        self.button_frame.grid_rowconfigure(2, weight=3)
 
         self.save_button = ctk.CTkButton(master=self.button_frame,  # continue button
-                                         width=120,
-                                         height=50,
                                          corner_radius=10,
                                          text="Speichern",
-                                         font=("bold", 20),
+                                         font=("bold", font_size),
                                          state="normal",
                                          command=lambda: self.save_textbox_data())
-        self.save_button.place(x=10,
-                               y=10)
+        self.save_button.grid(row=1, column=1, columnspan=1, rowspan=1, sticky="nesw")
 
         self.continue_button = ctk.CTkButton(master=self.button_frame,
                                              # continue button
-                                             width=100,
-                                             height=50,
                                              corner_radius=10,
                                              text="Weiter",
-                                             font=("bold", 20),
+                                             font=("bold", font_size),
                                              state="disabled",
                                              command=lambda: self.master.switch_window("1.5"))
-        self.continue_button.place(x=140,
-                                   y=10)
+        self.continue_button.grid(row=1, column=3, columnspan=1, rowspan=1, sticky="nesw")
 
     def save_textbox_data(self):
         visual_grade = self.textbox.get("1.0", "end")
@@ -110,3 +107,15 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
             json_writer(personal_json_name, "visual_grade", visual_grade, personal_folder_path)
         else:
             print("Type something! An empty field is not permitted!")
+
+    def update_size(self, font_size):
+        self.indicator_bar.configure(font=("bold", font_size), height=font_size)
+        self.back_button.configure(width=font_size,
+                                   height=font_size)
+        back_arrow_image.configure(size=(font_size, font_size))
+        self.textbox_frame.configure(height=font_size*3*7.5, width=font_size*4*7.5)
+        self.textbox.configure(font=("bold", font_size), height=font_size * 3 * 9.7, width=font_size*4*10)
+
+        self.button_frame.configure(height=font_size * 2)
+        self.save_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4)
+        self.continue_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4)

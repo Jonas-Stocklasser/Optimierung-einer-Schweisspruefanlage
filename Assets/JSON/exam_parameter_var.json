@@ -20,72 +20,42 @@
   },
   {
     "var":"parameter_list_01",
-    "val":[
-      "60",
-      "120"
-    ]
+    "val":"55"
   },
   {
     "var":"parameter_list_02",
-    "val":[
-      "Druck2",
-      "Dauer2"
-    ]
+    "val":"Druck2"
   },
   {
     "var":"parameter_list_03",
-    "val":[
-      "Druck3",
-      "Dauer3"
-    ]
+    "val":"Druck3"
   },
   {
     "var":"parameter_list_04",
-    "val":[
-      "Druck4",
-      "Dauer4"
-    ]
+    "val":"Druck4"
   },
   {
     "var":"parameter_list_05",
-    "val":[
-      "Druck5",
-      "Dauer5"
-    ]
+    "val":"Druck5"
   },
   {
     "var":"parameter_list_06",
-    "val":[
-      "Druck6",
-      "Dauer6"
-    ]
+    "val":"Druck6"
   },
   {
     "var":"parameter_list_07",
-    "val":[
-      "Druck7",
-      "Dauer7"
-    ]
+    "val":"Druck7"
   },
   {
     "var":"parameter_list_08",
-    "val":[
-      "Druck8",
-      "Cauer8"
-    ]
+    "val":"Druck8"
   },
   {
     "var":"parameter_list_09",
-    "val":[
-      "Druck9",
-      "Dauer9"
-    ]
+    "val":"Druck9"
   },
   {
     "var":"parameter_list_10",
-    "val":[
-      "Druck10",
-      "Dauer10"
-    ]
+    "val":"Druck10"
   }
 ]

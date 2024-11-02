@@ -2,22 +2,22 @@
   {
     "var":"personal_infos_examinee",
     "val":[
-      "aa",
-      "aa",
+      "Maxi",
+      "Maximann",
       "01.01.2000"
     ]
   },
   {
     "var":"personal_folder_path",
-    "val":"E:\/GIT\/Optimierung-einer-Schweisspruefanlage\/Assets\/Tests\/aa_aa7\/"
+    "val":"E:\/GIT\/Optimierung-einer-Schweisspruefanlage\/Assets\/Tests\/Maximann_Maxi\/"
   },
   {
     "var":"personal_json_name",
-    "val":"aa_aa"
+    "val":"Maximann_Maxi"
   },
   {
     "var":"last_chosen_examiner",
-    "val":"03"
+    "val":"02"
   },
   {
     "var":"examiner_list",

@@ -98,7 +98,7 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
 
     def update_size(self, font_size):
         self.indicator_bar.configure(font=("bold", font_size), height=font_size)
-        self.new_test_button.configure(font=("bold", 2*font_size))
-        self.options_button.configure(font=("bold", 2*font_size))
-        self.quit_button.configure(font=("bold", 2*font_size))
+        self.new_test_button.configure(font=("bold", 2*font_size), height=font_size * 2.5, width=font_size * 4)
+        self.options_button.configure(font=("bold", 2*font_size), height=font_size * 2.5, width=font_size * 4)
+        self.quit_button.configure(font=("bold", 2*font_size), height=font_size * 2.5, width=font_size * 4)
         pruefstueck_image.configure(size=(font_size*16*1.5, font_size*9*1.5))

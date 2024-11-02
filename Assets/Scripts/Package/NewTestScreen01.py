@@ -141,3 +141,9 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
         back_arrow_image.configure(size=(font_size, font_size))
         self.help_label.configure(font=("bold", font_size), height=font_size)
         self.change_button.configure(width=font_size*1.5)
+
+        self.frame.configure(height=font_size * 2)
+        self.path_label.configure(height=font_size * 1.5, font=("bold", font_size))
+        self.path_display_label.configure(height=font_size * 1.5, font=("bold", font_size))
+        self.change_button.configure(height=font_size * 1.5, font=("bold", font_size))
+        self.continue_button.configure(height=font_size * 1.5, width=font_size * 3, font=("bold", font_size))

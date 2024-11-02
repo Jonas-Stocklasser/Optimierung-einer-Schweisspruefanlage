@@ -203,3 +203,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
         self.birth_date_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size*5)
         self.birth_date_entry.configure(font=("bold", math.ceil(font_size)-4))
 
+        self.button_frame.configure(height=font_size * 2)
+        self.save_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4)
+        self.continue_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4)
+

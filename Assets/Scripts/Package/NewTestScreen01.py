@@ -122,7 +122,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
 
         self.help_label = ctk.CTkLabel(master=self.frame2,
                                        fg_color=GetStartupVariables.color_SET_blue,
-                                       corner_radius=10,
+                                       corner_radius=8,
                                        text="USB-Stick ist wahrscheinlich in /media/admin/; USB-Stick in schwarzen Port stecken!",
                                        text_color=GetStartupVariables.text_color_SET,
                                        font=("bold", font_size))

@@ -6,6 +6,7 @@
 
 import customtkinter as ctk
 import tkcalendar as tkc
+import math
 import os
 from datetime import datetime
 # Shared variables----------------------------------------
@@ -13,6 +14,7 @@ from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location
 from .JsonFunctions import json_writer, json_reader, json_creator
 
 window_geometry = GetStartupVariables.window_geometry
+font_size = window_geometry[1] / 40
 
 
 class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
@@ -24,135 +26,126 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
 
         self.app = parent
 
+        # Grid configuration
+        self.grid_columnconfigure(0, weight=3)
+        self.grid_columnconfigure(tuple(range(1, 80)), weight=10)
+        self.grid_columnconfigure(81, weight=3)
+        self.grid_rowconfigure(0, weight=4)
+        self.grid_rowconfigure(tuple(range(1, 60)), weight=10)
+        self.grid_rowconfigure(61, weight=4)
+
         # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
-                                          width=window_geometry[0] - 70,
-                                          height=window_geometry[1] / 20,
                                           corner_radius=10,
                                           text=("Neuer Test - Schritt 2:" +
                                                 " persönliche Daten des Prüflings eingeben"),
                                           text_color=GetStartupVariables.text_color_SET,
-                                          font=("bold", 20),
+                                          font=("bold", font_size),
                                           anchor="w")
-        self.indicator_bar.place(x=0,
-                                 y=0)
-
-        # entry frame------------------------------------------------------------
-        self.entry_frame = ctk.CTkFrame(master=self,  # frame for the entries
-                                        width=340,
-                                        height=360,
-                                        corner_radius=20)
-        self.entry_frame.place(x=30,
-                               y=75)
+        self.indicator_bar.grid(row=1, column=1, columnspan=77, rowspan=1, sticky="nesw")
 
         # back button------------------------------------------------------------
         self.back_button = ctk.CTkButton(master=self,  # back button
-                                         width=40,
-                                         height=window_geometry[1] / 20,
                                          corner_radius=10,
                                          text="",
-                                         anchor="ne",
+                                         anchor="center",
                                          image=back_arrow_image,
                                          command=lambda: self.master.confirm_go_back("1.0"))
         # the command does call the switch_window method because there is unsaved content to loose
-        self.back_button.place(x=GetStartupVariables.window_geometry[0] - 65,
-                               y=0)
+        self.back_button.grid(row=1, column=78, columnspan=2, rowspan=1, sticky="nesw")
+
+        # entry frame------------------------------------------------------------
+        self.entry_frame = ctk.CTkFrame(master=self,  # frame for the entries
+                                        corner_radius=20)
+        self.entry_frame.grid(row=4, column=2, columnspan=10, rowspan=15, sticky="nesw")
+
+        # Grid configuration
+        self.entry_frame.grid_columnconfigure(0, weight=10)
+        self.entry_frame.grid_columnconfigure(tuple(range(1, 80)), weight=10)
+        self.entry_frame.grid_columnconfigure(81, weight=10)
+        self.entry_frame.grid_rowconfigure(0, weight=4)
+        self.entry_frame.grid_rowconfigure(tuple(range(1, 49)), weight=10)
+        self.entry_frame.grid_rowconfigure(50, weight=4)
 
         # first name entry------------------------------------------------------------
         self.first_name_entry_label = ctk.CTkLabel(master=self.entry_frame,
                                                    fg_color=GetStartupVariables.color_SET_blue,
-                                                   width=100,
-                                                   height=40,
                                                    corner_radius=10,
                                                    text="Vorname",
                                                    text_color=GetStartupVariables.text_color_SET,
-                                                   font=("bold", 20))
-        self.first_name_entry_label.place(x=10,
-                                          y=10)
+                                                   font=("bold", font_size))
+        self.first_name_entry_label.grid(row=5, column=20, columnspan=1, rowspan=1, sticky="nesw")
 
         self.first_name_entry = ctk.CTkEntry(master=self.entry_frame,
                                              placeholder_text="Vorname",
-                                             width=250,
-                                             height=50,
-                                             font=("bold", 20)
+                                             font=("bold", font_size)
                                              )
-        self.first_name_entry.place(x=10,
-                                    y=60)
+        self.first_name_entry.grid(row=10, column=20, columnspan=2, rowspan=1, sticky="nesw")
 
         # last name entry------------------------------------------------------------
         self.last_name_entry_label = ctk.CTkLabel(master=self.entry_frame,
                                                   fg_color=GetStartupVariables.color_SET_blue,
-                                                  width=100,
-                                                  height=40,
                                                   corner_radius=10,
                                                   text="Nachname",
                                                   text_color=GetStartupVariables.text_color_SET,
-                                                  font=("bold", 20))
-        self.last_name_entry_label.place(x=10,
-                                         y=130)
+                                                  font=("bold", font_size))
+        self.last_name_entry_label.grid(row=22, column=20, columnspan=1, rowspan=1, sticky="nesw")
 
         self.last_name_entry = ctk.CTkEntry(master=self.entry_frame,
                                             placeholder_text="Nachname",
-                                            width=250,
-                                            height=50,
-                                            font=("bold", 20)
+                                            font=("bold", font_size)
                                             )
-        self.last_name_entry.place(x=10,
-                                   y=180)
+        self.last_name_entry.grid(row=27, column=20, columnspan=2, rowspan=1, sticky="nesw")
 
         # birth date entry------------------------------------------------------------
         self.birth_date_entry_label = ctk.CTkLabel(master=self.entry_frame,
                                                    fg_color=GetStartupVariables.color_SET_blue,
-                                                   width=100,
-                                                   height=40,
                                                    corner_radius=10,
                                                    text="Geburtsdatum",
                                                    text_color=GetStartupVariables.text_color_SET,
-                                                   font=("bold", 20))
-        self.birth_date_entry_label.place(x=10,
-                                          y=250)
+                                                   font=("bold", font_size))
+        self.birth_date_entry_label.grid(row=39, column=20, columnspan=1, rowspan=1, sticky="nesw")
 
         self.birth_date_entry = tkc.DateEntry(master=self.entry_frame,
-                                              font=("bold", 20),
+                                              font=("bold", math.ceil(font_size)),
                                               date_pattern='dd.mm.yyyy',
                                               year=2000,
                                               month=1,
                                               day=1,
                                               state="readonly")
-        self.birth_date_entry.place(x=15,
-                                    y=300)
+        self.birth_date_entry.grid(row=44, column=20, columnspan=2, rowspan=1, sticky="nesw")
         # save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
-                                         width=250,
-                                         height=70,
-                                         corner_radius=20)
-        self.button_frame.place(x=30,
-                                y=500)
+                                         corner_radius=10)
+        self.button_frame.grid(row=20, column=2, columnspan=13, rowspan=2, sticky="nesw")
+
+        self.button_frame.grid_columnconfigure(0, weight=3)
+        self.button_frame.grid_columnconfigure(1, weight=20)
+        self.button_frame.grid_columnconfigure(2, weight=3)
+        self.button_frame.grid_columnconfigure(3, weight=20)
+        self.button_frame.grid_columnconfigure(4, weight=3)
+        self.button_frame.grid_rowconfigure(0, weight=3)
+        self.button_frame.grid_rowconfigure(1, weight=10)
+        self.button_frame.grid_rowconfigure(2, weight=3)
 
         self.save_button = ctk.CTkButton(master=self.button_frame,  # continue button
-                                         width=120,
-                                         height=50,
                                          corner_radius=10,
                                          text="Speichern",
-                                         font=("bold", 20),
+                                         font=("bold", font_size),
                                          command=self.save_entry_data_examinee)
-        self.save_button.place(x=10,
-                               y=10)
+        self.save_button.grid(row=1, column=1, columnspan=1, rowspan=1, sticky="nesw")
 
         self.continue_button = ctk.CTkButton(master=self.button_frame,
                                              # continue button
-                                             width=100,
-                                             height=50,
                                              corner_radius=10,
                                              text="Weiter",
-                                             font=("bold", 20),
+                                             font=("bold", font_size),
                                              state="disabled",
                                              command=self.continue_button_function)
-        self.continue_button.place(x=140,
-                                   y=10)
+        self.continue_button.grid(row=1, column=3, columnspan=1, rowspan=1, sticky="nesw")
 
     def continue_button_function(self):  # method for the button actions
         self.master.switch_window("1.2")
@@ -197,3 +190,16 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
         personal_folder_path = json_reader("personal_var", "personal_folder_path", main_pi_location + "../JSON/")
         personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
         json_writer(personal_json_name, "exam_date", exam_date, personal_folder_path)
+
+    def update_size(self, font_size):
+        self.indicator_bar.configure(font=("bold", font_size), height=font_size)
+        self.back_button.configure(width=font_size,
+                                   height=font_size)
+        back_arrow_image.configure(size=(font_size, font_size))
+        self.first_name_entry_label.configure(font=("bold", font_size), height=font_size*2, width=font_size*5)
+        self.first_name_entry.configure(font=("bold", font_size), height=font_size * 2, width=font_size*10)
+        self.last_name_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size*5)
+        self.last_name_entry.configure(font=("bold", font_size), height=font_size * 2, width=font_size*10)
+        self.birth_date_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size*5)
+        self.birth_date_entry.configure(font=("bold", math.ceil(font_size)-4))
+

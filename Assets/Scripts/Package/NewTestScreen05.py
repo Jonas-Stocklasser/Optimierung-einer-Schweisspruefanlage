@@ -34,7 +34,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
-                                          corner_radius=10,
+                                          corner_radius=font_size / 2,
                                           text=("Neuer Test - Schritt 5:" +
                                                 " Visuelle Einschätzung vom Prüfer eingeben"),
                                           text_color=GetStartupVariables.text_color_SET,
@@ -44,7 +44,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
 
         # back button------------------------------------------------------------
         self.back_button = ctk.CTkButton(master=self,  # back button
-                                         corner_radius=10,
+                                         corner_radius=font_size / 2,
                                          text="",
                                          anchor="center",
                                          image=back_arrow_image,
@@ -54,21 +54,21 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
 
         # textbox frame ------------------------------------------------------------
         self.textbox_frame = ctk.CTkFrame(master=self,  # frame for the textbox
-                                          corner_radius=20)
+                                          corner_radius=font_size)
         self.textbox_frame.grid(row=4, column=2, columnspan=40, rowspan=30, sticky="nesw")
 
         # textbox ------------------------------------------------------------
         self.textbox = ctk.CTkTextbox(master=self.textbox_frame,
-                                      border_width=5,
+                                      border_width=font_size / 4,
                                       font=("bold", font_size),
-                                      corner_radius=10)
+                                      corner_radius=font_size / 2)
         self.textbox.place(relx=0.01,
                            rely=0.01)
 
         # save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
-                                         corner_radius=10)
+                                         corner_radius=font_size / 2)
         self.button_frame.grid(row=40, column=2, columnspan=13, rowspan=2, sticky="nesw")
 
         self.button_frame.grid_columnconfigure(0, weight=3)
@@ -81,7 +81,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.button_frame.grid_rowconfigure(2, weight=3)
 
         self.save_button = ctk.CTkButton(master=self.button_frame,  # continue button
-                                         corner_radius=10,
+                                         corner_radius=font_size / 2,
                                          text="Speichern",
                                          font=("bold", font_size),
                                          state="normal",
@@ -90,7 +90,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
 
         self.continue_button = ctk.CTkButton(master=self.button_frame,
                                              # continue button
-                                             corner_radius=10,
+                                             corner_radius=font_size / 2,
                                              text="Weiter",
                                              font=("bold", font_size),
                                              state="disabled",
@@ -109,13 +109,16 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
             print("Type something! An empty field is not permitted!")
 
     def update_size(self, font_size):
-        self.indicator_bar.configure(font=("bold", font_size), height=font_size)
+        self.indicator_bar.configure(font=("bold", font_size), height=font_size, corner_radius=font_size / 2)
         self.back_button.configure(width=font_size,
-                                   height=font_size)
+                                   height=font_size, corner_radius=font_size / 2)
         back_arrow_image.configure(size=(font_size, font_size))
-        self.textbox_frame.configure(height=font_size*3*7.5, width=font_size*4*7.5)
-        self.textbox.configure(font=("bold", font_size), height=font_size * 3 * 9.7, width=font_size*4*10)
+        self.textbox_frame.configure(height=font_size * 3 * 7.5, width=font_size * 4 * 7.5, corner_radius=font_size)
+        self.textbox.configure(font=("bold", font_size), height=font_size * 3 * 9.7, width=font_size * 4 * 10,
+                               corner_radius=font_size / 2, border_width=font_size / 4)
 
-        self.button_frame.configure(height=font_size * 2)
-        self.save_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4)
-        self.continue_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4)
+        self.button_frame.configure(height=font_size * 2, corner_radius=font_size / 2)
+        self.save_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4,
+                                   corner_radius=font_size / 2)
+        self.continue_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4,
+                                       corner_radius=font_size / 2)

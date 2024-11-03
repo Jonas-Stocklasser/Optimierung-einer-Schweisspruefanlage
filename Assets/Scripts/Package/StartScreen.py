@@ -30,7 +30,7 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
         # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,  # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
-                                          corner_radius=10,
+                                          corner_radius=font_size/2,
                                           text="Start",
                                           text_color=GetStartupVariables.text_color_SET,
                                           font=("bold", font_size),
@@ -39,7 +39,7 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
 
         # button frame------------------------------------------------------------
         self.button_frame = ctk.CTkFrame(master=self,  # a frame for the buttons
-                                         corner_radius=20)
+                                         corner_radius=font_size)
         self.button_frame.grid(row=4, column=2, columnspan=15, rowspan=20, sticky="nesw")
 
         self.button_frame.grid_columnconfigure(0, weight=1)
@@ -60,7 +60,7 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
         # new test button------------------------------------------------------------
         self.new_test_button = ctk.CTkButton(master=self.button_frame,
                                              # button to start a new test
-                                             corner_radius=10,
+                                             corner_radius=font_size/2,
                                              text="Neuer Test",
                                              font=("bold", font_size*2),
                                              command=lambda: self.master.switch_window("1.0"))
@@ -70,7 +70,7 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
         # options button------------------------------------------------------------
         self.options_button = ctk.CTkButton(master=self.button_frame,
                                             # button to open the OptionsScreen
-                                            corner_radius=10,
+                                            corner_radius=font_size/2,
                                             text="Optionen",
                                             font=("bold", font_size*2),
                                             command=lambda: self.master.switch_window("3"))
@@ -80,7 +80,7 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
         # quit button------------------------------------------------------------
         self.quit_button = ctk.CTkButton(master=self.button_frame,
                                          # button to open the OptionsScreen
-                                         corner_radius=10,
+                                         corner_radius=font_size/2,
                                          text="Desktop",
                                          font=("bold", font_size*2),
                                          command=lambda: sys.exit(0))
@@ -97,8 +97,8 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
         self.image_label.place(relx=0.5, rely=0.5, anchor="center")
 
     def update_size(self, font_size):
-        self.indicator_bar.configure(font=("bold", font_size), height=font_size)
-        self.new_test_button.configure(font=("bold", 2*font_size), height=font_size * 2.5, width=font_size * 4)
-        self.options_button.configure(font=("bold", 2*font_size), height=font_size * 2.5, width=font_size * 4)
-        self.quit_button.configure(font=("bold", 2*font_size), height=font_size * 2.5, width=font_size * 4)
+        self.indicator_bar.configure(font=("bold", font_size), height=font_size, corner_radius=font_size/2)
+        self.new_test_button.configure(font=("bold", 2*font_size), height=font_size * 2.5, width=font_size * 4, corner_radius=font_size/2)
+        self.options_button.configure(font=("bold", 2*font_size), height=font_size * 2.5, width=font_size * 4, corner_radius=font_size/2)
+        self.quit_button.configure(font=("bold", 2*font_size), height=font_size * 2.5, width=font_size * 4, corner_radius=font_size/2)
         pruefstueck_image.configure(size=(font_size*16*1.5, font_size*9*1.5))

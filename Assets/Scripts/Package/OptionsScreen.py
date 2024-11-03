@@ -29,7 +29,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
         # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,  # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
-                                          corner_radius=10,
+                                          corner_radius=font_size/2,
                                           text="Options",
                                           text_color=GetStartupVariables.text_color_SET,
                                           font=("bold", font_size),
@@ -38,7 +38,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
 
         # back button------------------------------------------------------------
         self.back_button = ctk.CTkButton(master=self,  # back button
-                                         corner_radius=10,
+                                         corner_radius=font_size/2,
                                          text="",
                                          anchor="center",
                                          image=back_arrow_image,
@@ -48,7 +48,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
 
         # button frame------------------------------------------------------------
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the buttons and the menu
-                                         corner_radius=10)
+                                         corner_radius=font_size/2)
         self.button_frame.grid(row=4, column=2, columnspan=15, rowspan=2, sticky="nesw")
 
         self.button_frame.grid_columnconfigure(0, weight=1)
@@ -65,7 +65,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
         self.options_light_dark_label = ctk.CTkLabel(master=self.button_frame,
                                                      # label to describe the menu above
                                                      fg_color=GetStartupVariables.color_SET_blue,
-                                                     corner_radius=10,
+                                                     corner_radius=font_size/2,
                                                      text="Anzeigemodus",
                                                      text_color=GetStartupVariables.text_color_SET,
                                                      font=("bold", 20))
@@ -74,9 +74,9 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
         # option menu
         self.options_light_dark_menu = ctk.CTkOptionMenu(master=self.button_frame,
                                                          # menu for light / dark
-                                                         font=("bold", 20),
-                                                         dropdown_font=("bold", 20),
-                                                         corner_radius=10,
+                                                         font=("bold", font_size),
+                                                         dropdown_font=("bold", font_size),
+                                                         corner_radius=font_size/2,
                                                          values=GetStartupVariables.appearance_mode,
                                                          command=self.appearance_mode_switch)
         # the command automatically passes the current value as an argument to the specified method
@@ -94,10 +94,10 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
 
 
     def update_size(self, font_size):
-        self.indicator_bar.configure(font=("bold", font_size), height=font_size)
-        self.back_button.configure(width=font_size,
-                                   height=font_size)
+        self.indicator_bar.configure(font=("bold", font_size), height=font_size, corner_radius=font_size/2)
+        self.back_button.configure(width=font_size, height=font_size, corner_radius=font_size/2)
         back_arrow_image.configure(size=(font_size, font_size))
-        self.options_light_dark_label.configure(font=("bold", font_size))
-        self.options_light_dark_menu.configure(font=("bold", font_size), dropdown_font=("bold", font_size))
+        self.options_light_dark_label.configure(font=("bold", font_size), corner_radius=font_size/2)
+        self.options_light_dark_menu.configure(font=("bold", font_size), dropdown_font=("bold", font_size),
+                                               corner_radius=font_size/2)
 

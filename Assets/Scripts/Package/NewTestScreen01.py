@@ -33,9 +33,9 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
         # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,  # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
-                                          corner_radius=10,
+                                          corner_radius=font_size / 2,
                                           text="Neuer Test - Schritt 1:" +
-                                                " Speicherort generierter Daten angeben",
+                                               " Speicherort generierter Daten angeben",
                                           text_color=GetStartupVariables.text_color_SET,
                                           font=("bold", font_size),
                                           anchor="w")
@@ -43,7 +43,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
 
         # back button------------------------------------------------------------
         self.back_button = ctk.CTkButton(master=self,  # back button
-                                         corner_radius=10,
+                                         corner_radius=font_size / 2,
                                          text="",
                                          anchor="center",
                                          image=back_arrow_image,
@@ -53,7 +53,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
 
         # frame------------------------------------------------------------
         self.frame = ctk.CTkFrame(master=self,  # frame for the widgets
-                                  corner_radius=10)
+                                  corner_radius=font_size / 2)
         self.frame.grid(row=4, column=2, columnspan=75, rowspan=2, sticky="nesw")
 
         self.frame.grid_columnconfigure(0, weight=1)
@@ -70,14 +70,14 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
         # path choose------------------------------------------------------------
         self.path_label = ctk.CTkLabel(master=self.frame,
                                        fg_color=GetStartupVariables.color_SET_blue,
-                                       corner_radius=10,
+                                       corner_radius=font_size / 2,
                                        text="Pfad:",
                                        text_color=GetStartupVariables.text_color_SET,
                                        font=("bold", font_size))
         self.path_label.grid(row=1, column=1, columnspan=1, rowspan=1, sticky="nesw")
 
         self.path_display_label_frame = ctk.CTkFrame(master=self.frame,
-                                                     corner_radius=10)
+                                                     corner_radius=font_size / 2)
         self.path_display_label_frame.grid(row=1, column=3, columnspan=3, rowspan=1, sticky="nesw")
 
         self.path_display_label_frame.grid_columnconfigure(0, weight=1)
@@ -95,7 +95,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
 
         self.change_button = ctk.CTkButton(master=self.frame,  # back button
                                            fg_color=GetStartupVariables.color_SET_blue,
-                                           corner_radius=10,
+                                           corner_radius=font_size / 2,
                                            text="...",
                                            command=self.change_path)
         self.change_button.grid(row=1, column=54, columnspan=1, rowspan=1, sticky="nesw")
@@ -103,14 +103,14 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
         self.continue_button = ctk.CTkButton(master=self.frame,  # back button
                                              fg_color=GetStartupVariables.color_SET_blue,
                                              font=("bold", font_size),
-                                             corner_radius=10,
+                                             corner_radius=font_size / 2,
                                              text="Weiter",
                                              command=lambda: self.app.switch_window("1.1"))
         self.continue_button.grid(row=1, column=60, columnspan=3, rowspan=1, sticky="nesw")
 
         # frame2------------------------------------------------------------
         self.frame2 = ctk.CTkFrame(master=self,  # frame for the widgets
-                                   corner_radius=10)
+                                   corner_radius=font_size / 2)
         self.frame2.grid(row=8, column=2, columnspan=3, rowspan=2, sticky="nesw")
 
         self.frame2.grid_columnconfigure(0, weight=1)
@@ -122,7 +122,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
 
         self.help_label = ctk.CTkLabel(master=self.frame2,
                                        fg_color=GetStartupVariables.color_SET_blue,
-                                       corner_radius=8,
+                                       corner_radius=font_size / 2.2,
                                        text="USB-Stick ist wahrscheinlich in /media/admin/; USB-Stick in schwarzen Port stecken!",
                                        text_color=GetStartupVariables.text_color_SET,
                                        font=("bold", font_size))
@@ -135,15 +135,15 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
         json_writer("startup_var", "save_path", GetStartupVariables.save_path, main_pi_location + "../JSON/")
 
     def update_size(self, font_size):
-        self.indicator_bar.configure(font=("bold", font_size), height=font_size)
-        self.back_button.configure(width=font_size,
-                                   height=font_size)
+        self.indicator_bar.configure(font=("bold", font_size), height=font_size, corner_radius=font_size / 2)
+        self.back_button.configure(width=font_size, height=font_size, corner_radius=font_size / 2)
         back_arrow_image.configure(size=(font_size, font_size))
-        self.help_label.configure(font=("bold", font_size), height=font_size)
-        self.change_button.configure(width=font_size*1.5)
+        self.help_label.configure(font=("bold", font_size), height=font_size, corner_radius=font_size / 2)
+        self.change_button.configure(width=font_size * 1.5, corner_radius=font_size / 2)
 
-        self.frame.configure(height=font_size * 2)
-        self.path_label.configure(height=font_size * 1.5, font=("bold", font_size))
-        self.path_display_label.configure(height=font_size * 1.5, font=("bold", font_size))
-        self.change_button.configure(height=font_size * 1.5, font=("bold", font_size))
-        self.continue_button.configure(height=font_size * 1.5, width=font_size * 3, font=("bold", font_size))
+        self.frame.configure(height=font_size * 2, corner_radius=font_size / 2)
+        self.path_label.configure(height=font_size * 1.5, font=("bold", font_size), corner_radius=font_size / 2)
+        self.path_display_label.configure(height=font_size * 1.5, font=("bold", font_size), corner_radius=font_size / 2)
+        self.change_button.configure(height=font_size * 1.5, font=("bold", font_size), corner_radius=font_size / 2)
+        self.continue_button.configure(height=font_size * 1.5, width=font_size * 3, font=("bold", font_size),
+                                       corner_radius=font_size / 2)

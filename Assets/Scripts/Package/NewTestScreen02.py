@@ -38,7 +38,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
-                                          corner_radius=10,
+                                          corner_radius=font_size / 2,
                                           text=("Neuer Test - Schritt 2:" +
                                                 " persönliche Daten des Prüflings eingeben"),
                                           text_color=GetStartupVariables.text_color_SET,
@@ -48,7 +48,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
 
         # back button------------------------------------------------------------
         self.back_button = ctk.CTkButton(master=self,  # back button
-                                         corner_radius=10,
+                                         corner_radius=font_size / 2,
                                          text="",
                                          anchor="center",
                                          image=back_arrow_image,
@@ -58,7 +58,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
 
         # entry frame------------------------------------------------------------
         self.entry_frame = ctk.CTkFrame(master=self,  # frame for the entries
-                                        corner_radius=20)
+                                        corner_radius=font_size)
         self.entry_frame.grid(row=4, column=2, columnspan=10, rowspan=15, sticky="nesw")
 
         # Grid configuration
@@ -72,7 +72,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
         # first name entry------------------------------------------------------------
         self.first_name_entry_label = ctk.CTkLabel(master=self.entry_frame,
                                                    fg_color=GetStartupVariables.color_SET_blue,
-                                                   corner_radius=10,
+                                                   corner_radius=font_size / 2,
                                                    text="Vorname",
                                                    text_color=GetStartupVariables.text_color_SET,
                                                    font=("bold", font_size))
@@ -87,7 +87,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
         # last name entry------------------------------------------------------------
         self.last_name_entry_label = ctk.CTkLabel(master=self.entry_frame,
                                                   fg_color=GetStartupVariables.color_SET_blue,
-                                                  corner_radius=10,
+                                                  corner_radius=font_size / 2,
                                                   text="Nachname",
                                                   text_color=GetStartupVariables.text_color_SET,
                                                   font=("bold", font_size))
@@ -102,7 +102,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
         # birth date entry------------------------------------------------------------
         self.birth_date_entry_label = ctk.CTkLabel(master=self.entry_frame,
                                                    fg_color=GetStartupVariables.color_SET_blue,
-                                                   corner_radius=10,
+                                                   corner_radius=font_size / 2,
                                                    text="Geburtsdatum",
                                                    text_color=GetStartupVariables.text_color_SET,
                                                    font=("bold", font_size))
@@ -119,7 +119,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
         # save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
-                                         corner_radius=10)
+                                         corner_radius=font_size / 2)
         self.button_frame.grid(row=20, column=2, columnspan=13, rowspan=2, sticky="nesw")
 
         self.button_frame.grid_columnconfigure(0, weight=3)
@@ -132,7 +132,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
         self.button_frame.grid_rowconfigure(2, weight=3)
 
         self.save_button = ctk.CTkButton(master=self.button_frame,  # continue button
-                                         corner_radius=10,
+                                         corner_radius=font_size / 2,
                                          text="Speichern",
                                          font=("bold", font_size),
                                          command=self.save_entry_data_examinee)
@@ -140,7 +140,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
 
         self.continue_button = ctk.CTkButton(master=self.button_frame,
                                              # continue button
-                                             corner_radius=10,
+                                             corner_radius=font_size / 2,
                                              text="Weiter",
                                              font=("bold", font_size),
                                              state="disabled",
@@ -196,14 +196,20 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
         self.back_button.configure(width=font_size,
                                    height=font_size)
         back_arrow_image.configure(size=(font_size, font_size))
-        self.first_name_entry_label.configure(font=("bold", font_size), height=font_size*2, width=font_size*5)
-        self.first_name_entry.configure(font=("bold", font_size), height=font_size * 2, width=font_size*10)
-        self.last_name_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size*5)
-        self.last_name_entry.configure(font=("bold", font_size), height=font_size * 2, width=font_size*10)
-        self.birth_date_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size*5)
-        self.birth_date_entry.configure(font=("bold", math.ceil(font_size)-4))
+        self.first_name_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 5,
+                                              corner_radius=font_size / 2)
+        self.first_name_entry.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 10,
+                                        corner_radius=font_size / 2)
+        self.last_name_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 5,
+                                             corner_radius=font_size / 2)
+        self.last_name_entry.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 10,
+                                       corner_radius=font_size / 2)
+        self.birth_date_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 5,
+                                              corner_radius=font_size / 2)
+        self.birth_date_entry.configure(font=("bold", math.ceil(font_size) - 4))
 
-        self.button_frame.configure(height=font_size * 2)
-        self.save_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4)
-        self.continue_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4)
-
+        self.button_frame.configure(height=font_size * 2, corner_radius=font_size / 2)
+        self.save_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4,
+                                   corner_radius=font_size / 2)
+        self.continue_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4,
+                                       corner_radius=font_size / 2)

@@ -36,7 +36,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
-                                          corner_radius=10,
+                                          corner_radius=font_size / 2,
                                           text=("Neuer Test - Schritt 4:" +
                                                 " Daten des Prüfstückes überprüfen"),
                                           text_color=GetStartupVariables.text_color_SET,
@@ -46,7 +46,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
 
         # back button------------------------------------------------------------
         self.back_button = ctk.CTkButton(master=self,  # back button
-                                         corner_radius=10,
+                                         corner_radius=font_size / 2,
                                          text="",
                                          anchor="center",
                                          image=back_arrow_image,
@@ -56,7 +56,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
 
         # options menu item------------------------------------------------------------
         self.item_option_menu_frame = ctk.CTkFrame(master=self,  # frame for the entries
-                                                   corner_radius=10)
+                                                   corner_radius=font_size / 2)
         self.item_option_menu_frame.grid(row=4, column=2, columnspan=15, rowspan=2, sticky="nesw")
 
         # Grid configuration
@@ -71,7 +71,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
 
         self.item_option_menu_label = ctk.CTkLabel(master=self.item_option_menu_frame,
                                                    fg_color=GetStartupVariables.color_SET_blue,
-                                                   corner_radius=10,
+                                                   corner_radius=font_size / 2,
                                                    text="Voreinstellungen",
                                                    text_color=GetStartupVariables.text_color_SET,
                                                    font=("bold", font_size))
@@ -80,7 +80,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.options_menu_item = ctk.CTkOptionMenu(master=self.item_option_menu_frame,
                                                    font=("bold", font_size),
                                                    dropdown_font=("bold", font_size),
-                                                   corner_radius=5,
+                                                   corner_radius=font_size / 4,
                                                    variable=tk.StringVar(
                                                        value=GetItemVariables.last_chosen_item),
                                                    values=GetItemVariables.item_list,
@@ -90,7 +90,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
 
         # entry frame 1------------------------------------------------------------
         self.entry_frame1 = ctk.CTkFrame(master=self,  # frame for the entries
-                                         corner_radius=20)
+                                         corner_radius=font_size)
         self.entry_frame1.grid(row=8, column=2, columnspan=10, rowspan=15, sticky="nesw")
 
         # Grid configuration
@@ -103,7 +103,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
 
         # entry frame 2------------------------------------------------------------
         self.entry_frame2 = ctk.CTkFrame(master=self,  # frame for the entries
-                                         corner_radius=20)
+                                         corner_radius=font_size)
         self.entry_frame2.grid(row=8, column=13, columnspan=10, rowspan=15, sticky="nesw")
 
         # Grid configuration
@@ -117,7 +117,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         # title entry------------------------------------------------------------
         self.title_entry_label = ctk.CTkLabel(master=self.entry_frame1,
                                               fg_color=GetStartupVariables.color_SET_blue,
-                                              corner_radius=10,
+                                              corner_radius=font_size / 2,
                                               text="Titel",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size))
@@ -130,7 +130,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.title_entry.grid(row=10, column=20, columnspan=2, rowspan=1, sticky="nesw")
 
         self.title_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame1,
-                                                                      corner_radius=10)
+                                                                      corner_radius=font_size / 2)
         self.title_entry_unchanged_overlay_label_frame.grid(row=10, column=20, columnspan=2, rowspan=1,
                                                             sticky="nesw")
 
@@ -145,7 +145,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         # info1 entry------------------------------------------------------------
         self.info1_entry_label = ctk.CTkLabel(master=self.entry_frame1,
                                               fg_color=GetStartupVariables.color_SET_blue,
-                                              corner_radius=10,
+                                              corner_radius=font_size / 2,
                                               text="Info1",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size))
@@ -157,7 +157,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info1_entry.grid(row=27, column=20, columnspan=2, rowspan=1, sticky="nesw")
 
         self.info1_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame1,
-                                                                      corner_radius=10)
+                                                                      corner_radius=font_size / 2)
         self.info1_entry_unchanged_overlay_label_frame.grid(row=27, column=20, columnspan=2, rowspan=1,
                                                             sticky="nesw")
 
@@ -172,7 +172,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         # info2 entry------------------------------------------------------------
         self.info2_entry_label = ctk.CTkLabel(master=self.entry_frame1,
                                               fg_color=GetStartupVariables.color_SET_blue,
-                                              corner_radius=10,
+                                              corner_radius=font_size / 2,
                                               text="Info2",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size))
@@ -185,7 +185,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info2_entry.grid(row=44, column=20, columnspan=2, rowspan=1, sticky="nesw")
 
         self.info2_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame1,
-                                                                      corner_radius=10)
+                                                                      corner_radius=font_size / 2)
         self.info2_entry_unchanged_overlay_label_frame.grid(row=44, column=20, columnspan=2, rowspan=1,
                                                             sticky="nesw")
 
@@ -200,7 +200,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         # info3 entry------------------------------------------------------------
         self.info3_entry_label = ctk.CTkLabel(master=self.entry_frame2,
                                               fg_color=GetStartupVariables.color_SET_blue,
-                                              corner_radius=10,
+                                              corner_radius=font_size / 2,
                                               text="Info3",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size))
@@ -213,7 +213,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info3_entry.grid(row=10, column=20, columnspan=2, rowspan=1, sticky="nesw")
 
         self.info3_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame2,
-                                                                      corner_radius=10)
+                                                                      corner_radius=font_size / 2)
         self.info3_entry_unchanged_overlay_label_frame.grid(row=10, column=20, columnspan=2, rowspan=1,
                                                             sticky="nesw")
 
@@ -228,7 +228,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         # info4 entry------------------------------------------------------------
         self.info4_entry_label = ctk.CTkLabel(master=self.entry_frame2,
                                               fg_color=GetStartupVariables.color_SET_blue,
-                                              corner_radius=10,
+                                              corner_radius=font_size / 2,
                                               text="Info4",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size))
@@ -241,7 +241,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info4_entry.grid(row=27, column=20, columnspan=2, rowspan=1, sticky="nesw")
 
         self.info4_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame2,
-                                                                      corner_radius=10)
+                                                                      corner_radius=font_size / 2)
         self.info4_entry_unchanged_overlay_label_frame.grid(row=27, column=20, columnspan=2, rowspan=1,
                                                             sticky="nesw")
 
@@ -256,7 +256,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         # change, save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
-                                         corner_radius=20)
+                                         corner_radius=font_size)
         self.button_frame.grid(row=25, column=2, columnspan=18, rowspan=2, sticky="nesw")
 
         # Grid configuration
@@ -272,7 +272,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.button_frame.grid_rowconfigure(2, weight=3)
 
         self.change_button = ctk.CTkButton(master=self.button_frame,  # continue button
-                                           corner_radius=10,
+                                           corner_radius=font_size / 2,
                                            text="Ändern",
                                            font=("bold", font_size),
                                            state="normal",
@@ -280,7 +280,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.change_button.grid(row=1, column=1, columnspan=1, rowspan=1, sticky="nesw")
 
         self.save_button = ctk.CTkButton(master=self.button_frame,  # continue button
-                                         corner_radius=10,
+                                         corner_radius=font_size / 2,
                                          text="Speichern",
                                          font=("bold", font_size),
                                          state="disabled",
@@ -289,7 +289,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
 
         self.continue_button = ctk.CTkButton(master=self.button_frame,
                                              # continue button
-                                             corner_radius=10,
+                                             corner_radius=font_size / 2,
                                              text="Weiter",
                                              font=("bold", font_size),
                                              state="normal",
@@ -355,7 +355,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
             self.info3_entry_unchanged_overlay_label.place(relx=0.1,
                                                            rely=0.3)
             self.info4_entry_unchanged_overlay_label_frame.grid(row=27, column=20, columnspan=2, rowspan=1,
-                                                            sticky="nesw")
+                                                                sticky="nesw")
             self.info4_entry_unchanged_overlay_label.place(relx=0.1,
                                                            rely=0.3)
             self.update_labels(infos_item)
@@ -395,47 +395,62 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         json_writer(personal_json_name, "infos_item", infos_item, personal_folder_path)
 
     def update_size(self, font_size):
-        self.indicator_bar.configure(font=("bold", font_size), height=font_size)
+        self.indicator_bar.configure(font=("bold", font_size), height=font_size, corner_radius=font_size / 2)
         self.back_button.configure(width=font_size,
-                                   height=font_size)
+                                   height=font_size, corner_radius=font_size / 2)
         back_arrow_image.configure(size=(font_size, font_size))
-        self.title_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 5)
-        self.title_entry.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 10)
+        self.title_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 5,
+                                         corner_radius=font_size / 2)
+        self.title_entry.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 10,
+                                   corner_radius=font_size / 2)
         self.title_entry_unchanged_overlay_label.configure(font=("bold", font_size), height=font_size * 1,
-                                                                width=font_size * 9)
+                                                           width=font_size * 9, corner_radius=font_size / 2)
         self.title_entry_unchanged_overlay_label_frame.configure(height=font_size * 2,
-                                                                      width=font_size * 10)
-        self.info1_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 5)
-        self.info1_entry.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 10)
+                                                                 width=font_size * 10, corner_radius=font_size / 2)
+        self.info1_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 5,
+                                         corner_radius=font_size / 2)
+        self.info1_entry.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 10,
+                                   corner_radius=font_size / 2)
         self.info1_entry_unchanged_overlay_label.configure(font=("bold", font_size), height=font_size * 1,
-                                                               width=font_size * 9)
+                                                           width=font_size * 9, corner_radius=font_size / 2)
         self.info1_entry_unchanged_overlay_label_frame.configure(height=font_size * 2,
-                                                                     width=font_size * 10)
-        self.info2_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 5)
-        self.info2_entry.configure(font=("bold", math.ceil(font_size) - 4))
+                                                                 width=font_size * 10, corner_radius=font_size / 2)
+        self.info2_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 5,
+                                         corner_radius=font_size / 2)
+        self.info2_entry.configure(font=("bold", math.ceil(font_size) - 4), corner_radius=font_size / 2)
         self.info2_entry_unchanged_overlay_label.configure(font=("bold", font_size), height=font_size * 1,
-                                                                width=font_size * 9)
+                                                           width=font_size * 9, corner_radius=font_size / 2)
         self.info2_entry_unchanged_overlay_label_frame.configure(height=font_size * 2,
-                                                                      width=font_size * 10)
+                                                                 width=font_size * 10, corner_radius=font_size / 2)
 
-        self.info3_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 5)
-        self.info3_entry.configure(font=("bold", math.ceil(font_size) - 4))
+        self.info3_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 5,
+                                         corner_radius=font_size / 2)
+        self.info3_entry.configure(font=("bold", math.ceil(font_size) - 4), corner_radius=font_size / 2)
         self.info3_entry_unchanged_overlay_label.configure(font=("bold", font_size), height=font_size * 1,
-                                                           width=font_size * 9)
+                                                           width=font_size * 9, corner_radius=font_size / 2)
         self.info3_entry_unchanged_overlay_label_frame.configure(height=font_size * 2,
-                                                                 width=font_size * 10)
+                                                                 width=font_size * 10, corner_radius=font_size / 2)
 
-        self.info4_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 5)
-        self.info4_entry.configure(font=("bold", math.ceil(font_size) - 4))
+        self.info4_entry_label.configure(font=("bold", font_size), height=font_size * 2, width=font_size * 5,
+                                         corner_radius=font_size / 2)
+        self.info4_entry.configure(font=("bold", math.ceil(font_size) - 4), corner_radius=font_size / 2)
         self.info4_entry_unchanged_overlay_label.configure(font=("bold", font_size), height=font_size * 1,
-                                                           width=font_size * 9)
+                                                           width=font_size * 9, corner_radius=font_size / 2)
         self.info4_entry_unchanged_overlay_label_frame.configure(height=font_size * 2,
-                                                                 width=font_size * 10)
-        self.button_frame.configure(height=font_size*2)
-        self.change_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4)
-        self.save_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4)
-        self.continue_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4)
+                                                                 width=font_size * 10, corner_radius=font_size / 2)
+        self.button_frame.configure(height=font_size * 2, corner_radius=font_size)
+        self.change_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4,
+                                     corner_radius=font_size / 2)
+        self.save_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4,
+                                   corner_radius=font_size / 2)
+        self.continue_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4,
+                                       corner_radius=font_size / 2)
 
-        self.item_option_menu_frame.configure(height=font_size * 2)
-        self.item_option_menu_label.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4)
-        self.options_menu_item.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4)
+        self.item_option_menu_frame.configure(height=font_size * 2, corner_radius=font_size / 2)
+        self.item_option_menu_label.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4,
+                                              corner_radius=font_size / 2)
+        self.options_menu_item.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4,
+                                         corner_radius=font_size / 4)
+
+        self.entry_frame1.configure(corner_radius=font_size)
+        self.entry_frame2.configure(corner_radius=font_size)

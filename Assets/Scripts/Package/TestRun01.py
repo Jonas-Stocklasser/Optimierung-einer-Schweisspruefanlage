@@ -15,6 +15,7 @@ from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location, 
 #from ina219 import INA219
 
 window_geometry = GetStartupVariables.window_geometry
+font_size = window_geometry[1] /40
 
 timer_id = None
 """
@@ -48,78 +49,71 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         self.app = parent
 
+        # Grid configuration
+        self.grid_columnconfigure(0, weight=3)
+        self.grid_columnconfigure(tuple(range(1, 80)), weight=10)
+        self.grid_columnconfigure(81, weight=3)
+        self.grid_rowconfigure(0, weight=4)
+        self.grid_rowconfigure(tuple(range(1, 60)), weight=10)
+        self.grid_rowconfigure(61, weight=4)
+
         # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
-                                          width=window_geometry[0] - 70,
-                                          height=window_geometry[1] / 20,
-                                          corner_radius=10,
+                                          corner_radius=font_size/2,
                                           text="Testdurchlauf",
                                           text_color=GetStartupVariables.text_color_SET,
-                                          font=("bold", 20),
+                                          font=("bold", font_size),
                                           anchor="w")
-        self.indicator_bar.place(x=0,
-                                 y=0)
+        self.indicator_bar.grid(row=1, column=1, columnspan=77, rowspan=1, sticky="nesw")
 
         # back button------------------------------------------------------------
         self.back_button = ctk.CTkButton(master=self,  # back button
-                                         width=40,
-                                         height=window_geometry[1] / 20,
-                                         corner_radius=10,
+                                         corner_radius=font_size/2,
                                          text="",
-                                         anchor="ne",
+                                         anchor="center",
                                          image=back_arrow_image,
                                          command=lambda: self.master.confirm_go_back("2.0"))
         # the command does call the switch_window method because there is unsaved content to loose
-        self.back_button.place(x=GetStartupVariables.window_geometry[0] - 65,
-                               y=0)
+        self.back_button.grid(row=1, column=78, columnspan=2, rowspan=1, sticky="nesw")
 
         # start button------------------------------------------------------------
         self.start_button = ctk.CTkButton(master=self,  # start button
-                                          width=100,
-                                          height=50,
-                                          corner_radius=10,
+                                          corner_radius=font_size/2,
                                           text="Start",
-                                          font=("bold", 20),
+                                          font=("bold", font_size),
                                           state="normal",
                                           command=lambda: self.start_button_function())
-        self.start_button.place(x=5,
-                                y=50)
+        self.start_button.grid(row=4, column=10, columnspan=1, rowspan=1, sticky="nesw")
 
         # stop button------------------------------------------------------------
         self.stop_button = ctk.CTkButton(master=self,  # stop button
-                                         width=100,
-                                         height=50,
-                                         corner_radius=10,
+                                         corner_radius=font_size/2,
                                          text="Stop",
-                                         font=("bold", 20),
+                                         font=("bold", font_size),
                                          state="disabled",
                                          command=lambda: self.stop_button_function())
-        self.stop_button.place(x=150,
-                               y=50)
+        self.stop_button.grid(row=4, column=15, columnspan=1, rowspan=1, sticky="nesw")
 
         # Toggle relais button------------------------------------------------------------
         self.toggle_relais_button = ctk.CTkButton(master=self,
-                                                  width=100,
-                                                  height=50,
-                                                  corner_radius=10,
+                                                  corner_radius=font_size/2,
                                                   text="Toggle Relais",
-                                                  font=("bold", 20),
+                                                  font=("bold", font_size),
                                                   state="normal",
                                                   command=lambda: self.toggle_relais_button_function())
-        self.toggle_relais_button.place(x=400,
-                                        y=50)
+        self.toggle_relais_button.grid(row=4, column=20, columnspan=1, rowspan=1, sticky="nesw")
 
         # mathplot
-        self.figure, self.ax = plt.subplots(figsize=(10, 6))
+        self.figure, self.ax = plt.subplots(figsize=(font_size/2, font_size/3.8))
         self.ax.set_title("Temperaturverlauf (letzte 60 Sekunden)")
         self.ax.set_xlabel("Testzeit [s]")
         self.ax.set_ylabel("Temperatur [°C]")
 
         # Embedding the matplotlib plot into tkinter using FigureCanvasTkAgg
         self.canvas = FigureCanvasTkAgg(self.figure, self)
-        self.canvas.get_tk_widget().place(x=350, y=150)  # Position the plot in the window
+        self.canvas.get_tk_widget().place(relx=0.01, rely=0.2)
 
     def to_do(self):
         print("Measure")
@@ -211,3 +205,12 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
         json_writer(personal_json_name, "pressure_values", pressure_values, personal_folder_path)
         json_writer(personal_json_name, "temperature_values", temperature_values, personal_folder_path)
+
+    def update_size(self, font_size):
+        self.indicator_bar.configure(font=("bold", font_size), height=font_size, corner_radius=font_size/2)
+        self.back_button.configure(width=font_size,
+                                   height=font_size, corner_radius=font_size/2)
+        back_arrow_image.configure(size=(font_size, font_size))
+        self.start_button.configure(font=("bold", font_size), height=font_size*1.5, corner_radius=font_size/2)
+        self.stop_button.configure(font=("bold", font_size), height=font_size * 1.5, corner_radius=font_size / 2)
+        self.toggle_relais_button.configure(font=("bold", font_size), height=font_size * 1.5, corner_radius=font_size / 2)

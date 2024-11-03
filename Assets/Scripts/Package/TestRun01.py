@@ -6,19 +6,19 @@
 
 import customtkinter as ctk
 import random
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from .JsonFunctions import json_reader, json_writer
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location, w1temp_location
-#from ina219 import INA219
+from ina219 import INA219
 
 window_geometry = GetStartupVariables.window_geometry
 font_size = window_geometry[1] /40
 
 timer_id = None
-"""
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(14, GPIO.OUT)
 GPIO.output(14, False)
@@ -33,7 +33,7 @@ ina.configure(voltage_range=ina.RANGE_16V,
               gain=ina.GAIN_AUTO,
               bus_adc=ina.ADC_128SAMP,
               shunt_adc=ina.ADC_128SAMP)
-"""
+
 
 pressure_values = []
 temperature_values = []

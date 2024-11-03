@@ -191,7 +191,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
     def toggle_relais_button_function(self):
         global output
         if output == 0:
-            #GPIO.output(14, True)
+            GPIO.output(14, True)
             output = 1
         elif output == 1:
             GPIO.output(14, False)

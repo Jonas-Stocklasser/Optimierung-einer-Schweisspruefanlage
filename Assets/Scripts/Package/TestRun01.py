@@ -130,10 +130,10 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             test_timesteps.append(last_entry)
 
         temperature = self.get_temperature_w1()
-        #pressure = ina.current()
-        #print(f"pressure-amp: {pressure}mA\nbus-voltage: {ina.voltage()}V\nshunt-voltage: {ina.power()}W")
+        pressure = ina.current()
+        print(f"pressure-amp: {pressure}mA\nbus-voltage: {ina.voltage()}V\nshunt-voltage: {ina.power()}W")
 
-        #pressure_values.append(pressure)
+        pressure_values.append(pressure)
         temperature_values.append(temperature)
 
         self.update_plot()
@@ -194,7 +194,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             #GPIO.output(14, True)
             output = 1
         elif output == 1:
-            #GPIO.output(14, False)
+            GPIO.output(14, False)
             output = 0
 
     @staticmethod

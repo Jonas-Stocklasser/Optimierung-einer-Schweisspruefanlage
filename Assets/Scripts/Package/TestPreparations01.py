@@ -7,6 +7,7 @@
 import customtkinter as ctk
 import tkinter as tk
 from .JsonFunctions import json_reader, json_writer
+import RPi.GPIO as GPIO
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, GetExamParameterVariables, back_arrow_image
 
@@ -15,9 +16,9 @@ font_size = window_geometry[1] / 40
 key_held = False
 
 
-# GPIO.setmode(GPIO.BCM)
-# GPIO.setup(14, GPIO.OUT)
-# GPIO.output(14, False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(14, GPIO.OUT)
+GPIO.output(14, False)
 
 class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 window
     def __init__(self, parent):  # the parent is App()

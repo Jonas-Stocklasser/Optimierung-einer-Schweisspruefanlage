@@ -138,7 +138,7 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
         global key_held
         if not key_held:
             print("Entlüftung start")
-            # GPIO.output(14, True)
+            GPIO.output(14, True)
             key_held = True
 
     @staticmethod
@@ -146,5 +146,5 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
         global key_held
         if key_held:
             print("Entlüftung ende")
-            # GPIO.output(14, False)
+            GPIO.output(14, False)
             key_held = False

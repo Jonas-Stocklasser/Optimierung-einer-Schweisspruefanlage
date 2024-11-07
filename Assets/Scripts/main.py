@@ -42,7 +42,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         self.after(1000, lambda: self.state("zoomed"))
 
         self.last_resize_time = 0  # Timestamp of the last resize event
-        self.resize_interval = 0.5  # Time in seconds to wait before processing the next resize event
+        self.resize_interval = 0.6  # Time in seconds to wait before processing the next resize event
 
         # dictionary for all window frames----------------------------------------
         self.windows = {"0": StartScreen(self),

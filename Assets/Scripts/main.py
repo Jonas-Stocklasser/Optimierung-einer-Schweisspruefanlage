@@ -18,7 +18,7 @@ from Package.NewTestScreen05 import NewTestScreen05
 from Package.NewTestScreen06 import NewTestScreen06
 from Package.TestPreparations01 import TestPreparations01
 from Package.TestRun01 import TestRun01
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 
 # Shared variables----------------------------------------
 # import of the GetStartupVariables class located in the sharedVar file
@@ -66,6 +66,8 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
 
         # Bind events
         self.bind("<Configure>", self.on_resize)
+        self.bind("<KeyPress-Return>", lambda event: self.windows["2.0"].unair_on())
+        self.bind("<KeyRelease-Return>", lambda event: self.windows["2.0"].unair_off())
 
         # update the window size once at the beginning
         initial_font_size = self.winfo_height() / 40
@@ -119,7 +121,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
                 test_run_01 = self.windows["4.0"]
                 if hasattr(test_run_01, "cancel_after_on_closing"):
                     test_run_01.cancel_after_on_closing()
-            GPIO.cleanup()
+            #GPIO.cleanup()
             self.destroy()
         else:
             pass

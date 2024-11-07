@@ -12,7 +12,12 @@ from .SharedVar import GetStartupVariables, GetExamParameterVariables, back_arro
 
 window_geometry = GetStartupVariables.window_geometry
 font_size = window_geometry[1] / 40
+key_held = False
 
+
+# GPIO.setmode(GPIO.BCM)
+# GPIO.setup(14, GPIO.OUT)
+# GPIO.output(14, False)
 
 class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 window
     def __init__(self, parent):  # the parent is App()
@@ -37,10 +42,10 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
                                           fg_color=GetStartupVariables.color_SET_blue,
                                           corner_radius=font_size / 2,
                                           text=("Testvorbereitung - Schritt 1:" +
-                                                " ---"),
+                                                " Anweisungen befolgen und entlüften"),
                                           text_color=GetStartupVariables.text_color_SET,
                                           font=("bold", font_size),
-                                          anchor="w")
+                                          anchor="center")
         self.indicator_bar.grid(row=1, column=1, columnspan=77, rowspan=1, sticky="nesw")
 
         # back button------------------------------------------------------------
@@ -86,31 +91,31 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
         self.continue_button.grid(row=55, column=10, columnspan=10, rowspan=2, sticky="nesw")
 
         self.instruction_label = ctk.CTkLabel(master=self.text_frame,
-                                              text="Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n"
-                                                   "Platzhalter------------------------------------------------\n",
-                                              anchor="nw",
+                                              text="Anweisungen des ausgedruckten\nDokuments befolgen\n"
+                                                   "1. Prüfstück mit Wasser füllen\n"
+                                                   "2. Flansch auf Prüfstück aufsetzen\n"
+                                                   "3. Prüfstück am Flansch aufhängen\n"
+                                                   "4. Prüfstück entlüften\n"
+                                                   "5. Prüfstück in das Becken hinablassen\n"
+                                                   "6. Prüfvorgang starten (erst nach Entlüftung!)\n"
+                                                   "\n"
+                                                   "-----------------------------------------------------------\n"
+                                                   "Pumpe toggeln - ENTER\n"
+                                                   "-----------------------------------------------------------\n"
+                                                   "\n"
+                                                   "\n"
+                                                   "\n"
+                                                   "\n"
+                                                   "\n"
+                                                   "\n"
+                                                   "\n"
+                                                   "\n"
+                                                   "\n"
+                                                   "\n"
+                                                   "\n"
+                                                   "\n"
+                                                   "\n",
+                                              anchor="n",
                                               font=("bold", font_size))
         self.instruction_label.place(relx=0.01,
                                      rely=0.01)
@@ -125,4 +130,20 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
         back_arrow_image.configure(size=(font_size, font_size), corner_radius=font_size / 2)
         self.continue_button.configure(font=("bold", font_size), width=font_size * 3, height=font_size * 1.5,
                                        corner_radius=font_size / 2)
-        self.instruction_label.configure(font=("bold", font_size), corner_radius=font_size / 2)
+        self.instruction_label.configure(font=("bold", font_size * 0.9), corner_radius=font_size / 2)
+
+    @staticmethod
+    def unair_on():
+        global key_held
+        if not key_held:
+            print("Entlüftung start")
+            # GPIO.output(14, True)
+            key_held = True
+
+    @staticmethod
+    def unair_off():
+        global key_held
+        if key_held:
+            print("Entlüftung ende")
+            # GPIO.output(14, False)
+            key_held = False

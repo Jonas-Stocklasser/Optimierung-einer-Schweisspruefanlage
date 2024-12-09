@@ -6,7 +6,7 @@
 
 import customtkinter as ctk
 import random
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from .JsonFunctions import json_reader, json_writer
@@ -19,9 +19,9 @@ font_size = window_geometry[1] / 40
 
 timer_id = None
 
-#GPIO.setmode(GPIO.BCM)
-#GPIO.setup(14, GPIO.OUT)
-#GPIO.output(14, False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(14, GPIO.OUT)
+GPIO.output(14, False)
 output = 0
 
 """ina = INA219(shunt_ohms=0.1,
@@ -189,10 +189,10 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
     def toggle_relais_button_function(self):
         global output
         if output == 0:
-            #GPIO.output(14, True)
+            GPIO.output(14, True)
             output = 1
         elif output == 1:
-            #GPIO.output(14, False)
+            GPIO.output(14, False)
             output = 0
 
     @staticmethod

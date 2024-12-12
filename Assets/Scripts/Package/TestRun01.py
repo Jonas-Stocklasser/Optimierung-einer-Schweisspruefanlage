@@ -129,10 +129,10 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             test_timesteps.append(last_entry)
 
         temperature = self.get_temperature_w1()
-        pressure = ina.current()
-        print(f"pressure-amp: {pressure}mA\nbus-voltage: {ina.voltage()}V\nshunt-voltage: {ina.power()}V")
+        pressure_current = ina.current()
+        print(pressure_current)
 
-        #pressure_values.append(pressure)
+        # pressure_values.append(pressure)
         temperature_values.append(temperature)
 
         self.update_plot()

@@ -141,6 +141,11 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         pressure = (MBe / MBa) * (pressure_current - MBAWa) + MBAWe
 
+        if pressure >= 0.1:
+            GPIO.output(14, True)
+        else:
+            GPIO.output(14, False)
+
         print(f"Pressure = {pressure}")
         pressure_values.append(pressure)
         temperature_values.append(temperature)

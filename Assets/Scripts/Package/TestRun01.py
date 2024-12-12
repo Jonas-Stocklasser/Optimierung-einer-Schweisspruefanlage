@@ -106,9 +106,9 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         # mathplot
         self.figure, self.ax = plt.subplots(figsize=(font_size / 2, font_size / 3.8))
-        self.ax.set_title("Temperaturverlauf (letzte 60 Sekunden)")
+        self.ax.set_title("Überdruckverlauf (letzte 60 Sekunden)")
         self.ax.set_xlabel("Testzeit [s]")
-        self.ax.set_ylabel("Temperatur [°C]")
+        self.ax.set_ylabel("Druck [Bar]")
 
         # Embedding the matplotlib plot into tkinter using FigureCanvasTkAgg
         self.canvas = FigureCanvasTkAgg(self.figure, self)
@@ -130,9 +130,18 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         temperature = self.get_temperature_w1()
         pressure_current = ina.current()
-        print(pressure_current)
 
-        # pressure_values.append(pressure)
+        # Pressure Calculation
+        MBEWe = 60  # Messbereichsendwert Druck in Bar
+        MBAWe = 0  # Messbereichsanfangswert Druck in Bar
+        MBe = MBEWe - MBAWe  # Messbereich Druckin Bar
+        MBEWa = 20  # Messbereichsendwert Strom in mA
+        MBAWa = 4  # Messbereichsanfangswert Strom in mA
+        MBa = MBEWe - MBAWe  # Messbereich Strom in mA
+
+        pressure = (MBe / MBa) * (pressure_current - MBAWa) + MBAWe
+
+        pressure_values.append(pressure)
         temperature_values.append(temperature)
 
         self.update_plot()
@@ -156,16 +165,16 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
     def update_plot(self):
         # Limit to last 60 values
         display_timesteps = test_timesteps[-60:]
-        display_temperatures = temperature_values[-60:]
+        display_pressures = pressure_values[-60:]
 
         # Clear the previous plot
         self.ax.clear()
-        self.ax.set_title("Temperaturverlauf (letzte 60 Sekunden)")
+        self.ax.set_title("Überdruckverlauf (letzte 60 Sekunden)")
         self.ax.set_xlabel("Testzeit [s]")
-        self.ax.set_ylabel("Temperatur [°C]")
+        self.ax.set_ylabel("Druck [Bar]")
 
         # Plot the new data
-        self.ax.plot(display_timesteps, display_temperatures, color='blue')
+        self.ax.plot(display_timesteps, display_pressures, color='blue')
 
         # Redraw the canvas to update the plot
         self.canvas.draw()

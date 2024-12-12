@@ -12,7 +12,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from .JsonFunctions import json_reader, json_writer
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location, w1temp_location
-#from ina219 import INA219
+from ina219 import INA219
 
 window_geometry = GetStartupVariables.window_geometry
 font_size = window_geometry[1] / 40
@@ -129,8 +129,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             test_timesteps.append(last_entry)
 
         temperature = self.get_temperature_w1()
-        #pressure = ina.current()
-        #print(f"pressure-amp: {pressure}mA\nbus-voltage: {ina.voltage()}V\nshunt-voltage: {ina.power()}V")
+        pressure = ina.current()
+        print(f"pressure-amp: {pressure}mA\nbus-voltage: {ina.voltage()}V\nshunt-voltage: {ina.power()}V")
 
         #pressure_values.append(pressure)
         temperature_values.append(temperature)

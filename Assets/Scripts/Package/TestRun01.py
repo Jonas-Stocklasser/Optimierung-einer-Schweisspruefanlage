@@ -137,7 +137,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         MBe = MBEWe - MBAWe  # Messbereich Druckin Bar
         MBEWa = 20  # Messbereichsendwert Strom in mA
         MBAWa = 4  # Messbereichsanfangswert Strom in mA
-        MBa = MBEWe - MBAWe  # Messbereich Strom in mA
+        MBa = MBEWa - MBAWa  # Messbereich Strom in mA
 
         pressure = (MBe / MBa) * (pressure_current - MBAWa) + MBAWe
 

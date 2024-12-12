@@ -141,6 +141,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         pressure = (MBe / MBa) * (pressure_current - MBAWa) + MBAWe
 
+        print(f"Pressure = {pressure}")
         pressure_values.append(pressure)
         temperature_values.append(temperature)
 
@@ -186,7 +187,6 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         temp_pos = lines[1].find("t=")
         if temp_pos != 1:
             temperature = float(int(lines[1][temp_pos + 2:]) / 1000)
-            print(f"temperatur = {temperature}")
         return temperature
 
     def cancel_after_on_closing(self):

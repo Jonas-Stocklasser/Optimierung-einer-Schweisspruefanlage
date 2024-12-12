@@ -24,7 +24,7 @@ GPIO.setup(14, GPIO.OUT)
 GPIO.output(14, False)
 output = 0
 
-"""ina = INA219(shunt_ohms=0.1,
+ina = INA219(shunt_ohms=0.1,
              max_expected_amps=0.6,
              address=0x40,
              busnum=1)
@@ -33,7 +33,7 @@ ina.configure(voltage_range=ina.RANGE_16V,
               gain=ina.GAIN_AUTO,
               bus_adc=ina.ADC_128SAMP,
               shunt_adc=ina.ADC_128SAMP)
-"""
+
 pressure_values = []
 temperature_values = []
 test_timesteps = []

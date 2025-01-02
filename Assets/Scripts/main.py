@@ -29,7 +29,7 @@ monitor = get_monitors()[0]
 
 
 class App(ctk.CTk):  # main window class, every other window class is called from here and is a child of this
-    def __init__(self, title):  # title is given as an attribute from the class call
+    def __init__(self, title, window_geometry):  # title is given as an attribute from the class call
 
         # main initialization----------------------------------------
         super().__init__()
@@ -37,7 +37,9 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         ctk.set_default_color_theme("blue")
         self.title(title)
         self.geometry(f"{window_geometry[0]}x{window_geometry[1]}")
-        self.resizable(False, False)
+        self.minsize(window_geometry[0])
+        self.maxsize(window_geometry[1])
+        print(window_geometry)
 
         # dictionary for all window frames----------------------------------------
         self.windows = {"0": StartScreen(self),
@@ -98,9 +100,6 @@ if __name__ == "__main__":  # when the file this is in is called "main"
     window_width = window_height * (4/3)
     window_geometry_new = [window_width, window_height]
     json_writer("startup_var", "window_geometry", window_geometry_new, main_pi_location + "../JSON/")
-    print(f"window size: {window_geometry_new}")
     GetStartupVariables()
-    window_geometry = window_geometry_new
-    print(GetStartupVariables.window_geometry)
-    App(GetStartupVariables.name_of_app)
+    App(GetStartupVariables.name_of_app, window_geometry_new)
     # calls the App class and passes the sharedVar name_of_app as the attribute "title"

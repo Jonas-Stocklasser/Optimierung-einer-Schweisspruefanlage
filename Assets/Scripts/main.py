@@ -95,7 +95,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
 if __name__ == "__main__":  # when the file this is in is called "main"
     print("startup")
     window_height = monitor.height
-    window_width = window_height * (4/3)
+    window_width = int(window_height * (4/3))
     window_geometry_new = [window_width, window_height]
     json_writer("startup_var", "window_geometry", window_geometry_new, main_pi_location + "../JSON/")
     GetStartupVariables()

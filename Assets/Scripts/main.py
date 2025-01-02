@@ -100,7 +100,7 @@ if __name__ == "__main__":  # when the file this is in is called "main" then it 
     json_writer("startup_var", "window_geometry", window_geometry_new, main_pi_location + "../JSON/")
     print(f"window size: {window_geometry_new}")
     GetStartupVariables()
-    window_geometry = GetStartupVariables.window_geometry
+    window_geometry = window_geometry_new
     print(window_geometry)
     App(GetStartupVariables.name_of_app)
     # calls the App class and passes the sharedVar name_of_app as the attribute "title"

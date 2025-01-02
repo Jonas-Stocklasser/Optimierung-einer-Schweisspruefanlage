@@ -99,7 +99,7 @@ if __name__ == "__main__":  # when the file this is in is called "main" then it 
     print("startup")
     window_height = monitor.height
     window_width = window_height * (4/3)
-    window_geometry_new = [window_width, window_height]
+    window_geometry_new = [window_height, window_width]
     json_writer("startup_var", "window_geometry", window_geometry_new, main_pi_location + "../JSON/")
     print(f"window size: {window_geometry_new}")
     GetStartupVariables()

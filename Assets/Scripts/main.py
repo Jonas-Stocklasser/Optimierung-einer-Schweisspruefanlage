@@ -37,8 +37,6 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         ctk.set_default_color_theme("blue")
         self.title(title)
         self.geometry(f"{window_geometry[0]}x{window_geometry[1]}")
-        self.minsize(window_geometry[0])
-        self.maxsize(window_geometry[1])
         print(window_geometry)
 
         # dictionary for all window frames----------------------------------------

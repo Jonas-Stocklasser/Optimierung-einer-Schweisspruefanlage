@@ -96,14 +96,12 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
 
 
 if __name__ == "__main__":  # when the file this is in is called "main" then it is run
-    GetStartupVariables()  # run GetStartupVariables from sharedVar
-    if GetStartupVariables.first_startup == 1:  # to adjust the window geometry when first started
-        print("first_startup")
-        json_writer("startup_var", "first_startup", 0, main_pi_location + "../JSON/")
-        window_height = monitor.height
-        window_width = window_height * (4/3)
-        window_geometry_new = [window_width, window_height]
-        json_writer("startup_var", "window_geometry", window_geometry_new, main_pi_location + "../JSON/")
-        GetStartupVariables()
+    print("startup")
+    window_height = monitor.height
+    window_width = window_height * (4/3)
+    window_geometry_new = [window_width, window_height]
+    json_writer("startup_var", "window_geometry", window_geometry_new, main_pi_location + "../JSON/")
+    print(f"window size: {window_geometry_new}")
+    GetStartupVariables()
     App(GetStartupVariables.name_of_app)
     # calls the App class and passes the sharedVar name_of_app as the attribute "title"

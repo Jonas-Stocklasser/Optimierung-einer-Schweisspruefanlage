@@ -19,7 +19,8 @@ from Package.NewTestScreen05 import NewTestScreen05
 from Package.NewTestScreen06 import NewTestScreen06
 from Package.TestPreparations01 import TestPreparations01
 from Package.TestRun01 import TestRun01
-import RPi.GPIO as GPIO
+
+#import RPi.GPIO as GPIO
 
 # Shared variables----------------------------------------
 # import of the GetStartupVariables class located in the sharedVar file
@@ -40,16 +41,16 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         print(window_geometry)
 
         # dictionary for all window frames----------------------------------------
-        self.windows = {"0": StartScreen(self),
-                        "1.0": NewTestScreen01(self),
-                        "1.1": NewTestScreen02(self),
-                        "1.2": NewTestScreen03(self),
-                        "1.3": NewTestScreen04(self),
-                        "1.4": NewTestScreen05(self),
-                        "1.5": NewTestScreen06(self),
-                        "2.0": TestPreparations01(self),
-                        "3": OptionsScreen(self),
-                        "4.0": TestRun01(self)}
+        self.windows = {"0": StartScreen(self, window_geometry),
+                        "1.0": NewTestScreen01(self, window_geometry),
+                        "1.1": NewTestScreen02(self, window_geometry),
+                        "1.2": NewTestScreen03(self, window_geometry),
+                        "1.3": NewTestScreen04(self, window_geometry),
+                        "1.4": NewTestScreen05(self, window_geometry),
+                        "1.5": NewTestScreen06(self, window_geometry),
+                        "2.0": TestPreparations01(self, window_geometry),
+                        "3": OptionsScreen(self, window_geometry),
+                        "4.0": TestRun01(self, window_geometry)}
 
         # top level windows----------------------------------------
         self.reallyswitch = None  # initializes the window variable as "None"
@@ -66,19 +67,19 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
     def confirm_go_back(self, which):
         if messagebox.askokcancel("Wirklich zurück gehen?",
                                   "Wollen Sie wirklich zum vorherigen Bildschirm zurückgehen?"
-                                  "\nACHTUNG der Testablauf wird dadurch nicht beendet!"
-                                  "\nPumpe vom Stromkreis trennen oder Stopp drücken!"):
+                                  "\nACHTUNG der Stromkreis wird dadurch nicht geöffnet!"
+                                  "\nPumpe manuell vom Stromkreis trennen oder Stopp drücken!"):
             self.switch_window(which)
         else:
             pass
 
     def switch_window(self, which):  # method for switching windows with the attribute "which"
         for window in self.windows.values():
-            window.pack_forget()  # forget every window that is in the dictionary
+            window.place_forget()  # forget every window that is in the dictionary
 
         if which in self.windows:
-            self.windows[which].pack(expand=True,
-                                     fill="both")  # place the window with the matching index to the attribute "which"
+            self.windows[which].place(x=10,
+                                      y=10)  # place the window with the matching index to the attribute "which" in the main window
 
     def close_commands(self):
         if messagebox.askokcancel("Applikation beenden", "Möchten Sie die Applikation wirklich beenden?"):
@@ -86,7 +87,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
                 test_run_01 = self.windows["4.0"]
                 if hasattr(test_run_01, "cancel_after_on_closing"):
                     test_run_01.cancel_after_on_closing()
-            GPIO.cleanup()
+            #GPIO.cleanup()
             self.destroy()
         else:
             pass
@@ -95,9 +96,8 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
 if __name__ == "__main__":  # when the file this is in is called "main"
     print("startup")
     window_height = monitor.height
-    window_width = int(window_height * (4/3))
+    window_width = int(window_height * (4 / 3))
     window_geometry_new = [window_width, window_height]
-    json_writer("startup_var", "window_geometry", window_geometry_new, main_pi_location + "../JSON/")
     GetStartupVariables()
     App(GetStartupVariables.name_of_app, window_geometry_new)
     # calls the App class and passes the sharedVar name_of_app as the attribute "title"

@@ -6,25 +6,22 @@
 
 import customtkinter as ctk
 import random
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from .JsonFunctions import json_reader, json_writer
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location, w1temp_location
-from ina219 import INA219
-
-window_geometry = GetStartupVariables.window_geometry
-font_size = window_geometry[1] / 40
+#from ina219 import INA219
 
 timer_id = None
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(14, GPIO.OUT)
-GPIO.output(14, False)
+#GPIO.setmode(GPIO.BCM)
+#GPIO.setup(14, GPIO.OUT)
+#GPIO.output(14, False)
 output = 0
 
-ina = INA219(shunt_ohms=0.1,
+'''ina = INA219(shunt_ohms=0.1,
              max_expected_amps=0.6,
              address=0x40,
              busnum=1)
@@ -32,7 +29,7 @@ ina = INA219(shunt_ohms=0.1,
 ina.configure(voltage_range=ina.RANGE_16V,
               gain=ina.GAIN_AUTO,
               bus_adc=ina.ADC_128SAMP,
-              shunt_adc=ina.ADC_128SAMP)
+              shunt_adc=ina.ADC_128SAMP)'''
 
 pressure_values = []
 temperature_values = []
@@ -40,13 +37,15 @@ test_timesteps = []
 
 
 class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
-    def __init__(self, parent):  # the parent is App()
+    def __init__(self, parent, window_geometry):  # the parent is App()
         super().__init__(parent,  # parameters of the CTkFrame object
                          width=(window_geometry[0] - 10),
                          height=(window_geometry[1] - 10),
                          fg_color="transparent")
 
         self.app = parent
+
+        font_size = window_geometry[1] / 40
 
         # Grid configuration
         self.grid_columnconfigure(0, weight=3)
@@ -129,8 +128,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             test_timesteps.append(last_entry)
 
         temperature = self.get_temperature_w1()
-        pressure_current = ina.current()
-
+        #pressure_current = ina.current()
+        pressure_current = 0.04 # only in use while testing with pycharm
         # Pressure Calculation
         MBEWe = 60  # Messbereichsendwert Druck in Bar
         MBAWe = 0  # Messbereichsanfangswert Druck in Bar
@@ -141,10 +140,10 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         pressure = (MBe / MBa) * (pressure_current - MBAWa) + MBAWe
 
-        if pressure >= 0.1:
+        '''if pressure >= 0.1:
             GPIO.output(14, True)
         else:
-            GPIO.output(14, False)
+            GPIO.output(14, False)'''
 
         print(f"Pressure = {pressure}")
         pressure_values.append(pressure)
@@ -203,10 +202,10 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
     def toggle_relais_button_function(self):
         global output
         if output == 0:
-            GPIO.output(14, True)
+            #GPIO.output(14, True)
             output = 1
         elif output == 1:
-            GPIO.output(14, False)
+            #GPIO.output(14, False)
             output = 0
 
     @staticmethod

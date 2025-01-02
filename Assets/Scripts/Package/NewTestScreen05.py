@@ -9,18 +9,17 @@ import customtkinter as ctk
 from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location
 from .JsonFunctions import json_writer, json_reader
 
-window_geometry = GetStartupVariables.window_geometry
-font_size = window_geometry[1] / 40
-
 
 class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
-    def __init__(self, parent):  # the parent is App()
+    def __init__(self, parent, window_geometry):  # the parent is App()
         super().__init__(parent,  # parameters of the CTkFrame object
                          width=(window_geometry[0] - 10),
                          height=(window_geometry[1] - 10),
                          fg_color="transparent")
 
         self.app = parent
+
+        font_size = window_geometry[1] / 40
 
         # Grid configuration
         self.grid_columnconfigure(0, weight=3)

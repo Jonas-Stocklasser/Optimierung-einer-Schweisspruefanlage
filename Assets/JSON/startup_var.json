@@ -1,12 +1,5 @@
 [
   {
-    "var":"window_geometry",
-    "val":[
-      1200,
-      900
-    ]
-  },
-  {
     "var":"name_of_app",
     "val":"Schweißprüfung"
   },

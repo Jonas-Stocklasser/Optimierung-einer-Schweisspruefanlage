@@ -10,21 +10,20 @@ from PIL import Image  # library for image handling
 from .JsonFunctions import json_reader
 
 # path when on raspberry pi for the .desktop execution file to work
-main_pi_location = "/home/admin/Schweisspruefung/Optimierung-einer-Schweisspruefanlage/Assets/Scripts/"
-w1temp_base_dir = "/sys/bus/w1/devices/"
-device_folder = glob.glob(w1temp_base_dir + "28*")[0]
-w1temp_location = device_folder + "/w1_slave"
+#main_pi_location = "/home/admin/Schweisspruefung/Optimierung-einer-Schweisspruefanlage/Assets/Scripts/"
+#w1temp_base_dir = "/sys/bus/w1/devices/"
+#device_folder = glob.glob(w1temp_base_dir + "28*")[0]
+#w1temp_location = device_folder + "/w1_slave"
 
 
 # path when on PyCharm
-#main_pi_location = ""
-#w1temp_location = "../default_temp.txt"
+main_pi_location = ""
+w1temp_location = "../default_temp.txt"
 
 
 # Startup variables----------------------------------------
 class GetStartupVariables:
     name_of_app = json_reader("startup_var", "name_of_app", main_pi_location + "../JSON/")
-    window_geometry = json_reader("startup_var", "window_geometry", main_pi_location + "../JSON/")
     color_SET_blue = json_reader("startup_var", "color_SET_blue", main_pi_location + "../JSON/")
     color_SET_gray = json_reader("startup_var", "color_SET_gray", main_pi_location + "../JSON/")
     text_color_SET = json_reader("startup_var", "text_color_SET", main_pi_location + "../JSON/")

@@ -25,8 +25,6 @@ import RPi.GPIO as GPIO
 # import of the GetStartupVariables class located in the sharedVar file
 from Package.SharedVar import GetStartupVariables, main_pi_location
 
-window_geometry = GetStartupVariables.window_geometry
-old_height = 1
 monitor = get_monitors()[0]
 
 
@@ -38,7 +36,6 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         ctk.set_appearance_mode(GetStartupVariables.appearance_mode[0])
         ctk.set_default_color_theme("blue")
         self.title(title)
-
         self.geometry(f"{window_geometry[0]}x{window_geometry[1]}")
         self.resizable(False, False)
 
@@ -103,5 +100,7 @@ if __name__ == "__main__":  # when the file this is in is called "main" then it 
     json_writer("startup_var", "window_geometry", window_geometry_new, main_pi_location + "../JSON/")
     print(f"window size: {window_geometry_new}")
     GetStartupVariables()
+    window_geometry = GetStartupVariables.window_geometry
+    print(window_geometry)
     App(GetStartupVariables.name_of_app)
     # calls the App class and passes the sharedVar name_of_app as the attribute "title"

@@ -12,7 +12,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from .JsonFunctions import json_reader, json_writer
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location, w1temp_location
-#from ina219 import INA219
+from ina219 import INA219
 
 window_geometry = GetStartupVariables.window_geometry
 font_size = window_geometry[1] / 40
@@ -24,7 +24,7 @@ GPIO.setup(14, GPIO.OUT)
 GPIO.output(14, False)
 output = 0
 
-"""ina = INA219(shunt_ohms=0.1,
+ina = INA219(shunt_ohms=0.1,
              max_expected_amps=0.6,
              address=0x40,
              busnum=1)
@@ -33,7 +33,7 @@ ina.configure(voltage_range=ina.RANGE_16V,
               gain=ina.GAIN_AUTO,
               bus_adc=ina.ADC_128SAMP,
               shunt_adc=ina.ADC_128SAMP)
-"""
+
 pressure_values = []
 temperature_values = []
 test_timesteps = []
@@ -106,9 +106,9 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         # mathplot
         self.figure, self.ax = plt.subplots(figsize=(font_size / 2, font_size / 3.8))
-        self.ax.set_title("Temperaturverlauf (letzte 60 Sekunden)")
+        self.ax.set_title("Überdruckverlauf (letzte 60 Sekunden)")
         self.ax.set_xlabel("Testzeit [s]")
-        self.ax.set_ylabel("Temperatur [°C]")
+        self.ax.set_ylabel("Druck [Bar]")
 
         # Embedding the matplotlib plot into tkinter using FigureCanvasTkAgg
         self.canvas = FigureCanvasTkAgg(self.figure, self)
@@ -129,10 +129,25 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             test_timesteps.append(last_entry)
 
         temperature = self.get_temperature_w1()
-        #pressure = ina.current()
-        #print(f"pressure-amp: {pressure}mA\nbus-voltage: {ina.voltage()}V\nshunt-voltage: {ina.power()}V")
+        pressure_current = ina.current()
 
-        #pressure_values.append(pressure)
+        # Pressure Calculation
+        MBEWe = 60  # Messbereichsendwert Druck in Bar
+        MBAWe = 0  # Messbereichsanfangswert Druck in Bar
+        MBe = MBEWe - MBAWe  # Messbereich Druckin Bar
+        MBEWa = 20  # Messbereichsendwert Strom in mA
+        MBAWa = 4  # Messbereichsanfangswert Strom in mA
+        MBa = MBEWa - MBAWa  # Messbereich Strom in mA
+
+        pressure = (MBe / MBa) * (pressure_current - MBAWa) + MBAWe
+
+        if pressure >= 0.1:
+            GPIO.output(14, True)
+        else:
+            GPIO.output(14, False)
+
+        print(f"Pressure = {pressure}")
+        pressure_values.append(pressure)
         temperature_values.append(temperature)
 
         self.update_plot()
@@ -156,16 +171,16 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
     def update_plot(self):
         # Limit to last 60 values
         display_timesteps = test_timesteps[-60:]
-        display_temperatures = temperature_values[-60:]
+        display_pressures = pressure_values[-60:]
 
         # Clear the previous plot
         self.ax.clear()
-        self.ax.set_title("Temperaturverlauf (letzte 60 Sekunden)")
+        self.ax.set_title("Überdruckverlauf (letzte 60 Sekunden)")
         self.ax.set_xlabel("Testzeit [s]")
-        self.ax.set_ylabel("Temperatur [°C]")
+        self.ax.set_ylabel("Druck [Bar]")
 
         # Plot the new data
-        self.ax.plot(display_timesteps, display_temperatures, color='blue')
+        self.ax.plot(display_timesteps, display_pressures, color='blue')
 
         # Redraw the canvas to update the plot
         self.canvas.draw()
@@ -177,7 +192,6 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         temp_pos = lines[1].find("t=")
         if temp_pos != 1:
             temperature = float(int(lines[1][temp_pos + 2:]) / 1000)
-            print(f"temperatur = {temperature}")
         return temperature
 
     def cancel_after_on_closing(self):

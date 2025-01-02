@@ -36,5 +36,9 @@
   {
     "var":"save_path",
     "val":"E:\/GIT\/Optimierung-einer-Schweisspruefanlage\/Assets\/Tests"
+  },
+  {
+    "var":"first_startup",
+    "val":1
   }
 ]

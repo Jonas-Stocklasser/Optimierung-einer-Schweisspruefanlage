@@ -6,6 +6,7 @@
 import customtkinter as ctk  # import of the customtkinter library
 from tkinter import messagebox
 import time
+from screeninfo import get_monitors
 from Package.JsonFunctions import json_writer
 
 from Package.StartScreen import StartScreen  # import of all the other files of the python package
@@ -26,6 +27,7 @@ from Package.SharedVar import GetStartupVariables, main_pi_location
 
 window_geometry = GetStartupVariables.window_geometry
 old_height = 1
+monitor = get_monitors()[0]
 
 
 class App(ctk.CTk):  # main window class, every other window class is called from here and is a child of this
@@ -38,11 +40,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         self.title(title)
 
         self.geometry(f"{window_geometry[0]}x{window_geometry[1]}")
-        self.resizable(True, True)
-        self.after(1000, lambda: self.state("zoomed"))
-
-        self.last_resize_time = 0  # Timestamp of the last resize event
-        self.resize_interval = 0.6  # Time in seconds to wait before processing the next resize event
+        self.resizable(False, False)
 
         # dictionary for all window frames----------------------------------------
         self.windows = {"0": StartScreen(self),
@@ -63,15 +61,6 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         self.switch_window(GetStartupVariables.start_window)
 
         self.protocol("WM_DELETE_WINDOW", lambda: self.close_commands())
-
-        # Bind events
-        self.bind("<Configure>", self.on_resize)
-        self.bind("<KeyPress-Return>", lambda event: self.windows["2.0"].unair_on())
-        self.bind("<KeyRelease-Return>", lambda event: self.windows["2.0"].unair_off())
-
-        # update the window size once at the beginning
-        initial_font_size = self.winfo_height() / 40
-        self.update_sizes(initial_font_size)
 
         # run the app----------------------------------------
         self.mainloop()  # the main App window is run (mainloop)
@@ -94,27 +83,6 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.windows[which].pack(expand=True,
                                      fill="both")  # place the window with the matching index to the attribute "which"
 
-    def on_resize(self, event):
-        global old_height
-        current_time = time.time()
-        if current_time - self.last_resize_time < self.resize_interval:
-            return  # Ignore this event if it's too soon after the last one
-
-        self.last_resize_time = current_time  # Update the last resize time
-
-        height = self.winfo_height()
-
-        if old_height != height:
-            font_size = height / 40
-            print(font_size)
-            self.update_sizes(font_size)
-            old_height = height
-
-    def update_sizes(self, font_size):
-        for window in self.windows.values():
-            if hasattr(window, 'update_size'):
-                window.update_size(font_size)
-
     def close_commands(self):
         if messagebox.askokcancel("Applikation beenden", "Möchten Sie die Applikation wirklich beenden?"):
             if "4.0" in self.windows:
@@ -129,5 +97,13 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
 
 if __name__ == "__main__":  # when the file this is in is called "main" then it is run
     GetStartupVariables()  # run GetStartupVariables from sharedVar
+    if GetStartupVariables.first_startup == 1:  # to adjust the window geometry when first started
+        print("first_startup")
+        json_writer("startup_var", "first_startup", 0, "../JSON/")
+        window_height = monitor.height
+        window_width = window_height * (4/3)
+        window_geometry_new = [window_width, window_height]
+        json_writer("startup_var", "window_geometry", window_geometry_new, "../JSON/")
+        GetStartupVariables()
     App(GetStartupVariables.name_of_app)
     # calls the App class and passes the sharedVar name_of_app as the attribute "title"

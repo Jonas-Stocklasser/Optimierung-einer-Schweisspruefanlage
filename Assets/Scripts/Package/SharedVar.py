@@ -31,6 +31,7 @@ class GetStartupVariables:
     start_window = json_reader("startup_var", "start_window", main_pi_location + "../JSON/")
     appearance_mode = json_reader("startup_var", "appearance_mode", main_pi_location + "../JSON/")
     save_path = json_reader("startup_var", "save_path", main_pi_location + "../JSON/")
+    first_startup = json_reader("startup_var", "first_startup", main_pi_location + "../JSON/")
 
 
 # Personal variables----------------------------------------

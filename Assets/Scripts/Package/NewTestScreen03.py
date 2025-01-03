@@ -44,7 +44,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
 
         # back button------------------------------------------------------------
         self.back_button = ctk.CTkButton(master=self,  # back button
-                                         corner_radius=font_size / 2,
+                                         corner_radius=10,
                                          text="",
                                          anchor="center",
                                          image=back_arrow_image,
@@ -70,8 +70,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
                                                        text_color=GetStartupVariables.text_color_SET,
                                                        font=("bold", font_size),
                                                        width=window_geometry[0] / 4.5 - 20,
-                                                       height=font_size * 1.5
-                                                       )
+                                                       height=font_size * 1.5)
         self.examiner_option_menu_label.place(x=10,
                                               y=10)
 
@@ -82,8 +81,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
                                                        variable=tk.StringVar(
                                                            value=GetPersonalVariables.last_chosen_examiner),
                                                        values=GetPersonalVariables.examiner_list,
-                                                       command=self.examiner_select
-                                                       )
+                                                       command=self.examiner_select)
         # the command automatically passes the current value as an argument to the specified method
         self.options_menu_examiner.place(x=10,
                                          y=font_size * 1.5 + 15)
@@ -265,8 +263,8 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
                                    self.birth_date_entry.get()]
         last_chosen_examiner = json_reader("personal_var", "last_chosen_examiner", main_pi_location + "../JSON/")
 
-        if (len(personal_infos_examiner[0].strip()) +
-                len(personal_infos_examiner[1].strip()) >= 4):
+        if len(personal_infos_examiner[0].strip()) + len(personal_infos_examiner[1].strip()) >= 4 and len(
+                personal_infos_examiner[0].strip()) >= 1 and len(personal_infos_examiner[1].strip()) >= 1:
             self.continue_button.configure(state="normal")
             json_writer("personal_var", ("personal_infos_examiner_" + last_chosen_examiner),
                         personal_infos_examiner, main_pi_location + "../JSON/")

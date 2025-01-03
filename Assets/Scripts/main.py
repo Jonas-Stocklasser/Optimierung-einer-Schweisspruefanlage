@@ -20,14 +20,14 @@ from Package.NewTestScreen06 import NewTestScreen06
 from Package.TestPreparations01 import TestPreparations01
 from Package.TestRun01 import TestRun01
 
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 
 # Shared variables----------------------------------------
 # import of the GetStartupVariables class located in the sharedVar file
 from Package.SharedVar import GetStartupVariables, main_pi_location
 
 monitor = get_monitors()[0]
-
+current_window = None
 
 class App(ctk.CTk):  # main window class, every other window class is called from here and is a child of this
     def __init__(self, title, window_geometry):  # title is given as an attribute from the class call
@@ -39,6 +39,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         self.title(title)
         self.geometry(f"{window_geometry[0]}x{window_geometry[1]}")
         print(window_geometry)
+        global current_window
 
         # dictionary for all window frames----------------------------------------
         self.windows = {"0": StartScreen(self, window_geometry),
@@ -60,6 +61,10 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
 
         self.protocol("WM_DELETE_WINDOW", lambda: self.close_commands())
 
+        # to make the unair feature in TestPreparations01 work----------------------------------------
+        self.bind("<Return>", lambda event: TestPreparations01.unair_on(current_window))
+        self.bind("<KeyRelease-Return>", lambda event: TestPreparations01.unair_off(current_window))
+
         # run the app----------------------------------------
         self.mainloop()  # the main App window is run (mainloop)
 
@@ -74,12 +79,14 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             pass
 
     def switch_window(self, which):  # method for switching windows with the attribute "which"
+        global current_window
         for window in self.windows.values():
             window.place_forget()  # forget every window that is in the dictionary
 
         if which in self.windows:
             self.windows[which].place(x=10,
                                       y=10)  # place the window with the matching index to the attribute "which" in the main window
+        current_window = which
 
     def close_commands(self):
         if messagebox.askokcancel("Applikation beenden", "Möchten Sie die Applikation wirklich beenden?"):
@@ -87,7 +94,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
                 test_run_01 = self.windows["4.0"]
                 if hasattr(test_run_01, "cancel_after_on_closing"):
                     test_run_01.cancel_after_on_closing()
-            #GPIO.cleanup()
+            GPIO.cleanup()
             self.destroy()
         else:
             pass

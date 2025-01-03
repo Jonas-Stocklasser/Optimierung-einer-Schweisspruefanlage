@@ -7,15 +7,15 @@
 import customtkinter as ctk
 import tkinter as tk
 from .JsonFunctions import json_reader, json_writer
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, GetExamParameterVariables, back_arrow_image
 
 key_held = False
 
-#GPIO.setmode(GPIO.BCM)
-#GPIO.setup(14, GPIO.OUT)
-#GPIO.output(14, False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(14, GPIO.OUT)
+GPIO.output(14, False)
 
 
 class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 window
@@ -28,68 +28,71 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
         self.app = parent
 
         font_size = window_geometry[1] / 40
-
-        # Grid configuration
-        self.grid_columnconfigure(0, weight=3)
-        self.grid_columnconfigure(tuple(range(1, 80)), weight=10)
-        self.grid_columnconfigure(81, weight=3)
-        self.grid_rowconfigure(0, weight=4)
-        self.grid_rowconfigure(tuple(range(1, 60)), weight=10)
-        self.grid_rowconfigure(61, weight=4)
+        back_arrow_image.configure(size=(font_size * 0.8, font_size * 0.8))
 
         # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
-                                          corner_radius=font_size / 2,
+                                          corner_radius=10,
                                           text=("Testvorbereitung - Schritt 1:" +
                                                 " Anweisungen befolgen und entlüften"),
                                           text_color=GetStartupVariables.text_color_SET,
                                           font=("bold", font_size),
-                                          anchor="center")
-        self.indicator_bar.grid(row=1, column=1, columnspan=77, rowspan=1, sticky="nesw")
+                                          anchor="w",
+                                          width=window_geometry[0] - 30 - font_size * 1.5,
+                                          height=font_size * 1.5)
+        self.indicator_bar.place(x=0,
+                                 y=0)
 
         # back button------------------------------------------------------------
         self.back_button = ctk.CTkButton(master=self,  # back button
-                                         corner_radius=font_size / 2,
+                                         corner_radius=10,
                                          text="",
                                          anchor="center",
                                          image=back_arrow_image,
-                                         command=lambda: self.master.confirm_go_back("1.5"))
+                                         command=lambda: self.master.confirm_go_back("1.5"),
+                                         width=font_size * 1.5,
+                                         height=font_size * 1.5)
         # the command does call the switch_window method because there is unsaved content to loose
-        self.back_button.grid(row=1, column=78, columnspan=2, rowspan=1, sticky="nesw")
+        self.back_button.place(x=(window_geometry[0] - font_size * 1.5 - 25),
+                               y=0)
 
         # text_frame------------------------------------------------------------
         self.left_frame = ctk.CTkFrame(master=self,  # frame for the text
-                                       corner_radius=font_size / 2)
-        self.left_frame.grid(row=4, column=3, columnspan=35, rowspan=50, sticky="nesw")
-
-        # Grid configuration
-        self.left_frame.grid_columnconfigure(0, weight=3)
-        self.left_frame.grid_columnconfigure(tuple(range(1, 80)), weight=10)
-        self.left_frame.grid_columnconfigure(81, weight=3)
-        self.left_frame.grid_rowconfigure(0, weight=4)
-        self.left_frame.grid_rowconfigure(tuple(range(1, 60)), weight=10)
-        self.left_frame.grid_rowconfigure(61, weight=4)
+                                       corner_radius=20,
+                                       width=window_geometry[0] / 2.2,
+                                       height=window_geometry[1] / 1.35)
+        self.left_frame.place(x=0,
+                              y=font_size * 2)
 
         self.text_frame = ctk.CTkFrame(master=self.left_frame,  # frame for the text
-                                       corner_radius=font_size / 2)
-        self.text_frame.grid(row=5, column=10, columnspan=60, rowspan=45, sticky="nesw")
+                                       corner_radius=10,
+                                       width=window_geometry[0] / 2.2 - 20,
+                                       height=window_geometry[1] / 1.5)
+        self.text_frame.place(x=10,
+                              y=10)
 
         # image_frame------------------------------------------------------------
         self.right_frame = ctk.CTkFrame(master=self,  # frame for the image
-                                        corner_radius=font_size / 2)
-        self.right_frame.grid(row=4, column=41, columnspan=35, rowspan=50, sticky="nesw")
+                                        corner_radius=20,
+                                        width=window_geometry[0] / 2.2,
+                                        height=window_geometry[1] / 1.35)
+        self.right_frame.place(x=window_geometry[0] / 2.1,
+                               y=font_size * 2)
 
         # continue_button------------------------------------------------------------
         self.continue_button = ctk.CTkButton(master=self.left_frame,
                                              # continue button
-                                             corner_radius=font_size / 2,
+                                             corner_radius=10,
                                              text="Weiter",
                                              font=("bold", font_size),
                                              state="normal",
-                                             command=self.continue_button_function)
-        self.continue_button.grid(row=55, column=10, columnspan=10, rowspan=2, sticky="nesw")
+                                             command=self.continue_button_function,
+                                             height=font_size * 1.5,
+                                             width=font_size * 5)
+        self.continue_button.place(x=10,
+                                   y=window_geometry[1] / 1.45)
 
         self.instruction_label = ctk.CTkLabel(master=self.text_frame,
                                               text="Anweisungen des ausgedruckten\nDokuments befolgen\n"
@@ -117,9 +120,11 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
                                                    "\n"
                                                    "\n",
                                               anchor="n",
-                                              font=("bold", font_size))
-        self.instruction_label.place(relx=0.01,
-                                     rely=0.01)
+                                              font=("bold", font_size),
+                                              width=window_geometry[0] / 2.2 - 40,
+                                              height=window_geometry[1] / 1.5 - 20)
+        self.instruction_label.place(x=10,
+                                     y=10)
 
     def continue_button_function(self):
         self.master.switch_window("4.0")
@@ -134,17 +139,17 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
         self.instruction_label.configure(font=("bold", font_size * 0.9), corner_radius=font_size / 2)
 
     @staticmethod
-    def unair_on():
+    def unair_on(current_window):
         global key_held
-        if not key_held:
+        if not key_held and current_window == "2.0":
             print("Entlüftung start")
-            #GPIO.output(14, True)
+            GPIO.output(14, True)
             key_held = True
 
     @staticmethod
-    def unair_off():
+    def unair_off(current_window):
         global key_held
-        if key_held:
+        if key_held and current_window == "2.0":
             print("Entlüftung ende")
-            #GPIO.output(14, False)
+            GPIO.output(14, False)
             key_held = False

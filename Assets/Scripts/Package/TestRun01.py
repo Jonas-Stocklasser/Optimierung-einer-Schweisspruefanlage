@@ -6,22 +6,23 @@
 
 import customtkinter as ctk
 import random
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from .JsonFunctions import json_reader, json_writer
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location, w1temp_location
-#from ina219 import INA219
+
+from ina219 import INA219
 
 timer_id = None
 
-#GPIO.setmode(GPIO.BCM)
-#GPIO.setup(14, GPIO.OUT)
-#GPIO.output(14, False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(14, GPIO.OUT)
+GPIO.output(14, False)
 output = 0
 
-'''ina = INA219(shunt_ohms=0.1,
+ina = INA219(shunt_ohms=0.1,
              max_expected_amps=0.6,
              address=0x40,
              busnum=1)
@@ -29,7 +30,7 @@ output = 0
 ina.configure(voltage_range=ina.RANGE_16V,
               gain=ina.GAIN_AUTO,
               bus_adc=ina.ADC_128SAMP,
-              shunt_adc=ina.ADC_128SAMP)'''
+              shunt_adc=ina.ADC_128SAMP)
 
 pressure_values = []
 temperature_values = []
@@ -46,62 +47,65 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         self.app = parent
 
         font_size = window_geometry[1] / 40
-
-        # Grid configuration
-        self.grid_columnconfigure(0, weight=3)
-        self.grid_columnconfigure(tuple(range(1, 80)), weight=10)
-        self.grid_columnconfigure(81, weight=3)
-        self.grid_rowconfigure(0, weight=4)
-        self.grid_rowconfigure(tuple(range(1, 60)), weight=10)
-        self.grid_rowconfigure(61, weight=4)
+        back_arrow_image.configure(size=(font_size * 0.8, font_size * 0.8))
 
         # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
-                                          corner_radius=font_size / 2,
+                                          corner_radius=10,
                                           text="Testdurchlauf",
                                           text_color=GetStartupVariables.text_color_SET,
                                           font=("bold", font_size),
-                                          anchor="w")
-        self.indicator_bar.grid(row=1, column=1, columnspan=77, rowspan=1, sticky="nesw")
+                                          anchor="w",
+                                          width=window_geometry[0] - 30 - font_size * 1.5,
+                                          height=font_size * 1.5)
+        self.indicator_bar.place(x=0,
+                                 y=0)
 
         # back button------------------------------------------------------------
         self.back_button = ctk.CTkButton(master=self,  # back button
-                                         corner_radius=font_size / 2,
+                                         corner_radius=10,
                                          text="",
                                          anchor="center",
                                          image=back_arrow_image,
-                                         command=lambda: self.master.confirm_go_back("2.0"))
+                                         command=lambda: self.master.confirm_go_back("2.0"),
+                                         width=font_size * 1.5,
+                                         height=font_size * 1.5)
         # the command does call the switch_window method because there is unsaved content to loose
-        self.back_button.grid(row=1, column=78, columnspan=2, rowspan=1, sticky="nesw")
+        self.back_button.place(x=(window_geometry[0] - font_size * 1.5 - 25),
+                               y=0)
+
+        self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
+                                         corner_radius=20,
+                                         height=font_size * 1.5 + 20,
+                                         width=window_geometry[0] / 7.4)
+        self.button_frame.place(x=0,
+                                y=font_size * 2)
 
         # start button------------------------------------------------------------
-        self.start_button = ctk.CTkButton(master=self,  # start button
-                                          corner_radius=font_size / 2,
+        self.start_button = ctk.CTkButton(master=self.button_frame,  # start button
+                                          corner_radius=10,
                                           text="Start",
                                           font=("bold", font_size),
                                           state="normal",
-                                          command=lambda: self.start_button_function())
-        self.start_button.grid(row=4, column=10, columnspan=1, rowspan=1, sticky="nesw")
+                                          command=lambda: self.start_button_function(),
+                                          width=font_size * 1.5,
+                                          height=font_size * 1.5)
+        self.start_button.place(x=10,
+                                y=10)
 
         # stop button------------------------------------------------------------
-        self.stop_button = ctk.CTkButton(master=self,  # stop button
-                                         corner_radius=font_size / 2,
+        self.stop_button = ctk.CTkButton(master=self.button_frame,  # stop button
+                                         corner_radius=10,
                                          text="Stop",
                                          font=("bold", font_size),
                                          state="disabled",
-                                         command=lambda: self.stop_button_function())
-        self.stop_button.grid(row=4, column=15, columnspan=1, rowspan=1, sticky="nesw")
-
-        # Toggle relais button------------------------------------------------------------
-        self.toggle_relais_button = ctk.CTkButton(master=self,
-                                                  corner_radius=font_size / 2,
-                                                  text="Toggle Relais",
-                                                  font=("bold", font_size),
-                                                  state="normal",
-                                                  command=lambda: self.toggle_relais_button_function())
-        self.toggle_relais_button.grid(row=4, column=20, columnspan=1, rowspan=1, sticky="nesw")
+                                         command=lambda: self.stop_button_function(),
+                                         width=font_size * 1.5,
+                                         height=font_size * 1.5)
+        self.stop_button.place(x=font_size * 3 + 20,
+                               y=10)
 
         # mathplot
         self.figure, self.ax = plt.subplots(figsize=(font_size / 2, font_size / 3.8))
@@ -111,7 +115,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         # Embedding the matplotlib plot into tkinter using FigureCanvasTkAgg
         self.canvas = FigureCanvasTkAgg(self.figure, self)
-        self.canvas.get_tk_widget().place(relx=0.01, rely=0.2)
+        self.canvas.get_tk_widget().place(x=0, y=font_size * 5)
 
     def to_do(self):
         print("Measure")
@@ -128,8 +132,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             test_timesteps.append(last_entry)
 
         temperature = self.get_temperature_w1()
-        #pressure_current = ina.current()
-        pressure_current = 0.04 # only in use while testing with pycharm
+        pressure_current = ina.current()
+        # pressure_current = 15 # only in use while testing with pycharm
         # Pressure Calculation
         MBEWe = 60  # Messbereichsendwert Druck in Bar
         MBAWe = 0  # Messbereichsanfangswert Druck in Bar
@@ -140,10 +144,10 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         pressure = (MBe / MBa) * (pressure_current - MBAWa) + MBAWe
 
-        '''if pressure >= 0.1:
+        if pressure >= 0.1:
             GPIO.output(14, True)
         else:
-            GPIO.output(14, False)'''
+            GPIO.output(14, False)
 
         print(f"Pressure = {pressure}")
         pressure_values.append(pressure)
@@ -159,6 +163,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         timer_id = self.after(1000, self.to_do)
         self.start_button.configure(state="disabled")
         self.stop_button.configure(state="normal")
+        print("Started")
 
     def stop_button_function(self):
         global timer_id
@@ -199,15 +204,6 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             self.after_cancel(timer_id)
             timer_id = None
 
-    def toggle_relais_button_function(self):
-        global output
-        if output == 0:
-            #GPIO.output(14, True)
-            output = 1
-        elif output == 1:
-            #GPIO.output(14, False)
-            output = 0
-
     @staticmethod
     def write_personal_json():
         global pressure_values
@@ -216,13 +212,3 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
         json_writer(personal_json_name, "pressure_values", pressure_values, personal_folder_path)
         json_writer(personal_json_name, "temperature_values", temperature_values, personal_folder_path)
-
-    def update_size(self, font_size):
-        self.indicator_bar.configure(font=("bold", font_size), height=font_size, corner_radius=font_size / 2)
-        self.back_button.configure(width=font_size,
-                                   height=font_size, corner_radius=font_size / 2)
-        back_arrow_image.configure(size=(font_size, font_size))
-        self.start_button.configure(font=("bold", font_size), height=font_size * 1.5, corner_radius=font_size / 2)
-        self.stop_button.configure(font=("bold", font_size), height=font_size * 1.5, corner_radius=font_size / 2)
-        self.toggle_relais_button.configure(font=("bold", font_size), height=font_size * 1.5,
-                                            corner_radius=font_size / 2)

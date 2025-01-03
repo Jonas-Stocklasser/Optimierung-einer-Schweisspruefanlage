@@ -73,7 +73,7 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
         self.quit_button = ctk.CTkButton(master=self.button_frame,
                                          # button to open the OptionsScreen
                                          corner_radius=font_size / 2,
-                                         text="Desktop",
+                                         text="Beenden",
                                          font=("bold", font_size * 2),
                                          width=window_geometry[0] / 3.5 - 20,
                                          height=font_size * 3,

@@ -163,13 +163,14 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
                                    self.last_name_entry.get(),
                                    self.birth_date_entry.get()]
         if len(personal_infos_examinee[0].strip()) + len(
-                personal_infos_examinee[1].strip()) >= 4:  # integrity evaluation
+                personal_infos_examinee[1].strip()) >= 4 and len(personal_infos_examinee[0].strip()) >= 1 and len(
+                personal_infos_examinee[1].strip()) >= 1:  # integrity evaluation
             self.continue_button.configure(state="normal")  # unlock the continue button
             json_writer("personal_var", "personal_infos_examinee", personal_infos_examinee,
                         main_pi_location + "../JSON/")
         else:
             self.continue_button.configure(state="disabled")  # lock the continue button
-            print("Sum of first name plus surname not at least 4 digits")
+            print("Too short, or no input")
 
     @staticmethod
     def create_examinee_folder_and_json():  # create a new folder for all the created files for the examinee

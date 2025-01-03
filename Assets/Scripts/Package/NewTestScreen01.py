@@ -132,7 +132,8 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
                               y=10)
 
     def change_path(self):  # method to change the save-path
-        GetStartupVariables.save_path = filedialog.askdirectory()
-        self.path_display_label.configure(text=GetStartupVariables.save_path)
+        save_path = filedialog.askdirectory()
+        if len(save_path) >= 1:
+            self.path_display_label.configure(text=save_path)
 
-        json_writer("startup_var", "save_path", GetStartupVariables.save_path, main_pi_location + "../JSON/")
+            json_writer("startup_var", "save_path", save_path, main_pi_location + "../JSON/")

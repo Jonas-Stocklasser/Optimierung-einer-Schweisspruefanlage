@@ -20,81 +20,85 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.app = parent
 
         font_size = window_geometry[1] / 40
-
-        # Grid configuration
-        self.grid_columnconfigure(0, weight=3)
-        self.grid_columnconfigure(tuple(range(1, 80)), weight=10)
-        self.grid_columnconfigure(81, weight=3)
-        self.grid_rowconfigure(0, weight=4)
-        self.grid_rowconfigure(tuple(range(1, 60)), weight=10)
-        self.grid_rowconfigure(61, weight=4)
+        back_arrow_image.configure(size=(font_size * 0.8, font_size * 0.8))
 
         # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
-                                          corner_radius=font_size / 2,
+                                          corner_radius=10,
                                           text=("Neuer Test - Schritt 5:" +
                                                 " Visuelle Einschätzung vom Prüfer eingeben"),
                                           text_color=GetStartupVariables.text_color_SET,
                                           font=("bold", font_size),
-                                          anchor="w")
-        self.indicator_bar.grid(row=1, column=1, columnspan=77, rowspan=1, sticky="nesw")
+                                          anchor="w",
+                                          width=window_geometry[0] - 30 - font_size * 1.5,
+                                          height=font_size * 1.5)
+        self.indicator_bar.place(x=0,
+                                 y=0)
 
         # back button------------------------------------------------------------
         self.back_button = ctk.CTkButton(master=self,  # back button
-                                         corner_radius=font_size / 2,
+                                         corner_radius=10,
                                          text="",
                                          anchor="center",
                                          image=back_arrow_image,
-                                         command=lambda: self.master.confirm_go_back("1.3"))
+                                         command=lambda: self.master.confirm_go_back("1.3"),
+                                         width=font_size * 1.5,
+                                         height=font_size * 1.5)
         # the command does call the switch_window method because there is unsaved content to loose
-        self.back_button.grid(row=1, column=78, columnspan=2, rowspan=1, sticky="nesw")
+        self.back_button.place(x=(window_geometry[0] - font_size * 1.5 - 25),
+                               y=0)
 
         # textbox frame ------------------------------------------------------------
         self.textbox_frame = ctk.CTkFrame(master=self,  # frame for the textbox
-                                          corner_radius=font_size)
-        self.textbox_frame.grid(row=4, column=2, columnspan=40, rowspan=30, sticky="nesw")
+                                          corner_radius=20,
+                                          width=window_geometry[0] / 1.3,
+                                          height=window_geometry[1] / 1.3)
+        self.textbox_frame.place(x=0,
+                                 y=font_size * 2)
 
         # textbox ------------------------------------------------------------
         self.textbox = ctk.CTkTextbox(master=self.textbox_frame,
-                                      border_width=font_size / 4,
+                                      border_width=5,
                                       font=("bold", font_size),
-                                      corner_radius=font_size / 2)
-        self.textbox.place(relx=0.01,
-                           rely=0.01)
+                                      corner_radius=10,
+                                      width=window_geometry[0] / 1.3 - 20,
+                                      height=window_geometry[1] / 1.3 - 20)
+        self.textbox.place(x=10,
+                           y=10)
 
         # save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
-                                         corner_radius=font_size / 2)
-        self.button_frame.grid(row=40, column=2, columnspan=13, rowspan=2, sticky="nesw")
-
-        self.button_frame.grid_columnconfigure(0, weight=3)
-        self.button_frame.grid_columnconfigure(1, weight=20)
-        self.button_frame.grid_columnconfigure(2, weight=3)
-        self.button_frame.grid_columnconfigure(3, weight=20)
-        self.button_frame.grid_columnconfigure(4, weight=3)
-        self.button_frame.grid_rowconfigure(0, weight=3)
-        self.button_frame.grid_rowconfigure(1, weight=10)
-        self.button_frame.grid_rowconfigure(2, weight=3)
+                                         corner_radius=20,
+                                         height=font_size * 1.5 + 20,
+                                         width=window_geometry[0] / 4.6)
+        self.button_frame.place(x=0,
+                                y=font_size * 34)
 
         self.save_button = ctk.CTkButton(master=self.button_frame,  # continue button
-                                         corner_radius=font_size / 2,
+                                         corner_radius=10,
                                          text="Speichern",
                                          font=("bold", font_size),
                                          state="normal",
-                                         command=lambda: self.save_textbox_data())
-        self.save_button.grid(row=1, column=1, columnspan=1, rowspan=1, sticky="nesw")
+                                         command=lambda: self.save_textbox_data(),
+                                         height=font_size * 1.5,
+                                         width=font_size * 5)
+        self.save_button.place(x=10,
+                               y=10)
 
         self.continue_button = ctk.CTkButton(master=self.button_frame,
                                              # continue button
-                                             corner_radius=font_size / 2,
+                                             corner_radius=10,
                                              text="Weiter",
                                              font=("bold", font_size),
                                              state="disabled",
-                                             command=lambda: self.master.switch_window("1.5"))
-        self.continue_button.grid(row=1, column=3, columnspan=1, rowspan=1, sticky="nesw")
+                                             command=lambda: self.master.switch_window("1.5"),
+                                             height=font_size * 1.5,
+                                             width=font_size * 5)
+        self.continue_button.place(x=font_size * 5 + 30,
+                                   y=10)
 
     def save_textbox_data(self):
         visual_grade = self.textbox.get("1.0", "end")

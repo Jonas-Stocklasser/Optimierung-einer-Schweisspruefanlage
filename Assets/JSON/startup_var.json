@@ -17,7 +17,7 @@
   },
   {
     "var":"start_window",
-    "val":"0"
+    "val":"4.0"
   },
   {
     "var":"appearance_mode",
@@ -29,5 +29,9 @@
   {
     "var":"save_path",
     "val":"E:\/GIT\/Optimierung-einer-Schweisspruefanlage\/Assets\/Tests"
+  },
+  {
+    "var":"code_testing",
+    "val":"1"
   }
 ]

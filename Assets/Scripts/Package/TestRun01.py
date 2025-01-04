@@ -6,31 +6,35 @@
 
 import customtkinter as ctk
 import random
-import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from .JsonFunctions import json_reader, json_writer
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location, w1temp_location
 
-from ina219 import INA219
+# from ina219 import INA219
 
 timer_id = None
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(14, GPIO.OUT)
-GPIO.output(14, False)
+# for testing
+pressure_current = 19
+# -------
+
+# GPIO.setmode(GPIO.BCM)
+# GPIO.setup(14, GPIO.OUT)
+# GPIO.output(14, False)
 output = 0
 
-ina = INA219(shunt_ohms=0.1,
-             max_expected_amps=0.6,
-             address=0x40,
-             busnum=1)
-
-ina.configure(voltage_range=ina.RANGE_16V,
-              gain=ina.GAIN_AUTO,
-              bus_adc=ina.ADC_128SAMP,
-              shunt_adc=ina.ADC_128SAMP)
+# ina = INA219(shunt_ohms=0.1,
+#             max_expected_amps=0.6,
+#             address=0x40,
+#             busnum=1)
+#
+# ina.configure(voltage_range=ina.RANGE_16V,
+#              gain=ina.GAIN_AUTO,
+#              bus_adc=ina.ADC_128SAMP,
+#              shunt_adc=ina.ADC_128SAMP)
 
 pressure_values = []
 temperature_values = []
@@ -124,6 +128,10 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         global temperature_values
         global test_timesteps
 
+        # for testing
+        global pressure_current
+        # ------
+
         if test_timesteps == []:
             test_timesteps = [1]
         else:
@@ -132,8 +140,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             test_timesteps.append(last_entry)
 
         temperature = self.get_temperature_w1()
-        pressure_current = ina.current()
-        # pressure_current = 15 # only in use while testing with pycharm
+        # pressure_current = ina.current()
+
         # Pressure Calculation
         MBEWe = 60  # Messbereichsendwert Druck in Bar
         MBAWe = 0  # Messbereichsanfangswert Druck in Bar
@@ -144,10 +152,10 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         pressure = (MBe / MBa) * (pressure_current - MBAWa) + MBAWe
 
-        if pressure >= 0.1:
+        '''if pressure >= 0.1:
             GPIO.output(14, True)
         else:
-            GPIO.output(14, False)
+            GPIO.output(14, False)'''
 
         print(f"Pressure = {pressure}")
         pressure_values.append(pressure)
@@ -212,3 +220,11 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
         json_writer(personal_json_name, "pressure_values", pressure_values, personal_folder_path)
         json_writer(personal_json_name, "temperature_values", temperature_values, personal_folder_path)
+
+    # code test method
+    @staticmethod
+    def test_stop_functionality(current_window):  # press W
+        global pressure_current
+        if current_window == "4.0" and GetStartupVariables.code_testing == "1":
+            print("test")
+            pressure_current = 10

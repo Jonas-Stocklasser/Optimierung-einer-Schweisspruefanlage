@@ -20,7 +20,7 @@ from Package.NewTestScreen06 import NewTestScreen06
 from Package.TestPreparations01 import TestPreparations01
 from Package.TestRun01 import TestRun01
 
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 
 # Shared variables----------------------------------------
 # import of the GetStartupVariables class located in the sharedVar file
@@ -64,6 +64,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         # to make the unair feature in TestPreparations01 work----------------------------------------
         self.bind("<Return>", lambda event: TestPreparations01.unair_on(current_window))
         self.bind("<KeyRelease-Return>", lambda event: TestPreparations01.unair_off(current_window))
+        self.bind("<w>", lambda event: TestRun01.test_stop_functionality(current_window))
 
         # run the app----------------------------------------
         self.mainloop()  # the main App window is run (mainloop)
@@ -94,7 +95,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
                 test_run_01 = self.windows["4.0"]
                 if hasattr(test_run_01, "cancel_after_on_closing"):
                     test_run_01.cancel_after_on_closing()
-            GPIO.cleanup()
+            #GPIO.cleanup()
             self.destroy()
         else:
             pass

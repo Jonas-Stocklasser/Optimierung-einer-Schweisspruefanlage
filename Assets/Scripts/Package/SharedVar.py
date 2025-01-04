@@ -10,15 +10,15 @@ from PIL import Image  # library for image handling
 from .JsonFunctions import json_reader
 
 # path when on raspberry pi for the .desktop execution file to work
-main_pi_location = "/home/admin/Schweisspruefung/Optimierung-einer-Schweisspruefanlage/Assets/Scripts/"
-w1temp_base_dir = "/sys/bus/w1/devices/"
-device_folder = glob.glob(w1temp_base_dir + "28*")[0]
-w1temp_location = device_folder + "/w1_slave"
+#main_pi_location = "/home/admin/Schweisspruefung/Optimierung-einer-Schweisspruefanlage/Assets/Scripts/"
+#w1temp_base_dir = "/sys/bus/w1/devices/"
+#device_folder = glob.glob(w1temp_base_dir + "28*")[0]
+#w1temp_location = device_folder + "/w1_slave"
 
 
 # path when on PyCharm
-#main_pi_location = ""
-#w1temp_location = "../default_temp.txt"
+main_pi_location = ""
+w1temp_location = "../default_temp.txt"
 
 
 # Startup variables----------------------------------------
@@ -30,6 +30,7 @@ class GetStartupVariables:
     start_window = json_reader("startup_var", "start_window", main_pi_location + "../JSON/")
     appearance_mode = json_reader("startup_var", "appearance_mode", main_pi_location + "../JSON/")
     save_path = json_reader("startup_var", "save_path", main_pi_location + "../JSON/")
+    code_testing = json_reader("startup_var", "code_testing", main_pi_location + "../JSON/")
 
 
 # Personal variables----------------------------------------

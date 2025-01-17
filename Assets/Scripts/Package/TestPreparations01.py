@@ -7,15 +7,15 @@
 import customtkinter as ctk
 import tkinter as tk
 from .JsonFunctions import json_reader, json_writer
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, GetExamParameterVariables, back_arrow_image
 
 key_held = False
 
-#GPIO.setmode(GPIO.BCM)
-#GPIO.setup(14, GPIO.OUT)
-#GPIO.output(14, False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(14, GPIO.OUT)
+GPIO.output(14, False)
 
 
 class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 window
@@ -143,7 +143,7 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
         global key_held
         if not key_held and current_window == "2.0":
             print("Entlüftung start")
-            #GPIO.output(14, True)
+            GPIO.output(14, True)
             key_held = True
 
     @staticmethod
@@ -151,5 +151,5 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
         global key_held
         if key_held and current_window == "2.0":
             print("Entlüftung ende")
-            #GPIO.output(14, False)
+            GPIO.output(14, False)
             key_held = False

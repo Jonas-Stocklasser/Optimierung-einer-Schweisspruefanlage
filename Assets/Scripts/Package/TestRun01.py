@@ -6,7 +6,7 @@
 
 import customtkinter as ctk
 import random
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from .JsonFunctions import json_reader, json_writer
@@ -21,9 +21,9 @@ timer_id = None
 pressure_current = 19
 # -------
 
-# GPIO.setmode(GPIO.BCM)
-# GPIO.setup(14, GPIO.OUT)
-# GPIO.output(14, False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(14, GPIO.OUT)
+GPIO.output(14, False)
 output = 0
 
 # ina = INA219(shunt_ohms=0.1,
@@ -152,23 +152,25 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         pressure = (MBe / MBa) * (pressure_current - MBAWa) + MBAWe
 
-        '''if pressure >= 0.1:
-            GPIO.output(14, True)
-        else:
-            GPIO.output(14, False)'''
-
         print(f"Pressure = {pressure}")
         pressure_values.append(pressure)
         temperature_values.append(temperature)
 
         self.update_plot()
 
-        timer_id = self.after(1000, self.to_do)
+        # Abbruchbedingung Druckabfall pruefen
+        pDiff = pressure_values[len(pressure_values)-1] - pressure_values[len(pressure_values)-2]
+        if pDiff >= -10:
+            timer_id = self.after(1000, self.to_do)
+        elif pDiff < -10:
+            self.stop_test(pDiff)
+
         self.write_personal_json()
 
     def start_button_function(self):
         global timer_id
         timer_id = self.after(1000, self.to_do)
+        self.regelung("start")
         self.start_button.configure(state="disabled")
         self.stop_button.configure(state="normal")
         print("Started")
@@ -176,6 +178,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
     def stop_button_function(self):
         global timer_id
         self.after_cancel(timer_id)
+        self.regelung("stop")
         timer_id = None
         self.start_button.configure(state="normal")
         self.stop_button.configure(state="disabled")
@@ -211,6 +214,18 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         if timer_id is not None:
             self.after_cancel(timer_id)
             timer_id = None
+
+    def stop_test(self, pDiff):
+        self.stop_button_function()
+        print(f"\nVersuch wegen Druckabfalls beendet!\nDruckabfall zwischen letzten Messpunkten: {pDiff}")
+
+    def regelung(self, what):
+        if what == "start":
+            GPIO.output(14, True)
+            print("regelung start")
+        elif what == "stop":
+            GPIO.output(14, False)
+            print("regelung stop")
 
     @staticmethod
     def write_personal_json():

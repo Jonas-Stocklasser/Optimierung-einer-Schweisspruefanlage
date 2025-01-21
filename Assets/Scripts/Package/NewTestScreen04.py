@@ -90,7 +90,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         # entry frame 1------------------------------------------------------------
         self.entry_frame1 = ctk.CTkFrame(master=self,  # frame for the entries
                                          corner_radius=20,
-                                         width=window_geometry[0] / 4.5,
+                                         width=window_geometry[0] / 2.8,
                                          height=font_size * 11)
         self.entry_frame1.place(x=0,
                                 y=6.5 * font_size)
@@ -98,19 +98,19 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         # entry frame 2------------------------------------------------------------
         self.entry_frame2 = ctk.CTkFrame(master=self,  # frame for the entries
                                          corner_radius=20,
-                                         width=window_geometry[0] / 4.5,
+                                         width=window_geometry[0] / 2.35,
                                          height=font_size * 7.5)
-        self.entry_frame2.place(x=window_geometry[0] / 4,
+        self.entry_frame2.place(x=window_geometry[0] / 2.7,
                                 y=6.5 * font_size)
 
         # title entry------------------------------------------------------------
         self.title_entry_label = ctk.CTkLabel(master=self.entry_frame1,
                                               fg_color=GetStartupVariables.color_SET_blue,
                                               corner_radius=10,
-                                              text="Titel",
+                                              text="Werkstoff",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size),
-                                              width=window_geometry[0] / 4.5 - 20,
+                                              width=window_geometry[0] / 2.8 - 20,
                                               height=font_size * 1.5)
         self.title_entry_label.place(x=10,
                                      y=10)
@@ -140,10 +140,10 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info1_entry_label = ctk.CTkLabel(master=self.entry_frame1,
                                               fg_color=GetStartupVariables.color_SET_blue,
                                               corner_radius=10,
-                                              text="Info1",
+                                              text="Umfangsspannung σ [MPa]",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size),
-                                              width=window_geometry[0] / 4.5 - 20,
+                                              width=window_geometry[0] / 2.8 - 20,
                                               height=font_size * 1.5)
         self.info1_entry_label.place(x=10,
                                      y=2 * font_size * 1.5 + 25)
@@ -172,10 +172,10 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info2_entry_label = ctk.CTkLabel(master=self.entry_frame1,
                                               fg_color=GetStartupVariables.color_SET_blue,
                                               corner_radius=10,
-                                              text="Info2",
+                                              text="Nenn-Wanddicke des Rohres eₙ [mm]",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size),
-                                              width=window_geometry[0] / 4.5 - 20,
+                                              width=window_geometry[0] / 2.8 - 20,
                                               height=font_size * 1.5)
         self.info2_entry_label.place(x=10,
                                      y=4 * font_size * 1.5 + 40)
@@ -205,10 +205,10 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info3_entry_label = ctk.CTkLabel(master=self.entry_frame2,
                                               fg_color=GetStartupVariables.color_SET_blue,
                                               corner_radius=10,
-                                              text="Info3",
+                                              text="Nenn-Außendurchmesser des Rohres dₙ [mm]",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size),
-                                              width=window_geometry[0] / 4.5 - 20,
+                                              width=window_geometry[0] / 2.35 - 20,
                                               height=font_size * 1.5)
         self.info3_entry_label.place(x=10,
                                      y=10)
@@ -238,10 +238,10 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info4_entry_label = ctk.CTkLabel(master=self.entry_frame2,
                                               fg_color=GetStartupVariables.color_SET_blue,
                                               corner_radius=10,
-                                              text="Info4",
+                                              text="Prüfdauer (Regelung) [min]",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size),
-                                              width=window_geometry[0] / 4.5 - 20,
+                                              width=window_geometry[0] / 2.35 - 20,
                                               height=font_size * 1.5)
         self.info4_entry_label.place(x=10,
                                      y=2 * font_size * 1.5 + 25)
@@ -327,10 +327,10 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info4_entry_unchanged_overlay_label_frame.place_forget()
 
         self.title_entry.configure(state="normal", placeholder_text="Titel")
-        self.info1_entry.configure(state="normal", placeholder_text="Info1")
-        self.info2_entry.configure(state="normal", placeholder_text="Info2")
-        self.info3_entry.configure(state="normal", placeholder_text="Info3")
-        self.info4_entry.configure(state="normal", placeholder_text="Info4")
+        self.info1_entry.configure(state="normal", placeholder_text="xx.xx")
+        self.info2_entry.configure(state="normal", placeholder_text="xx.xx")
+        self.info3_entry.configure(state="normal", placeholder_text="xx.xx")
+        self.info4_entry.configure(state="normal", placeholder_text="xx.xx")
 
         self.change_button.configure(state="disabled")
         self.save_button.configure(state="normal")

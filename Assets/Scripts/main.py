@@ -64,7 +64,12 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         # to make the unair feature in TestPreparations01 work----------------------------------------
         self.bind("<Return>", lambda event: TestPreparations01.unair_on(current_window))
         self.bind("<KeyRelease-Return>", lambda event: TestPreparations01.unair_off(current_window))
-        self.bind("<w>", lambda event: TestRun01.test_stop_functionality(current_window))
+        self.bind("1", lambda event: TestRun01.test_stop_functionality_too_low(current_window))
+        self.bind("2", lambda event: TestRun01.test_stop_functionality_normal1(current_window))
+        self.bind("3", lambda event: TestRun01.test_stop_functionality_normal2(current_window))
+        self.bind("4", lambda event: TestRun01.test_stop_functionality_too_high(current_window))
+        self.bind("<Up>", lambda event: TestRun01.test_stop_functionality_pressure_up(current_window))
+        self.bind("<Down>", lambda event: TestRun01.test_stop_functionality_pressure_down(current_window))
 
         # run the app----------------------------------------
         self.mainloop()  # the main App window is run (mainloop)
@@ -78,6 +83,9 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             self.switch_window(which)
         else:
             pass
+
+    def error_message(self, title, text):
+        messagebox.showerror(title, text)
 
     def switch_window(self, which):  # method for switching windows with the attribute "which"
         global current_window

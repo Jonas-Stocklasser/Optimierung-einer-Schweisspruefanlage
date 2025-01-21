@@ -5,8 +5,7 @@
 # Test Run 1; ID=4.0
 
 import customtkinter as ctk
-import random
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from .JsonFunctions import json_reader, json_writer
@@ -16,14 +15,22 @@ from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location, 
 # from ina219 import INA219
 
 timer_id = None
+firstControlStartup = 1
+regelungSchalter = 0
+duration = 0
+pressureControlMiddle = 0
+pressureControlDown = 0
+pressureControlUp = 0
+height = 2  # height of space between pressureControlUp and pressureControlDown in bar
+maxAllowedPressure = 0
 
 # for testing
-pressure_current = 19
+pressure_current = 4
 # -------
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(14, GPIO.OUT)
-GPIO.output(14, False)
+#GPIO.setmode(GPIO.BCM)
+#GPIO.setup(14, GPIO.OUT)
+#GPIO.output(14, False)
 output = 0
 
 # ina = INA219(shunt_ohms=0.1,
@@ -127,6 +134,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         global pressure_values
         global temperature_values
         global test_timesteps
+        global regelungSchalter
+        global maxAllowedPressure
 
         # for testing
         global pressure_current
@@ -158,26 +167,82 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         self.update_plot()
 
+        # Regelung
+
+        if regelungSchalter == 1:
+            self.regelung("start")
+
         # Abbruchbedingung Druckabfall pruefen
         pDiff = pressure_values[len(pressure_values)-1] - pressure_values[len(pressure_values)-2]
         if pDiff >= -10:
             timer_id = self.after(1000, self.to_do)
         elif pDiff < -10:
             self.stop_test(pDiff)
+            self.master.error_message("!Achtung!",
+                                      "Druckabfall über 10bar zwischen Messpunkten!\nPrüfstückbruch erkannt\nDurchführung beendet!")
+
+        # Abbruchbedingung zu hoher Druck
+        if pressure >= maxAllowedPressure:
+            self.stop_button_function()
+            print(maxAllowedPressure)
+            self.master.error_message("!Achtung!",
+                                      f"Prüfdruck zu hoch! {pressure}bar\nSensor könnte bei Fortfahren beschädigt werden!\nDurchführung beendet!")
+
+        if pressure_current < 4:
+            self.stop_button_function()
+            self.master.error_message("!Achtung!",
+                                      "Drucksensorstrom unter 4mA! Sensor auf Fehler prüfen!\nDurchführung beendet!")
 
         self.write_personal_json()
 
     def start_button_function(self):
         global timer_id
-        timer_id = self.after(1000, self.to_do)
-        self.regelung("start")
-        self.start_button.configure(state="disabled")
-        self.stop_button.configure(state="normal")
-        print("Started")
+        global pressure_current
+        global regelungSchalter
+        global pressureControlMiddle
+        global pressureControlDown
+        global pressureControlUp
+        global duration
+        global height
+        global maxAllowedPressure
+
+        # Error when Sensor current is below 4mA
+        if pressure_current < 4:
+            self.master.error_message("!Achtung!", "Drucksensorstrom unter 4mA! Sensor auf Fehler prüfen!\nDurchführung beendet!")
+
+        elif pressure_current >= 4:
+            # getting the controller data out of the chosen item data ----------
+            personal_folder_path = json_reader("personal_var", "personal_folder_path", main_pi_location + "../JSON/")
+            personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
+
+            infos_item = json_reader(personal_json_name, "infos_item", personal_folder_path)
+            sigma = float(infos_item[1])
+            en = float(infos_item[2])
+            dn = float(infos_item[3])
+            duration = float(infos_item[4])
+            # calculated controlled pressure (from oenorm m 1861-6:2009)
+            pressureControlMiddle = (20 * en * sigma) / (dn - en)
+            pressureControlUp = pressureControlMiddle + height / 2
+            pressureControlDown = pressureControlMiddle - height / 2
+            print(pressureControlUp)
+            print(pressureControlMiddle)
+            print(pressureControlDown)
+
+            maxAllowedPressure = float(json_reader(personal_json_name, "exam_parameter", personal_folder_path))
+
+
+            timer_id = self.after(1000, self.to_do)
+            regelungSchalter = 1
+            self.start_button.configure(state="disabled")
+            self.stop_button.configure(state="normal")
+            print("Started")
 
     def stop_button_function(self):
         global timer_id
+        global regelungSchalter
+
         self.after_cancel(timer_id)
+        regelungSchalter = 0
         self.regelung("stop")
         timer_id = None
         self.start_button.configure(state="normal")
@@ -220,11 +285,37 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         print(f"\nVersuch wegen Druckabfalls beendet!\nDruckabfall zwischen letzten Messpunkten: {pDiff}")
 
     def regelung(self, what):
+        global firstControlStartup
+        global pressure_values
+        global pressureControlUp
+        global pressureControlMiddle
+        global pressureControlDown
+        global maxAllowedPressure
+
+        pressureNow = pressure_values[len(pressure_values)-1]
         if what == "start":
-            GPIO.output(14, True)
             print("regelung start")
+            if firstControlStartup == 1 and pressureNow <= pressureControlMiddle:
+                # GPIO.output(14, True)
+                print("first ascend start")
+
+            elif firstControlStartup == 1 and pressureNow > pressureControlMiddle:
+                # GPIO.output(14, False)
+                firstControlStartup = 0
+                print("first ascend stop")
+
+            elif firstControlStartup == 0 and pressureNow <= pressureControlDown:
+                # GPIO.output(14, True)
+                print("lower barrier reached, pump on")
+
+            elif firstControlStartup == 0 and pressureNow >= pressureControlUp:
+                # GPIO.output(14, False)
+                print("upper barrier reached, pump off")
+            elif pressureNow > maxAllowedPressure:
+                self.stop_button_function()
+
         elif what == "stop":
-            GPIO.output(14, False)
+            #GPIO.output(14, False)
             print("regelung stop")
 
     @staticmethod
@@ -236,10 +327,51 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         json_writer(personal_json_name, "pressure_values", pressure_values, personal_folder_path)
         json_writer(personal_json_name, "temperature_values", temperature_values, personal_folder_path)
 
+    # code testing -----------------------------------------------------------------------------------------------------
     # code test method
     @staticmethod
-    def test_stop_functionality(current_window):  # press W
+    def test_stop_functionality_too_low(current_window):  # press 1
         global pressure_current
         if current_window == "4.0" and GetStartupVariables.code_testing == "1":
-            print("test")
-            pressure_current = 10
+            print(f"test: {pressure_current}")
+            pressure_current = 4
+
+    # code test method
+    @staticmethod
+    def test_stop_functionality_normal1(current_window):  # press 2
+        global pressure_current
+        if current_window == "4.0" and GetStartupVariables.code_testing == "1":
+            print(f"test: {pressure_current}")
+            pressure_current = 3.9
+
+    # code test method
+    @staticmethod
+    def test_stop_functionality_normal2(current_window):  # press 3
+        global pressure_current
+        if current_window == "4.0" and GetStartupVariables.code_testing == "1":
+            print(f"test: {pressure_current}")
+            pressure_current = 15
+
+    # code test method
+    @staticmethod
+    def test_stop_functionality_too_high(current_window):  # press 4
+        global pressure_current
+        if current_window == "4.0" and GetStartupVariables.code_testing == "1":
+            print(f"test: {pressure_current}")
+            pressure_current = 20
+
+    # code test method
+    @staticmethod
+    def test_stop_functionality_pressure_up(current_window):  # press arrow key up
+        global pressure_current
+        if current_window == "4.0" and GetStartupVariables.code_testing == "1":
+            print(f"test: {pressure_current}")
+            pressure_current += 0.5
+
+    # code test method
+    @staticmethod
+    def test_stop_functionality_pressure_down(current_window):  # press arrow key down
+        global pressure_current
+        if current_window == "4.0" and GetStartupVariables.code_testing == "1":
+            print(f"test: {pressure_current}")
+            pressure_current -= 0.5

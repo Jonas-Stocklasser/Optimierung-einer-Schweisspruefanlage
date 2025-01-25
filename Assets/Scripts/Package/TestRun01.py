@@ -5,12 +5,13 @@
 # Test Run 1; ID=4.0
 
 import customtkinter as ctk
-#import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from .JsonFunctions import json_reader, json_writer
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location, w1temp_location
+from datetime import datetime, timedelta
 
 # from ina219 import INA219
 
@@ -24,13 +25,20 @@ pressureControlUp = 0
 height = 2  # height of space between pressureControlUp and pressureControlDown in bar
 maxAllowedPressure = 0
 
+# initialisation of duration control
+controlledTimeStart = datetime.now()
+controlledTimeTotal = timedelta(minutes=99999)
+
+# Zeitpunktinkrement
+Zeitinkrement = 1  # in s between the measurement points
+
 # for testing
 pressure_current = 4
 # -------
 
-#GPIO.setmode(GPIO.BCM)
-#GPIO.setup(14, GPIO.OUT)
-#GPIO.output(14, False)
+# GPIO.setmode(GPIO.BCM)
+# GPIO.setup(14, GPIO.OUT)
+# GPIO.output(14, False)
 output = 0
 
 # ina = INA219(shunt_ohms=0.1,
@@ -136,16 +144,17 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         global test_timesteps
         global regelungSchalter
         global maxAllowedPressure
+        global Zeitinkrement
 
         # for testing
         global pressure_current
         # ------
 
         if test_timesteps == []:
-            test_timesteps = [1]
+            test_timesteps = [Zeitinkrement]
         else:
             last_entry = test_timesteps[len(test_timesteps) - 1]
-            last_entry += 1
+            last_entry += Zeitinkrement
             test_timesteps.append(last_entry)
 
         temperature = self.get_temperature_w1()
@@ -167,15 +176,22 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         self.update_plot()
 
-        # Regelung
+        # Regelungszeit
+        controlledTimeNow = datetime.now()
+        if controlledTimeNow - controlledTimeStart >= controlledTimeTotal:
+            regelungSchalter = 0
 
+        # Regelung
         if regelungSchalter == 1:
             self.regelung("start")
 
+        if regelungSchalter == 0:
+            self.regelung("stop")
+
         # Abbruchbedingung Druckabfall pruefen
-        pDiff = pressure_values[len(pressure_values)-1] - pressure_values[len(pressure_values)-2]
+        pDiff = pressure_values[len(pressure_values) - 1] - pressure_values[len(pressure_values) - 2]
         if pDiff >= -10:
-            timer_id = self.after(1000, self.to_do)
+            timer_id = self.after(int(Zeitinkrement*1000), self.to_do)
         elif pDiff < -10:
             self.stop_test(pDiff)
             self.master.error_message("!Achtung!",
@@ -205,10 +221,13 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         global duration
         global height
         global maxAllowedPressure
+        global firstControlStartup
+        global controlledTimeTotal
 
         # Error when Sensor current is below 4mA
         if pressure_current < 4:
-            self.master.error_message("!Achtung!", "Drucksensorstrom unter 4mA! Sensor auf Fehler prüfen!\nDurchführung beendet!")
+            self.master.error_message("!Achtung!",
+                                      "Drucksensorstrom unter 4mA! Sensor auf Fehler prüfen!\nDurchführung beendet!")
 
         elif pressure_current >= 4:
             # getting the controller data out of the chosen item data ----------
@@ -224,14 +243,20 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             pressureControlMiddle = (20 * en * sigma) / (dn - en)
             pressureControlUp = pressureControlMiddle + height / 2
             pressureControlDown = pressureControlMiddle - height / 2
-            print(pressureControlUp)
+            """print(pressureControlUp)
             print(pressureControlMiddle)
-            print(pressureControlDown)
+            print(pressureControlDown)"""
 
-            maxAllowedPressure = float(json_reader(personal_json_name, "exam_parameter", personal_folder_path))
+            exam_parameter = json_reader(personal_json_name, "exam_parameter", personal_folder_path)
+            firstControlStartup = int(json_reader("startup_var", "firstControlStartup", main_pi_location + "../JSON/"))
+            print(exam_parameter)
 
+            maxAllowedPressure = float(exam_parameter[0])
 
-            timer_id = self.after(1000, self.to_do)
+            controlledTimeTotalUserdefined = int(exam_parameter[1])
+            controlledTimeTotal = timedelta(minutes=controlledTimeTotalUserdefined)
+
+            timer_id = self.after(int(Zeitinkrement*1000), self.to_do)
             regelungSchalter = 1
             self.start_button.configure(state="disabled")
             self.stop_button.configure(state="normal")
@@ -249,9 +274,9 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         self.stop_button.configure(state="disabled")
 
     def update_plot(self):
-        # Limit to last 60 values
-        display_timesteps = test_timesteps[-60:]
-        display_pressures = pressure_values[-60:]
+        # Limit to last 60 seconds
+        display_timesteps = test_timesteps[-int(60/Zeitinkrement):]
+        display_pressures = pressure_values[-int(60/Zeitinkrement):]
 
         # Clear the previous plot
         self.ax.clear()
@@ -291,18 +316,20 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         global pressureControlMiddle
         global pressureControlDown
         global maxAllowedPressure
+        global controlledTimeStart
 
-        pressureNow = pressure_values[len(pressure_values)-1]
+        pressureNow = pressure_values[len(pressure_values) - 1]
         if what == "start":
             print("regelung start")
             if firstControlStartup == 1 and pressureNow <= pressureControlMiddle:
                 # GPIO.output(14, True)
                 print("first ascend start")
 
-            elif firstControlStartup == 1 and pressureNow > pressureControlMiddle:
+            elif firstControlStartup == 1 and pressureNow >= pressureControlMiddle:
                 # GPIO.output(14, False)
                 firstControlStartup = 0
-                print("first ascend stop")
+                controlledTimeStart = datetime.now()
+                print("first ascend end")
 
             elif firstControlStartup == 0 and pressureNow <= pressureControlDown:
                 # GPIO.output(14, True)
@@ -311,12 +338,13 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             elif firstControlStartup == 0 and pressureNow >= pressureControlUp:
                 # GPIO.output(14, False)
                 print("upper barrier reached, pump off")
+
             elif pressureNow > maxAllowedPressure:
                 self.stop_button_function()
 
         elif what == "stop":
-            #GPIO.output(14, False)
-            print("regelung stop")
+            # GPIO.output(14, True)
+            print("regelung stop, aufpumpen bis Bersten")
 
     @staticmethod
     def write_personal_json():

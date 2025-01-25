@@ -1,7 +1,7 @@
 [
   {
     "var":"last_chosen_parameter_list",
-    "val":"01"
+    "val":"02"
   },
   {
     "var":"parameter_list_indexes",
@@ -20,42 +20,72 @@
   },
   {
     "var":"parameter_list_01",
-    "val":"55"
+    "val":[
+      "55",
+      "60"
+    ]
   },
   {
     "var":"parameter_list_02",
-    "val":"Druck2"
+    "val":[
+      "60",
+      "1"
+    ]
   },
   {
     "var":"parameter_list_03",
-    "val":"Druck3"
+    "val":[
+      "Druck3",
+      "Zeit3"
+    ]
   },
   {
     "var":"parameter_list_04",
-    "val":"Druck4"
+    "val":[
+      "Druck4",
+      "Zeit4"
+    ]
   },
   {
     "var":"parameter_list_05",
-    "val":"Druck5"
+    "val":[
+      "Druck5",
+      "Zeit5"
+    ]
   },
   {
     "var":"parameter_list_06",
-    "val":"Druck6"
+    "val":[
+      "Druck6",
+      "Zeit6"
+    ]
   },
   {
     "var":"parameter_list_07",
-    "val":"Druck7"
+    "val":[
+      "Druck7",
+      "Zeit7"
+    ]
   },
   {
     "var":"parameter_list_08",
-    "val":"Druck8"
+    "val":[
+      "Druck8",
+      "Zeit8"
+    ]
   },
   {
     "var":"parameter_list_09",
-    "val":"Druck9"
+    "val":[
+      "Druck9",
+      "Zeit9"
+    ]
   },
   {
     "var":"parameter_list_10",
-    "val":"Druck10"
+    "val":[
+      "Druck10",
+      "Zeit10"
+    ]
   }
 ]

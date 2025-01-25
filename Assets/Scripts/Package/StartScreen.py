@@ -6,9 +6,10 @@
 
 import customtkinter as ctk
 import sys
+from .JsonFunctions import json_writer
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, \
-    pruefstueck_image  # import of shared variables located in the sharedVar-file
+    pruefstueck_image, main_pi_location  # import of shared variables located in the sharedVar-file
 
 
 class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
@@ -51,7 +52,7 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
                                              font=("bold", font_size * 2),
                                              width=window_geometry[0] / 3.5 - 20,
                                              height=font_size * 3,
-                                             command=lambda: self.master.switch_window("1.0"))
+                                             command=lambda: self.new_test_button_function("1"))
         # the command calls the App lasses switch_window function and passes "1" as the "which" attribute
         self.new_test_button.place(x=10,
                                    y=10)
@@ -94,3 +95,8 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
                                         text="",
                                         image=pruefstueck_image)  # Here goes a render of the test object (maybe a gif)
         self.image_label.place(relx=0.5, rely=0.5, anchor="center")
+
+    def new_test_button_function(self, which):
+        json_writer("startup_var", "firstControlStartup", 1, main_pi_location + "../JSON/")
+        self.master.switch_window("1.0")
+

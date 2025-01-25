@@ -12,6 +12,7 @@ from .JsonFunctions import json_reader, json_writer
 from .SharedVar import GetStartupVariables, GetExamParameterVariables, back_arrow_image, main_pi_location
 
 font_size = 1
+window_geometry_glob = None
 
 
 class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
@@ -22,6 +23,9 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
                          fg_color="transparent")
 
         global font_size
+        global window_geometry_glob
+
+        window_geometry_glob = window_geometry
         self.app = parent
 
         font_size = window_geometry[1] / 40
@@ -93,6 +97,14 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
         self.entry_frame.place(x=0,
                                y=6.5 * font_size)
 
+        # entry frame 2 ------------------------------------------------------------
+        self.entry_frame2 = ctk.CTkFrame(master=self,  # frame for the entries
+                                         corner_radius=20,
+                                         width=window_geometry[0] / 4.5,
+                                         height=font_size * 4)
+        self.entry_frame2.place(x=window_geometry[0] / 4.2,
+                                y=6.5 * font_size)
+
         # pressure entry------------------------------------------------------------
         self.pressure_entry_label = ctk.CTkLabel(master=self.entry_frame,
                                                  fg_color=GetStartupVariables.color_SET_blue,
@@ -107,7 +119,8 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
 
         self.pressure_entry = ctk.CTkEntry(master=self.entry_frame,
                                            font=("bold", font_size),
-                                           state="disabled"
+                                           state="disabled",
+                                           width=font_size * 8
                                            )
         self.pressure_entry.place(x=10,
                                   y=font_size * 1.5 + 15)
@@ -121,10 +134,44 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
 
         self.pressure_entry_unchanged_overlay_label = ctk.CTkLabel(
             master=self.pressure_entry_unchanged_overlay_label_frame,
-            text=f"{GetExamParameterVariables.parameter_list} bar",
+            text=f"{GetExamParameterVariables.parameter_list[0]} bar",
             font=("bold", font_size))
         self.pressure_entry_unchanged_overlay_label.place(x=10,
                                                           rely=0.1)
+
+        # control duration entry------------------------------------------------------------
+        self.control_time_entry_label = ctk.CTkLabel(master=self.entry_frame2,
+                                                     fg_color=GetStartupVariables.color_SET_blue,
+                                                     corner_radius=10,
+                                                     text="Regelungszeit",
+                                                     text_color=GetStartupVariables.text_color_SET,
+                                                     font=("bold", font_size),
+                                                     width=window_geometry[0] / 4.5 - 20,
+                                                     height=font_size * 1.5)
+        self.control_time_entry_label.place(x=10,
+                                            y=10)
+
+        self.control_time_entry = ctk.CTkEntry(master=self.entry_frame2,
+                                               font=("bold", font_size),
+                                               state="disabled",
+                                               width=font_size * 8
+                                               )
+        self.control_time_entry.place(x=10,
+                                      y=font_size * 1.5 + 15)
+
+        self.control_time_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame2,
+                                                                             corner_radius=10,
+                                                                             width=window_geometry[0] / 6,
+                                                                             height=font_size * 1.5)
+        self.control_time_entry_unchanged_overlay_label_frame.place(x=10,
+                                                                    y=font_size * 1.5 + 15)
+
+        self.control_time_entry_unchanged_overlay_label = ctk.CTkLabel(
+            master=self.control_time_entry_unchanged_overlay_label_frame,
+            text=f"{GetExamParameterVariables.parameter_list[1]} min",
+            font=("bold", font_size))
+        self.control_time_entry_unchanged_overlay_label.place(x=10,
+                                                              rely=0.1)
 
         # change, save and continue button------------------------------------------------------------
 
@@ -176,19 +223,23 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
     def change_entry_data_exam_parameter(self):
         self.pressure_entry_unchanged_overlay_label.place_forget()
         self.pressure_entry_unchanged_overlay_label_frame.place_forget()
+        self.control_time_entry_unchanged_overlay_label.place_forget()
+        self.control_time_entry_unchanged_overlay_label_frame.place_forget()
 
         self.pressure_entry.configure(state="normal", placeholder_text="Druck in Bar")
+        self.control_time_entry.configure(state="normal", placeholder_text="Zeit in Minuten")
 
         self.change_button.configure(state="disabled")
         self.save_button.configure(state="normal")
         self.continue_button.configure(state="disabled")
 
     def save_entry_data_exam_parameter(self):
-        parameter_list = self.pressure_entry.get()
+        global window_geometry_glob
+        parameter_list = [self.pressure_entry.get(), self.control_time_entry.get()]
         last_chosen_parameter_list = json_reader("exam_parameter_var", "last_chosen_parameter_list",
                                                  main_pi_location + "../JSON/")
 
-        if len(parameter_list) >= 1:
+        if len(parameter_list[0].strip()) >= 1 and len(parameter_list[1].strip()) >= 1:
             self.continue_button.configure(state="normal")
             json_writer("exam_parameter_var", ("parameter_list_" + last_chosen_parameter_list),
                         parameter_list, main_pi_location + "../JSON/")
@@ -197,9 +248,14 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
                                                                     y=font_size * 1.5 + 15)
             self.pressure_entry_unchanged_overlay_label.place(x=10,
                                                               rely=0.1)
+            self.control_time_entry_unchanged_overlay_label_frame.place(x=10,
+                                                                        y=font_size * 1.5 + 15)
+            self.control_time_entry_unchanged_overlay_label.place(x=10,
+                                                                  rely=0.1)
             self.update_labels(parameter_list)
 
             self.pressure_entry.configure(state="disabled")
+            self.control_time_entry.configure(state="disabled")
 
             self.change_button.configure(state="normal")
             self.save_button.configure(state="disabled")
@@ -209,7 +265,8 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
             print("Entry to short, 1 characters min.")
 
     def update_labels(self, infos):
-        self.pressure_entry_unchanged_overlay_label.configure(text=f"{infos} bar")
+        self.pressure_entry_unchanged_overlay_label.configure(text=f"{infos[0]} bar")
+        self.control_time_entry_unchanged_overlay_label.configure(text=f"{infos[1]} min")
 
     def parameter_list_select(self, which):
         json_writer("exam_parameter_var", "last_chosen_parameter_list", which, main_pi_location + "../JSON/")

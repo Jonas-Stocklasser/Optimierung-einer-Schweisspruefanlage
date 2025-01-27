@@ -7,11 +7,14 @@
 import customtkinter as ctk
 # import RPi.GPIO as GPIO
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from .JsonFunctions import json_reader, json_writer
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location, w1temp_location
 from datetime import datetime, timedelta
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4
 
 # from ina219 import INA219
 
@@ -95,12 +98,27 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         self.back_button.place(x=(window_geometry[0] - font_size * 1.5 - 25),
                                y=0)
 
+        # frames------------------------------------------------------------
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
                                          corner_radius=20,
                                          height=font_size * 1.5 + 20,
                                          width=window_geometry[0] / 7.4)
         self.button_frame.place(x=0,
                                 y=font_size * 2)
+
+        self.temp_frame = ctk.CTkFrame(master=self,  # frame for the button
+                                       corner_radius=20,
+                                       height=font_size * 1.5 + 20,
+                                       width=font_size * 7 + 20)
+        self.temp_frame.place(x=window_geometry[0] / 7,
+                              y=font_size * 2)
+
+        self.pdf_frame = ctk.CTkFrame(master=self,  # frame for the button
+                                      corner_radius=20,
+                                      height=font_size * 1.5 + 20,
+                                      width=font_size * 10 + 20)
+        self.pdf_frame.place(x=0,
+                             y=window_geometry[0] / 1.65)
 
         # start button------------------------------------------------------------
         self.start_button = ctk.CTkButton(master=self.button_frame,  # start button
@@ -126,7 +144,31 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         self.stop_button.place(x=font_size * 3 + 20,
                                y=10)
 
-        # mathplot
+        # pdf button------------------------------------------------------------
+        self.pdf_button = ctk.CTkButton(master=self.pdf_frame,  # stop button
+                                        corner_radius=10,
+                                        text="Prüfbericht erstellen",
+                                        font=("bold", font_size),
+                                        state="disabled",
+                                        command=lambda: self.pdf_button_function(),
+                                        width=font_size * 10,
+                                        height=font_size * 1.5)
+        self.pdf_button.place(x=10,
+                              y=10)
+
+        # temperature display label
+        self.temp_label = ctk.CTkLabel(master=self.temp_frame,
+                                       fg_color=GetStartupVariables.color_SET_blue,
+                                       corner_radius=10,
+                                       text="Ø 13.45°C",
+                                       text_color=GetStartupVariables.text_color_SET,
+                                       font=("bold", font_size),
+                                       width=font_size * 7,
+                                       height=font_size * 1.5)
+        self.temp_label.place(x=10,
+                              y=10)
+
+        # mathplot------------------------------------------------------------
         self.figure, self.ax = plt.subplots(figsize=(font_size / 2, font_size / 3.8))
         self.ax.set_title("Überdruckverlauf (letzte 60 Sekunden)")
         self.ax.set_xlabel("Testzeit [s]")
@@ -174,12 +216,15 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pressure_values.append(pressure)
         temperature_values.append(temperature)
 
+        mean_temp = round(np.mean(temperature_values), 2)
+        self.temp_label.configure(text=f"Ø {mean_temp}°C")
+
         self.update_plot()
 
         # Regelungszeit
         controlledTimeNow = datetime.now()
         if controlledTimeNow - controlledTimeStart >= controlledTimeTotal:
-            regelungSchalter = 0
+            regelungSchalter = 2
 
         # Regelung
         if regelungSchalter == 1:
@@ -188,10 +233,13 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         if regelungSchalter == 0:
             self.regelung("stop")
 
+        if regelungSchalter == 2:
+            self.regelung("pump")
+
         # Abbruchbedingung Druckabfall pruefen
         pDiff = pressure_values[len(pressure_values) - 1] - pressure_values[len(pressure_values) - 2]
         if pDiff >= -10:
-            timer_id = self.after(int(Zeitinkrement*1000), self.to_do)
+            timer_id = self.after(int(Zeitinkrement * 1000), self.to_do)
         elif pDiff < -10:
             self.stop_test(pDiff)
             self.master.error_message("!Achtung!",
@@ -256,8 +304,9 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             controlledTimeTotalUserdefined = int(exam_parameter[1])
             controlledTimeTotal = timedelta(minutes=controlledTimeTotalUserdefined)
 
-            timer_id = self.after(int(Zeitinkrement*1000), self.to_do)
+            timer_id = self.after(int(Zeitinkrement * 1000), self.to_do)
             regelungSchalter = 1
+            self.pdf_button.configure(state="disabled")
             self.start_button.configure(state="disabled")
             self.stop_button.configure(state="normal")
             print("Started")
@@ -270,13 +319,44 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         regelungSchalter = 0
         self.regelung("stop")
         timer_id = None
+        self.pdf_button.configure(state="normal")
         self.start_button.configure(state="normal")
         self.stop_button.configure(state="disabled")
 
+    def pdf_button_function(self):
+        print("PDF")
+        # Create a new canvas with an A4 page size
+        c = canvas.Canvas("Test", pagesize=A4)
+
+        # Set initial font and size
+        c.setFont("Helvetica", 12)
+
+        # Draw large letters (A to H, ZÄÖAÜÜASSS)
+        c.setFont("Helvetica-Bold", 40)
+        c.drawString(50, 800, "A")
+        c.drawString(100, 800, "B")
+        c.drawString(150, 800, "C")
+        c.drawString(200, 800, "D")
+        c.drawString(250, 800, "E")
+        c.drawString(300, 800, "F")
+        c.drawString(350, 800, "G")
+        c.drawString(400, 800, "H")
+        c.drawString(50, 750, "ZÄÖAÜÜASSS")
+
+        # Add blank spacing and draw placeholder text
+        c.setFont("Helvetica", 16)
+        c.drawString(50, 700, "Aaaaaaaaaaaaaa")
+        c.drawString(50, 680, "Aaa")
+        c.drawString(50, 660, "Aa  a")
+        c.drawString(50, 640, "a")
+
+        # Save the PDF
+        c.save()
+
     def update_plot(self):
         # Limit to last 60 seconds
-        display_timesteps = test_timesteps[-int(60/Zeitinkrement):]
-        display_pressures = pressure_values[-int(60/Zeitinkrement):]
+        display_timesteps = test_timesteps[-int(60 / Zeitinkrement):]
+        display_pressures = pressure_values[-int(60 / Zeitinkrement):]
 
         # Clear the previous plot
         self.ax.clear()
@@ -342,9 +422,13 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             elif pressureNow > maxAllowedPressure:
                 self.stop_button_function()
 
-        elif what == "stop":
+        elif what == "pump":
             # GPIO.output(14, True)
-            print("regelung stop, aufpumpen bis Bersten")
+            print("Aufpumpen bis bersten")
+
+        elif what == "stop":
+            # GPIO.output(14, False)
+            print("regelung stop")
 
     @staticmethod
     def write_personal_json():

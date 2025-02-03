@@ -35,9 +35,7 @@ controlledTimeTotal = timedelta(minutes=99999)
 # Zeitpunktinkrement
 Zeitinkrement = 1  # in s between the measurement points
 
-# for testing
-# pressure_current = 4
-# -------
+pressure_current = 4
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(14, GPIO.OUT)

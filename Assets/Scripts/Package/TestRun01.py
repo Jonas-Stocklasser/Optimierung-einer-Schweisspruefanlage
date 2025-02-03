@@ -223,6 +223,9 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         # Regelungszeit
         controlledTimeNow = datetime.now()
+        print(controlledTimeNow)
+        print(controlledTimeStart)
+        print(controlledTimeTotal)
         if controlledTimeNow - controlledTimeStart >= controlledTimeTotal:
             regelungSchalter = 2
 
@@ -235,6 +238,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         if regelungSchalter == 2:
             self.regelung("pump")
+        print(regelungSchalter)
 
         # Abbruchbedingung Druckabfall pruefen
         pDiff = pressure_values[len(pressure_values) - 1] - pressure_values[len(pressure_values) - 2]

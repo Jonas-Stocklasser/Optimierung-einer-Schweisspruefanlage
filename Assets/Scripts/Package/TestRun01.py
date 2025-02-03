@@ -226,6 +226,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         print(controlledTimeNow)
         print(controlledTimeStart)
         print(controlledTimeTotal)
+        print(f"diff= {controlledTimeNow - controlledTimeStart}")
         if controlledTimeNow - controlledTimeStart >= controlledTimeTotal:
             regelungSchalter = 2
 

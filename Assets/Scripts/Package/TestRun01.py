@@ -29,7 +29,7 @@ height = 2  # height of space between pressureControlUp and pressureControlDown 
 maxAllowedPressure = 0
 
 # initialisation of duration control
-controlledTimeStart = datetime.now()
+controlledTimeStart = None
 controlledTimeTotal = timedelta(minutes=99999)
 
 # Zeitpunktinkrement

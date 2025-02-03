@@ -29,7 +29,7 @@ height = 2  # height of space between pressureControlUp and pressureControlDown 
 maxAllowedPressure = 0
 
 # initialisation of duration control
-controlledTimeStart = None
+controlledTimeStart = datetime.now()
 controlledTimeTotal = timedelta(minutes=99999)
 
 # Zeitpunktinkrement
@@ -187,6 +187,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         global Zeitinkrement
         global controlledTimeTotal
         global controlledTimeStart
+        global firstControlStartup
 
         # for testing
         #global pressure_current
@@ -227,7 +228,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         print(controlledTimeStart)
         print(controlledTimeTotal)
         print(f"diff= {controlledTimeNow - controlledTimeStart}")
-        if controlledTimeNow - controlledTimeStart >= controlledTimeTotal:
+        if controlledTimeNow - controlledTimeStart >= controlledTimeTotal and firstControlStartup == 0:
             regelungSchalter = 2
 
         # Regelung

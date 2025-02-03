@@ -17,7 +17,7 @@
   },
   {
     "var":"start_window",
-    "val":"4.0"
+    "val":"0"
   },
   {
     "var":"appearance_mode",
@@ -32,7 +32,7 @@
   },
   {
     "var":"code_testing",
-    "val":"1"
+    "val":"0"
   },
   {
     "var":"firstControlStartup",

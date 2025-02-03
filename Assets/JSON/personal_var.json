@@ -2,22 +2,22 @@
   {
     "var":"personal_infos_examinee",
     "val":[
-      "aa",
-      "aa",
-      "01.01.2000"
+      "Jonas",
+      "Stocklasser",
+      "21.09.2005"
     ]
   },
   {
     "var":"personal_folder_path",
-    "val":"E:\/GIT\/Optimierung-einer-Schweisspruefanlage\/Assets\/Tests\/aa_aa17\/"
+    "val":"E:\/GIT\/Optimierung-einer-Schweisspruefanlage\/Assets\/Tests\/Stocklasser_Jonas4\/"
   },
   {
     "var":"personal_json_name",
-    "val":"aa_aa"
+    "val":"Stocklasser_Jonas"
   },
   {
     "var":"last_chosen_examiner",
-    "val":"04"
+    "val":"01"
   },
   {
     "var":"examiner_list",

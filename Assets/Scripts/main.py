@@ -20,7 +20,7 @@ from Package.NewTestScreen06 import NewTestScreen06
 from Package.TestPreparations01 import TestPreparations01
 from Package.TestRun01 import TestRun01
 
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 
 # Shared variables----------------------------------------
 # import of the GetStartupVariables class located in the sharedVar file
@@ -28,6 +28,7 @@ from Package.SharedVar import GetStartupVariables, main_pi_location
 
 monitor = get_monitors()[0]
 current_window = None
+
 
 class App(ctk.CTk):  # main window class, every other window class is called from here and is a child of this
     def __init__(self, title, window_geometry):  # title is given as an attribute from the class call
@@ -103,7 +104,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
                 test_run_01 = self.windows["4.0"]
                 if hasattr(test_run_01, "cancel_after_on_closing"):
                     test_run_01.cancel_after_on_closing()
-            #GPIO.cleanup()
+            GPIO.cleanup()
             self.destroy()
         else:
             pass

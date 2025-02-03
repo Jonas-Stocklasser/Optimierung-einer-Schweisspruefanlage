@@ -193,6 +193,15 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         #global pressure_current
         # ------
 
+        # Abbruchbedingung Druckabfall pruefen
+        pDiff = pressure_values[len(pressure_values) - 1] - pressure_values[len(pressure_values) - 2]
+        if pDiff >= -10:
+            timer_id = self.after(int(Zeitinkrement * 1000), self.to_do)
+        elif pDiff < -10:
+            self.stop_test(pDiff)
+            self.master.error_message("!Achtung!",
+                                      "Druckabfall über 10bar zwischen Messpunkten!\nPrüfstückbruch erkannt\nDurchführung beendet!")
+
         if test_timesteps == []:
             test_timesteps = [Zeitinkrement]
         else:
@@ -242,15 +251,6 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             self.regelung("pump")
         print(regelungSchalter)
 
-        # Abbruchbedingung Druckabfall pruefen
-        pDiff = pressure_values[len(pressure_values) - 1] - pressure_values[len(pressure_values) - 2]
-        if pDiff >= -10:
-            timer_id = self.after(int(Zeitinkrement * 500), self.to_do)
-        elif pDiff < -10:
-            self.stop_test(pDiff)
-            self.master.error_message("!Achtung!",
-                                      "Druckabfall über 10bar zwischen Messpunkten!\nPrüfstückbruch erkannt\nDurchführung beendet!")
-
         # Abbruchbedingung zu hoher Druck
         if pressure >= maxAllowedPressure:
             self.stop_button_function()
@@ -263,7 +263,6 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             self.master.error_message("!Achtung!",
                                       "Drucksensorstrom unter 4mA! Sensor auf Fehler prüfen!\nDurchführung beendet!")
 
-        self.write_personal_json()
 
     def start_button_function(self):
         global timer_id
@@ -322,6 +321,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         regelungSchalter = 0
         self.regelung("stop")
         timer_id = None
+        self.write_personal_json()
         self.pdf_button.configure(state="normal")
         self.start_button.configure(state="normal")
         self.stop_button.configure(state="disabled")

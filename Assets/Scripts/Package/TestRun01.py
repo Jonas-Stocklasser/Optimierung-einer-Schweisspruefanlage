@@ -185,6 +185,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         global regelungSchalter
         global maxAllowedPressure
         global Zeitinkrement
+        global controlledTimeTotal
+        global controlledTimeStart
 
         # for testing
         #global pressure_current

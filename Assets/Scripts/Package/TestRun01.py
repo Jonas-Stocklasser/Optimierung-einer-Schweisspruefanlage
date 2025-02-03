@@ -52,9 +52,9 @@ ina.configure(voltage_range=ina.RANGE_16V,
               bus_adc=ina.ADC_128SAMP,
               shunt_adc=ina.ADC_128SAMP)
 
-pressure_values = []
+pressure_values = [0, 0]
 temperature_values = []
-test_timesteps = []
+test_timesteps = [0, 0]
 
 
 class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
@@ -547,6 +547,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         # Redraw the canvas to update the plot
         self.canvas.draw()
+        self.update_idletasks()
+        self.update()
 
     def get_temperature_w1(self):
         f = open(w1temp_location, "r")

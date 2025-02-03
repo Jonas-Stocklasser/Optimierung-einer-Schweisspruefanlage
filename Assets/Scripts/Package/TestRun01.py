@@ -229,8 +229,6 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         mean_temp = round(np.mean(temperature_values), 2)
         self.temp_label.configure(text=f"Ø {mean_temp}°C")
 
-        self.update_plot()
-
         # Regelungszeit
         controlledTimeNow = datetime.now()
         print(controlledTimeNow)
@@ -262,6 +260,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             self.stop_button_function()
             self.master.error_message("!Achtung!",
                                       "Drucksensorstrom unter 4mA! Sensor auf Fehler prüfen!\nDurchführung beendet!")
+
+        self.update_plot()
 
 
     def start_button_function(self):

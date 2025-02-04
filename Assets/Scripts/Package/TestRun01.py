@@ -638,6 +638,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         # save ---------------------------------------------------------------------------------------------------------
         pdf.output(f"{personal_folder_path}/Pruefbericht_{last_name_examinee}_{first_name_examinee}.pdf")
         print("PDF ready")
+        messagebox.showinfo("PDF", "Prüfbericht wurde erstellt!")
         self.back_to_start_button.configure(state="normal")
 
     def back_to_start_button_function(self):

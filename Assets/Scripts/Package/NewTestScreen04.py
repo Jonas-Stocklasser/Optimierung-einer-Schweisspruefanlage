@@ -101,7 +101,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                                          width=font_size * 25 + 20,
                                          height=font_size * 7.5)
         self.entry_frame2.place(x=font_size * 20 + 30,
-                                y=6.5 * font_size)
+                                y=font_size * 2 + font_size * 3 + 30)
 
         # title entry------------------------------------------------------------
         self.title_entry_label = ctk.CTkLabel(master=self.entry_frame1,

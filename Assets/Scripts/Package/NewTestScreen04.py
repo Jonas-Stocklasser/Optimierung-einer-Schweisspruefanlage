@@ -90,7 +90,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         # entry frame 1------------------------------------------------------------
         self.entry_frame1 = ctk.CTkFrame(master=self,  # frame for the entries
                                          corner_radius=20,
-                                         width=window_geometry[0] / 2.8,
+                                         width=font_size * 40 + 20,
                                          height=font_size * 11)
         self.entry_frame1.place(x=0,
                                 y=6.5 * font_size)
@@ -175,7 +175,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                                               text="Nenn-Wanddicke des Rohres eₙ [mm]",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size),
-                                              width=window_geometry[0] / 2.8 - 20,
+                                              width=font_size * 40,
                                               height=font_size * 1.5)
         self.info2_entry_label.place(x=10,
                                      y=4 * font_size * 1.5 + 40)

@@ -128,7 +128,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
                                          corner_radius=20,
                                          height=font_size * 1.5 + 20,
-                                         width=font_size * 5 + 20 + font_size * 5 + 10)
+                                         width=font_size * 6 + 20 + font_size * 5 + 10)
         self.button_frame.place(x=0,
                                 y=font_size * 13 + 10)
 
@@ -138,7 +138,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
                                          font=("bold", font_size),
                                          command=self.save_entry_data_examinee,
                                          height=font_size * 1.5,
-                                         width=font_size * 5)
+                                         width=font_size * 6)
         self.save_button.place(x=10,
                                y=10)
 
@@ -151,7 +151,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
                                              command=self.continue_button_function,
                                              height=font_size * 1.5,
                                              width=font_size * 5)
-        self.continue_button.place(x=font_size * 5 + 20,
+        self.continue_button.place(x=font_size * 6 + 20,
                                    y=10)
 
     def continue_button_function(self):  # method for the button actions

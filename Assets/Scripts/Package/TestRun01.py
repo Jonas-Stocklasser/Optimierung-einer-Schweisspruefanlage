@@ -170,8 +170,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         # mathplot------------------------------------------------------------
         self.figure, self.ax = plt.subplots(figsize=(font_size / 2, font_size / 3.8))
-        self.ax.set_title("Überdruckverlauf (letzte 60 Sekunden)")
-        self.ax.set_xlabel("Testzeit [s]")
+        self.ax.set_title("Überdruckverlauf (letzte 60 Messpunkte)")
+        self.ax.set_xlabel("Messpunkte [s seit Beginn]")
         self.ax.set_ylabel("Druck [Bar]")
 
         # Embedding the matplotlib plot into tkinter using FigureCanvasTkAgg
@@ -208,6 +208,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         # timestep management
         timestamp = datetime.now()
         seconds_passed = int((timestamp - controlledTimeStart).total_seconds())
+        print(seconds_passed)
         test_timesteps.append(seconds_passed)
 
         # get values from sensors
@@ -233,10 +234,6 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         # Regelungszeit
         controlledTimeNow = datetime.now()
-        print(controlledTimeNow)
-        print(controlledTimeStart)
-        print(controlledTimeTotal)
-        print(f"diff= {controlledTimeNow - controlledTimeStart}")
         if controlledTimeNow - controlledTimeStart >= controlledTimeTotal and firstControlStartup == 0:
             regelungSchalter = 2
 

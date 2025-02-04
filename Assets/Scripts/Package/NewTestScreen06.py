@@ -102,7 +102,7 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
                                          corner_radius=20,
                                          width=window_geometry[0] / 4.5,
                                          height=font_size * 4)
-        self.entry_frame2.place(x=window_geometry[0] / 4.2,
+        self.entry_frame2.place(x=window_geometry[0] / 4.5 + 10,
                                 y=font_size * 2 + font_size * 3 + 30)
 
         # pressure entry------------------------------------------------------------

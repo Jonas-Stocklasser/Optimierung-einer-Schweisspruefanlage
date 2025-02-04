@@ -62,7 +62,7 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
         self.left_frame = ctk.CTkFrame(master=self,  # frame for the text
                                        corner_radius=20,
                                        width=window_geometry[0] / 2.2,
-                                       height=window_geometry[1] / 1.5 + 30)
+                                       height=window_geometry[1] / 1.5 + 30 + font_size * 1.5)
         self.left_frame.place(x=0,
                               y=font_size * 2)
 

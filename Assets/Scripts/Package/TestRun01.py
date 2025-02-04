@@ -196,7 +196,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         # Abbruchbedingung Druckabfall pruefen
         pDiff = pressure_values[len(pressure_values) - 1] - pressure_values[len(pressure_values) - 2]
         if pDiff >= -10:
-            timer_id = self.after(int(Zeitinkrement * 980), self.to_do)
+            timer_id = self.after(int(Zeitinkrement * 500), self.to_do)
         elif pDiff < -10:
             self.stop_test(pDiff)
             self.master.error_message("!Achtung!",
@@ -532,23 +532,25 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.output(f"{personal_folder_path}/Pruefbericht_{last_name_examinee}_{first_name_examinee}.pdf")
 
     def update_plot(self):
-        # Limit to last 60 seconds
-        display_timesteps = test_timesteps[-int(60 / Zeitinkrement):]
-        display_pressures = pressure_values[-int(60 / Zeitinkrement):]
+        slice_num = int(60 / Zeitinkrement)  # Compute slice index once
 
-        # Clear the previous plot
+        # Get last 60 seconds of data
+        display_timesteps = test_timesteps[-slice_num:]
+        display_pressures = pressure_values[-slice_num:]
+
+        # Clear only the plotted data
         self.ax.clear()
-        self.ax.set_title("Überdruckverlauf (letzte 60 Sekunden)")
-        self.ax.set_xlabel("Testzeit [s]")
-        self.ax.set_ylabel("Druck [Bar]")
+
+        # Retain labels and title after clearing
+        #self.ax.set_title("Überdruckverlauf (letzte 60 Sekunden)")
+        #self.ax.set_xlabel("Testzeit [s]")
+        #self.ax.set_ylabel("Druck [Bar]")
 
         # Plot the new data
         self.ax.plot(display_timesteps, display_pressures, color='blue')
 
-        # Redraw the canvas to update the plot
+        # Redraw the canvas
         self.canvas.draw()
-        self.update_idletasks()
-        self.update()
 
     def get_temperature_w1(self):
         f = open(w1temp_location, "r")

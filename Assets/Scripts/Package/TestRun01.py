@@ -3,6 +3,7 @@
 # Author: Stocklasser
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
 # Test Run 1; ID=4.0
+from tkinter import messagebox
 
 import customtkinter as ctk
 import RPi.GPIO as GPIO
@@ -16,7 +17,6 @@ from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location, 
 from datetime import datetime, timedelta
 from fpdf import FPDF
 from fpdf.enums import XPos, YPos
-
 
 timer_id = None
 firstControlStartup = 1
@@ -120,6 +120,13 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         self.pdf_frame.place(x=0,
                              y=window_geometry[0] / 1.65)
 
+        self.back_to_start_frame = ctk.CTkFrame(master=self,  # frame for the button
+                                                corner_radius=20,
+                                                height=font_size * 1.5 + 20,
+                                                width=font_size * 15 + 20)
+        self.back_to_start_frame.place(x=font_size * 12 + 30,
+                                       y=window_geometry[0] / 1.65)
+
         # start button------------------------------------------------------------
         self.start_button = ctk.CTkButton(master=self.button_frame,  # start button
                                           corner_radius=10,
@@ -154,6 +161,18 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
                                         width=font_size * 12,
                                         height=font_size * 1.5)
         self.pdf_button.place(x=10,
+                              y=10)
+
+        # back to start button------------------------------------------------------------
+        self.back_to_start_button = ctk.CTkButton(master=self.back_to_start_frame,  # stop button
+                                        corner_radius=10,
+                                        text="Zurück zum Start",
+                                        font=("bold", font_size),
+                                        state="disabled",
+                                        command=lambda: self.back_to_start_button_function(),
+                                        width=font_size * 15,
+                                        height=font_size * 1.5)
+        self.back_to_start_button.place(x=10,
                               y=10)
 
         # temperature display label
@@ -318,6 +337,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             timer_id = self.after(int(Zeitinkrement * 1000), self.to_do)
             regelungSchalter = 1
             self.pdf_button.configure(state="disabled")
+            self.back_to_start_button.configure(state="disabled")
             self.start_button.configure(state="disabled")
             self.stop_button.configure(state="normal")
             print("Started")
@@ -618,6 +638,11 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         # save ---------------------------------------------------------------------------------------------------------
         pdf.output(f"{personal_folder_path}/Pruefbericht_{last_name_examinee}_{first_name_examinee}.pdf")
         print("PDF ready")
+        self.back_to_start_button.configure(state="normal")
+
+    def back_to_start_button_function(self):
+        if messagebox.askokcancel("Testvorgang wirklich beenden und zurück zum Startbildschirm gehen?"):
+            self.master.switch_window("0")
 
     @staticmethod
     def write_personal_json():

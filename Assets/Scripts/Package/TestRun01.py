@@ -193,17 +193,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         global controlledTimeStart
 
         # for testing
-        #global pressure_current
+        # global pressure_current
         # ------
-
-        # Abbruchbedingung Druckabfall pruefen
-        pDiff = pressure_values[len(pressure_values) - 1] - pressure_values[len(pressure_values) - 2]
-        if pDiff >= -10:
-            timer_id = self.after(int(Zeitinkrement * 500), self.to_do)
-        elif pDiff < -10:
-            self.stop_test(pDiff)
-            self.master.error_message("!Achtung!",
-                                      "Druckabfall über 10bar zwischen Messpunkten!\nPrüfstückbruch erkannt\nDurchführung beendet!")
 
         # timestep management
         timestamp = datetime.now()
@@ -254,14 +245,25 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             print(maxAllowedPressure)
             self.master.error_message("!Achtung!",
                                       f"Prüfdruck zu hoch! {pressure}bar\nSensor könnte bei Fortfahren beschädigt werden!\nDurchführung beendet!")
+            return
 
+        # Abbruchbedingung zu niedriger Druck
         if pressure_current < 4:
             self.stop_button_function()
             self.master.error_message("!Achtung!",
                                       "Drucksensorstrom unter 4mA! Sensor auf Fehler prüfen!\nDurchführung beendet!")
+            return
+
+        # Abbruchbedingung Druckabfall pruefen
+        pDiff = pressure_values[len(pressure_values) - 1] - pressure_values[len(pressure_values) - 2]
+        if pDiff < -10:
+            self.stop_test(pDiff)
+            self.master.error_message("!Achtung!",
+                                      "Druckabfall über 10bar zwischen Messpunkten!\nPrüfstückbruch erkannt\nDurchführung beendet!")
+            return
 
         self.update_plot()
-
+        timer_id = self.after(int(Zeitinkrement * 500), self.to_do)
 
     def start_button_function(self):
         global timer_id

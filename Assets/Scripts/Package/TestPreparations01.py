@@ -62,7 +62,7 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
         self.left_frame = ctk.CTkFrame(master=self,  # frame for the text
                                        corner_radius=20,
                                        width=window_geometry[0] / 2.2,
-                                       height=window_geometry[1] / 1.35)
+                                       height=window_geometry[1] / 1.5 + 30)
         self.left_frame.place(x=0,
                               y=font_size * 2)
 
@@ -92,7 +92,7 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
                                              height=font_size * 1.5,
                                              width=font_size * 5)
         self.continue_button.place(x=10,
-                                   y=window_geometry[1] / 1.5 + 10)
+                                   y=window_geometry[1] / 1.5 + 20)
 
         self.instruction_label = ctk.CTkLabel(master=self.text_frame,
                                               text="Anweisungen des ausgedruckten\nDokuments befolgen\n"

@@ -98,7 +98,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         # entry frame 2------------------------------------------------------------
         self.entry_frame2 = ctk.CTkFrame(master=self,  # frame for the entries
                                          corner_radius=20,
-                                         width=font_size * 20 + 20,
+                                         width=font_size * 25 + 20,
                                          height=font_size * 7.5)
         self.entry_frame2.place(x=font_size * 20 + 30,
                                 y=6.5 * font_size)
@@ -208,7 +208,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                                               text="Nenn-Außendurchmesser des Rohres dₙ [mm]",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size),
-                                              width=font_size * 20,
+                                              width=font_size * 25,
                                               height=font_size * 1.5)
         self.info3_entry_label.place(x=10,
                                      y=10)
@@ -241,7 +241,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                                               text="Prüfdauer (Regelung) [min]",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size),
-                                              width=font_size * 20,
+                                              width=font_size * 25,
                                               height=font_size * 1.5)
         self.info4_entry_label.place(x=10,
                                      y=2 * font_size * 1.5 + 25)

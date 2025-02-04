@@ -55,7 +55,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
         # frame------------------------------------------------------------
         self.frame = ctk.CTkFrame(master=self,  # frame for the widgets
                                   corner_radius=20,
-                                  width=font_size * 50 + 20,
+                                  width=font_size * 45 + 20,
                                   height=font_size * 1.5 + 20
                                   )
         self.frame.place(x=0,
@@ -109,7 +109,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
                                              width=font_size * 3,
                                              height=font_size * 1.5,
                                              command=lambda: self.app.switch_window("1.1"))
-        self.continue_button.place(x=window_geometry[0] / 15 + 40 + window_geometry[0] / 1.5 + font_size * 1.5,
+        self.continue_button.place(x=window_geometry[0] / 15 + 40 + window_geometry[0] / 1.5 + font_size * 2,
                                    y=10)
 
         # frame2------------------------------------------------------------

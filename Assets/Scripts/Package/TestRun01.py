@@ -10,13 +10,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from .JsonFunctions import json_reader, json_writer
+from ina219 import INA219
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location, w1temp_location
 from datetime import datetime, timedelta
 from fpdf import FPDF
 from fpdf.enums import XPos, YPos
 
-from ina219 import INA219
 
 timer_id = None
 firstControlStartup = 1

@@ -63,7 +63,7 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
         self.parameter_option_menu_frame = ctk.CTkFrame(master=self,  # frame for the entries
                                                         corner_radius=20,
                                                         width=window_geometry[0] / 4.5,
-                                                        height=2 * font_size * 1.5 + 20)
+                                                        height=font_size * 3 + 20)
         self.parameter_option_menu_frame.place(x=0,
                                                y=font_size * 2)
 
@@ -95,7 +95,7 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
                                         width=window_geometry[0] / 4.5,
                                         height=font_size * 4)
         self.entry_frame.place(x=0,
-                               y=6.5 * font_size)
+                               y=font_size * 2 + font_size * 3 + 30)
 
         # entry frame 2 ------------------------------------------------------------
         self.entry_frame2 = ctk.CTkFrame(master=self,  # frame for the entries
@@ -103,7 +103,7 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
                                          width=window_geometry[0] / 4.5,
                                          height=font_size * 4)
         self.entry_frame2.place(x=window_geometry[0] / 4.2,
-                                y=6.5 * font_size)
+                                y=font_size * 2 + font_size * 3 + 30)
 
         # pressure entry------------------------------------------------------------
         self.pressure_entry_label = ctk.CTkLabel(master=self.entry_frame,
@@ -178,9 +178,9 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
                                          corner_radius=20,
                                          height=font_size * 1.5 + 20,
-                                         width=window_geometry[0] / 3.15)
+                                         width=font_size * 5 + font_size * 6 + 40 + font_size * 5)
         self.button_frame.place(x=0,
-                                y=font_size * 11)
+                                y=font_size * 2 + font_size * 3 + 40 + font_size * 4)
 
         self.change_button = ctk.CTkButton(master=self.button_frame,  # continue button
                                            corner_radius=10,
@@ -200,7 +200,7 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
                                          state="disabled",
                                          command=lambda: self.save_entry_data_exam_parameter(),
                                          height=font_size * 1.5,
-                                         width=font_size * 5)
+                                         width=font_size * 6)
         self.save_button.place(x=font_size * 5 + 20,
                                y=10)
 
@@ -213,7 +213,7 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
                                              command=self.continue_button_function,
                                              height=font_size * 1.5,
                                              width=font_size * 5)
-        self.continue_button.place(x=font_size * 11 + 15,
+        self.continue_button.place(x=font_size * 5 + font_size * 6 + 30,
                                    y=10)
 
     def continue_button_function(self):

@@ -130,7 +130,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
                                          height=font_size * 1.5 + 20,
                                          width=font_size * 6 + 20 + font_size * 5 + 10)
         self.button_frame.place(x=0,
-                                y=font_size * 13 + 10)
+                                y=font_size * 2 + font_size * 11 + 10)
 
         self.save_button = ctk.CTkButton(master=self.button_frame,  # continue button
                                          corner_radius=10,

@@ -118,7 +118,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
                                    width=font_size * 46,
                                    height=font_size * 1.5 + 20)
         self.frame2.place(x=0,
-                          y=font_size * 5)
+                          y=font_size * 2 + font_size * 1.5 + 30)
 
         self.help_label = ctk.CTkLabel(master=self.frame2,
                                        fg_color=GetStartupVariables.color_SET_blue,

@@ -73,9 +73,9 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
                                          corner_radius=20,
                                          height=font_size * 1.5 + 20,
-                                         width=window_geometry[0] / 4.6)
+                                         width=font_size * 6 + 20 + font_size * 5 + 10)
         self.button_frame.place(x=0,
-                                y=font_size * 34)
+                                y=font_size * 2 + window_geometry[1] / 1.3 + 10)
 
         self.save_button = ctk.CTkButton(master=self.button_frame,  # continue button
                                          corner_radius=10,
@@ -84,7 +84,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                          state="normal",
                                          command=lambda: self.save_textbox_data(),
                                          height=font_size * 1.5,
-                                         width=font_size * 5)
+                                         width=font_size * 6)
         self.save_button.place(x=10,
                                y=10)
 
@@ -97,7 +97,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                              command=lambda: self.master.switch_window("1.5"),
                                              height=font_size * 1.5,
                                              width=font_size * 5)
-        self.continue_button.place(x=font_size * 5 + 30,
+        self.continue_button.place(x=font_size * 6 + 20,
                                    y=10)
 
     def save_textbox_data(self):

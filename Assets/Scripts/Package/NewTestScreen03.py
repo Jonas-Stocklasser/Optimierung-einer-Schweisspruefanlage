@@ -92,7 +92,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
                                         width=window_geometry[0] / 4.5,
                                         height=font_size * 11)
         self.entry_frame.place(x=0,
-                               y=6.5 * font_size)
+                               y=font_size * 2 + 2 * font_size * 1.5 + 30)
 
         # first name entry------------------------------------------------------------
         self.first_name_entry_label = ctk.CTkLabel(master=self.entry_frame,
@@ -202,7 +202,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
                                          height=font_size * 1.5 + 20,
                                          width=font_size * 5 + font_size * 6 + 40 + font_size * 5)
         self.button_frame.place(x=0,
-                                y=6.5 * font_size + font_size * 11 + 10)
+                                y=font_size * 2 + 2 * font_size * 1.5 + 30 + font_size * 11 + 10)
 
         self.change_button = ctk.CTkButton(master=self.button_frame,  # continue button
                                            corner_radius=10,

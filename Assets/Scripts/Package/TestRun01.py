@@ -649,10 +649,12 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
     def write_personal_json():
         global pressure_values
         global temperature_values
+        global test_timesteps
         personal_folder_path = json_reader("personal_var", "personal_folder_path", main_pi_location + "../JSON/")
         personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
         json_writer(personal_json_name, "pressure_values", pressure_values, personal_folder_path)
         json_writer(personal_json_name, "temperature_values", temperature_values, personal_folder_path)
+        json_writer(personal_json_name, "test_timesteps", test_timesteps, personal_folder_path)
 
     # code testing -----------------------------------------------------------------------------------------------------
     # code test method

@@ -55,7 +55,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
         # frame------------------------------------------------------------
         self.frame = ctk.CTkFrame(master=self,  # frame for the widgets
                                   corner_radius=20,
-                                  width=font_size * 48 + 20,
+                                  width=font_size * 47 + 20,
                                   height=font_size * 1.5 + 20
                                   )
         self.frame.place(x=0,

@@ -207,7 +207,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         # timestep management
         timestamp = datetime.now()
-        seconds_passed = int((timestamp - controlledTimeStart).total_seconds())
+        seconds_passed = int((timestamp - completeTimeStart).total_seconds())
         print(seconds_passed)
         test_timesteps.append(seconds_passed)
 

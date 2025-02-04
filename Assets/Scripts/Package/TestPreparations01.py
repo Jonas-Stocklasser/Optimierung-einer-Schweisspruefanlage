@@ -74,12 +74,12 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
                               y=10)
 
         # image_frame------------------------------------------------------------
-        self.right_frame = ctk.CTkFrame(master=self,  # frame for the image
+        """self.right_frame = ctk.CTkFrame(master=self,  # frame for the image
                                         corner_radius=20,
                                         width=window_geometry[0] / 2.2,
                                         height=window_geometry[1] / 1.35)
         self.right_frame.place(x=window_geometry[0] / 2.1,
-                               y=font_size * 2)
+                               y=font_size * 2)"""
 
         # continue_button------------------------------------------------------------
         self.continue_button = ctk.CTkButton(master=self.left_frame,
@@ -92,7 +92,7 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
                                              height=font_size * 1.5,
                                              width=font_size * 5)
         self.continue_button.place(x=10,
-                                   y=window_geometry[1] / 1.45)
+                                   y=window_geometry[1] / 1.5 + 10)
 
         self.instruction_label = ctk.CTkLabel(master=self.text_frame,
                                               text="Anweisungen des ausgedruckten\nDokuments befolgen\n"
@@ -120,7 +120,7 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
                                                    "\n"
                                                    "\n",
                                               anchor="n",
-                                              font=("bold", font_size),
+                                              font=("bold", font_size - 2),
                                               width=window_geometry[0] / 2.2 - 40,
                                               height=window_geometry[1] / 1.5 - 20)
         self.instruction_label.place(x=10,

@@ -126,7 +126,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
                                        text="USB-Stick ist wahrscheinlich in /media/admin/; USB-Stick in schwarzen Port stecken!",
                                        text_color=GetStartupVariables.text_color_SET,
                                        font=("bold", font_size),
-                                       width=window_geometry[0] / 2,
+                                       width=font_size * 46 - 20,
                                        height=font_size * 1.5)
         self.help_label.place(x=10,
                               y=10)

@@ -28,6 +28,8 @@ pressureControlUp = 0
 height = 2  # height of space between pressureControlUp and pressureControlDown in bar
 maxAllowedPressure = 0
 
+completeTimeStart = datetime(year=2000, month=1, day=1, hour=0, minute=0, second=0)
+completeTimeStartControl = datetime(year=2000, month=1, day=1, hour=0, minute=0, second=0)
 # initialisation of duration control
 controlledTimeStart = datetime.now()
 controlledTimeTotal = timedelta(minutes=99999)
@@ -188,6 +190,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         global controlledTimeTotal
         global controlledTimeStart
         global firstControlStartup
+        global controlledTimeStart
 
         # for testing
         #global pressure_current
@@ -202,13 +205,12 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             self.master.error_message("!Achtung!",
                                       "Druckabfall über 10bar zwischen Messpunkten!\nPrüfstückbruch erkannt\nDurchführung beendet!")
 
-        if test_timesteps == []:
-            test_timesteps = [Zeitinkrement]
-        else:
-            last_entry = test_timesteps[len(test_timesteps) - 1]
-            last_entry += Zeitinkrement
-            test_timesteps.append(last_entry)
+        # timestep management
+        timestamp = datetime.now()
+        seconds_passed = int((timestamp - controlledTimeStart).total_seconds())
+        test_timesteps.append(seconds_passed)
 
+        # get values from sensors
         temperature = self.get_temperature_w1()
         pressure_current = ina.current()
 
@@ -276,6 +278,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         global maxAllowedPressure
         global firstControlStartup
         global controlledTimeTotal
+        global completeTimeStartControl
+        global completeTimeStart
 
         # Error when Sensor current is below 4mA
         if pressure_current < 4:
@@ -306,6 +310,12 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             controlledTimeTotalUserdefined = int(exam_parameter[1])
             controlledTimeTotal = timedelta(minutes=controlledTimeTotalUserdefined)
 
+            if completeTimeStart == completeTimeStartControl:
+                completeTimeStart = datetime.now()
+                print("start time set")
+            elif completeTimeStart != completeTimeStartControl:
+                print("start time unaltered")
+
             timer_id = self.after(int(Zeitinkrement * 1000), self.to_do)
             regelungSchalter = 1
             self.pdf_button.configure(state="disabled")
@@ -326,11 +336,89 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         self.start_button.configure(state="normal")
         self.stop_button.configure(state="disabled")
 
+    def update_plot(self):
+        slice_num = int(60 / Zeitinkrement)  # Compute slice index once
+
+        # Get last 60 seconds of data
+        display_timesteps = test_timesteps[-slice_num:]
+        display_pressures = pressure_values[-slice_num:]
+
+        self.ax.clear()
+        self.ax.set_title("Überdruckverlauf (letzte 60 Messpunkte)")
+        self.ax.set_xlabel("Messpunkte [s seit Beginn]")
+        self.ax.set_ylabel("Druck [Bar]")
+
+        # Plot the new data
+        self.ax.plot(display_timesteps, display_pressures, color='blue')
+
+        # Redraw the canvas
+        self.canvas.draw()
+
+    def get_temperature_w1(self):
+        f = open(w1temp_location, "r")
+        lines = f.readlines()
+        f.close()
+        temp_pos = lines[1].find("t=")
+        if temp_pos != 1:
+            temperature = float(int(lines[1][temp_pos + 2:]) / 1000)
+        return temperature
+
+    def cancel_after_on_closing(self):
+        global timer_id
+        if timer_id is not None:
+            self.after_cancel(timer_id)
+            timer_id = None
+
+    def stop_test(self, pDiff):
+        self.stop_button_function()
+        print(f"\nVersuch wegen Druckabfalls beendet!\nDruckabfall zwischen letzten Messpunkten: {pDiff}")
+
+    def regelung(self, what):
+        global firstControlStartup
+        global pressure_values
+        global pressureControlUp
+        global pressureControlMiddle
+        global pressureControlDown
+        global maxAllowedPressure
+        global controlledTimeStart
+
+        pressureNow = pressure_values[len(pressure_values) - 1]
+        if what == "start":
+            print("regelung start")
+            if firstControlStartup == 1 and pressureNow <= pressureControlMiddle:
+                GPIO.output(14, True)
+                print("first ascend start")
+
+            elif firstControlStartup == 1 and pressureNow >= pressureControlMiddle:
+                GPIO.output(14, False)
+                firstControlStartup = 0
+                controlledTimeStart = datetime.now()
+                print("first ascend end")
+
+            elif firstControlStartup == 0 and pressureNow <= pressureControlDown:
+                GPIO.output(14, True)
+                print("lower barrier reached, pump on")
+
+            elif firstControlStartup == 0 and pressureNow >= pressureControlUp:
+                GPIO.output(14, False)
+                print("upper barrier reached, pump off")
+
+            elif pressureNow > maxAllowedPressure:
+                self.stop_button_function()
+
+        elif what == "pump":
+            GPIO.output(14, True)
+            print("Aufpumpen bis bersten")
+
+        elif what == "stop":
+            GPIO.output(14, False)
+            print("regelung stop")
+
     def pdf_button_function(self):
         global pressure_values
         global test_timesteps
 
-        print("PDF")
+        print("PDF creating")
         personal_folder_path = json_reader("personal_var", "personal_folder_path", main_pi_location + "../JSON/")
         personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
 
@@ -530,87 +618,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         # save ---------------------------------------------------------------------------------------------------------
         pdf.output(f"{personal_folder_path}/Pruefbericht_{last_name_examinee}_{first_name_examinee}.pdf")
-
-    def update_plot(self):
-        slice_num = int(60 / Zeitinkrement)  # Compute slice index once
-
-        # Get last 60 seconds of data
-        display_timesteps = test_timesteps[-slice_num:]
-        display_pressures = pressure_values[-slice_num:]
-
-        # Clear only the plotted data
-        self.ax.clear()
-
-        # Retain labels and title after clearing
-        #self.ax.set_title("Überdruckverlauf (letzte 60 Sekunden)")
-        #self.ax.set_xlabel("Testzeit [s]")
-        #self.ax.set_ylabel("Druck [Bar]")
-
-        # Plot the new data
-        self.ax.plot(display_timesteps, display_pressures, color='blue')
-
-        # Redraw the canvas
-        self.canvas.draw()
-
-    def get_temperature_w1(self):
-        f = open(w1temp_location, "r")
-        lines = f.readlines()
-        f.close()
-        temp_pos = lines[1].find("t=")
-        if temp_pos != 1:
-            temperature = float(int(lines[1][temp_pos + 2:]) / 1000)
-        return temperature
-
-    def cancel_after_on_closing(self):
-        global timer_id
-        if timer_id is not None:
-            self.after_cancel(timer_id)
-            timer_id = None
-
-    def stop_test(self, pDiff):
-        self.stop_button_function()
-        print(f"\nVersuch wegen Druckabfalls beendet!\nDruckabfall zwischen letzten Messpunkten: {pDiff}")
-
-    def regelung(self, what):
-        global firstControlStartup
-        global pressure_values
-        global pressureControlUp
-        global pressureControlMiddle
-        global pressureControlDown
-        global maxAllowedPressure
-        global controlledTimeStart
-
-        pressureNow = pressure_values[len(pressure_values) - 1]
-        if what == "start":
-            print("regelung start")
-            if firstControlStartup == 1 and pressureNow <= pressureControlMiddle:
-                GPIO.output(14, True)
-                print("first ascend start")
-
-            elif firstControlStartup == 1 and pressureNow >= pressureControlMiddle:
-                GPIO.output(14, False)
-                firstControlStartup = 0
-                controlledTimeStart = datetime.now()
-                print("first ascend end")
-
-            elif firstControlStartup == 0 and pressureNow <= pressureControlDown:
-                GPIO.output(14, True)
-                print("lower barrier reached, pump on")
-
-            elif firstControlStartup == 0 and pressureNow >= pressureControlUp:
-                GPIO.output(14, False)
-                print("upper barrier reached, pump off")
-
-            elif pressureNow > maxAllowedPressure:
-                self.stop_button_function()
-
-        elif what == "pump":
-            GPIO.output(14, True)
-            print("Aufpumpen bis bersten")
-
-        elif what == "stop":
-            GPIO.output(14, False)
-            print("regelung stop")
+        print("PDF ready")
 
     @staticmethod
     def write_personal_json():

@@ -196,7 +196,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         # Abbruchbedingung Druckabfall pruefen
         pDiff = pressure_values[len(pressure_values) - 1] - pressure_values[len(pressure_values) - 2]
         if pDiff >= -10:
-            timer_id = self.after(int(Zeitinkrement * 1000), self.to_do)
+            timer_id = self.after(int(Zeitinkrement * 980), self.to_do)
         elif pDiff < -10:
             self.stop_test(pDiff)
             self.master.error_message("!Achtung!",

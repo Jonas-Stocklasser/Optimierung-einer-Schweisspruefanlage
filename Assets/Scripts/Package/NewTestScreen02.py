@@ -128,7 +128,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
                                          corner_radius=20,
                                          height=font_size * 1.5 + 20,
-                                         width=window_geometry[0] / 4.6)
+                                         width=font_size * 25)
         self.button_frame.place(x=0,
                                 y=font_size * 13 + 10)
 
@@ -151,7 +151,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
                                              command=self.continue_button_function,
                                              height=font_size * 1.5,
                                              width=font_size * 5)
-        self.continue_button.place(x=font_size * 5 + 30,
+        self.continue_button.place(x=font_size * 5 + 20,
                                    y=10)
 
     def continue_button_function(self):  # method for the button actions

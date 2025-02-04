@@ -90,7 +90,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         # entry frame 1------------------------------------------------------------
         self.entry_frame1 = ctk.CTkFrame(master=self,  # frame for the entries
                                          corner_radius=20,
-                                         width=font_size * 25 + 20,
+                                         width=font_size * 20 + 20,
                                          height=font_size * 11)
         self.entry_frame1.place(x=0,
                                 y=6.5 * font_size)
@@ -110,7 +110,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                                               text="Werkstoff",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size),
-                                              width=font_size * 25,
+                                              width=font_size * 20,
                                               height=font_size * 1.5)
         self.title_entry_label.place(x=10,
                                      y=10)
@@ -143,7 +143,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                                               text="Umfangsspannung σ [MPa]",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size),
-                                              width=font_size * 25,
+                                              width=font_size * 20,
                                               height=font_size * 1.5)
         self.info1_entry_label.place(x=10,
                                      y=2 * font_size * 1.5 + 25)
@@ -175,7 +175,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                                               text="Nenn-Wanddicke des Rohres eₙ [mm]",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size),
-                                              width=font_size * 25,
+                                              width=font_size * 20,
                                               height=font_size * 1.5)
         self.info2_entry_label.place(x=10,
                                      y=4 * font_size * 1.5 + 40)

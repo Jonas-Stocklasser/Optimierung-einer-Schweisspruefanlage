@@ -116,7 +116,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         self.pdf_frame = ctk.CTkFrame(master=self,  # frame for the button
                                       corner_radius=20,
                                       height=font_size * 1.5 + 20,
-                                      width=font_size * 10 + 20)
+                                      width=font_size * 12 + 20)
         self.pdf_frame.place(x=0,
                              y=window_geometry[0] / 1.65)
 
@@ -151,7 +151,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
                                         font=("bold", font_size),
                                         state="disabled",
                                         command=lambda: self.pdf_button_function(),
-                                        width=font_size * 10,
+                                        width=font_size * 12,
                                         height=font_size * 1.5)
         self.pdf_button.place(x=10,
                               y=10)

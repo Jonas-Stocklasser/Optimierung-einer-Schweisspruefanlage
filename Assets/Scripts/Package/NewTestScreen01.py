@@ -109,7 +109,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
                                              width=font_size * 3,
                                              height=font_size * 1.5,
                                              command=lambda: self.app.switch_window("1.1"))
-        self.continue_button.place(x=window_geometry[0] / 15 + 40 + window_geometry[0] / 1.5 + font_size * 2,
+        self.continue_button.place(x=window_geometry[0] / 15 + 40 + window_geometry[0] / 1.5 + font_size * 1.6,
                                    y=10)
 
         # frame2------------------------------------------------------------

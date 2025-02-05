@@ -120,7 +120,6 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
                                                    "\n"
                                                    "\n"
                                                    "\n",
-                                              anchor="nw",
                                               font=("bold", font_size - 2),
                                               width=window_geometry[0] / 2.2 - 40,
                                               height=window_geometry[1] / 1.5 - 20)

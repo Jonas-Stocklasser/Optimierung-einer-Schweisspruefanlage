@@ -636,9 +636,10 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.multi_cell(0, 10, "<Ergebnis der Prüfung>")
 
         # save ---------------------------------------------------------------------------------------------------------
-        pdf.output(f"{personal_folder_path}/Pruefbericht_{last_name_examinee}_{first_name_examinee}.pdf")
+        pdf_name = f"{personal_folder_path}/Pruefbericht_{last_name_examinee}_{first_name_examinee}.pdf"
+        pdf.output(pdf_name)
         print("PDF ready")
-        messagebox.showinfo("PDF", f"Prüfbericht wurde erstellt!\nSpeicherpfad: {personal_folder_path}")
+        messagebox.showinfo("PDF", f"Prüfbericht wurde erstellt!\nSpeicherpfad: {personal_folder_path}.{pdf_name}")
         self.back_to_start_button.configure(state="normal")
 
     def back_to_start_button_function(self):

@@ -108,14 +108,16 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
 
         self.first_name_entry = ctk.CTkEntry(master=self.entry_frame,
                                              font=("bold", font_size),
-                                             state="disabled"
+                                             state="disabled",
+                                             height=font_size * 1.5,
+                                             width=window_geometry[0] / 4.5 - 20
                                              )
         self.first_name_entry.place(x=10,
                                     y=font_size * 1.5 + 15)
 
         self.first_name_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame,
                                                                            corner_radius=10,
-                                                                           width=window_geometry[0] / 6,
+                                                                           width=window_geometry[0] / 4.5 - 20,
                                                                            height=font_size * 1.5)
         self.first_name_entry_unchanged_overlay_label_frame.place(x=10,
                                                                   y=font_size * 1.5 + 15)
@@ -141,13 +143,15 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
 
         self.last_name_entry = ctk.CTkEntry(master=self.entry_frame,
                                             font=("bold", font_size),
-                                            state="disabled")
+                                            state="disabled",
+                                            height=font_size * 1.5,
+                                            width=window_geometry[0] / 4.5 - 20)
         self.last_name_entry.place(x=10,
                                    y=3 * font_size * 1.5 + 30)
 
         self.last_name_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame,
                                                                           corner_radius=10,
-                                                                          width=window_geometry[0] / 6,
+                                                                          width=window_geometry[0] / 4.5 - 20,
                                                                           height=font_size * 1.5)
         self.last_name_entry_unchanged_overlay_label_frame.place(x=10,
                                                                  y=3 * font_size * 1.5 + 30)
@@ -183,7 +187,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
 
         self.birth_date_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame,
                                                                            corner_radius=10,
-                                                                           width=window_geometry[0] / 6,
+                                                                           width=window_geometry[0] / 4.5 - 20,
                                                                            height=font_size * 1.5)
         self.birth_date_entry_unchanged_overlay_label_frame.place(x=10,
                                                                   y=5 * font_size * 1.5 + 45)

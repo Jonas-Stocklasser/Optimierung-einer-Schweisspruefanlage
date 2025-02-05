@@ -93,18 +93,18 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
         # entry frame------------------------------------------------------------
         self.entry_frame = ctk.CTkFrame(master=self,  # frame for the entries
                                         corner_radius=20,
-                                        width=window_geometry[0] / 4.5,
+                                        width=font_size * 15 + 20,
                                         height=font_size * 4)
         self.entry_frame.place(x=0,
                                y=font_size * 2 + font_size * 3 + 30)
 
         # entry frame 2 ------------------------------------------------------------
-        self.entry_frame2 = ctk.CTkFrame(master=self,  # frame for the entries
+        """self.entry_frame2 = ctk.CTkFrame(master=self,  # frame for the entries
                                          corner_radius=20,
                                          width=window_geometry[0] / 4.5,
                                          height=font_size * 4)
         self.entry_frame2.place(x=window_geometry[0] / 4.5 + 10,
-                                y=font_size * 2 + font_size * 3 + 30)
+                                y=font_size * 2 + font_size * 3 + 30)"""
 
         # pressure entry------------------------------------------------------------
         self.pressure_entry_label = ctk.CTkLabel(master=self.entry_frame,
@@ -113,7 +113,7 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
                                                  text="Maximaler Prüfdruck [bar]",
                                                  text_color=GetStartupVariables.text_color_SET,
                                                  font=("bold", font_size),
-                                                 width=window_geometry[0] / 4.5 - 20,
+                                                 width=font_size * 15,
                                                  height=font_size * 1.5)
         self.pressure_entry_label.place(x=10,
                                         y=10)
@@ -121,14 +121,14 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
         self.pressure_entry = ctk.CTkEntry(master=self.entry_frame,
                                            font=("bold", font_size),
                                            state="disabled",
-                                           width=font_size * 8
+                                           width=font_size * 15
                                            )
         self.pressure_entry.place(x=10,
                                   y=font_size * 1.5 + 15)
 
         self.pressure_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame,
                                                                          corner_radius=10,
-                                                                         width=window_geometry[0] / 6,
+                                                                         width=font_size * 15,
                                                                          height=font_size * 1.5)
         self.pressure_entry_unchanged_overlay_label_frame.place(x=10,
                                                                 y=font_size * 1.5 + 15)

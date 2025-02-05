@@ -635,7 +635,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.multi_cell(0, 10, "<Ergebnis der Prüfung>")
 
         # save ---------------------------------------------------------------------------------------------------------
-        pdf_path = f"{personal_folder_path}/Pruefbericht_{last_name_examinee}_{first_name_examinee}.pdf"
+        pdf_path = f"{personal_folder_path}Pruefbericht_{last_name_examinee}_{first_name_examinee}.pdf"
         pdf.output(pdf_path)
         print("PDF ready")
         messagebox.showinfo("Prüfbericht wurder erstellt!", f"Speicherpfad: {pdf_path}")

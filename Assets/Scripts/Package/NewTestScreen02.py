@@ -176,6 +176,10 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
                 print("Please provide last name")
                 messagebox.showinfo("Eingabefehler", "Bitte Nachnamen eingeben!")
 
+    def reset_input_new_Test(self):
+        self.first_name_entry.delete(0, "end")
+        self.last_name_entry.delete(0, "end")
+
     @staticmethod
     def create_examinee_folder_and_json():  # create a new folder for all the created files for the examinee
         personal_infos_examinee = json_reader("personal_var", "personal_infos_examinee", main_pi_location + "../JSON/")

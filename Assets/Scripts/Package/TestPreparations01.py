@@ -97,29 +97,16 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
         self.instruction_label = ctk.CTkLabel(master=self.text_frame,
                                               anchor="nw",
                                               text="Anweisungen des ausgedruckten\nDokuments befolgen!\n\n"
-                                                   "1. Prüfstück mit Wasser füllen\n"
-                                                   "2. Flansch auf Prüfstück aufsetzen\n"
-                                                   "3. Prüfstück am Flansch aufhängen\n"
-                                                   "4. Prüfstück entlüften\n"
-                                                   "5. Prüfstück in das Becken hinablassen\n"
+                                                   "1. Prüfstück mit Wasser füllen\n\n"
+                                                   "2. Flansch auf Prüfstück aufsetzen\n\n"
+                                                   "3. Prüfstück am Flansch aufhängen\n\n"
+                                                   "4. Prüfstück entlüften\n\n"
+                                                   "5. Prüfstück in das Becken hinablassen\n\n"
                                                    "6. Prüfvorgang starten (erst nach Entlüftung!)\n    -> Weiter drücken"
-                                                   "\n"
+                                                   "\n\n"
                                                    "-----------------------------------------------------------\n"
                                                    "Pumpe toggeln - ENTER\n"
-                                                   "-----------------------------------------------------------\n"
-                                                   "\n"
-                                                   "\n"
-                                                   "\n"
-                                                   "\n"
-                                                   "\n"
-                                                   "\n"
-                                                   "\n"
-                                                   "\n"
-                                                   "\n"
-                                                   "\n"
-                                                   "\n"
-                                                   "\n"
-                                                   "\n",
+                                                   "-----------------------------------------------------------\n",
                                               justify="left",
                                               font=("bold", font_size - 2),
                                               width=window_geometry[0] / 2.2 - 40,

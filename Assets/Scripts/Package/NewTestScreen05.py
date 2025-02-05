@@ -104,6 +104,8 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
 
     def save_textbox_data(self):
         visual_grade = self.textbox.get("1.0", "end")
+        if visual_grade.startswith("Visuelle Einschätzung des Prüfers\n"):
+            visual_grade = visual_grade[len("Visuelle Einschätzung des Prüfers\n"):].strip()
 
         if visual_grade != "\n" and visual_grade != "Visuelle Einschätzung des Prüfers\n":
             self.continue_button.configure(state="normal")
@@ -114,7 +116,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
             messagebox.showinfo("Eingabefehler", "Bitte geben Sie etwas ein!")
             print("Type something! An empty field is not permitted!")
 
-    def update_size(self, font_size):
+    """def update_size(self, font_size):
         self.indicator_bar.configure(font=("bold", font_size), height=font_size, corner_radius=font_size / 2)
         self.back_button.configure(width=font_size,
                                    height=font_size, corner_radius=font_size / 2)
@@ -127,4 +129,8 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.save_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4,
                                    corner_radius=font_size / 2)
         self.continue_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4,
-                                       corner_radius=font_size / 2)
+                                       corner_radius=font_size / 2)"""
+    def reset_input_new_test(self):
+        self.textbox.delete(0, "end")
+        self.textbox.insert("1.0", "Visuelle Einschätzung des Prüfers")
+

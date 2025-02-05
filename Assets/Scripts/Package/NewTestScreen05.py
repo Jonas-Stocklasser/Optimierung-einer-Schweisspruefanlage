@@ -54,7 +54,8 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.textbox_frame = ctk.CTkFrame(master=self,  # frame for the textbox
                                           corner_radius=20,
                                           width=window_geometry[0] / 1.5,
-                                          height=window_geometry[1] / 1.3)
+                                          height=window_geometry[1] / 1.3,
+                                          placeholder_text="Visuelle Einschätzung des Prüfers")
         self.textbox_frame.place(x=0,
                                  y=font_size * 2)
 

@@ -95,6 +95,7 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
                                    y=window_geometry[1] / 1.5 + 20)
 
         self.instruction_label = ctk.CTkLabel(master=self.text_frame,
+                                              anchor="left",
                                               text="Anweisungen des ausgedruckten\nDokuments befolgen\n"
                                                    "1. Prüfstück mit Wasser füllen\n"
                                                    "2. Flansch auf Prüfstück aufsetzen\n"

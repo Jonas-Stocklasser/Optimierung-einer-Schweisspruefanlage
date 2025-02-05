@@ -107,7 +107,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         if visual_grade.startswith("Visuelle Einschätzung des Prüfers"):
             visual_grade = visual_grade[len("Visuelle Einschätzung des Prüfers"):].strip()
 
-        if visual_grade != "\n" and visual_grade != "Visuelle Einschätzung des Prüfers\n":
+        if visual_grade != "\n" and visual_grade != "Visuelle Einschätzung des Prüfers\n" and visual_grade != "Visuelle Einschätzung des Prüfers":
             self.continue_button.configure(state="normal")
             personal_folder_path = json_reader("personal_var", "personal_folder_path", main_pi_location + "../JSON/")
             personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
@@ -131,6 +131,6 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.continue_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4,
                                        corner_radius=font_size / 2)"""
     def reset_input_new_test(self):
-        self.textbox.delete(0, "end")
+        self.textbox.delete("1.0", "end")
         self.textbox.insert("1.0", "Visuelle Einschätzung des Prüfers")
 

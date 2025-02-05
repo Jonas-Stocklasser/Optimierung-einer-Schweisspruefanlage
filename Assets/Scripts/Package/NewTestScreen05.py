@@ -105,7 +105,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
     def save_textbox_data(self):
         visual_grade = self.textbox.get("1.0", "end")
 
-        if visual_grade != "\n" and visual_grade != "Visuelle Einschätzung des Prüfers":
+        if visual_grade != "\n" and visual_grade != "Visuelle Einschätzung des Prüfers\n":
             self.continue_button.configure(state="normal")
             personal_folder_path = json_reader("personal_var", "personal_folder_path", main_pi_location + "../JSON/")
             personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")

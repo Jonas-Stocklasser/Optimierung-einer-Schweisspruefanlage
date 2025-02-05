@@ -3,6 +3,7 @@
 # Author: Stocklasser
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
 # Neuer Test Fenster 4; ID=1.3
+from tkinter import messagebox
 
 import customtkinter as ctk
 import tkinter as tk
@@ -343,11 +344,11 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                       self.info3_entry.get(),
                       self.info4_entry.get()]
 
-        if (len(infos_item[0].strip()) +
-                len(infos_item[1].strip()) +
-                len(infos_item[2].strip()) +
-                len(infos_item[3].strip()) +
-                len(infos_item[4].strip()) >= 10):
+        if (len(infos_item[0].strip()) >= 1 and
+                len(infos_item[1].strip()) >= 1 and
+                len(infos_item[2].strip()) >= 1 and
+                len(infos_item[3].strip()) >= 1 and
+                len(infos_item[4].strip()) >= 1):
             self.continue_button.configure(state="normal")
             last_chosen_item = json_reader("item_var", "last_chosen_item", main_pi_location + "../JSON/")
             json_writer("item_var", f"infos_item_{last_chosen_item}", infos_item, main_pi_location + "../JSON/")
@@ -385,7 +386,21 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
             self.continue_button.configure(state="normal")
         else:
             self.continue_button.configure(state="disabled")
-            print("Not enough input")
+            if len(infos_item[0].strip()) < 1:
+                print("Please provide material")
+                messagebox.showinfo("Eingabefehler", "Bitte Werkstoff eigeben!")
+            elif len(infos_item[1].strip()) < 1:
+                print("Please provide tension")
+                messagebox.showinfo("Eingabefehler", "Bitte Umfangsspannung eigeben!")
+            elif len(infos_item[2].strip()) < 1:
+                print("Please provide thickness")
+                messagebox.showinfo("Eingabefehler", "Bitte Nenn-Wanddicke eigeben!")
+            elif len(infos_item[3].strip()) < 1:
+                print("Please provide diameter")
+                messagebox.showinfo("Eingabefehler", "Bitte Nenn-Außendurchmesser eigeben!")
+            elif len(infos_item[4].strip()) < 1:
+                print("Please provide regulation period")
+                messagebox.showinfo("Eingabefehler", "Bitte Prüfdauer (Regelung) eigeben!")
 
     def update_labels(self, infos):
         self.title_entry_unchanged_overlay_label.configure(text=infos[0])

@@ -61,7 +61,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         # textbox ------------------------------------------------------------
         self.textbox = ctk.CTkTextbox(master=self.textbox_frame,
                                       border_width=5,
-                                      font=("bold", font_size),
+                                      font=("bold", font_size+2),
                                       corner_radius=10,
                                       width=window_geometry[0] / 1.5 - 20,
                                       height=window_geometry[1] / 1.3 - 20)

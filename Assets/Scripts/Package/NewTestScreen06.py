@@ -98,14 +98,6 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
         self.entry_frame.place(x=0,
                                y=font_size * 2 + font_size * 3 + 30)
 
-        # entry frame 2 ------------------------------------------------------------
-        """self.entry_frame2 = ctk.CTkFrame(master=self,  # frame for the entries
-                                         corner_radius=20,
-                                         width=window_geometry[0] / 4.5,
-                                         height=font_size * 4)
-        self.entry_frame2.place(x=window_geometry[0] / 4.5 + 10,
-                                y=font_size * 2 + font_size * 3 + 30)"""
-
         # pressure entry------------------------------------------------------------
         self.pressure_entry_label = ctk.CTkLabel(master=self.entry_frame,
                                                  fg_color=GetStartupVariables.color_SET_blue,
@@ -139,40 +131,6 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
             font=("bold", font_size))
         self.pressure_entry_unchanged_overlay_label.place(x=10,
                                                           rely=0.1)
-
-        # control duration entry------------------------------------------------------------
-        """self.control_time_entry_label = ctk.CTkLabel(master=self.entry_frame2,
-                                                     fg_color=GetStartupVariables.color_SET_blue,
-                                                     corner_radius=10,
-                                                     text="Regelungszeit",
-                                                     text_color=GetStartupVariables.text_color_SET,
-                                                     font=("bold", font_size),
-                                                     width=window_geometry[0] / 4.5 - 20,
-                                                     height=font_size * 1.5)
-        self.control_time_entry_label.place(x=10,
-                                            y=10)
-
-        self.control_time_entry = ctk.CTkEntry(master=self.entry_frame2,
-                                               font=("bold", font_size),
-                                               state="disabled",
-                                               width=font_size * 8
-                                               )
-        self.control_time_entry.place(x=10,
-                                      y=font_size * 1.5 + 15)
-
-        self.control_time_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame2,
-                                                                             corner_radius=10,
-                                                                             width=window_geometry[0] / 6,
-                                                                             height=font_size * 1.5)
-        self.control_time_entry_unchanged_overlay_label_frame.place(x=10,
-                                                                    y=font_size * 1.5 + 15)
-
-        self.control_time_entry_unchanged_overlay_label = ctk.CTkLabel(
-            master=self.control_time_entry_unchanged_overlay_label_frame,
-            text=f"{GetExamParameterVariables.parameter_list[1]} min",
-            font=("bold", font_size))
-        self.control_time_entry_unchanged_overlay_label.place(x=10,
-                                                              rely=0.1)"""
 
         # change, save and continue button------------------------------------------------------------
 
@@ -228,7 +186,6 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
         self.control_time_entry_unchanged_overlay_label_frame.place_forget()"""
 
         self.pressure_entry.configure(state="normal", placeholder_text="Druck in Bar")
-        #self.control_time_entry.configure(state="normal", placeholder_text="Zeit in Minuten")
 
         self.change_button.configure(state="disabled")
         self.save_button.configure(state="normal")
@@ -249,14 +206,9 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
                                                                     y=font_size * 1.5 + 15)
             self.pressure_entry_unchanged_overlay_label.place(x=10,
                                                               rely=0.1)
-            """self.control_time_entry_unchanged_overlay_label_frame.place(x=10,
-                                                                        y=font_size * 1.5 + 15)
-            self.control_time_entry_unchanged_overlay_label.place(x=10,
-                                                                  rely=0.1)"""
             self.update_labels(parameter_list)
 
             self.pressure_entry.configure(state="disabled")
-            #self.control_time_entry.configure(state="disabled")
 
             self.change_button.configure(state="normal")
             self.save_button.configure(state="disabled")
@@ -268,7 +220,6 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
 
     def update_labels(self, infos):
         self.pressure_entry_unchanged_overlay_label.configure(text=f"{infos[0]}")
-        #self.control_time_entry_unchanged_overlay_label.configure(text=f"{infos[1]} min")
 
     def parameter_list_select(self, which):
         json_writer("exam_parameter_var", "last_chosen_parameter_list", which, main_pi_location + "../JSON/")

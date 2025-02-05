@@ -178,7 +178,9 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
 
     def reset_input_new_test(self):
         self.first_name_entry.delete(0, "end")
+        self.first_name_entry.insert(0, "")
         self.last_name_entry.delete(0, "end")
+        self.last_name_entry.insert(0, "")
 
     @staticmethod
     def create_examinee_folder_and_json():  # create a new folder for all the created files for the examinee

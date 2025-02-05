@@ -104,8 +104,8 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
 
     def save_textbox_data(self):
         visual_grade = self.textbox.get("1.0", "end")
-        if visual_grade.startswith("Visuelle Einschätzung des Prüfers\n"):
-            visual_grade = visual_grade[len("Visuelle Einschätzung des Prüfers\n"):].strip()
+        if visual_grade.startswith("Visuelle Einschätzung des Prüfers"):
+            visual_grade = visual_grade[len("Visuelle Einschätzung des Prüfers"):].strip()
 
         if visual_grade != "\n" and visual_grade != "Visuelle Einschätzung des Prüfers\n":
             self.continue_button.configure(state="normal")

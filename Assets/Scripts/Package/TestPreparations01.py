@@ -108,7 +108,7 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
                                                    "    4. Prüfstück entlüften\n"
                                                    "\n"
                                                    "    5. Prüfstück in das Becken hinablassen\n"
-                                                   "n"
+                                                   "\n"
                                                    "    6. Prüfvorgang starten (erst nach Entlüftung!)\n"
                                                    "        -> Weiter drücken\n"
                                                    "\n"

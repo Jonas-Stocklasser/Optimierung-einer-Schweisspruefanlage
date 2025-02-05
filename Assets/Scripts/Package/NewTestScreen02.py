@@ -171,10 +171,10 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
             self.continue_button.configure(state="disabled")  # lock the continue button
             if len(personal_infos_examinee[0].strip()) < 1:
                 print("Please provide first name")
-                messagebox.showinfo("Eingabefehler", "Bitte Vornamen eigeben!")
+                messagebox.showinfo("Eingabefehler", "Bitte Vornamen eingeben!")
             elif len(personal_infos_examinee[1].strip()) < 1:
                 print("Please provide last name")
-                messagebox.showinfo("Eingabefehler", "Bitte Nachnamen eigeben!")
+                messagebox.showinfo("Eingabefehler", "Bitte Nachnamen eingeben!")
 
     @staticmethod
     def create_examinee_folder_and_json():  # create a new folder for all the created files for the examinee

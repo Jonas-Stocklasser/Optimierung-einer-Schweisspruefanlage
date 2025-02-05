@@ -3,6 +3,7 @@
 # Author: Stocklasser
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
 # Neuer Test Fenster 6; ID=1.5
+from tkinter import messagebox
 
 import customtkinter as ctk
 import tkinter as tk
@@ -109,7 +110,7 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
         self.pressure_entry_label = ctk.CTkLabel(master=self.entry_frame,
                                                  fg_color=GetStartupVariables.color_SET_blue,
                                                  corner_radius=10,
-                                                 text="Maximaler Prüfdruck",
+                                                 text="Maximaler Prüfdruck [bar]",
                                                  text_color=GetStartupVariables.text_color_SET,
                                                  font=("bold", font_size),
                                                  width=window_geometry[0] / 4.5 - 20,
@@ -134,13 +135,13 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
 
         self.pressure_entry_unchanged_overlay_label = ctk.CTkLabel(
             master=self.pressure_entry_unchanged_overlay_label_frame,
-            text=f"{GetExamParameterVariables.parameter_list[0]} bar",
+            text=f"{GetExamParameterVariables.parameter_list[0]}",
             font=("bold", font_size))
         self.pressure_entry_unchanged_overlay_label.place(x=10,
                                                           rely=0.1)
 
         # control duration entry------------------------------------------------------------
-        self.control_time_entry_label = ctk.CTkLabel(master=self.entry_frame2,
+        """self.control_time_entry_label = ctk.CTkLabel(master=self.entry_frame2,
                                                      fg_color=GetStartupVariables.color_SET_blue,
                                                      corner_radius=10,
                                                      text="Regelungszeit",
@@ -171,7 +172,7 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
             text=f"{GetExamParameterVariables.parameter_list[1]} min",
             font=("bold", font_size))
         self.control_time_entry_unchanged_overlay_label.place(x=10,
-                                                              rely=0.1)
+                                                              rely=0.1)"""
 
         # change, save and continue button------------------------------------------------------------
 
@@ -223,11 +224,11 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
     def change_entry_data_exam_parameter(self):
         self.pressure_entry_unchanged_overlay_label.place_forget()
         self.pressure_entry_unchanged_overlay_label_frame.place_forget()
-        self.control_time_entry_unchanged_overlay_label.place_forget()
-        self.control_time_entry_unchanged_overlay_label_frame.place_forget()
+        """self.control_time_entry_unchanged_overlay_label.place_forget()
+        self.control_time_entry_unchanged_overlay_label_frame.place_forget()"""
 
         self.pressure_entry.configure(state="normal", placeholder_text="Druck in Bar")
-        self.control_time_entry.configure(state="normal", placeholder_text="Zeit in Minuten")
+        #self.control_time_entry.configure(state="normal", placeholder_text="Zeit in Minuten")
 
         self.change_button.configure(state="disabled")
         self.save_button.configure(state="normal")
@@ -235,11 +236,11 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
 
     def save_entry_data_exam_parameter(self):
         global window_geometry_glob
-        parameter_list = [self.pressure_entry.get(), self.control_time_entry.get()]
+        parameter_list = [self.pressure_entry.get()]
         last_chosen_parameter_list = json_reader("exam_parameter_var", "last_chosen_parameter_list",
                                                  main_pi_location + "../JSON/")
 
-        if len(parameter_list[0].strip()) >= 1 and len(parameter_list[1].strip()) >= 1:
+        if len(parameter_list[0].strip()) >= 1:
             self.continue_button.configure(state="normal")
             json_writer("exam_parameter_var", ("parameter_list_" + last_chosen_parameter_list),
                         parameter_list, main_pi_location + "../JSON/")
@@ -248,25 +249,26 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
                                                                     y=font_size * 1.5 + 15)
             self.pressure_entry_unchanged_overlay_label.place(x=10,
                                                               rely=0.1)
-            self.control_time_entry_unchanged_overlay_label_frame.place(x=10,
+            """self.control_time_entry_unchanged_overlay_label_frame.place(x=10,
                                                                         y=font_size * 1.5 + 15)
             self.control_time_entry_unchanged_overlay_label.place(x=10,
-                                                                  rely=0.1)
+                                                                  rely=0.1)"""
             self.update_labels(parameter_list)
 
             self.pressure_entry.configure(state="disabled")
-            self.control_time_entry.configure(state="disabled")
+            #self.control_time_entry.configure(state="disabled")
 
             self.change_button.configure(state="normal")
             self.save_button.configure(state="disabled")
             self.continue_button.configure(state="normal")
         else:
             self.continue_button.configure(state="disabled")
-            print("Entry to short, 1 characters min.")
+            print("Please provide pressure")
+            messagebox.showinfo("Eingabefehler", "Bitte maximalen Prüfdruck eigeben!")
 
     def update_labels(self, infos):
-        self.pressure_entry_unchanged_overlay_label.configure(text=f"{infos[0]} bar")
-        self.control_time_entry_unchanged_overlay_label.configure(text=f"{infos[1]} min")
+        self.pressure_entry_unchanged_overlay_label.configure(text=f"{infos[0]}")
+        #self.control_time_entry_unchanged_overlay_label.configure(text=f"{infos[1]} min")
 
     def parameter_list_select(self, which):
         json_writer("exam_parameter_var", "last_chosen_parameter_list", which, main_pi_location + "../JSON/")

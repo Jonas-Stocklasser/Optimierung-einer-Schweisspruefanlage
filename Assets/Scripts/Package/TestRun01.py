@@ -313,7 +313,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             sigma = float(infos_item[1])
             en = float(infos_item[2])
             dn = float(infos_item[3])
-            duration = float(infos_item[4])
+            controlledTimeTotalUserdefined = float(infos_item[4])
             # calculated controlled pressure (from oenorm m 1861-6:2009)
             pressureControlMiddle = (20 * en * sigma) / (dn - en)
             pressureControlUp = pressureControlMiddle + height / 2
@@ -325,7 +325,6 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
             maxAllowedPressure = float(exam_parameter[0])
 
-            controlledTimeTotalUserdefined = int(exam_parameter[1])
             controlledTimeTotal = timedelta(minutes=controlledTimeTotalUserdefined)
 
             if completeTimeStart == completeTimeStartControl:

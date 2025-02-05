@@ -391,16 +391,16 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                 messagebox.showinfo("Eingabefehler", "Bitte Werkstoff eigeben!")
             elif len(infos_item[1].strip()) < 1:
                 print("Please provide tension")
-                messagebox.showinfo("Eingabefehler", "Bitte Umfangsspannung eigeben!")
+                messagebox.showinfo("Eingabefehler", "Bitte Umfangsspannung eingeben!")
             elif len(infos_item[2].strip()) < 1:
                 print("Please provide thickness")
-                messagebox.showinfo("Eingabefehler", "Bitte Nenn-Wanddicke eigeben!")
+                messagebox.showinfo("Eingabefehler", "Bitte Nenn-Wanddicke eingeben!")
             elif len(infos_item[3].strip()) < 1:
                 print("Please provide diameter")
-                messagebox.showinfo("Eingabefehler", "Bitte Nenn-Außendurchmesser eigeben!")
+                messagebox.showinfo("Eingabefehler", "Bitte Nenn-Außendurchmesser eingeben!")
             elif len(infos_item[4].strip()) < 1:
                 print("Please provide regulation period")
-                messagebox.showinfo("Eingabefehler", "Bitte Prüfdauer (Regelung) eigeben!")
+                messagebox.showinfo("Eingabefehler", "Bitte Prüfdauer (Regelung) eingeben!")
 
     def update_labels(self, infos):
         self.title_entry_unchanged_overlay_label.configure(text=infos[0])

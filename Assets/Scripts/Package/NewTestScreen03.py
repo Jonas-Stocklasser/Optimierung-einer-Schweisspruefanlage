@@ -297,10 +297,10 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
             self.continue_button.configure(state="disabled")
             if len(personal_infos_examiner[0].strip()) < 1:
                 print("Please provide first name")
-                messagebox.showinfo("Eingabefehler", "Bitte Vornamen eigeben!")
+                messagebox.showinfo("Eingabefehler", "Bitte Vornamen eingeben!")
             elif len(personal_infos_examiner[1].strip()) < 1:
                 print("Please provide last name")
-                messagebox.showinfo("Eingabefehler", "Bitte Nachnamen eigeben!")
+                messagebox.showinfo("Eingabefehler", "Bitte Nachnamen eingeben!")
 
     def update_labels(self, infos):
         self.first_name_entry_unchanged_overlay_label.configure(text=infos[0])

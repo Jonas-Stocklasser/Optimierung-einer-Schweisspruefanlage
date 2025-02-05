@@ -176,7 +176,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
                 print("Please provide last name")
                 messagebox.showinfo("Eingabefehler", "Bitte Nachnamen eingeben!")
 
-    def reset_input_new_Test(self):
+    def reset_input_new_test(self):
         self.first_name_entry.delete(0, "end")
         self.last_name_entry.delete(0, "end")
 

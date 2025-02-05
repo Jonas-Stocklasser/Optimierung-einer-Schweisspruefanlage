@@ -104,11 +104,11 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
 
     def save_textbox_data(self):
         visual_grade = self.textbox.get("1.0", "end")
-        if visual_grade.startswith("Visuelle Einschätzung des Prüfers"):
-            visual_grade = visual_grade[len("Visuelle Einschätzung des Prüfers"):].strip()
 
         if visual_grade != "\n" and visual_grade != "Visuelle Einschätzung des Prüfers\n" and visual_grade != "Visuelle Einschätzung des Prüfers":
             self.continue_button.configure(state="normal")
+            if visual_grade.startswith("Visuelle Einschätzung des Prüfers"):
+                visual_grade = visual_grade[len("Visuelle Einschätzung des Prüfers"):].strip()
             personal_folder_path = json_reader("personal_var", "personal_folder_path", main_pi_location + "../JSON/")
             personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
             json_writer(personal_json_name, "visual_grade", visual_grade, personal_folder_path)
@@ -116,20 +116,6 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
             messagebox.showinfo("Eingabefehler", "Bitte geben Sie etwas ein!")
             print("Type something! An empty field is not permitted!")
 
-    """def update_size(self, font_size):
-        self.indicator_bar.configure(font=("bold", font_size), height=font_size, corner_radius=font_size / 2)
-        self.back_button.configure(width=font_size,
-                                   height=font_size, corner_radius=font_size / 2)
-        back_arrow_image.configure(size=(font_size, font_size))
-        self.textbox_frame.configure(height=font_size * 3 * 7.5, width=font_size * 4 * 7.5, corner_radius=font_size)
-        self.textbox.configure(font=("bold", font_size), height=font_size * 3 * 9.7, width=font_size * 4 * 10,
-                               corner_radius=font_size / 2, border_width=font_size / 4)
-
-        self.button_frame.configure(height=font_size * 2, corner_radius=font_size / 2)
-        self.save_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4,
-                                   corner_radius=font_size / 2)
-        self.continue_button.configure(font=("bold", font_size), height=font_size * 1.5, width=font_size * 4,
-                                       corner_radius=font_size / 2)"""
     def reset_input_new_test(self):
         self.textbox.delete("1.0", "end")
         self.textbox.insert("1.0", "Visuelle Einschätzung des Prüfers")

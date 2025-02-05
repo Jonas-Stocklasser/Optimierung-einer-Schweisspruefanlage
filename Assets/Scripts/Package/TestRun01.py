@@ -91,7 +91,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
                                          text="",
                                          anchor="center",
                                          image=back_arrow_image,
-                                         command=lambda: self.master.confirm_go_back("2.0"),
+                                         command=lambda: self.back_button_function(),
                                          width=font_size * 1.5,
                                          height=font_size * 1.5)
         # the command does call the switch_window method because there is unsaved content to loose
@@ -638,12 +638,17 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         # save ---------------------------------------------------------------------------------------------------------
         pdf.output(f"{personal_folder_path}/Pruefbericht_{last_name_examinee}_{first_name_examinee}.pdf")
         print("PDF ready")
-        messagebox.showinfo("PDF", "Prüfbericht wurde erstellt!")
+        messagebox.showinfo("PDF", f"Prüfbericht wurde erstellt!\nSpeicherpfad: {personal_folder_path}")
         self.back_to_start_button.configure(state="normal")
 
     def back_to_start_button_function(self):
         if messagebox.askokcancel("!ACHTUNG!", "Testvorgang wirklich beenden und zurück zum Startbildschirm gehen?"):
             self.master.switch_window("0")
+
+    def back_button_function(self):
+        if messagebox.askokcancel("!ACHTUNG!", "Wollen Sie wirklich zum vorherigen Bildschirm zurückgehen?\nPumpe wird dadurch abgeschaltet!"):
+            self.stop_button_function()
+            self.master.switch_window("2.0")
 
     @staticmethod
     def write_personal_json():

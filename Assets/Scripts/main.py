@@ -78,9 +78,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
     # methods----------------------------------------
     def confirm_go_back(self, which):
         if messagebox.askokcancel("Wirklich zurück gehen?",
-                                  "Wollen Sie wirklich zum vorherigen Bildschirm zurückgehen?"
-                                  "\nACHTUNG der Stromkreis wird dadurch nicht geöffnet!"
-                                  "\nPumpe manuell vom Stromkreis trennen oder Stopp drücken!"):
+                                  "Wollen Sie wirklich zum vorherigen Bildschirm zurückgehen?"):
             self.switch_window(which)
         else:
             pass

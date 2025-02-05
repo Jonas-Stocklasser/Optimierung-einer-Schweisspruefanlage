@@ -3,6 +3,7 @@
 # Author: Stocklasser
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
 # Neuer Test Fenster 2; ID=1.1
+from tkinter import messagebox
 
 import customtkinter as ctk
 import tkcalendar as tkc
@@ -162,15 +163,18 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
         personal_infos_examinee = [self.first_name_entry.get(),
                                    self.last_name_entry.get(),
                                    self.birth_date_entry.get()]
-        if len(personal_infos_examinee[0].strip()) + len(
-                personal_infos_examinee[1].strip()) >= 4 and len(personal_infos_examinee[0].strip()) >= 1 and len(
-                personal_infos_examinee[1].strip()) >= 1:  # integrity evaluation
+        if len(personal_infos_examinee[0].strip()) >= 1 and len(personal_infos_examinee[1].strip()) >= 1:  # integrity evaluation
             self.continue_button.configure(state="normal")  # unlock the continue button
             json_writer("personal_var", "personal_infos_examinee", personal_infos_examinee,
                         main_pi_location + "../JSON/")
         else:
             self.continue_button.configure(state="disabled")  # lock the continue button
-            print("Too short, or no input")
+            if len(personal_infos_examinee[0].strip()) < 1:
+                print("Please provide first name")
+                messagebox.showinfo("Eingabefehler", "Bitte Vornamen eigeben!")
+            elif len(personal_infos_examinee[1].strip()) < 1:
+                print("Please provide last name")
+                messagebox.showinfo("Eingabefehler", "Bitte Nachnamen eigeben!")
 
     @staticmethod
     def create_examinee_folder_and_json():  # create a new folder for all the created files for the examinee

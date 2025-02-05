@@ -3,6 +3,7 @@
 # Author: Stocklasser
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
 # Neuer Test Fenster 3; ID=1.2
+from tkinter import messagebox
 
 import customtkinter as ctk
 import tkinter as tk
@@ -267,8 +268,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
                                    self.birth_date_entry.get()]
         last_chosen_examiner = json_reader("personal_var", "last_chosen_examiner", main_pi_location + "../JSON/")
 
-        if len(personal_infos_examiner[0].strip()) + len(personal_infos_examiner[1].strip()) >= 4 and len(
-                personal_infos_examiner[0].strip()) >= 1 and len(personal_infos_examiner[1].strip()) >= 1:
+        if len(personal_infos_examiner[0].strip()) >= 1 and len(personal_infos_examiner[1].strip()) >= 1:
             self.continue_button.configure(state="normal")
             json_writer("personal_var", ("personal_infos_examiner_" + last_chosen_examiner),
                         personal_infos_examiner, main_pi_location + "../JSON/")
@@ -295,7 +295,12 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
             self.continue_button.configure(state="normal")
         else:
             self.continue_button.configure(state="disabled")
-            print("Sum of first name plus surname not at least 4 digits")
+            if len(personal_infos_examiner[0].strip()) < 1:
+                print("Please provide first name")
+                messagebox.showinfo("Eingabefehler", "Bitte Vornamen eigeben!")
+            elif len(personal_infos_examiner[1].strip()) < 1:
+                print("Please provide last name")
+                messagebox.showinfo("Eingabefehler", "Bitte Nachnamen eigeben!")
 
     def update_labels(self, infos):
         self.first_name_entry_unchanged_overlay_label.configure(text=infos[0])

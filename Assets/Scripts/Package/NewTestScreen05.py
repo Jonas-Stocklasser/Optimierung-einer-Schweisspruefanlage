@@ -3,6 +3,7 @@
 # Author: Stocklasser
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
 # Neuer Test Fenster 5; ID=1.4
+from tkinter import messagebox
 
 import customtkinter as ctk
 # Shared variables----------------------------------------
@@ -104,12 +105,13 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
     def save_textbox_data(self):
         visual_grade = self.textbox.get("1.0", "end")
 
-        if visual_grade != "\n":
+        if visual_grade != "\n" and visual_grade != "Visuelle Einschätzung des Prüfers":
             self.continue_button.configure(state="normal")
             personal_folder_path = json_reader("personal_var", "personal_folder_path", main_pi_location + "../JSON/")
             personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
             json_writer(personal_json_name, "visual_grade", visual_grade, personal_folder_path)
         else:
+            messagebox.showinfo("Eingabefehler", "Bitte geben Sie etwas ein!")
             print("Type something! An empty field is not permitted!")
 
     def update_size(self, font_size):

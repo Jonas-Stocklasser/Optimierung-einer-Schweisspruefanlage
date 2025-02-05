@@ -650,6 +650,17 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             self.stop_button_function()
             self.master.switch_window("2.0")
 
+    def reset_input_new_test(self):
+        global test_timesteps
+        global temperature_values
+        global pressure_values
+        global firstControlStartup
+
+        test_timesteps = [0, 0]
+        temperature_values = []
+        pressure_values = [0, 0]
+        firstControlStartup = 1
+
     @staticmethod
     def write_personal_json():
         global pressure_values

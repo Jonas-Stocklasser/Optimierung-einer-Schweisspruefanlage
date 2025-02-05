@@ -101,3 +101,4 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
         self.master.switch_window(which)
         self.master.windows.get("1.1").reset_input_new_test()
         self.master.windows.get("1.4").reset_input_new_test()
+        self.master.windows.get("4.0").reset_input_new_test()

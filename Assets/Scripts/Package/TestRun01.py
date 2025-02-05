@@ -655,11 +655,14 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         global temperature_values
         global pressure_values
         global firstControlStartup
+        global completeTimeStart
 
         test_timesteps = [0, 0]
         temperature_values = []
         pressure_values = [0, 0]
         firstControlStartup = 1
+        completeTimeStart = datetime(year=2000, month=1, day=1, hour=0, minute=0, second=0)
+        self.update_plot()
 
     @staticmethod
     def write_personal_json():

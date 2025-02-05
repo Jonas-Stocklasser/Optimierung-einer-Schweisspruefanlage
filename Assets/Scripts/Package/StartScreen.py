@@ -52,7 +52,7 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
                                              font=("bold", font_size * 2),
                                              width=window_geometry[0] / 3.5 - 20,
                                              height=font_size * 3,
-                                             command=lambda: self.new_test_button_function("1"))
+                                             command=lambda: self.new_test_button_function("1.0"))
         # the command calls the App lasses switch_window function and passes "1" as the "which" attribute
         self.new_test_button.place(x=10,
                                    y=10)

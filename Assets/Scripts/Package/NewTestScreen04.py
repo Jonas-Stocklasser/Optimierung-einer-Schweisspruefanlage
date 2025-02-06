@@ -353,7 +353,8 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                 re.match(infos_item[1], "1234567890.") and
                 re.match(infos_item[2], "1234567890.") and
                 re.match(infos_item[3], "1234567890.") and
-                re.match(infos_item[4], "1234567890.")):
+                re.match(infos_item[4], "1234567890.") and not
+                infos_item[2] == infos_item[3]):
             self.continue_button.configure(state="normal")
             last_chosen_item = json_reader("item_var", "last_chosen_item", main_pi_location + "../JSON/")
             json_writer("item_var", f"infos_item_{last_chosen_item}", infos_item, main_pi_location + "../JSON/")

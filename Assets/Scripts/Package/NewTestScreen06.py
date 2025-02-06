@@ -3,6 +3,7 @@
 # Author: Stocklasser
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
 # Neuer Test Fenster 6; ID=1.5
+import string
 from tkinter import messagebox
 
 import customtkinter as ctk
@@ -197,7 +198,9 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
         last_chosen_parameter_list = json_reader("exam_parameter_var", "last_chosen_parameter_list",
                                                  main_pi_location + "../JSON/")
 
-        if len(parameter_list[0].strip()) >= 1:
+        allowed_characters = set(string.digits + ".")
+
+        if len(parameter_list[0].strip()) >= 1 and set(parameter_list[0]) <= allowed_characters:
             self.continue_button.configure(state="normal")
             json_writer("exam_parameter_var", ("parameter_list_" + last_chosen_parameter_list),
                         parameter_list, main_pi_location + "../JSON/")
@@ -213,10 +216,15 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
             self.change_button.configure(state="normal")
             self.save_button.configure(state="disabled")
             self.continue_button.configure(state="normal")
-        else:
+        elif len(parameter_list[0].strip()) < 1:
             self.continue_button.configure(state="disabled")
             print("Please provide pressure")
             messagebox.showinfo("Eingabefehler", "Bitte maximalen Prüfdruck eigeben!")
+        elif not set(parameter_list[0]) <= allowed_characters:
+            self.continue_button.configure(state="disabled")
+            print("Please only input [1 2 3 4 5 6 7 8 9 0 .]")
+            print(parameter_list)
+            messagebox.showinfo("Eingabefehler", "Bitte nur erlaubte Zeichen eingeben!\n[1 2 3 4 5 6 7 8 9 0 .]")
 
     def update_labels(self, infos):
         self.pressure_entry_unchanged_overlay_label.configure(text=f"{infos[0]}")

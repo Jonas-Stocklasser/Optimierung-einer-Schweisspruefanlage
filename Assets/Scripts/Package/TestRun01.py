@@ -345,7 +345,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         global timer_id
         global regelungSchalter
 
-        self.after_cancel(timer_id)
+        if timer_id is not None:
+            self.after_cancel(timer_id)
         regelungSchalter = 0
         self.regelung("stop")
         timer_id = None

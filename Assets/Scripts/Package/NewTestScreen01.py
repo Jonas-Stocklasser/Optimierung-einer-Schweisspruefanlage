@@ -3,6 +3,7 @@
 # Author: Stocklasser
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
 # Neuer Test Fenster 1; ID=1.0
+import os.path
 
 import customtkinter as ctk
 from tkinter import messagebox
@@ -11,6 +12,7 @@ from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location
 from tkinter import filedialog
 from .JsonFunctions import json_writer
 
+save_path = GetStartupVariables.save_path
 
 class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
     def __init__(self, parent, window_geometry):  # the parent is App()
@@ -19,7 +21,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
                          width=window_geometry[0] - 10,
                          height=window_geometry[1] - 10
                          )
-
+        global save_path
         self.app = parent
 
         font_size = window_geometry[1] / 40
@@ -81,7 +83,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
                                             y=10)
 
         self.path_display_label = ctk.CTkLabel(master=self.path_display_label_frame,
-                                               text=GetStartupVariables.save_path,
+                                               text=save_path,
                                                anchor="w",
                                                font=("bold", font_size),
                                                width=window_geometry[0] / 1.5 - 20,
@@ -108,7 +110,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
                                              text="Weiter",
                                              width=font_size * 3,
                                              height=font_size * 1.5,
-                                             command=lambda: self.app.switch_window("1.1"))
+                                             command=lambda: self.continue_button_function())
         self.continue_button.place(x=window_geometry[0] / 15 + 40 + window_geometry[0] / 1.5 + font_size * 1.7,
                                    y=10)
 
@@ -132,8 +134,18 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
                               y=10)
 
     def change_path(self):  # method to change the save-path
+        global save_path
         save_path = filedialog.askdirectory()
         if len(save_path) >= 1:
             self.path_display_label.configure(text=save_path)
 
             json_writer("startup_var", "save_path", save_path, main_pi_location + "../JSON/")
+
+    def continue_button_function(self):
+        global save_path
+        if os.path.exists(save_path):
+            self.app.switch_window("1.1")
+        else:
+            print("path doesnt exist")
+            print(save_path)
+            messagebox.showinfo("Eingabefehler!", "Der ausgewählte Pfad existiert nicht!")

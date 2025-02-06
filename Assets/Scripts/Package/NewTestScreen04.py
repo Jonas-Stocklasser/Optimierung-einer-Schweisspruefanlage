@@ -4,6 +4,7 @@
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
 # Neuer Test Fenster 4; ID=1.3
 import re
+import string
 from tkinter import messagebox
 
 import customtkinter as ctk
@@ -345,15 +346,17 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                       self.info3_entry.get(),
                       self.info4_entry.get()]
 
+        allowed_characters = set(string.digits + ".")
+
         if (len(infos_item[0].strip()) >= 1 and
                 len(infos_item[1].strip()) >= 1 and
                 len(infos_item[2].strip()) >= 1 and
                 len(infos_item[3].strip()) >= 1 and
                 len(infos_item[4].strip()) >= 1 and
-                re.fullmatch(infos_item[1], r"[0-9.]+") and
-                re.fullmatch(infos_item[2], r"[0-9.]+") and
-                re.fullmatch(infos_item[3], r"[0-9.]+") and
-                re.fullmatch(infos_item[4], r"[0-9.]+") and not
+                set(infos_item[1]) <= allowed_characters and
+                set(infos_item[2]) <= allowed_characters and
+                set(infos_item[3]) <= allowed_characters and
+                set(infos_item[4]) <= allowed_characters and not
                 infos_item[2] == infos_item[3]):
             self.continue_button.configure(state="normal")
             last_chosen_item = json_reader("item_var", "last_chosen_item", main_pi_location + "../JSON/")
@@ -407,9 +410,8 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
             elif len(infos_item[4].strip()) < 1:
                 print("Please provide regulation period")
                 messagebox.showinfo("Eingabefehler", "Bitte Prüfdauer (Regelung) eingeben!")
-            elif not re.fullmatch(infos_item[1], r"[0-9.]+") or not re.fullmatch(infos_item[2],
-                                                                                 r"[0-9.]+") or not re.fullmatch(
-                    infos_item[3], r"[0-9.]+") or not re.fullmatch(infos_item[4], r"[0-9.]+"):
+            elif not set(infos_item[1]) <= allowed_characters or not set(infos_item[2]) <= allowed_characters or not \
+                    set(infos_item[3]) <= allowed_characters or not set(infos_item[4]) <= allowed_characters:
                 print("Please only input [1 2 3 4 5 6 7 8 9 0 .]")
                 print(infos_item)
                 messagebox.showinfo("Eingabefehler", "Bitte nur erlaubte Zeichen eingeben!\n[1 2 3 4 5 6 7 8 9 0 .]")

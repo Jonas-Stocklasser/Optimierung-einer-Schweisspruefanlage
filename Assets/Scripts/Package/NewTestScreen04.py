@@ -411,6 +411,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                                                                             "1234567890.") or not re.match(
                     infos_item[3], "1234567890.") or not re.match(infos_item[4], "1234567890."):
                 print("Please only input [1 2 3 4 5 6 7 8 9 0 .]")
+                print(infos_item)
                 messagebox.showinfo("Eingabefehler", "Bitte nur erlaubte Zeichen eingeben!\n[1 2 3 4 5 6 7 8 9 0 .]")
             elif infos_item[2] == infos_item[3]:
                 print("Those must not be the same, division by 0 error")

@@ -3,6 +3,7 @@
 # Author: Stocklasser
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
 # Neuer Test Fenster 4; ID=1.3
+import re
 from tkinter import messagebox
 
 import customtkinter as ctk
@@ -348,7 +349,11 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                 len(infos_item[1].strip()) >= 1 and
                 len(infos_item[2].strip()) >= 1 and
                 len(infos_item[3].strip()) >= 1 and
-                len(infos_item[4].strip()) >= 1):
+                len(infos_item[4].strip()) >= 1 and
+                re.match(infos_item[1], "1234567890.") and
+                re.match(infos_item[2], "1234567890.") and
+                re.match(infos_item[3], "1234567890.") and
+                re.match(infos_item[4], "1234567890.")):
             self.continue_button.configure(state="normal")
             last_chosen_item = json_reader("item_var", "last_chosen_item", main_pi_location + "../JSON/")
             json_writer("item_var", f"infos_item_{last_chosen_item}", infos_item, main_pi_location + "../JSON/")
@@ -401,6 +406,14 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
             elif len(infos_item[4].strip()) < 1:
                 print("Please provide regulation period")
                 messagebox.showinfo("Eingabefehler", "Bitte Prüfdauer (Regelung) eingeben!")
+            elif not re.match(infos_item[1], "1234567890.") or not re.match(infos_item[2],
+                                                                            "1234567890.") or not re.match(
+                    infos_item[3], "1234567890.") or not re.match(infos_item[4], "1234567890."):
+                print("Please only input [1 2 3 4 5 6 7 8 9 0 .]")
+                messagebox.showinfo("Eingabefehler", "Bitte nur erlaubte Zeichen eingeben!\n[1 2 3 4 5 6 7 8 9 0 .]")
+            elif infos_item[2] == infos_item[3]:
+                print("Those must not be the same, division by 0 error")
+                messagebox.showinfo("Division durch 0!", "eₙ und dₙ dürfen nicht gleich sein!")
 
     def update_labels(self, infos):
         self.title_entry_unchanged_overlay_label.configure(text=infos[0])

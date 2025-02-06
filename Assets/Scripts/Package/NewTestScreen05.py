@@ -119,4 +119,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
     def reset_input_new_test(self):
         self.textbox.delete("1.0", "end")
         self.textbox.insert("1.0", "Visuelle Einschätzung des Prüfers eingeben...")
+        self.save_button.configure(state="normal")
+        self.continue_button.configure(state="disabled")
+
 

@@ -234,6 +234,11 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
         parameter_list = json_reader("exam_parameter_var", f"parameter_list_{which}", main_pi_location + "../JSON/")
         self.update_labels(parameter_list)
 
+    def reset_input_new_test(self):
+        self.save_button.configure(state="disabled")
+        self.continue_button.configure(state="normal")
+        self.change_button.configure(state="normal")
+
     @staticmethod
     def write_personal_json():
         last_chosen_parameter_list = json_reader("exam_parameter_var", "last_chosen_parameter_list",

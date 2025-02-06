@@ -664,6 +664,10 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         firstControlStartup = 1
         completeTimeStart = datetime(year=2000, month=1, day=1, hour=0, minute=0, second=0)
         self.update_plot()
+        self.start_button.configure(state="normal")
+        self.stop_button.configure(state="disabled")
+        self.pdf_button.configure(state="disabled")
+        self.back_to_start_button.configure(state="disabled")
 
     @staticmethod
     def write_personal_json():

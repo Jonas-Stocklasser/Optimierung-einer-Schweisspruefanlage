@@ -313,6 +313,11 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
                                               main_pi_location + "../JSON/")
         self.update_labels(personal_infos_examiner)
 
+    def reset_input_new_test(self):
+        self.save_button.configure(state="disabled")
+        self.continue_button.configure(state="normal")
+        self.change_button.configure(state="normal")
+
     @staticmethod
     def write_personal_json():
         last_chosen_examiner = json_reader("personal_var", "last_chosen_examiner", main_pi_location + "../JSON/")

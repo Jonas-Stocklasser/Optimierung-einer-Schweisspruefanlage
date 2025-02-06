@@ -100,5 +100,8 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
         json_writer("startup_var", "firstControlStartup", 1, main_pi_location + "../JSON/")
         self.master.switch_window(which)
         self.master.windows.get("1.1").reset_input_new_test()
+        self.master.windows.get("1.2").reset_input_new_test()
+        self.master.windows.get("1.3").reset_input_new_test()
         self.master.windows.get("1.4").reset_input_new_test()
+        self.master.windows.get("1.5").reset_input_new_test()
         self.master.windows.get("4.0").reset_input_new_test()

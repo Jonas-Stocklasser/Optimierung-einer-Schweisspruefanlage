@@ -181,6 +181,8 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
         self.first_name_entry.configure(placeholder_text="Vorname")
         self.last_name_entry.delete(0, "end")
         self.last_name_entry.configure(placeholder_text="Nachname")
+        self.save_button.configure(state="normal")
+        self.continue_button.configure(state="disabled")
 
     @staticmethod
     def create_examinee_folder_and_json():  # create a new folder for all the created files for the examinee

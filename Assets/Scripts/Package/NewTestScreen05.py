@@ -29,7 +29,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                           fg_color=GetStartupVariables.color_SET_blue,
                                           corner_radius=10,
                                           text=("Neuer Test - Schritt 5:" +
-                                                " Visuelle Einschätzung vom Prüfer eingeben"),
+                                                " Visuelle Einschätzung des Prüfers"),
                                           text_color=GetStartupVariables.text_color_SET,
                                           font=("bold", font_size),
                                           anchor="w",
@@ -68,7 +68,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                       height=window_geometry[1] / 1.3 - 20)
         self.textbox.place(x=10,
                            y=10)
-        self.textbox.insert("1.0", "Visuelle Einschätzung des Prüfers")
+        self.textbox.insert("1.0", "Visuelle Einschätzung des Prüfers eingeben...")
 
         # save and continue button------------------------------------------------------------
 
@@ -105,10 +105,10 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
     def save_textbox_data(self):
         visual_grade = self.textbox.get("1.0", "end")
 
-        if visual_grade != "\n" and visual_grade != "Visuelle Einschätzung des Prüfers\n" and visual_grade != "Visuelle Einschätzung des Prüfers":
+        if visual_grade != "\n" and visual_grade != "Visuelle Einschätzung des Prüfers eingeben...\n" and visual_grade != "Visuelle Einschätzung des Prüfers eingeben...":
             self.continue_button.configure(state="normal")
-            if visual_grade.startswith("Visuelle Einschätzung des Prüfers"):
-                visual_grade = visual_grade[len("Visuelle Einschätzung des Prüfers"):].strip()
+            if visual_grade.startswith("Visuelle Einschätzung des Prüfers eingeben..."):
+                visual_grade = visual_grade[len("Visuelle Einschätzung des Prüfers eingeben..."):].strip()
             personal_folder_path = json_reader("personal_var", "personal_folder_path", main_pi_location + "../JSON/")
             personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
             json_writer(personal_json_name, "visual_grade", visual_grade, personal_folder_path)
@@ -118,5 +118,5 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
 
     def reset_input_new_test(self):
         self.textbox.delete("1.0", "end")
-        self.textbox.insert("1.0", "Visuelle Einschätzung des Prüfers")
+        self.textbox.insert("1.0", "Visuelle Einschätzung des Prüfers eingeben...")
 

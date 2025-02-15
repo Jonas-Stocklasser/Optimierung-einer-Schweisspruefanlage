@@ -46,7 +46,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                           corner_radius=5,
                                           text="OK",
                                           font=("bold", font_size),
-                                          command=lambda: self.checkbox_ok_function(name))
+                                          command=lambda: checkbox_ok_function(name))
             checkbox_ok.place(x=10,
                               y=y + 10 + font_size * 1.5)
 
@@ -56,7 +56,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                               corner_radius=5,
                                               text="Fehler",
                                               font=("bold", font_size),
-                                              command=lambda: self.checkbox_not_ok_function(
+                                              command=lambda: checkbox_not_ok_function(
                                                   name,
                                                   20 + font_size * 10,
                                                   y + 10 + font_size * 1.5))
@@ -74,6 +74,33 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
             setattr(self, f"{name}_checkbox_ok", checkbox_ok)
             setattr(self, f"{name}_checkbox_not_ok", checkbox_not_ok)
             setattr(self, f"{name}_not_ok_entry", entry)
+
+        def checkbox_ok_function(name):
+            checkbox = getattr(self, f"{name}_checkbox_not_ok")
+            entry = getattr(self, f"{name}_not_ok_entry")
+            checkbox.deselect()
+            entry.delete(0, "end")
+            entry.configure(state="disabled")
+            entry.place_forget()
+
+        def checkbox_not_ok_function(name, x, y):
+            global font_size
+            checkbox_ok = getattr(self, f"{name}_checkbox_ok")
+            checkbox_not_ok = getattr(self, f"{name}_checkbox_not_ok")
+            entry = getattr(self, f"{name}_not_ok_entry")
+
+            if checkbox_not_ok.get() == 1:
+                checkbox_ok.deselect()
+                entry.configure(state="normal",
+                                placeholder_text="eventuelle Kurzbeschreibung des Fehlers",
+                                font=("bold", font_size))
+                entry.place(x=x,
+                            y=y)
+                self.master.focus_set()
+            else:
+                entry.delete(0, "end")
+                entry.configure(state="disabled")
+                entry.place_forget()
 
         # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
@@ -182,32 +209,3 @@ def reset_input_new_test(self):
     self.holdingClamps_checkbox_not_ok.deselect()
     self.offset_checkbox_ok.deselect()
     self.offset_checkbox_not_ok.deselect()
-
-
-def checkbox_ok_function(self, name):
-    checkbox = getattr(self, f"{name}_checkbox_not_ok")
-    entry = getattr(self, f"{name}_not_ok_entry")
-    checkbox.deselect()
-    entry.delete(0, "end")
-    entry.configure(state="disabled")
-    entry.place_forget()
-
-
-def checkbox_not_ok_function(self, name, x, y):
-    global font_size
-    checkbox_ok = getattr(self, f"{name}_checkbox_ok")
-    checkbox_not_ok = getattr(self, f"{name}_checkbox_not_ok")
-    entry = getattr(self, f"{name}_not_ok_entry")
-
-    if checkbox_not_ok.get() == 1:
-        checkbox_ok.deselect()
-        entry.configure(state="normal",
-                        placeholder_text="eventuelle Kurzbeschreibung des Fehlers",
-                        font=("bold", font_size))
-        entry.place(x=x,
-                    y=y)
-        self.master.focus_set()
-    else:
-        entry.delete(0, "end")
-        entry.configure(state="disabled")
-        entry.place_forget()

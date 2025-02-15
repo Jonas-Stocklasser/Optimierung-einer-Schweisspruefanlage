@@ -192,6 +192,11 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.holdingClamps_checkbox_not_ok.deselect()
         self.offset_checkbox_ok.deselect()
         self.offset_checkbox_not_ok.deselect()
+        self.weldingBead_not_ok_entry.place_forget()
+        self.weldingIndicators_not_ok_entry.place_forget()
+        self.damages_not_ok_entry.place_forget()
+        self.holdingClamps_not_ok_entry.place_forget()
+        self.offset_not_ok_entry.place_forget()
 
     def checkbox_ok_function(self, name):
         checkbox = getattr(self, f"{name}_checkbox_not_ok")

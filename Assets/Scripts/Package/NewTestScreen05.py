@@ -104,8 +104,6 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                                        width=font_size * 20,
                                                        height=font_size * 1.5
                                                        )
-        self.schweisswulst_not_ok_entry.place(x=20 + font_size * 10,
-                                              y=20 + font_size * 1.5)
 
         # save and continue button------------------------------------------------------------
 
@@ -164,6 +162,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.schweisswulst_not_ok_entry.delete(0, "end")
         self.schweisswulst_not_ok_entry.configure(state="disabled")
         self.master.focus_set()
+        self.schweisswulst_not_ok_entry.place_forget()
 
     def schweisswulst_not_ok_function(self):
         global font_size
@@ -171,3 +170,5 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.schweisswulst_not_ok_entry.configure(state="normal",
                                                   placeholder_text="Kurzbeschreibung des Fehlers",
                                                   font=("bold", font_size))
+        self.schweisswulst_not_ok_entry.place(x=20 + font_size * 10,
+                                              y=20 + font_size * 1.5)

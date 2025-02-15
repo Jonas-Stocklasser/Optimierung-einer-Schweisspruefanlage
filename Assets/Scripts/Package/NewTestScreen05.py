@@ -51,24 +51,31 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.back_button.place(x=(window_geometry[0] - font_size * 1.5 - 25),
                                y=0)
 
-        # textbox frame ------------------------------------------------------------
-        self.textbox_frame = ctk.CTkFrame(master=self,  # frame for the textbox
-                                          corner_radius=20,
-                                          width=window_geometry[0] / 1.5,
-                                          height=window_geometry[1] / 1.3)
-        self.textbox_frame.place(x=0,
-                                 y=font_size * 2)
+        # option frame ------------------------------------------------------------
+        self.option_frame = ctk.CTkFrame(master=self,  # frame for the textbox
+                                         corner_radius=20,
+                                         width=window_geometry[0] / 1.5,
+                                         height=window_geometry[1] / 1.3)
+        self.option_frame.place(x=0,
+                                y=font_size * 2)
 
-        # textbox ------------------------------------------------------------
-        self.textbox = ctk.CTkTextbox(master=self.textbox_frame,
-                                      border_width=5,
-                                      font=("bold", font_size+2),
-                                      corner_radius=10,
-                                      width=window_geometry[0] / 1.5 - 20,
-                                      height=window_geometry[1] / 1.3 - 20)
-        self.textbox.place(x=10,
-                           y=10)
-        self.textbox.insert("1.0", "Visuelle Einschätzung des Prüfers eingeben...")
+        # visual grading options
+        self.schweisswulst_label = ctk.CTkLabel(master=self.option_frame,
+                                                fg_color=GetStartupVariables.color_SET_blue,
+                                                corner_radius=10,
+                                                text="Schweißwulst",
+                                                text_color=GetStartupVariables.text_color_SET,
+                                                font=("bold", font_size),
+                                                width=font_size * 20,
+                                                height=font_size * 1.5)
+        self.schweisswulst_label.place(x=10,
+                                       y=10)
+
+        self.schweisswulst_checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                         width=font_size,
+                                                         height=font_size)
+        self.schweisswulst_checkbox_ok.place(x=10,
+                                             y=20 + font_size * 1.5)
 
         # save and continue button------------------------------------------------------------
 
@@ -121,5 +128,3 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.textbox.insert("1.0", "Visuelle Einschätzung des Prüfers eingeben...")
         self.save_button.configure(state="normal")
         self.continue_button.configure(state="disabled")
-
-

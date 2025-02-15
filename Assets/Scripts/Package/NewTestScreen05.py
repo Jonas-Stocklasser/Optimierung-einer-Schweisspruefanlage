@@ -46,7 +46,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                           corner_radius=5,
                                           text="OK",
                                           font=("bold", font_size),
-                                          command=lambda: self.checkbox_ok_function("weldingBead"))
+                                          command=lambda: self.checkbox_ok_function(name))
             checkbox_ok.place(x=10,
                               y=y + 10 + font_size * 1.5)
 
@@ -57,7 +57,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                               text="Fehler",
                                               font=("bold", font_size),
                                               command=lambda: self.checkbox_not_ok_function(
-                                                  "weldingBead",
+                                                  name,
                                                   20 + font_size * 10,
                                                   y + 10 + font_size * 1.5))
             checkbox_not_ok.place(x=10 + font_size * 5,
@@ -319,11 +319,11 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.option_frame.place(x=0,
                                 y=font_size * 2)
 
-        visual_grading_widgets("welding_bead", "Welding Bead", 20)
-        visual_grading_widgets("crack", "Crack Detection", 60)
-        visual_grading_widgets("porosity", "Porosity Check", 100)
-        visual_grading_widgets("undercut", "Undercut Measurement", 140)
-        visual_grading_widgets("spatter", "Spatter Evaluation", 180)
+        visual_grading_widgets("weldingBead", "Schweißwulst", 10)
+        #visual_grading_widgets("crack", "Crack Detection", 60)
+        #visual_grading_widgets("porosity", "Porosity Check", 100)
+        #visual_grading_widgets("undercut", "Undercut Measurement", 140)
+        #visual_grading_widgets("spatter", "Spatter Evaluation", 180)
 
         # save and continue button------------------------------------------------------------
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button

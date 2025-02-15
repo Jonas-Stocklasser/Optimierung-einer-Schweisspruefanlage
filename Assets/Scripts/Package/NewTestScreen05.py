@@ -27,9 +27,55 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         font_size = window_geometry[1] / 40
         back_arrow_image.configure(size=(font_size * 0.8, font_size * 0.8))
 
-        def visual_grading_widgets():
+        def visual_grading_widgets(name, text, y):
             # visual grading options
-            self.weldingBead_label = ctk.CTkLabel(master=self.option_frame,
+            label = ctk.CTkLabel(master=self.option_frame,
+                                 fg_color=GetStartupVariables.color_SET_blue,
+                                 corner_radius=10,
+                                 text=text,
+                                 text_color=GetStartupVariables.text_color_SET,
+                                 font=("bold", font_size),
+                                 width=font_size * 15,
+                                 height=font_size * 1.5)
+            label.place(x=10,
+                        y=y)
+
+            checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                          width=font_size * 1.5,
+                                          height=font_size * 1.5,
+                                          corner_radius=5,
+                                          text="OK",
+                                          font=("bold", font_size),
+                                          command=lambda: self.checkbox_ok_function("weldingBead"))
+            checkbox_ok.place(x=10,
+                              y=y + 10 + font_size * 1.5)
+
+            checkbox_not_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                              width=font_size * 1.5,
+                                              height=font_size * 1.5,
+                                              corner_radius=5,
+                                              text="Fehler",
+                                              font=("bold", font_size),
+                                              command=lambda: self.checkbox_not_ok_function(
+                                                  "weldingBead",
+                                                  20 + font_size * 10,
+                                                  y + 10 + font_size * 1.5))
+            checkbox_not_ok.place(x=10 + font_size * 5,
+                                  y=y + 10 + font_size * 1.5)
+
+            entry = ctk.CTkEntry(master=self.option_frame,
+                                 font=("bold", font_size),
+                                 state="disabled",
+                                 width=font_size * 22,
+                                 height=font_size * 1.5
+                                 )
+
+            setattr(self, f"{name}_label", label)
+            setattr(self, f"{name}_checkbox_ok", checkbox_ok)
+            setattr(self, f"{name}_checkbox_not_ok", checkbox_not_ok)
+            setattr(self, f"{name}_not_ok_entry", entry)
+
+            """self.weldingBead_label = ctk.CTkLabel(master=self.option_frame,
                                                   fg_color=GetStartupVariables.color_SET_blue,
                                                   corner_radius=10,
                                                   text="Schweißwulst",
@@ -235,7 +281,8 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                                     state="disabled",
                                                     width=font_size * 22,
                                                     height=font_size * 1.5
-                                                    )
+                                                    )"""
+
         # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
@@ -272,7 +319,11 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.option_frame.place(x=0,
                                 y=font_size * 2)
 
-        visual_grading_widgets()
+        visual_grading_widgets("welding_bead", "Welding Bead", 20)
+        visual_grading_widgets("crack", "Crack Detection", 60)
+        visual_grading_widgets("porosity", "Porosity Check", 100)
+        visual_grading_widgets("undercut", "Undercut Measurement", 140)
+        visual_grading_widgets("spatter", "Spatter Evaluation", 180)
 
         # save and continue button------------------------------------------------------------
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button

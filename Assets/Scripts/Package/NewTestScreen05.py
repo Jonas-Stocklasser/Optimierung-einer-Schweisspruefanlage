@@ -163,6 +163,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.schweisswulst_checkbox_not_ok.deselect()
         self.schweisswulst_not_ok_entry.delete(0, "end")
         self.schweisswulst_not_ok_entry.configure(state="disabled")
+        self.master.focus_set()
 
     def schweisswulst_not_ok_function(self):
         global font_size

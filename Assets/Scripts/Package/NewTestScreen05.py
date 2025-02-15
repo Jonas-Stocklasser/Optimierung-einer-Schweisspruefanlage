@@ -91,7 +91,9 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                                            corner_radius=5,
                                                            text="Fehler",
                                                            font=("bold", font_size),
-                                                           command=lambda: self.checkbox_not_ok_function("weldingBead"))
+                                                           command=lambda: self.checkbox_not_ok_function("weldingBead",
+                                                                                                         20 + font_size * 10,
+                                                                                                         20 + font_size * 1.5))
         self.weldingBead_checkbox_not_ok.place(x=10 + font_size * 5,
                                                y=20 + font_size * 1.5)
 
@@ -131,7 +133,8 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                                                  text="Fehler",
                                                                  font=("bold", font_size),
                                                                  command=lambda: self.checkbox_not_ok_function(
-                                                                     "weldingIndicators"))
+                                                                     "weldingIndicators", 20 + font_size * 10,
+                                                                                          40 + 3 * font_size * 1.5))
         self.weldingIndicators_checkbox_not_ok.place(x=10 + font_size * 5,
                                                      y=40 + 3 * font_size * 1.5)
 
@@ -202,7 +205,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         entry.configure(state="disabled")
         entry.place_forget()
 
-    def checkbox_not_ok_function(self, name):
+    def checkbox_not_ok_function(self, name, x, y):
         global font_size
         checkbox_ok = getattr(self, f"{name}_checkbox_ok")
         checkbox_not_ok = getattr(self, f"{name}_checkbox_not_ok")
@@ -213,8 +216,8 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
             entry.configure(state="normal",
                             placeholder_text="Kurzbeschreibung des Fehlers",
                             font=("bold", font_size))
-            entry.place(x=20 + font_size * 10,
-                        y=20 + font_size * 1.5)
+            entry.place(x=x,
+                        y=y)
             self.master.focus_set()
         else:
             entry.delete(0, "end")

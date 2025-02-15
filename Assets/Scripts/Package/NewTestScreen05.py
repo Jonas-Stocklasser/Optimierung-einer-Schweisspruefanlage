@@ -145,6 +145,48 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                                            height=font_size * 1.5
                                                            )
 
+        # ------------------------------------
+        self.damages_label = ctk.CTkLabel(master=self.option_frame,
+                                          fg_color=GetStartupVariables.color_SET_blue,
+                                          corner_radius=10,
+                                          text="Beschädigungen",
+                                          text_color=GetStartupVariables.text_color_SET,
+                                          font=("bold", font_size),
+                                          width=font_size * 20,
+                                          height=font_size * 1.5)
+        self.damages_label.place(x=10,
+                                 y=50 + 4 * font_size * 1.5)
+
+        self.damages_checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                   width=font_size * 1.5,
+                                                   height=font_size * 1.5,
+                                                   corner_radius=5,
+                                                   text="OK",
+                                                   font=("bold", font_size),
+                                                   command=lambda: self.checkbox_ok_function(
+                                                       "damages"))
+        self.damages_checkbox_ok.place(x=10,
+                                       y=60 + 5 * font_size * 1.5)
+
+        self.damages_checkbox_not_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                       width=font_size * 1.5,
+                                                       height=font_size * 1.5,
+                                                       corner_radius=5,
+                                                       text="Fehler",
+                                                       font=("bold", font_size),
+                                                       command=lambda: self.checkbox_not_ok_function(
+                                                           "damages", 20 + font_size * 10,
+                                                                      60 + 5 * font_size * 1.5))
+        self.damages_checkbox_not_ok.place(x=10 + font_size * 5,
+                                           y=60 + 5 * font_size * 1.5)
+
+        self.damages_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
+                                                 font=("bold", font_size),
+                                                 state="disabled",
+                                                 width=font_size * 22,
+                                                 height=font_size * 1.5
+                                                 )
+
         # save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
@@ -214,7 +256,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         if checkbox_not_ok.get() == 1:
             checkbox_ok.deselect()
             entry.configure(state="normal",
-                            placeholder_text="Kurzbeschreibung des Fehlers",
+                            placeholder_text="eventuelle Kurzbeschreibung des Fehlers",
                             font=("bold", font_size))
             entry.place(x=x,
                         y=y)

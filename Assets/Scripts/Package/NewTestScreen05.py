@@ -27,6 +27,215 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         font_size = window_geometry[1] / 40
         back_arrow_image.configure(size=(font_size * 0.8, font_size * 0.8))
 
+        def visual_grading_widgets():
+            # visual grading options
+            self.weldingBead_label = ctk.CTkLabel(master=self.option_frame,
+                                                  fg_color=GetStartupVariables.color_SET_blue,
+                                                  corner_radius=10,
+                                                  text="Schweißwulst",
+                                                  text_color=GetStartupVariables.text_color_SET,
+                                                  font=("bold", font_size),
+                                                  width=font_size * 15,
+                                                  height=font_size * 1.5)
+            self.weldingBead_label.place(x=10,
+                                         y=10)
+
+            self.weldingBead_checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                           width=font_size * 1.5,
+                                                           height=font_size * 1.5,
+                                                           corner_radius=5,
+                                                           text="OK",
+                                                           font=("bold", font_size),
+                                                           command=lambda: self.checkbox_ok_function("weldingBead"))
+            self.weldingBead_checkbox_ok.place(x=10,
+                                               y=20 + font_size * 1.5)
+
+            self.weldingBead_checkbox_not_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                               width=font_size * 1.5,
+                                                               height=font_size * 1.5,
+                                                               corner_radius=5,
+                                                               text="Fehler",
+                                                               font=("bold", font_size),
+                                                               command=lambda: self.checkbox_not_ok_function(
+                                                                   "weldingBead",
+                                                                   20 + font_size * 10,
+                                                                   20 + font_size * 1.5))
+            self.weldingBead_checkbox_not_ok.place(x=10 + font_size * 5,
+                                                   y=20 + font_size * 1.5)
+
+            self.weldingBead_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
+                                                         font=("bold", font_size),
+                                                         state="disabled",
+                                                         width=font_size * 22,
+                                                         height=font_size * 1.5
+                                                         )
+            # ------------------------------------
+            self.weldingIndicators_label = ctk.CTkLabel(master=self.option_frame,
+                                                        fg_color=GetStartupVariables.color_SET_blue,
+                                                        corner_radius=10,
+                                                        text="Schweissindikatoren",
+                                                        text_color=GetStartupVariables.text_color_SET,
+                                                        font=("bold", font_size),
+                                                        width=font_size * 15,
+                                                        height=font_size * 1.5)
+            self.weldingIndicators_label.place(x=10,
+                                               y=30 + 2 * font_size * 1.5)
+
+            self.weldingIndicators_checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                                 width=font_size * 1.5,
+                                                                 height=font_size * 1.5,
+                                                                 corner_radius=5,
+                                                                 text="OK",
+                                                                 font=("bold", font_size),
+                                                                 command=lambda: self.checkbox_ok_function(
+                                                                     "weldingIndicators"))
+            self.weldingIndicators_checkbox_ok.place(x=10,
+                                                     y=40 + 3 * font_size * 1.5)
+
+            self.weldingIndicators_checkbox_not_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                                     width=font_size * 1.5,
+                                                                     height=font_size * 1.5,
+                                                                     corner_radius=5,
+                                                                     text="Fehler",
+                                                                     font=("bold", font_size),
+                                                                     command=lambda: self.checkbox_not_ok_function(
+                                                                         "weldingIndicators", 20 + font_size * 10,
+                                                                                              40 + 3 * font_size * 1.5))
+            self.weldingIndicators_checkbox_not_ok.place(x=10 + font_size * 5,
+                                                         y=40 + 3 * font_size * 1.5)
+
+            self.weldingIndicators_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
+                                                               font=("bold", font_size),
+                                                               state="disabled",
+                                                               width=font_size * 22,
+                                                               height=font_size * 1.5
+                                                               )
+
+            # ------------------------------------
+            self.damages_label = ctk.CTkLabel(master=self.option_frame,
+                                              fg_color=GetStartupVariables.color_SET_blue,
+                                              corner_radius=10,
+                                              text="Beschädigungen",
+                                              text_color=GetStartupVariables.text_color_SET,
+                                              font=("bold", font_size),
+                                              width=font_size * 15,
+                                              height=font_size * 1.5)
+            self.damages_label.place(x=10,
+                                     y=50 + 4 * font_size * 1.5)
+
+            self.damages_checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                       width=font_size * 1.5,
+                                                       height=font_size * 1.5,
+                                                       corner_radius=5,
+                                                       text="OK",
+                                                       font=("bold", font_size),
+                                                       command=lambda: self.checkbox_ok_function(
+                                                           "damages"))
+            self.damages_checkbox_ok.place(x=10,
+                                           y=60 + 5 * font_size * 1.5)
+
+            self.damages_checkbox_not_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                           width=font_size * 1.5,
+                                                           height=font_size * 1.5,
+                                                           corner_radius=5,
+                                                           text="Fehler",
+                                                           font=("bold", font_size),
+                                                           command=lambda: self.checkbox_not_ok_function(
+                                                               "damages", 20 + font_size * 10,
+                                                                          60 + 5 * font_size * 1.5))
+            self.damages_checkbox_not_ok.place(x=10 + font_size * 5,
+                                               y=60 + 5 * font_size * 1.5)
+
+            self.damages_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
+                                                     font=("bold", font_size),
+                                                     state="disabled",
+                                                     width=font_size * 22,
+                                                     height=font_size * 1.5
+                                                     )
+
+            # ------------------------------------
+            self.holdingClamps_label = ctk.CTkLabel(master=self.option_frame,
+                                                    fg_color=GetStartupVariables.color_SET_blue,
+                                                    corner_radius=10,
+                                                    text="Halteklemmen",
+                                                    text_color=GetStartupVariables.text_color_SET,
+                                                    font=("bold", font_size),
+                                                    width=font_size * 15,
+                                                    height=font_size * 1.5)
+            self.holdingClamps_label.place(x=10,
+                                           y=70 + 6 * font_size * 1.5)
+
+            self.holdingClamps_checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                             width=font_size * 1.5,
+                                                             height=font_size * 1.5,
+                                                             corner_radius=5,
+                                                             text="OK",
+                                                             font=("bold", font_size),
+                                                             command=lambda: self.checkbox_ok_function(
+                                                                 "holdingClamps"))
+            self.holdingClamps_checkbox_ok.place(x=10,
+                                                 y=80 + 7 * font_size * 1.5)
+
+            self.holdingClamps_checkbox_not_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                                 width=font_size * 1.5,
+                                                                 height=font_size * 1.5,
+                                                                 corner_radius=5,
+                                                                 text="Fehler",
+                                                                 font=("bold", font_size),
+                                                                 command=lambda: self.checkbox_not_ok_function(
+                                                                     "holdingClamps", 20 + font_size * 10,
+                                                                                      80 + 7 * font_size * 1.5))
+            self.holdingClamps_checkbox_not_ok.place(x=10 + font_size * 5,
+                                                     y=80 + 7 * font_size * 1.5)
+
+            self.holdingClamps_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
+                                                           font=("bold", font_size),
+                                                           state="disabled",
+                                                           width=font_size * 22,
+                                                           height=font_size * 1.5
+                                                           )
+
+            # ------------------------------------
+            self.offset_label = ctk.CTkLabel(master=self.option_frame,
+                                             fg_color=GetStartupVariables.color_SET_blue,
+                                             corner_radius=10,
+                                             text="Versatz",
+                                             text_color=GetStartupVariables.text_color_SET,
+                                             font=("bold", font_size),
+                                             width=font_size * 15,
+                                             height=font_size * 1.5)
+            self.offset_label.place(x=10,
+                                    y=90 + 8 * font_size * 1.5)
+
+            self.offset_checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                      width=font_size * 1.5,
+                                                      height=font_size * 1.5,
+                                                      corner_radius=5,
+                                                      text="OK",
+                                                      font=("bold", font_size),
+                                                      command=lambda: self.checkbox_ok_function(
+                                                          "offset"))
+            self.offset_checkbox_ok.place(x=10,
+                                          y=100 + 9 * font_size * 1.5)
+
+            self.offset_checkbox_not_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                          width=font_size * 1.5,
+                                                          height=font_size * 1.5,
+                                                          corner_radius=5,
+                                                          text="Fehler",
+                                                          font=("bold", font_size),
+                                                          command=lambda: self.checkbox_not_ok_function(
+                                                              "offset", 20 + font_size * 10,
+                                                                        100 + 9 * font_size * 1.5))
+            self.offset_checkbox_not_ok.place(x=10 + font_size * 5,
+                                              y=100 + 9 * font_size * 1.5)
+
+            self.offset_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
+                                                    font=("bold", font_size),
+                                                    state="disabled",
+                                                    width=font_size * 22,
+                                                    height=font_size * 1.5
+                                                    )
         # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
@@ -63,216 +272,9 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.option_frame.place(x=0,
                                 y=font_size * 2)
 
-        # visual grading options
-        self.weldingBead_label = ctk.CTkLabel(master=self.option_frame,
-                                              fg_color=GetStartupVariables.color_SET_blue,
-                                              corner_radius=10,
-                                              text="Schweißwulst",
-                                              text_color=GetStartupVariables.text_color_SET,
-                                              font=("bold", font_size),
-                                              width=font_size * 15,
-                                              height=font_size * 1.5)
-        self.weldingBead_label.place(x=10,
-                                     y=10)
-
-        self.weldingBead_checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
-                                                       width=font_size * 1.5,
-                                                       height=font_size * 1.5,
-                                                       corner_radius=5,
-                                                       text="OK",
-                                                       font=("bold", font_size),
-                                                       command=lambda: self.checkbox_ok_function("weldingBead"))
-        self.weldingBead_checkbox_ok.place(x=10,
-                                           y=20 + font_size * 1.5)
-
-        self.weldingBead_checkbox_not_ok = ctk.CTkCheckBox(master=self.option_frame,
-                                                           width=font_size * 1.5,
-                                                           height=font_size * 1.5,
-                                                           corner_radius=5,
-                                                           text="Fehler",
-                                                           font=("bold", font_size),
-                                                           command=lambda: self.checkbox_not_ok_function("weldingBead",
-                                                                                                         20 + font_size * 10,
-                                                                                                         20 + font_size * 1.5))
-        self.weldingBead_checkbox_not_ok.place(x=10 + font_size * 5,
-                                               y=20 + font_size * 1.5)
-
-        self.weldingBead_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
-                                                     font=("bold", font_size),
-                                                     state="disabled",
-                                                     width=font_size * 22,
-                                                     height=font_size * 1.5
-                                                     )
-        # ------------------------------------
-        self.weldingIndicators_label = ctk.CTkLabel(master=self.option_frame,
-                                                    fg_color=GetStartupVariables.color_SET_blue,
-                                                    corner_radius=10,
-                                                    text="Schweissindikatoren",
-                                                    text_color=GetStartupVariables.text_color_SET,
-                                                    font=("bold", font_size),
-                                                    width=font_size * 15,
-                                                    height=font_size * 1.5)
-        self.weldingIndicators_label.place(x=10,
-                                           y=30 + 2 * font_size * 1.5)
-
-        self.weldingIndicators_checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
-                                                             width=font_size * 1.5,
-                                                             height=font_size * 1.5,
-                                                             corner_radius=5,
-                                                             text="OK",
-                                                             font=("bold", font_size),
-                                                             command=lambda: self.checkbox_ok_function(
-                                                                 "weldingIndicators"))
-        self.weldingIndicators_checkbox_ok.place(x=10,
-                                                 y=40 + 3 * font_size * 1.5)
-
-        self.weldingIndicators_checkbox_not_ok = ctk.CTkCheckBox(master=self.option_frame,
-                                                                 width=font_size * 1.5,
-                                                                 height=font_size * 1.5,
-                                                                 corner_radius=5,
-                                                                 text="Fehler",
-                                                                 font=("bold", font_size),
-                                                                 command=lambda: self.checkbox_not_ok_function(
-                                                                     "weldingIndicators", 20 + font_size * 10,
-                                                                                          40 + 3 * font_size * 1.5))
-        self.weldingIndicators_checkbox_not_ok.place(x=10 + font_size * 5,
-                                                     y=40 + 3 * font_size * 1.5)
-
-        self.weldingIndicators_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
-                                                           font=("bold", font_size),
-                                                           state="disabled",
-                                                           width=font_size * 22,
-                                                           height=font_size * 1.5
-                                                           )
-
-        # ------------------------------------
-        self.damages_label = ctk.CTkLabel(master=self.option_frame,
-                                          fg_color=GetStartupVariables.color_SET_blue,
-                                          corner_radius=10,
-                                          text="Beschädigungen",
-                                          text_color=GetStartupVariables.text_color_SET,
-                                          font=("bold", font_size),
-                                          width=font_size * 15,
-                                          height=font_size * 1.5)
-        self.damages_label.place(x=10,
-                                 y=50 + 4 * font_size * 1.5)
-
-        self.damages_checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
-                                                   width=font_size * 1.5,
-                                                   height=font_size * 1.5,
-                                                   corner_radius=5,
-                                                   text="OK",
-                                                   font=("bold", font_size),
-                                                   command=lambda: self.checkbox_ok_function(
-                                                       "damages"))
-        self.damages_checkbox_ok.place(x=10,
-                                       y=60 + 5 * font_size * 1.5)
-
-        self.damages_checkbox_not_ok = ctk.CTkCheckBox(master=self.option_frame,
-                                                       width=font_size * 1.5,
-                                                       height=font_size * 1.5,
-                                                       corner_radius=5,
-                                                       text="Fehler",
-                                                       font=("bold", font_size),
-                                                       command=lambda: self.checkbox_not_ok_function(
-                                                           "damages", 20 + font_size * 10,
-                                                                      60 + 5 * font_size * 1.5))
-        self.damages_checkbox_not_ok.place(x=10 + font_size * 5,
-                                           y=60 + 5 * font_size * 1.5)
-
-        self.damages_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
-                                                 font=("bold", font_size),
-                                                 state="disabled",
-                                                 width=font_size * 22,
-                                                 height=font_size * 1.5
-                                                 )
-
-        # ------------------------------------
-        self.holdingClamps_label = ctk.CTkLabel(master=self.option_frame,
-                                                fg_color=GetStartupVariables.color_SET_blue,
-                                                corner_radius=10,
-                                                text="Halteklemmen",
-                                                text_color=GetStartupVariables.text_color_SET,
-                                                font=("bold", font_size),
-                                                width=font_size * 15,
-                                                height=font_size * 1.5)
-        self.holdingClamps_label.place(x=10,
-                                       y=70 + 6 * font_size * 1.5)
-
-        self.holdingClamps_checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
-                                                         width=font_size * 1.5,
-                                                         height=font_size * 1.5,
-                                                         corner_radius=5,
-                                                         text="OK",
-                                                         font=("bold", font_size),
-                                                         command=lambda: self.checkbox_ok_function(
-                                                             "holdingClamps"))
-        self.holdingClamps_checkbox_ok.place(x=10,
-                                             y=80 + 7 * font_size * 1.5)
-
-        self.holdingClamps_checkbox_not_ok = ctk.CTkCheckBox(master=self.option_frame,
-                                                             width=font_size * 1.5,
-                                                             height=font_size * 1.5,
-                                                             corner_radius=5,
-                                                             text="Fehler",
-                                                             font=("bold", font_size),
-                                                             command=lambda: self.checkbox_not_ok_function(
-                                                                 "holdingClamps", 20 + font_size * 10,
-                                                                                  80 + 7 * font_size * 1.5))
-        self.holdingClamps_checkbox_not_ok.place(x=10 + font_size * 5,
-                                                 y=80 + 7 * font_size * 1.5)
-
-        self.holdingClamps_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
-                                                       font=("bold", font_size),
-                                                       state="disabled",
-                                                       width=font_size * 22,
-                                                       height=font_size * 1.5
-                                                       )
-
-        # ------------------------------------
-        self.offset_label = ctk.CTkLabel(master=self.option_frame,
-                                         fg_color=GetStartupVariables.color_SET_blue,
-                                         corner_radius=10,
-                                         text="Versatz",
-                                         text_color=GetStartupVariables.text_color_SET,
-                                         font=("bold", font_size),
-                                         width=font_size * 15,
-                                         height=font_size * 1.5)
-        self.offset_label.place(x=10,
-                                y=90 + 8 * font_size * 1.5)
-
-        self.offset_checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
-                                                  width=font_size * 1.5,
-                                                  height=font_size * 1.5,
-                                                  corner_radius=5,
-                                                  text="OK",
-                                                  font=("bold", font_size),
-                                                  command=lambda: self.checkbox_ok_function(
-                                                      "offset"))
-        self.offset_checkbox_ok.place(x=10,
-                                      y=100 + 9 * font_size * 1.5)
-
-        self.offset_checkbox_not_ok = ctk.CTkCheckBox(master=self.option_frame,
-                                                      width=font_size * 1.5,
-                                                      height=font_size * 1.5,
-                                                      corner_radius=5,
-                                                      text="Fehler",
-                                                      font=("bold", font_size),
-                                                      command=lambda: self.checkbox_not_ok_function(
-                                                          "offset", 20 + font_size * 10,
-                                                                    100 + 9 * font_size * 1.5))
-        self.offset_checkbox_not_ok.place(x=10 + font_size * 5,
-                                          y=100 + 9 * font_size * 1.5)
-
-        self.offset_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
-                                                font=("bold", font_size),
-                                                state="disabled",
-                                                width=font_size * 22,
-                                                height=font_size * 1.5
-                                                )
+        visual_grading_widgets()
 
         # save and continue button------------------------------------------------------------
-
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
                                          corner_radius=20,
                                          height=font_size * 1.5 + 20,

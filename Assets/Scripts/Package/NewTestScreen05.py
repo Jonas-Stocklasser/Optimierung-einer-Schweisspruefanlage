@@ -161,6 +161,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
 
     def schweisswulst_ok_function(self):
         self.schweisswulst_checkbox_not_ok.deselect()
+        self.schweisswulst_not_ok_entry.delete("1.0", "end")
         self.schweisswulst_not_ok_entry.configure(state="disabled")
 
     def schweisswulst_not_ok_function(self):

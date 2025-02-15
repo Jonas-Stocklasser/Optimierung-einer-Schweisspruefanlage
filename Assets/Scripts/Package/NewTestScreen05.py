@@ -109,7 +109,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                                 font=("bold", font_size),
                                                 width=font_size * 20,
                                                 height=font_size * 1.5)
-        self.schweissindikatoren_label.place(x=10,
+        self.schweissindikatoren_label.place(x=20 + font_size*1.5,
                                        y=10)
 
         self.schweissindikatoren_checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
@@ -120,7 +120,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                                          font=("bold", font_size),
                                                          command=lambda: self.schweissindikatoren_ok_function())
         self.schweissindikatoren_checkbox_ok.place(x=10,
-                                             y=20 + font_size * 1.5)
+                                             y=30 + 2*font_size * 1.5)
 
         self.schweissindikatoren_checkbox_not_ok = ctk.CTkCheckBox(master=self.option_frame,
                                                              width=font_size * 1.5,
@@ -130,7 +130,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                                              font=("bold", font_size),
                                                              command=lambda: self.schweissindikatoren_not_ok_function())
         self.schweissindikatoren_checkbox_not_ok.place(x=10 + font_size * 5,
-                                                 y=20 + font_size * 1.5)
+                                                 y=30 + 2*font_size * 1.5)
 
         self.schweissindikatoren_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
                                                        font=("bold", font_size),

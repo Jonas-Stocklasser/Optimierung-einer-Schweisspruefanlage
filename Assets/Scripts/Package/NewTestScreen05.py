@@ -100,6 +100,44 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                                        width=font_size * 20,
                                                        height=font_size * 1.5
                                                        )
+        # ------------------------------------
+        self.schweissindikatoren_label = ctk.CTkLabel(master=self.option_frame,
+                                                fg_color=GetStartupVariables.color_SET_blue,
+                                                corner_radius=10,
+                                                text="Schweissindikatoren",
+                                                text_color=GetStartupVariables.text_color_SET,
+                                                font=("bold", font_size),
+                                                width=font_size * 20,
+                                                height=font_size * 1.5)
+        self.schweissindikatoren_label.place(x=10,
+                                       y=10)
+
+        self.schweissindikatoren_checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                         width=font_size * 1.5,
+                                                         height=font_size * 1.5,
+                                                         corner_radius=5,
+                                                         text="OK",
+                                                         font=("bold", font_size),
+                                                         command=lambda: self.schweissindikatoren_ok_function())
+        self.schweissindikatoren_checkbox_ok.place(x=10,
+                                             y=20 + font_size * 1.5)
+
+        self.schweissindikatoren_checkbox_not_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                             width=font_size * 1.5,
+                                                             height=font_size * 1.5,
+                                                             corner_radius=5,
+                                                             text="Fehler",
+                                                             font=("bold", font_size),
+                                                             command=lambda: self.schweissindikatoren_not_ok_function())
+        self.schweissindikatoren_checkbox_not_ok.place(x=10 + font_size * 5,
+                                                 y=20 + font_size * 1.5)
+
+        self.schweissindikatoren_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
+                                                       font=("bold", font_size),
+                                                       state="disabled",
+                                                       width=font_size * 20,
+                                                       height=font_size * 1.5
+                                                       )
 
         # save and continue button------------------------------------------------------------
 
@@ -173,3 +211,24 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
             self.schweisswulst_not_ok_entry.delete(0, "end")
             self.schweisswulst_not_ok_entry.configure(state="disabled")
             self.schweisswulst_not_ok_entry.place_forget()
+
+    def schweissindikatoren_ok_function(self):
+        self.schweissindikatoren_checkbox_not_ok.deselect()
+        self.schweissindikatoren_not_ok_entry.delete(0, "end")
+        self.schweissindikatoren_not_ok_entry.configure(state="disabled")
+        self.schweissindikatoren_not_ok_entry.place_forget()
+
+    def schweissindikatoren_not_ok_function(self):
+        global font_size
+        if self.schweissindikatoren_checkbox_not_ok.get() == 1:
+            self.schweissindikatoren_checkbox_ok.deselect()
+            self.schweissindikatoren_not_ok_entry.configure(state="normal",
+                                                  placeholder_text="Kurzbeschreibung des Fehlers",
+                                                  font=("bold", font_size))
+            self.schweissindikatoren_not_ok_entry.place(x=20 + font_size * 10,
+                                                  y=30 + 2*font_size * 1.5)
+            self.master.focus_set()
+        else:
+            self.schweissindikatoren_not_ok_entry.delete(0, "end")
+            self.schweissindikatoren_not_ok_entry.configure(state="disabled")
+            self.schweissindikatoren_not_ok_entry.place_forget()

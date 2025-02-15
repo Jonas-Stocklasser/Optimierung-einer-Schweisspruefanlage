@@ -73,7 +73,11 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
 
         self.schweisswulst_checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
                                                          width=font_size,
-                                                         height=font_size)
+                                                         height=font_size,
+                                                         corner_radius=5,
+                                                         text="OK",
+                                                         offvalue="",
+                                                         onvalue="OK")
         self.schweisswulst_checkbox_ok.place(x=10,
                                              y=20 + font_size * 1.5)
 

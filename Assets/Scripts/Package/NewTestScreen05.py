@@ -78,9 +78,22 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                                          text="OK",
                                                          offvalue="",
                                                          onvalue="OK",
-                                                         font=("bold", font_size))
+                                                         font=("bold", font_size),
+                                                         command=lambda: self.schweisswulst_ok_function())
         self.schweisswulst_checkbox_ok.place(x=10,
                                              y=20 + font_size * 1.5)
+
+        self.schweisswulst_checkbox_not_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                             width=font_size * 1.5,
+                                                             height=font_size * 1.5,
+                                                             corner_radius=5,
+                                                             text="Fehler",
+                                                             offvalue="",
+                                                             onvalue="Fehler",
+                                                             font=("bold", font_size),
+                                                             command=lambda: self.schweisswulst_not_ok_function())
+        self.schweisswulst_checkbox_not_ok.place(x=10 + font_size * 5,
+                                                 y=20 + font_size * 1.5)
 
         # save and continue button------------------------------------------------------------
 
@@ -133,3 +146,9 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.textbox.insert("1.0", "Visuelle Einschätzung des Prüfers eingeben...")
         self.save_button.configure(state="normal")
         self.continue_button.configure(state="disabled")
+
+    def schweisswulst_ok_function(self):
+        self.schweisswulst_checkbox_not_ok.deselect()
+
+    def schweisswulst_not_ok_function(self):
+        self.schweisswulst_checkbox_ok.deselect()

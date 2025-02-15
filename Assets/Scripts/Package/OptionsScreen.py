@@ -26,7 +26,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
         self.indicator_bar = ctk.CTkLabel(master=self,  # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
                                           corner_radius=10,
-                                          text="Options",
+                                          text="Optionen",
                                           text_color=GetStartupVariables.text_color_SET,
                                           font=("bold", font_size),
                                           anchor="w",

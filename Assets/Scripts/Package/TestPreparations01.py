@@ -35,7 +35,7 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
                                           # top bar that indicates the screen where you are
                                           fg_color=GetStartupVariables.color_SET_blue,
                                           corner_radius=10,
-                                          text=("Testvorbereitung - Schritt 1:" +
+                                          text=("Testvorbereitung:" +
                                                 " Anweisungen befolgen und entlüften"),
                                           text_color=GetStartupVariables.text_color_SET,
                                           font=("bold", font_size),

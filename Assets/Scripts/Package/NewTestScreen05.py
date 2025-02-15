@@ -70,7 +70,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                               text="Schweißwulst",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size),
-                                              width=font_size * 20,
+                                              width=font_size * 15,
                                               height=font_size * 1.5)
         self.weldingBead_label.place(x=10,
                                      y=10)
@@ -110,7 +110,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                                     text="Schweissindikatoren",
                                                     text_color=GetStartupVariables.text_color_SET,
                                                     font=("bold", font_size),
-                                                    width=font_size * 20,
+                                                    width=font_size * 15,
                                                     height=font_size * 1.5)
         self.weldingIndicators_label.place(x=10,
                                            y=30 + 2 * font_size * 1.5)
@@ -152,7 +152,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                           text="Beschädigungen",
                                           text_color=GetStartupVariables.text_color_SET,
                                           font=("bold", font_size),
-                                          width=font_size * 20,
+                                          width=font_size * 15,
                                           height=font_size * 1.5)
         self.damages_label.place(x=10,
                                  y=50 + 4 * font_size * 1.5)
@@ -194,7 +194,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                                 text="Halteklemmen",
                                                 text_color=GetStartupVariables.text_color_SET,
                                                 font=("bold", font_size),
-                                                width=font_size * 20,
+                                                width=font_size * 15,
                                                 height=font_size * 1.5)
         self.holdingClamps_label.place(x=10,
                                        y=70 + 6 * font_size * 1.5)
@@ -236,7 +236,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                          text="Versatz",
                                          text_color=GetStartupVariables.text_color_SET,
                                          font=("bold", font_size),
-                                         width=font_size * 20,
+                                         width=font_size * 15,
                                          height=font_size * 1.5)
         self.offset_label.place(x=10,
                                 y=90 + 8 * font_size * 1.5)

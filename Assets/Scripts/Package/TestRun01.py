@@ -667,7 +667,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         self.start_button.configure(state="normal")
         self.stop_button.configure(state="disabled")
         self.pdf_button.configure(state="disabled")
-        self.back_to_start_button.configure(state="disabled")
+        self.back_to_start_button.configure(state="normal")
 
     @staticmethod
     def write_personal_json():

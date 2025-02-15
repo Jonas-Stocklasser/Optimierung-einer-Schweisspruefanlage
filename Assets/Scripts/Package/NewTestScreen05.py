@@ -187,6 +187,48 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                                  height=font_size * 1.5
                                                  )
 
+        # ------------------------------------
+        self.holdingClamps_label = ctk.CTkLabel(master=self.option_frame,
+                                                fg_color=GetStartupVariables.color_SET_blue,
+                                                corner_radius=10,
+                                                text="Halteklemmen",
+                                                text_color=GetStartupVariables.text_color_SET,
+                                                font=("bold", font_size),
+                                                width=font_size * 20,
+                                                height=font_size * 1.5)
+        self.holdingClamps_label.place(x=10,
+                                       y=70 + 6 * font_size * 1.5)
+
+        self.holdingClamps_checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                         width=font_size * 1.5,
+                                                         height=font_size * 1.5,
+                                                         corner_radius=5,
+                                                         text="OK",
+                                                         font=("bold", font_size),
+                                                         command=lambda: self.checkbox_ok_function(
+                                                             "holdingClamps"))
+        self.holdingClamps_checkbox_ok.place(x=10,
+                                             y=80 + 7 * font_size * 1.5)
+
+        self.holdingClamps_checkbox_not_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                             width=font_size * 1.5,
+                                                             height=font_size * 1.5,
+                                                             corner_radius=5,
+                                                             text="Fehler",
+                                                             font=("bold", font_size),
+                                                             command=lambda: self.checkbox_not_ok_function(
+                                                                 "holdingClamps", 20 + font_size * 10,
+                                                                                  80 + 7 * font_size * 1.5))
+        self.holdingClamps_checkbox_not_ok.place(x=10 + font_size * 5,
+                                                 y=80 + 7 * font_size * 1.5)
+
+        self.holdingClamps_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
+                                                       font=("bold", font_size),
+                                                       state="disabled",
+                                                       width=font_size * 22,
+                                                       height=font_size * 1.5
+                                                       )
+
         # save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button

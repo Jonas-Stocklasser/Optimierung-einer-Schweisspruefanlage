@@ -164,7 +164,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
 
     def reset_input_new_test(self):
         self.save_button.configure(state="normal")
-        self.continue_button.configure(state="disabled")
+        self.continue_button.configure(state="normal")
         self.weldingBead_checkbox_ok.deselect()
         self.weldingBead_checkbox_not_ok.deselect()
 

@@ -100,7 +100,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.weldingBead_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
                                                      font=("bold", font_size),
                                                      state="disabled",
-                                                     width=font_size * 25,
+                                                     width=font_size * 22,
                                                      height=font_size * 1.5
                                                      )
         # ------------------------------------
@@ -141,7 +141,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.weldingIndicators_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
                                                            font=("bold", font_size),
                                                            state="disabled",
-                                                           width=font_size * 25,
+                                                           width=font_size * 22,
                                                            height=font_size * 1.5
                                                            )
 

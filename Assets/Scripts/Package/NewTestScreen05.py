@@ -29,7 +29,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                           fg_color=GetStartupVariables.color_SET_blue,
                                           corner_radius=10,
                                           text=("Neuer Test - Schritt 5:" +
-                                                " Visuelle Einschätzung des Prüfers"),
+                                                " Visuelle Beurteilung des Prüfstücks und der Schweißverbindungen"),
                                           text_color=GetStartupVariables.text_color_SET,
                                           font=("bold", font_size),
                                           anchor="w",

@@ -159,10 +159,8 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                         self.holdingClamps_checkbox_not_ok.get(),
                         self.offset_checkbox_ok.get(),
                         self.offset_checkbox_not_ok.get()]
-        print(visual_grade)
-        print(int(visual_grade[0]))
-        print(int(visual_grade[0])+int(visual_grade[1])+int(visual_grade[2])+int(visual_grade[3])+int(visual_grade[4])+int(visual_grade[5])+int(visual_grade[6])+int(visual_grade[7]))
-        if int(visual_grade[0])+int(visual_grade[1])+int(visual_grade[2])+int(visual_grade[3])+int(visual_grade[4])+int(visual_grade[5])+int(visual_grade[6])+int(visual_grade[7]) == 5:
+
+        if sum(visual_grade) == 5:
             personal_folder_path = json_reader("personal_var", "personal_folder_path", main_pi_location + "../JSON/")
             personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
             json_writer(personal_json_name, "visual_grade", visual_grade, personal_folder_path)

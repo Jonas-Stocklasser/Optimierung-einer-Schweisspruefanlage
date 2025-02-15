@@ -229,6 +229,48 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                                        height=font_size * 1.5
                                                        )
 
+        # ------------------------------------
+        self.offset_label = ctk.CTkLabel(master=self.option_frame,
+                                         fg_color=GetStartupVariables.color_SET_blue,
+                                         corner_radius=10,
+                                         text="Versatz",
+                                         text_color=GetStartupVariables.text_color_SET,
+                                         font=("bold", font_size),
+                                         width=font_size * 20,
+                                         height=font_size * 1.5)
+        self.offset_label.place(x=10,
+                                y=90 + 8 * font_size * 1.5)
+
+        self.offset_checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                  width=font_size * 1.5,
+                                                  height=font_size * 1.5,
+                                                  corner_radius=5,
+                                                  text="OK",
+                                                  font=("bold", font_size),
+                                                  command=lambda: self.checkbox_ok_function(
+                                                      "offset"))
+        self.offset_checkbox_ok.place(x=10,
+                                      y=100 + 9 * font_size * 1.5)
+
+        self.offset_checkbox_not_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                      width=font_size * 1.5,
+                                                      height=font_size * 1.5,
+                                                      corner_radius=5,
+                                                      text="Fehler",
+                                                      font=("bold", font_size),
+                                                      command=lambda: self.checkbox_not_ok_function(
+                                                          "offset", 20 + font_size * 10,
+                                                                    100 + 9 * font_size * 1.5))
+        self.offset_checkbox_not_ok.place(x=10 + font_size * 5,
+                                          y=100 + 9 * font_size * 1.5)
+
+        self.offset_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
+                                                font=("bold", font_size),
+                                                state="disabled",
+                                                width=font_size * 22,
+                                                height=font_size * 1.5
+                                                )
+
         # save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button

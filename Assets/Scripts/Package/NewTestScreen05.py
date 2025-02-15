@@ -75,33 +75,6 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
             setattr(self, f"{name}_checkbox_not_ok", checkbox_not_ok)
             setattr(self, f"{name}_not_ok_entry", entry)
 
-        def checkbox_ok_function(name):
-            checkbox = getattr(self, f"{name}_checkbox_not_ok")
-            entry = getattr(self, f"{name}_not_ok_entry")
-            checkbox.deselect()
-            entry.delete(0, "end")
-            entry.configure(state="disabled")
-            entry.place_forget()
-
-        def checkbox_not_ok_function(name, x, y):
-            global font_size
-            checkbox_ok = getattr(self, f"{name}_checkbox_ok")
-            checkbox_not_ok = getattr(self, f"{name}_checkbox_not_ok")
-            entry = getattr(self, f"{name}_not_ok_entry")
-
-            if checkbox_not_ok.get() == 1:
-                checkbox_ok.deselect()
-                entry.configure(state="normal",
-                                placeholder_text="eventuelle Kurzbeschreibung des Fehlers",
-                                font=("bold", font_size))
-                entry.place(x=x,
-                            y=y)
-                self.master.focus_set()
-            else:
-                entry.delete(0, "end")
-                entry.configure(state="disabled")
-                entry.place_forget()
-
         # indicator bar------------------------------------------------------------
         self.indicator_bar = ctk.CTkLabel(master=self,
                                           # top bar that indicates the screen where you are
@@ -195,17 +168,43 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
             messagebox.showinfo("Eingabefehler", "Bitte überall ein Kreuz setzen!")
             print("Type something! An empty field is not permitted!")
 
+    def reset_input_new_test(self):
+        self.save_button.configure(state="normal")
+        self.continue_button.configure(state="disabled")
+        self.weldingBead_checkbox_ok.deselect()
+        self.weldingBead_checkbox_not_ok.deselect()
+        self.weldingIndicators_checkbox_ok.deselect()
+        self.weldingIndicators_checkbox_not_ok.deselect()
+        self.damages_checkbox_ok.deselect()
+        self.damages_checkbox_not_ok.deselect()
+        self.holdingClamps_checkbox_ok.deselect()
+        self.holdingClamps_checkbox_not_ok.deselect()
+        self.offset_checkbox_ok.deselect()
+        self.offset_checkbox_not_ok.deselect()
 
-def reset_input_new_test(self):
-    self.save_button.configure(state="normal")
-    self.continue_button.configure(state="disabled")
-    self.weldingBead_checkbox_ok.deselect()
-    self.weldingBead_checkbox_not_ok.deselect()
-    self.weldingIndicators_checkbox_ok.deselect()
-    self.weldingIndicators_checkbox_not_ok.deselect()
-    self.damages_checkbox_ok.deselect()
-    self.damages_checkbox_not_ok.deselect()
-    self.holdingClamps_checkbox_ok.deselect()
-    self.holdingClamps_checkbox_not_ok.deselect()
-    self.offset_checkbox_ok.deselect()
-    self.offset_checkbox_not_ok.deselect()
+    def checkbox_ok_function(self, name):
+        checkbox = getattr(self, f"{name}_checkbox_not_ok")
+        entry = getattr(self, f"{name}_not_ok_entry")
+        checkbox.deselect()
+        entry.delete(0, "end")
+        entry.configure(state="disabled")
+        entry.place_forget()
+
+    def checkbox_not_ok_function(self, name, x, y):
+        global font_size
+        checkbox_ok = getattr(self, f"{name}_checkbox_ok")
+        checkbox_not_ok = getattr(self, f"{name}_checkbox_not_ok")
+        entry = getattr(self, f"{name}_not_ok_entry")
+
+        if checkbox_not_ok.get() == 1:
+            checkbox_ok.deselect()
+            entry.configure(state="normal",
+                            placeholder_text="eventuelle Kurzbeschreibung des Fehlers",
+                            font=("bold", font_size))
+            entry.place(x=x,
+                        y=y)
+            self.master.focus_set()
+        else:
+            entry.delete(0, "end")
+            entry.configure(state="disabled")
+            entry.place_forget()

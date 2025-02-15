@@ -46,7 +46,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                           corner_radius=5,
                                           text="OK",
                                           font=("bold", font_size),
-                                          command=lambda: checkbox_ok_function(name))
+                                          command=lambda: self.checkbox_ok_function(name))
             checkbox_ok.place(x=10,
                               y=y + 10 + font_size * 1.5)
 
@@ -56,7 +56,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                               corner_radius=5,
                                               text="Fehler",
                                               font=("bold", font_size),
-                                              command=lambda: checkbox_not_ok_function(
+                                              command=lambda: self.checkbox_not_ok_function(
                                                   name,
                                                   20 + font_size * 10,
                                                   y + 10 + font_size * 1.5))

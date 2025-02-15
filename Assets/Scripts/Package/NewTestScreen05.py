@@ -64,81 +64,83 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                 y=font_size * 2)
 
         # visual grading options
-        self.schweisswulst_label = ctk.CTkLabel(master=self.option_frame,
-                                                fg_color=GetStartupVariables.color_SET_blue,
-                                                corner_radius=10,
-                                                text="Schweißwulst",
-                                                text_color=GetStartupVariables.text_color_SET,
-                                                font=("bold", font_size),
-                                                width=font_size * 20,
-                                                height=font_size * 1.5)
-        self.schweisswulst_label.place(x=10,
-                                       y=10)
+        self.weldingBead_label = ctk.CTkLabel(master=self.option_frame,
+                                              fg_color=GetStartupVariables.color_SET_blue,
+                                              corner_radius=10,
+                                              text="Schweißwulst",
+                                              text_color=GetStartupVariables.text_color_SET,
+                                              font=("bold", font_size),
+                                              width=font_size * 20,
+                                              height=font_size * 1.5)
+        self.weldingBead_label.place(x=10,
+                                     y=10)
 
-        self.schweisswulst_checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
-                                                         width=font_size * 1.5,
-                                                         height=font_size * 1.5,
-                                                         corner_radius=5,
-                                                         text="OK",
-                                                         font=("bold", font_size),
-                                                         command=lambda: self.schweisswulst_ok_function())
-        self.schweisswulst_checkbox_ok.place(x=10,
-                                             y=20 + font_size * 1.5)
+        self.weldingBead_checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                       width=font_size * 1.5,
+                                                       height=font_size * 1.5,
+                                                       corner_radius=5,
+                                                       text="OK",
+                                                       font=("bold", font_size),
+                                                       command=lambda: self.checkbox_ok_function("weldingBead"))
+        self.weldingBead_checkbox_ok.place(x=10,
+                                           y=20 + font_size * 1.5)
 
-        self.schweisswulst_checkbox_not_ok = ctk.CTkCheckBox(master=self.option_frame,
+        self.weldingBead_checkbox_not_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                           width=font_size * 1.5,
+                                                           height=font_size * 1.5,
+                                                           corner_radius=5,
+                                                           text="Fehler",
+                                                           font=("bold", font_size),
+                                                           command=lambda: self.checkbox_not_ok_function("weldingBead"))
+        self.weldingBead_checkbox_not_ok.place(x=10 + font_size * 5,
+                                               y=20 + font_size * 1.5)
+
+        self.weldingBead_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
+                                                     font=("bold", font_size),
+                                                     state="disabled",
+                                                     width=font_size * 25,
+                                                     height=font_size * 1.5
+                                                     )
+        # ------------------------------------
+        self.weldingIndicators_label = ctk.CTkLabel(master=self.option_frame,
+                                                    fg_color=GetStartupVariables.color_SET_blue,
+                                                    corner_radius=10,
+                                                    text="Schweissindikatoren",
+                                                    text_color=GetStartupVariables.text_color_SET,
+                                                    font=("bold", font_size),
+                                                    width=font_size * 20,
+                                                    height=font_size * 1.5)
+        self.weldingIndicators_label.place(x=10,
+                                           y=30 + 2 * font_size * 1.5)
+
+        self.weldingIndicators_checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
                                                              width=font_size * 1.5,
                                                              height=font_size * 1.5,
                                                              corner_radius=5,
-                                                             text="Fehler",
+                                                             text="OK",
                                                              font=("bold", font_size),
-                                                             command=lambda: self.schweisswulst_not_ok_function())
-        self.schweisswulst_checkbox_not_ok.place(x=10 + font_size * 5,
-                                                 y=20 + font_size * 1.5)
+                                                             command=lambda: self.checkbox_ok_function(
+                                                                 "weldingIndicators"))
+        self.weldingIndicators_checkbox_ok.place(x=10,
+                                                 y=40 + 3 * font_size * 1.5)
 
-        self.schweisswulst_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
-                                                       font=("bold", font_size),
-                                                       state="disabled",
-                                                       width=font_size * 20,
-                                                       height=font_size * 1.5
-                                                       )
-        # ------------------------------------
-        self.schweissindikatoren_label = ctk.CTkLabel(master=self.option_frame,
-                                                      fg_color=GetStartupVariables.color_SET_blue,
-                                                      corner_radius=10,
-                                                      text="Schweissindikatoren",
-                                                      text_color=GetStartupVariables.text_color_SET,
-                                                      font=("bold", font_size),
-                                                      width=font_size * 20,
-                                                      height=font_size * 1.5)
-        self.schweissindikatoren_label.place(x=10,
-                                             y=30 + 2 * font_size * 1.5)
+        self.weldingIndicators_checkbox_not_ok = ctk.CTkCheckBox(master=self.option_frame,
+                                                                 width=font_size * 1.5,
+                                                                 height=font_size * 1.5,
+                                                                 corner_radius=5,
+                                                                 text="Fehler",
+                                                                 font=("bold", font_size),
+                                                                 command=lambda: self.checkbox_not_ok_function(
+                                                                     "weldingIndicators"))
+        self.weldingIndicators_checkbox_not_ok.place(x=10 + font_size * 5,
+                                                     y=40 + 3 * font_size * 1.5)
 
-        self.schweissindikatoren_checkbox_ok = ctk.CTkCheckBox(master=self.option_frame,
-                                                               width=font_size * 1.5,
-                                                               height=font_size * 1.5,
-                                                               corner_radius=5,
-                                                               text="OK",
-                                                               font=("bold", font_size),
-                                                               command=lambda: self.schweissindikatoren_ok_function())
-        self.schweissindikatoren_checkbox_ok.place(x=10,
-                                                   y=40 + 3 * font_size * 1.5)
-
-        self.schweissindikatoren_checkbox_not_ok = ctk.CTkCheckBox(master=self.option_frame,
-                                                                   width=font_size * 1.5,
-                                                                   height=font_size * 1.5,
-                                                                   corner_radius=5,
-                                                                   text="Fehler",
-                                                                   font=("bold", font_size),
-                                                                   command=lambda: self.schweissindikatoren_not_ok_function())
-        self.schweissindikatoren_checkbox_not_ok.place(x=10 + font_size * 5,
-                                                       y=40 + 3 * font_size * 1.5)
-
-        self.schweissindikatoren_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
-                                                             font=("bold", font_size),
-                                                             state="disabled",
-                                                             width=font_size * 20,
-                                                             height=font_size * 1.5
-                                                             )
+        self.weldingIndicators_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
+                                                           font=("bold", font_size),
+                                                           state="disabled",
+                                                           width=font_size * 25,
+                                                           height=font_size * 1.5
+                                                           )
 
         # save and continue button------------------------------------------------------------
 
@@ -192,44 +194,29 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.save_button.configure(state="normal")
         self.continue_button.configure(state="disabled")
 
-    def schweisswulst_ok_function(self):
-        self.schweisswulst_checkbox_not_ok.deselect()
-        self.schweisswulst_not_ok_entry.delete(0, "end")
-        self.schweisswulst_not_ok_entry.configure(state="disabled")
-        self.schweisswulst_not_ok_entry.place_forget()
+    def checkbox_ok_function(self, name):
+        checkbox = getattr(self, f"{name}_checkbox_not_ok")
+        entry = getattr(self, f"{name}_not_ok_entry")
+        checkbox.deselect()
+        entry.delete(0, "end")
+        entry.configure(state="disabled")
+        entry.place_forget()
 
-    def schweisswulst_not_ok_function(self):
+    def checkbox_not_ok_function(self, name):
         global font_size
-        if self.schweisswulst_checkbox_not_ok.get() == 1:
-            self.schweisswulst_checkbox_ok.deselect()
-            self.schweisswulst_not_ok_entry.configure(state="normal",
-                                                      placeholder_text="Kurzbeschreibung des Fehlers",
-                                                      font=("bold", font_size))
-            self.schweisswulst_not_ok_entry.place(x=20 + font_size * 10,
-                                                  y=20 + font_size * 1.5)
+        checkbox_ok = getattr(self, f"{name}_checkbox_ok")
+        checkbox_not_ok = getattr(self, f"{name}_checkbox_not_ok")
+        entry = getattr(self, f"{name}_not_ok_entry")
+
+        if checkbox_not_ok.get() == 1:
+            checkbox_ok.deselect()
+            entry.configure(state="normal",
+                            placeholder_text="Kurzbeschreibung des Fehlers",
+                            font=("bold", font_size))
+            entry.place(x=20 + font_size * 10,
+                        y=20 + font_size * 1.5)
             self.master.focus_set()
         else:
-            self.schweisswulst_not_ok_entry.delete(0, "end")
-            self.schweisswulst_not_ok_entry.configure(state="disabled")
-            self.schweisswulst_not_ok_entry.place_forget()
-
-    def schweissindikatoren_ok_function(self):
-        self.schweissindikatoren_checkbox_not_ok.deselect()
-        self.schweissindikatoren_not_ok_entry.delete(0, "end")
-        self.schweissindikatoren_not_ok_entry.configure(state="disabled")
-        self.schweissindikatoren_not_ok_entry.place_forget()
-
-    def schweissindikatoren_not_ok_function(self):
-        global font_size
-        if self.schweissindikatoren_checkbox_not_ok.get() == 1:
-            self.schweissindikatoren_checkbox_ok.deselect()
-            self.schweissindikatoren_not_ok_entry.configure(state="normal",
-                                                            placeholder_text="Kurzbeschreibung des Fehlers",
-                                                            font=("bold", font_size))
-            self.schweissindikatoren_not_ok_entry.place(x=20 + font_size * 10,
-                                                        y=40 + 3 * font_size * 1.5)
-            self.master.focus_set()
-        else:
-            self.schweissindikatoren_not_ok_entry.delete(0, "end")
-            self.schweissindikatoren_not_ok_entry.configure(state="disabled")
-            self.schweissindikatoren_not_ok_entry.place_forget()
+            entry.delete(0, "end")
+            entry.configure(state="disabled")
+            entry.place_forget()

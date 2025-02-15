@@ -10,6 +10,7 @@ import customtkinter as ctk
 from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location
 from .JsonFunctions import json_writer, json_reader
 
+font_size = 0.1
 
 class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
     def __init__(self, parent, window_geometry):  # the parent is App()
@@ -17,6 +18,8 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                          width=(window_geometry[0] - 10),
                          height=(window_geometry[1] - 10),
                          fg_color="transparent")
+
+        global font_size
 
         self.app = parent
 
@@ -95,6 +98,15 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.schweisswulst_checkbox_not_ok.place(x=10 + font_size * 5,
                                                  y=20 + font_size * 1.5)
 
+        self.schweisswulst_not_ok_entry = ctk.CTkEntry(master=self.option_frame,
+                                                       font=("bold", font_size),
+                                                       state="disabled",
+                                                       width=font_size * 20,
+                                                       height=font_size * 1.5
+                                                       )
+        self.schweisswulst_not_ok_entry.place(x=20 + font_size * 10,
+                                              y=20 + font_size * 1.5)
+
         # save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
@@ -151,4 +163,8 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.schweisswulst_checkbox_not_ok.deselect()
 
     def schweisswulst_not_ok_function(self):
+        global font_size
         self.schweisswulst_checkbox_ok.deselect()
+        self.schweisswulst_not_ok_entry.configure(state="normal",
+                                                  placeholder_text="Kurzbeschreibung des Fehlers",
+                                                  font=("bold", font_size))

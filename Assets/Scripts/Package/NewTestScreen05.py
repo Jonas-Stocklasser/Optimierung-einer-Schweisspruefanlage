@@ -79,8 +79,6 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                                          height=font_size * 1.5,
                                                          corner_radius=5,
                                                          text="OK",
-                                                         offvalue="",
-                                                         onvalue="OK",
                                                          font=("bold", font_size),
                                                          command=lambda: self.schweisswulst_ok_function())
         self.schweisswulst_checkbox_ok.place(x=10,
@@ -91,8 +89,6 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                                              height=font_size * 1.5,
                                                              corner_radius=5,
                                                              text="Fehler",
-                                                             offvalue="",
-                                                             onvalue="Fehler",
                                                              font=("bold", font_size),
                                                              command=lambda: self.schweisswulst_not_ok_function())
         self.schweisswulst_checkbox_not_ok.place(x=10 + font_size * 5,
@@ -161,14 +157,19 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.schweisswulst_checkbox_not_ok.deselect()
         self.schweisswulst_not_ok_entry.delete(0, "end")
         self.schweisswulst_not_ok_entry.configure(state="disabled")
-        self.master.focus_set()
         self.schweisswulst_not_ok_entry.place_forget()
 
     def schweisswulst_not_ok_function(self):
         global font_size
-        self.schweisswulst_checkbox_ok.deselect()
-        self.schweisswulst_not_ok_entry.configure(state="normal",
+        if self.schweisswulst_checkbox_not_ok.get() == 1:
+            self.schweisswulst_checkbox_ok.deselect()
+            self.schweisswulst_not_ok_entry.configure(state="normal",
                                                   placeholder_text="Kurzbeschreibung des Fehlers",
                                                   font=("bold", font_size))
-        self.schweisswulst_not_ok_entry.place(x=20 + font_size * 10,
-                                              y=20 + font_size * 1.5)
+            self.schweisswulst_not_ok_entry.place(x=20 + font_size * 10,
+                                                  y=20 + font_size * 1.5)
+            self.master.focus_set()
+        else:
+            self.schweisswulst_not_ok_entry.delete(0, "end")
+            self.schweisswulst_not_ok_entry.configure(state="disabled")
+            self.schweisswulst_not_ok_entry.place_forget()

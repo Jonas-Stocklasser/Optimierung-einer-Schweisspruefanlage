@@ -489,7 +489,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
             def checkbox(self, size, checked):
                 x = self.get_x()
-                y = (self.get_y())+1.25*size
+                y = (self.get_y())+1.15*size
                 self.rect(x, y, size, size)  # Draw a square
                 if checked == 1:
                     self.set_xy(x, y + 0.1*size)  # Reset position

@@ -489,14 +489,14 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
             def checkbox(self, size, checked):
                 x = self.get_x()
-                y = (self.get_y())+1.15*size
+                y = (self.get_y()) + 1.15 * size
                 self.rect(x, y, size, size)  # Draw a square
                 if checked == 1:
-                    self.set_xy(x, y + 0.1*size)  # Reset position
-                    self.set_font("Arial", size=3*size)
-                    self.cell(size, size, "X", align="C")  # Add checkmark if checked
+                    self.set_xy(x, y + 0.1 * size)  # Reset position
+                    self.set_font("Arial", size=3 * size)
+                    self.cell(size, size, "X", align="C")  # Add X if checked
                     pdf.set_font("helvetica", "", 12)
-                self.set_x(x + size + 2)  # Move cursor to avoid overlapping
+                self.set_xy(x + size + 2, y - 1.15 * size)  # Move cursor to avoid overlapping
 
         pdf = PDF("P", "mm", "A4")
         pdf.set_title(f"Prüfbericht - {last_name_examinee} {first_name_examinee}")
@@ -607,11 +607,11 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.cell(0, 10, "Visuelle Beurteilung des Prüfstücks und der Schweißverbindungen:", align="L",
                  new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         pdf.set_font("helvetica", "", 8)
-        pdf.cell(40, 10, "", border=True, align="L")
-        pdf.cell(40, 10, "OK", border=True, align="L")
-        pdf.cell(40, 10, "Fehler", border=True, align="L")
+        pdf.cell(36, 10, "", border=True, align="L")
+        pdf.cell(20, 10, "OK | Fehler", border=True, align="L")
         pdf.cell(40, 10, "Erklärung", border=True, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         # ------------------------------------------------------------------------------------------------------
+        pdf.set_font("helvetica", "", 12)
         pdf.cell(40, 10, "Schweißwulst", border=True, align="L")
         pdf.checkbox(3, visual_grade[0])
         pdf.checkbox(3, visual_grade[1])

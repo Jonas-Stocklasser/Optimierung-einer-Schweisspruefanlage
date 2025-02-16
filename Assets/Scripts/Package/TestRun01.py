@@ -606,11 +606,16 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.set_font("helvetica", "U", 12)
         pdf.cell(0, 10, "Visuelle Beurteilung des Prüfstücks und der Schweißverbindungen:", align="L",
                  new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-        pdf.set_font("helvetica", "", 12)
+        pdf.set_font("helvetica", "", 8)
+        pdf.cell(40, 10, "", border=True, align="L")
+        pdf.cell(40, 10, "OK", border=True, align="L")
+        pdf.cell(40, 10, "Fehler", border=True, align="L")
+        pdf.cell(40, 10, "Erklärung", border=True, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         # ------------------------------------------------------------------------------------------------------
-        pdf.cell(40, 10, "Schweißwulst", border=False, align="L")
+        pdf.cell(40, 10, "Schweißwulst", border=True, align="L")
         pdf.checkbox(3, visual_grade[0])
-        pdf.cell(40, 10, f"{visual_grade[10]}", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.checkbox(3, visual_grade[1])
+        pdf.cell(40, 10, f"{visual_grade[10]}", border=True, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         pdf.ln(5)
 
         # pressure diagram ---------------------------------------------------------------------------------------------

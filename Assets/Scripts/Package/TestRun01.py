@@ -494,7 +494,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
                 if checked == 1:
                     self.set_xy(x, y)  # Reset position
                     self.set_font("Arial", size=size)
-                    self.cell(size, size, "✔", align="C")  # Add checkmark if checked
+                    self.cell(size, size, "X", align="C")  # Add checkmark if checked
+                    pdf.set_font("helvetica", "", 12)
                 self.set_x(x + size + 2)  # Move cursor to avoid overlapping
 
         pdf = PDF("P", "mm", "A4")

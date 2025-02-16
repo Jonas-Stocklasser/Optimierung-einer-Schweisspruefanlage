@@ -659,6 +659,16 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.set_y(pdf.get_y() + image_height + 5)
 
         # result of exam -----------------------------------------------------------------------------------------------
+        pdf.ln(5)
+        pdf.ln(5)
+        pdf.ln(5)
+        pdf.ln(5)
+        pdf.ln(5)
+        pdf.ln(5)
+        pdf.ln(5)
+        pdf.ln(5)
+        pdf.ln(5)
+        pdf.ln(5)
         if passed == 1:
             grade[0] = 1
         elif passed == 0:

@@ -165,15 +165,15 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         # back to start button------------------------------------------------------------
         self.back_to_start_button = ctk.CTkButton(master=self.back_to_start_frame,  # stop button
-                                        corner_radius=10,
-                                        text="Zurück zum Start",
-                                        font=("bold", font_size),
-                                        state="disabled",
-                                        command=lambda: self.back_to_start_button_function(),
-                                        width=font_size * 12,
-                                        height=font_size * 1.5)
+                                                  corner_radius=10,
+                                                  text="Zurück zum Start",
+                                                  font=("bold", font_size),
+                                                  state="disabled",
+                                                  command=lambda: self.back_to_start_button_function(),
+                                                  width=font_size * 12,
+                                                  height=font_size * 1.5)
         self.back_to_start_button.place(x=10,
-                              y=10)
+                                        y=10)
 
         # temperature display label
         self.temp_label = ctk.CTkLabel(master=self.temp_frame,
@@ -487,6 +487,16 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
                 self.cell(width / 2, 10, f"Seite {self.page_no()} von {self.pages_count}", border=False, align="L")
                 self.cell(width / 2, 10, f"{exam_date}", border=False, align="R")
 
+            def checkbox(self, size, checked):
+                x = self.get_x()
+                y = self.get_y()
+                self.rect(x, y, size, size)  # Draw a square
+                if checked == 1:
+                    self.set_xy(x, y)  # Reset position
+                    self.set_font("Arial", size=size)
+                    self.cell(size, size, "✔", align="C")  # Add checkmark if checked
+                self.set_x(x + size + 2)  # Move cursor to avoid overlapping
+
         pdf = PDF("P", "mm", "A4")
         pdf.set_title(f"Prüfbericht - {last_name_examinee} {first_name_examinee}")
         pdf.set_auto_page_break(auto=True, margin=25)
@@ -596,10 +606,10 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.cell(0, 10, "Visuelle Beurteilung des Prüfstücks und der Schweißverbindungen:", align="L",
                  new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         pdf.set_font("helvetica", "", 12)
-
-        pdf.cell(10, 10, "", border=False, align="L")
-        pdf.multi_cell(0, 10, visual_grade, border=False,
-                       align="L")
+        # ------------------------------------------------------------------------------------------------------
+        pdf.cell(40, 10, "Schweißwulst", border=False, align="L")
+        pdf.checkbox(5, visual_grade[0])
+        pdf.cell(40, 10, f"{visual_grade[10]}", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         pdf.ln(5)
 
         # pressure diagram ---------------------------------------------------------------------------------------------
@@ -647,7 +657,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             self.master.switch_window("0")
 
     def back_button_function(self):
-        if messagebox.askokcancel("!ACHTUNG!", "Wollen Sie wirklich zum vorherigen Bildschirm zurückgehen?\nPumpe wird dadurch abgeschaltet!"):
+        if messagebox.askokcancel("!ACHTUNG!",
+                                  "Wollen Sie wirklich zum vorherigen Bildschirm zurückgehen?\nPumpe wird dadurch abgeschaltet!"):
             self.stop_button_function()
             self.master.switch_window("2.0")
 

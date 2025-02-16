@@ -489,11 +489,11 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
             def checkbox(self, size, checked):
                 x = self.get_x()
-                y = (self.get_y())+size/2
+                y = (self.get_y())+size
                 self.rect(x, y, size, size)  # Draw a square
                 if checked == 1:
                     self.set_xy(x, y)  # Reset position
-                    self.set_font("Arial", size=2*size)
+                    self.set_font("Arial", size=3*size)
                     self.cell(size, size, "X", align="C")  # Add checkmark if checked
                     pdf.set_font("helvetica", "", 12)
                 self.set_x(x + size + 2)  # Move cursor to avoid overlapping
@@ -609,7 +609,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.set_font("helvetica", "", 12)
         # ------------------------------------------------------------------------------------------------------
         pdf.cell(40, 10, "Schweißwulst", border=False, align="L")
-        pdf.checkbox(2, visual_grade[0])
+        pdf.checkbox(3, visual_grade[0])
         pdf.cell(40, 10, f"{visual_grade[10]}", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         pdf.ln(5)
 

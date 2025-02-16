@@ -489,10 +489,10 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
             def checkbox(self, size, checked):
                 x = self.get_x()
-                y = (self.get_y())+1.5*size
+                y = (self.get_y())+1.25*size
                 self.rect(x, y, size, size)  # Draw a square
                 if checked == 1:
-                    self.set_xy(x, y + 0.5*size)  # Reset position
+                    self.set_xy(x, y + 0.1*size)  # Reset position
                     self.set_font("Arial", size=3*size)
                     self.cell(size, size, "X", align="C")  # Add checkmark if checked
                     pdf.set_font("helvetica", "", 12)

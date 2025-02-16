@@ -437,10 +437,12 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         global pressure_values
         global test_timesteps
 
-        if messagebox.askyesno("Ergebnis der Prüfung", "Hat der Schüler die Prüfung bestanden?"):
-            passed = 1
-        else:
-            passed = 0
+        if messagebox.askyesno("Ergebnis der Prüfung", "Note jetzt eingeben?"):
+            if messagebox.askyesno("Ergebnis der Prüfung", "Hat der Schüler die Prüfung bestanden?"):
+                passed = 1
+            else:
+                passed = 0
+        else: passed = 2
 
         grade = [0, 0]
 
@@ -661,6 +663,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             grade[0] = 1
         elif passed == 0:
             grade[1] = 1
+        elif passed == 2:
+            grade = [0, 0]
         pdf.set_font("helvetica", "U", 12)
         pdf.cell(0, 10, "Ergebnis der Prüfung:", align="L",
                  new_x=XPos.LMARGIN, new_y=YPos.NEXT)

@@ -437,9 +437,17 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         global pressure_values
         global test_timesteps
 
+        if messagebox.askyesno("Ergebnis der Prüfung", "Hat der Schüler die Prüfung bestanden?"):
+            passed = 1
+        else:
+            passed = 0
+
+        grade = [0, 0]
+
         print("PDF creating")
         personal_folder_path = json_reader("personal_var", "personal_folder_path", main_pi_location + "../JSON/")
         personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
+        json_writer(personal_json_name, "passed", passed, personal_folder_path)
 
         # examinee data fetching ---------------------------------------------------------------------------------------
         personal_infos_examinee = json_reader(personal_json_name, "personal_infos_examinee", personal_folder_path)
@@ -612,27 +620,23 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.cell(40, 5, "Erklärung", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         # ------------------------------------------------------------------------------------------------------
         pdf.set_font("helvetica", "", 12)
-        pdf.cell(42, 10, "Schweißwulst", border=False, align="L")
+        pdf.cell(42, 10, "Schweißwulst:", border=False, align="L")
         pdf.checkbox(3, visual_grade[0])
         pdf.checkbox(3, visual_grade[1])
         pdf.cell(40, 10, f"{visual_grade[10]}", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-        pdf.set_font("helvetica", "", 12)
-        pdf.cell(42, 10, "Schweißindikatoren", border=False, align="L")
+        pdf.cell(42, 10, "Schweißindikatoren:", border=False, align="L")
         pdf.checkbox(3, visual_grade[2])
         pdf.checkbox(3, visual_grade[3])
         pdf.cell(40, 10, f"{visual_grade[11]}", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-        pdf.set_font("helvetica", "", 12)
-        pdf.cell(42, 10, "Beschädigungen", border=False, align="L")
+        pdf.cell(42, 10, "Beschädigungen:", border=False, align="L")
         pdf.checkbox(3, visual_grade[4])
         pdf.checkbox(3, visual_grade[5])
         pdf.cell(40, 10, f"{visual_grade[12]}", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-        pdf.set_font("helvetica", "", 12)
-        pdf.cell(42, 10, "Halteklemmen", border=False, align="L")
+        pdf.cell(42, 10, "Halteklemmen:", border=False, align="L")
         pdf.checkbox(3, visual_grade[6])
         pdf.checkbox(3, visual_grade[7])
         pdf.cell(40, 10, f"{visual_grade[13]}", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-        pdf.set_font("helvetica", "", 12)
-        pdf.cell(42, 10, "Versatz", border=False, align="L")
+        pdf.cell(42, 10, "Versatz:", border=False, align="L")
         pdf.checkbox(3, visual_grade[8])
         pdf.checkbox(3, visual_grade[9])
         pdf.cell(40, 10, f"{visual_grade[14]}", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
@@ -652,24 +656,20 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.image(f"{personal_folder_path}/Druckverlauf.png", x=15, y=pdf.get_y() + 5, w=180)
         pdf.set_y(pdf.get_y() + image_height + 5)
 
-        # grade of exam ------------------------------------------------------------------------------------------------
-        pdf.set_font("helvetica", "U", 12)
-        pdf.cell(0, 10, "Beurteilung der Prüfung:", align="L",
-                 new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-        pdf.set_font("helvetica", "", 12)
-
-        pdf.cell(10, 10, "", border=False, align="L")
-        pdf.multi_cell(0, 10, "<Beutreilung der Prüfung>")
-        pdf.ln(5)
-
         # result of exam -----------------------------------------------------------------------------------------------
+        if passed == 1:
+            grade[0] = 1
+        elif passed == 0:
+            grade[1] = 1
         pdf.set_font("helvetica", "U", 12)
         pdf.cell(0, 10, "Ergebnis der Prüfung:", align="L",
                  new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         pdf.set_font("helvetica", "", 12)
-
-        pdf.cell(10, 10, "", border=False, align="L")
-        pdf.multi_cell(0, 10, "<Ergebnis der Prüfung>")
+        pdf.cell(42, 10, "Bestanden:", border=False, align="L")
+        pdf.checkbox(3, grade[0])
+        pdf.ln(5)
+        pdf.cell(42, 10, "Nicht bestanden:", border=False, align="L")
+        pdf.checkbox(3, grade[1])
 
         # save ---------------------------------------------------------------------------------------------------------
         pdf_path = f"{personal_folder_path}Pruefbericht_{last_name_examinee}_{first_name_examinee}.pdf"

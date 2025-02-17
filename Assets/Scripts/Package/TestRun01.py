@@ -461,6 +461,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
         json_writer(personal_json_name, "passed", passed, personal_folder_path)
         infos_item = json_reader(personal_json_name, "infos_item", personal_folder_path)
+        manufacturing_date = json_reader(personal_json_name, "manufacturing_date", personal_folder_path)
 
         # examinee data fetching ---------------------------------------------------------------------------------------
         personal_infos_examinee = json_reader(personal_json_name, "personal_infos_examinee", personal_folder_path)
@@ -569,7 +570,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(40, 10, "Herstellungsdatum:", border=False, align="L")
         pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(60, 10, f"{infos_item[7]}", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.cell(60, 10, f"{manufacturing_date}", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
         pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(40, 10, "Herstellungsverfahren:", border=False, align="L")

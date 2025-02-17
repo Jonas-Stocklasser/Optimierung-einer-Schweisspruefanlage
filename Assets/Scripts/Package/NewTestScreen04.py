@@ -445,8 +445,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                       self.info3_entry.get(),
                       self.info4_entry.get(),
                       self.info5_entry.get(),
-                      self.info6_entry.get(),
-                      self.manufacturing_date_entry.get()]
+                      self.info6_entry.get()]
 
         allowed_characters = set(string.digits + ".")
 
@@ -557,10 +556,11 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.continue_button.configure(state="normal")
         self.change_button.configure(state="normal")
 
-    @staticmethod
-    def write_personal_json():
+    def write_personal_json(self):
+        manufacturing_date = self.manufacturing_date_entry.get()
         last_chosen_item = json_reader("item_var", "last_chosen_item", main_pi_location + "../JSON/")
         infos_item = json_reader("item_var", f"infos_item_{last_chosen_item}", main_pi_location + "../JSON/")
         personal_folder_path = json_reader("personal_var", "personal_folder_path", main_pi_location + "../JSON/")
         personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
         json_writer(personal_json_name, "infos_item", infos_item, personal_folder_path)
+        json_writer(personal_json_name, "manufacturing_date", manufacturing_date, personal_folder_path)

@@ -303,6 +303,53 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info5_entry_unchanged_overlay_label.place(x=10,
                                                        rely=0.1)
 
+        # info6 entry------------------------------------------------------------
+        self.info6_entry_label = ctk.CTkLabel(master=self.entry_frame2,
+                                              fg_color=GetStartupVariables.color_SET_blue,
+                                              corner_radius=10,
+                                              text="Lieferform",
+                                              text_color=GetStartupVariables.text_color_SET,
+                                              font=("bold", font_size),
+                                              width=font_size * 25,
+                                              height=font_size * 1.5)
+        self.info6_entry_label.place(x=10,
+                                     y=40 + (4 * font_size * 1.5))
+
+        self.info6_entry = ctk.CTkEntry(master=self.entry_frame2,
+                                        font=("bold", font_size),
+                                        state="disabled"
+                                        )
+        self.info6_entry.place(x=10,
+                               y=45 + (5 * font_size * 1.5))
+
+        self.info6_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame2,
+                                                                      corner_radius=10,
+                                                                      width=window_geometry[0] / 6,
+                                                                      height=font_size * 1.5)
+        self.info6_entry_unchanged_overlay_label_frame.place(x=10,
+                                                             y=45 + (5 * font_size * 1.5))
+
+        self.info6_entry_unchanged_overlay_label = ctk.CTkLabel(
+            master=self.info6_entry_unchanged_overlay_label_frame,
+            text=GetItemVariables.infos_item[6],
+            font=("bold", font_size))
+        self.info6_entry_unchanged_overlay_label.place(x=10,
+                                                       rely=0.1)
+
+        # info7 entry------------------------------------------------------------
+        self.info7_entry_label = ctk.CTkLabel(master=self.entry_frame2,
+                                              fg_color=GetStartupVariables.color_SET_blue,
+                                              corner_radius=10,
+                                              text="Herstellungsdatum",
+                                              text_color=GetStartupVariables.text_color_SET,
+                                              font=("bold", font_size),
+                                              width=font_size * 25,
+                                              height=font_size * 1.5)
+        self.info7_entry_label.place(x=10,
+                                     y=55 + (6 * font_size * 1.5))
+
+
+
         # change, save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
@@ -363,6 +410,8 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info4_entry_unchanged_overlay_label_frame.place_forget()
         self.info5_entry_unchanged_overlay_label.place_forget()
         self.info5_entry_unchanged_overlay_label_frame.place_forget()
+        self.info6_entry_unchanged_overlay_label.place_forget()
+        self.info6_entry_unchanged_overlay_label_frame.place_forget()
 
         self.title_entry.configure(state="normal", placeholder_text="Titel")
         self.info1_entry.configure(state="normal", placeholder_text="xx.xx")
@@ -370,6 +419,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info3_entry.configure(state="normal", placeholder_text="xx.xx")
         self.info4_entry.configure(state="normal", placeholder_text="xx.xx")
         self.info5_entry.configure(state="normal", placeholder_text="Lieferform")
+        self.info6_entry.configure(state="normal", placeholder_text="Herstellungsverfahren")
 
         self.change_button.configure(state="disabled")
         self.save_button.configure(state="normal")
@@ -381,7 +431,8 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                       self.info2_entry.get(),
                       self.info3_entry.get(),
                       self.info4_entry.get(),
-                      self.info5_entry.get()]
+                      self.info5_entry.get(),
+                      self.info6_entry.get()]
 
         allowed_characters = set(string.digits + ".")
 
@@ -391,6 +442,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                 len(infos_item[3].strip()) >= 1 and
                 len(infos_item[4].strip()) >= 1 and
                 len(infos_item[5].strip()) >= 1 and
+                len(infos_item[6].strip()) >= 1 and
                 set(infos_item[1]) <= allowed_characters and
                 set(infos_item[2]) <= allowed_characters and
                 set(infos_item[3]) <= allowed_characters and
@@ -424,6 +476,10 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                                                                  y=30 + (3 * font_size * 1.5))
             self.info5_entry_unchanged_overlay_label.place(x=10,
                                                            rely=0.1)
+            self.info6_entry_unchanged_overlay_label_frame.place(x=10,
+                                                                 y=45 + (5 * font_size * 1.5))
+            self.info6_entry_unchanged_overlay_label.place(x=10,
+                                                           rely=0.1)
             self.update_labels(infos_item)
 
             self.title_entry.configure(state="disabled")
@@ -432,6 +488,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
             self.info3_entry.configure(state="disabled")
             self.info4_entry.configure(state="disabled")
             self.info5_entry.configure(state="disabled")
+            self.info6_entry.configure(state="disabled")
 
             self.change_button.configure(state="normal")
             self.save_button.configure(state="disabled")
@@ -456,6 +513,9 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
             elif len(infos_item[5].strip()) < 1:
                 print("Please provide form of delivery")
                 messagebox.showinfo("Eingabefehler", "Bitte Lieferform eingeben!")
+            elif len(infos_item[6].strip()) < 1:
+                print("Please provide manufacturing process")
+                messagebox.showinfo("Eingabefehler", "Bitte Herstellungsverfahren eingeben!")
             elif not set(infos_item[1]) <= allowed_characters or not set(infos_item[2]) <= allowed_characters or not \
                     set(infos_item[3]) <= allowed_characters or not set(infos_item[4]) <= allowed_characters:
                 print("Please only input [1 2 3 4 5 6 7 8 9 0 .]")
@@ -469,6 +529,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info3_entry_unchanged_overlay_label.configure(text=infos[3])
         self.info4_entry_unchanged_overlay_label.configure(text=infos[4])
         self.info5_entry_unchanged_overlay_label.configure(text=infos[5])
+        self.info6_entry_unchanged_overlay_label.configure(text=infos[6])
 
     def item_select(self, which):
         json_writer("item_var", "last_chosen_item", which, main_pi_location + "../JSON/")

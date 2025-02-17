@@ -10,6 +10,8 @@ from tkinter import messagebox
 import customtkinter as ctk
 import tkinter as tk
 import math
+import tkcalendar as tkc
+import datetime
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, GetItemVariables, back_arrow_image, main_pi_location
 from .JsonFunctions import json_writer, json_reader
@@ -348,7 +350,15 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info7_entry_label.place(x=10,
                                      y=55 + (6 * font_size * 1.5))
 
-
+        self.manufacturing_date_entry = tkc.DateEntry(master=self.entry_frame2,
+                                                      font=("bold", int(math.floor(font_size / 1.5))),
+                                                      date_pattern='dd.mm.yyyy',
+                                                      year=datetime.now().year,
+                                                      month=datetime.now().month,
+                                                      day=datetime.now().day,
+                                                      state="readonly")
+        self.manufacturing_date_entry.place(x=10,
+                                            y=60 + (7 * font_size * 1.5))
 
         # change, save and continue button------------------------------------------------------------
 
@@ -432,7 +442,8 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                       self.info3_entry.get(),
                       self.info4_entry.get(),
                       self.info5_entry.get(),
-                      self.info6_entry.get()]
+                      self.info6_entry.get(),
+                      self.manufacturing_date_entry.get()]
 
         allowed_characters = set(string.digits + ".")
 
@@ -465,7 +476,8 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
             self.info2_entry_unchanged_overlay_label.place(x=10,
                                                            rely=0.1)
             self.info3_entry_unchanged_overlay_label_frame.place(x=10,
-                                                                 y=15 + (5 * font_size * 1.5 + 45) + (2 * font_size * 1.5))
+                                                                 y=15 + (5 * font_size * 1.5 + 45) + (
+                                                                         2 * font_size * 1.5))
             self.info3_entry_unchanged_overlay_label.place(x=10,
                                                            rely=0.1)
             self.info4_entry_unchanged_overlay_label_frame.place(x=10,

@@ -449,7 +449,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         else:
             passed = 2
 
-        failure_pressure = max(pressure_values[-10:])
+        failure_pressure = round(max(pressure_values[-10:]),2)
         test_duration_hour = int((test_timesteps[-1]) / 3600)
         test_duration_min = int((test_timesteps[-1] % 3600) / 60)
         test_duration_sec = int(test_timesteps[-1] % 60)

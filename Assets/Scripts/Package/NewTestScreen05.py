@@ -167,14 +167,34 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
 
         visual_grade_int = visual_grade[0:10]
 
-        if sum(visual_grade_int) == 5:
+        if sum(visual_grade_int) == 5 and len(visual_grade[10]) <= 35 \
+                and len(visual_grade[11]) <= 35 \
+                and len(visual_grade[12]) <= 35 \
+                and len(visual_grade[13]) <= 35 \
+                and len(visual_grade[14]) <= 35:
             personal_folder_path = json_reader("personal_var", "personal_folder_path", main_pi_location + "../JSON/")
             personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
             json_writer(personal_json_name, "visual_grade", visual_grade, personal_folder_path)
             self.continue_button.configure(state="normal")
         else:
-            messagebox.showinfo("Eingabefehler", "Bitte überall ein Kreuz setzen!")
-            print("Type something! An empty field is not permitted!")
+            if sum(visual_grade_int) != 5:
+                messagebox.showinfo("Eingabefehler", "Bitte überall ein Kreuz setzen!")
+                print("Type something! An empty field is not permitted!")
+            elif len(visual_grade[10]) > 35:
+                messagebox.showinfo("Eingabefehler", "Zu langer Text bei Schweißwulst!")
+                print("Too long text at welding bead")
+            elif len(visual_grade[11]) > 35:
+                messagebox.showinfo("Eingabefehler", "Zu langer Text bei Schweißindikatoren!")
+                print("Too long text at welding indicators")
+            elif len(visual_grade[12]) > 35:
+                messagebox.showinfo("Eingabefehler", "Zu langer Text bei Beschädigungen!")
+                print("Too long text at damages")
+            elif len(visual_grade[13]) > 35:
+                messagebox.showinfo("Eingabefehler", "Zu langer Text bei Halteklemmen!")
+                print("Too long text at holding clamps")
+            elif len(visual_grade[14]) > 35:
+                messagebox.showinfo("Eingabefehler", "Zu langer Text bei Versatz!")
+                print("Too long text at offset")
             self.save_button.configure(state="normal")
             self.continue_button.configure(state="disabled")
 

@@ -313,7 +313,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
             infos_item = json_reader(personal_json_name, "infos_item", personal_folder_path)
             sigma = float(infos_item[1])
-            en = float(infos_item[2])
+            en = float(infos_item[3]) / float(infos_item[2])
             dn = float(infos_item[3])
             controlledTimeTotalUserdefined = float(infos_item[4])
             # calculated controlled pressure (from oenorm m 1861-6:2009)
@@ -579,7 +579,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(40, 10, "SDR:", border=False, align="L")
         pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(60, 10, f"{round(float(infos_item[3])/float(infos_item[2]), 2)}", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.cell(60, 10, f"{infos_item[2]}", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
         pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(40, 10, "Außendurchmesser:", border=False, align="L")

@@ -94,7 +94,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.entry_frame1 = ctk.CTkFrame(master=self,  # frame for the entries
                                          corner_radius=20,
                                          width=font_size * 20 + 20,
-                                         height=font_size * 11)
+                                         height=4 * (15 + font_size * 3) + 10)
         self.entry_frame1.place(x=0,
                                 y=font_size * 2 + font_size * 3 + 30)
 
@@ -102,7 +102,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.entry_frame2 = ctk.CTkFrame(master=self,  # frame for the entries
                                          corner_radius=20,
                                          width=font_size * 25 + 20,
-                                         height=font_size * 7.5)
+                                         height=4 * (15 + font_size * 3) + 10)
         self.entry_frame2.place(x=font_size * 20 + 30,
                                 y=font_size * 2 + font_size * 3 + 30)
 
@@ -175,7 +175,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info2_entry_label = ctk.CTkLabel(master=self.entry_frame1,
                                               fg_color=GetStartupVariables.color_SET_blue,
                                               corner_radius=10,
-                                              text="Nenn-Wanddicke des Rohres eₙ [mm]",
+                                              text="SDR",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size),
                                               width=font_size * 20,

@@ -205,7 +205,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                                                        rely=0.1)
 
         # info3 entry------------------------------------------------------------
-        self.info3_entry_label = ctk.CTkLabel(master=self.entry_frame2,
+        self.info3_entry_label = ctk.CTkLabel(master=self.entry_frame1,
                                               fg_color=GetStartupVariables.color_SET_blue,
                                               corner_radius=10,
                                               text="Nenn-Außendurchmesser des Rohres dₙ [mm]",
@@ -214,21 +214,21 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                                               width=font_size * 25,
                                               height=font_size * 1.5)
         self.info3_entry_label.place(x=10,
-                                     y=10)
+                                     y=10 + (5 * font_size * 1.5 + 45) + (font_size * 1.5))
 
         self.info3_entry = ctk.CTkEntry(master=self.entry_frame2,
                                         font=("bold", font_size),
                                         state="disabled"
                                         )
         self.info3_entry.place(x=10,
-                               y=font_size * 1.5 + 15)
+                               y=25 + (5 * font_size * 1.5 + 45) + (2 * font_size * 1.5))
 
         self.info3_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame2,
                                                                       corner_radius=10,
                                                                       width=window_geometry[0] / 6,
                                                                       height=font_size * 1.5)
         self.info3_entry_unchanged_overlay_label_frame.place(x=10,
-                                                             y=font_size * 1.5 + 15)
+                                                             y=25 + (5 * font_size * 1.5 + 45) + (2 * font_size * 1.5))
 
         self.info3_entry_unchanged_overlay_label = ctk.CTkLabel(
             master=self.info3_entry_unchanged_overlay_label_frame,
@@ -375,7 +375,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
             self.info2_entry_unchanged_overlay_label.place(x=10,
                                                            rely=0.1)
             self.info3_entry_unchanged_overlay_label_frame.place(x=10,
-                                                                 y=font_size * 1.5 + 15)
+                                                                 y=25 + (5 * font_size * 1.5 + 45) + (2 * font_size * 1.5))
             self.info3_entry_unchanged_overlay_label.place(x=10,
                                                            rely=0.1)
             self.info4_entry_unchanged_overlay_label_frame.place(x=10,

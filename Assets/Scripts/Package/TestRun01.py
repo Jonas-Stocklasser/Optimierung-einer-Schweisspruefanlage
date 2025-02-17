@@ -446,12 +446,13 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
                 passed = 1
             else:
                 passed = 0
-        else: passed = 2
+        else:
+            passed = 2
 
         failure_pressure = max(pressure_values[-10:])
-        test_duration_hour = (test_timesteps[-1])/3600
-        test_duration_min_fraction = test_duration_hour % 1
-        test_duration_min = (test_duration_min_fraction/10)*60
+        test_duration_hour = (test_timesteps[-1]) / 3600
+        test_duration_min = (test_timesteps[-1] % 3600) / 60
+        test_duration_sec = test_timesteps[-1] % 60
 
         grade = [0, 0]
 
@@ -515,7 +516,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
                     self.set_font("Arial", size=3 * size)
                     self.cell(size, size, "X", align="C")  # Add X if checked
                     pdf.set_font("helvetica", "", 12)
-                self.set_xy(x + 3* size + 2, y - 1.15 * size)  # Move cursor to avoid overlapping
+                self.set_xy(x + 3 * size + 2, y - 1.15 * size)  # Move cursor to avoid overlapping
 
         pdf = PDF("P", "mm", "A4")
         pdf.set_title(f"Prüfbericht - {last_name_examinee} {first_name_examinee}")
@@ -618,7 +619,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(40, 10, "Prüfdauer:", border=False, align="L")
         pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(60, 10, f"{test_duration_hour}:{test_duration_min}:{test_duration_sec} Std.", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.cell(60, 10, f"{test_duration_hour:02}:{test_duration_min:02}:{test_duration_sec:02} Std.", border=False, align="L", new_x=XPos.LMARGIN,
+                 new_y=YPos.NEXT)
         pdf.add_page()
 
         # visual grade -------------------------------------------------------------------------------------------------

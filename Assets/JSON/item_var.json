@@ -26,7 +26,8 @@
       "7.5",
       "110.0",
       "60",
-      "Stangenware"
+      "Stangenware",
+      "Extrusion"
     ]
   },
   {
@@ -37,7 +38,8 @@
       "7.5",
       "110.0",
       "60",
-      "Stangenware"
+      "Stangenware",
+      "Extrusion"
     ]
   },
   {
@@ -48,7 +50,8 @@
       "Info2",
       "Info3",
       "Info4",
-      "Stangenware"
+      "Info5",
+      "Info6"
     ]
   },
   {
@@ -59,7 +62,8 @@
       "Info2",
       "Info3",
       "Info4",
-      "Stangenware"
+      "Info5",
+      "Info6"
     ]
   },
   {
@@ -70,7 +74,8 @@
       "Info2",
       "Info3",
       "Info4",
-      "Stangenware"
+      "Info5",
+      "Info6"
     ]
   },
   {
@@ -81,7 +86,8 @@
       "Info2",
       "Info3",
       "Info4",
-      "Stangenware"
+      "Info5",
+      "Info6"
     ]
   },
   {
@@ -92,7 +98,8 @@
       "Info2",
       "Info3",
       "Info4",
-      "Stangenware"
+      "Info5",
+      "Info6"
     ]
   },
   {
@@ -103,18 +110,20 @@
       "Info2",
       "Info3",
       "Info4",
-      "Stangenware"
+      "Info5",
+      "Info6"
     ]
   },
   {
     "var":"infos_item_09",
     "val":[
-      "Title1",
+      "Titel9",
       "Info1",
       "Info2",
-      "fdiasjdksa",
+      "Info3",
       "Info4",
-      "Stangenware"
+      "Info5",
+      "Info6"
     ]
   },
   {
@@ -125,7 +134,8 @@
       "Info2",
       "Info3",
       "Info4",
-      "Stangenware"
+      "Info5",
+      "Info6"
     ]
   }
 ]

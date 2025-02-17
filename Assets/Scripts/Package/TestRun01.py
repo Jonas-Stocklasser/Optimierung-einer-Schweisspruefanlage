@@ -559,7 +559,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(40, 10, "Lieferform:", border=False, align="L")
         pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(60, 10, "<Lieferform>", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.cell(60, 10, f"{infos_item[5]}", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
         pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(40, 10, "Bezeichnung:", border=False, align="L")
@@ -569,12 +569,12 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(40, 10, "Herstellungsdatum:", border=False, align="L")
         pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(60, 10, "<Herstellungsdatum>", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.cell(60, 10, f"{infos_item[7]}", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
         pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(40, 10, "Herstellungsverfahren:", border=False, align="L")
         pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(60, 10, "<Herstellungsverfahren>", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.cell(60, 10, f"{infos_item[6]}", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
         pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(40, 10, "SDR:", border=False, align="L")

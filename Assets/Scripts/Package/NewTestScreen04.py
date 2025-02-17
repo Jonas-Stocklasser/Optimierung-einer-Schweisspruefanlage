@@ -122,7 +122,8 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
 
         self.title_entry = ctk.CTkEntry(master=self.entry_frame1,
                                         font=("bold", font_size),
-                                        state="disabled"
+                                        state="disabled",
+                                        width=window_geometry[0] / 6
                                         )
         self.title_entry.place(x=10,
                                y=font_size * 1.5 + 15)
@@ -310,7 +311,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info6_entry_label = ctk.CTkLabel(master=self.entry_frame2,
                                               fg_color=GetStartupVariables.color_SET_blue,
                                               corner_radius=10,
-                                              text="Lieferform",
+                                              text="Herstellungsverfahren",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size),
                                               width=font_size * 25,

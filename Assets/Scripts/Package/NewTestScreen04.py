@@ -93,7 +93,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         # entry frame 1------------------------------------------------------------
         self.entry_frame1 = ctk.CTkFrame(master=self,  # frame for the entries
                                          corner_radius=20,
-                                         width=font_size * 20 + 20,
+                                         width=font_size * 25 + 20,
                                          height=4 * (15 + font_size * 3) + 10)
         self.entry_frame1.place(x=0,
                                 y=font_size * 2 + font_size * 3 + 30)
@@ -103,7 +103,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                                          corner_radius=20,
                                          width=font_size * 25 + 20,
                                          height=4 * (15 + font_size * 3) + 10)
-        self.entry_frame2.place(x=font_size * 20 + 30,
+        self.entry_frame2.place(x=font_size * 25 + 30,
                                 y=font_size * 2 + font_size * 3 + 30)
 
         # title entry------------------------------------------------------------
@@ -247,21 +247,21 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                                               width=font_size * 25,
                                               height=font_size * 1.5)
         self.info4_entry_label.place(x=10,
-                                     y=2 * font_size * 1.5 + 25)
+                                     y=10)
 
         self.info4_entry = ctk.CTkEntry(master=self.entry_frame2,
                                         font=("bold", font_size),
                                         state="disabled"
                                         )
         self.info4_entry.place(x=10,
-                               y=3 * font_size * 1.5 + 30)
+                               y=15 + font_size * 1.5)
 
         self.info4_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame2,
                                                                       corner_radius=10,
                                                                       width=window_geometry[0] / 6,
                                                                       height=font_size * 1.5)
         self.info4_entry_unchanged_overlay_label_frame.place(x=10,
-                                                             y=3 * font_size * 1.5 + 30)
+                                                             y=15 + font_size * 1.5)
 
         self.info4_entry_unchanged_overlay_label = ctk.CTkLabel(
             master=self.info4_entry_unchanged_overlay_label_frame,
@@ -379,7 +379,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
             self.info3_entry_unchanged_overlay_label.place(x=10,
                                                            rely=0.1)
             self.info4_entry_unchanged_overlay_label_frame.place(x=10,
-                                                                 y=3 * font_size * 1.5 + 30)
+                                                                 y=15 + font_size * 1.5)
             self.info4_entry_unchanged_overlay_label.place(x=10,
                                                            rely=0.1)
             self.update_labels(infos_item)

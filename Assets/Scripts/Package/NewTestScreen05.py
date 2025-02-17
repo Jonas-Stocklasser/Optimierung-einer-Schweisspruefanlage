@@ -107,7 +107,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.option_frame = ctk.CTkFrame(master=self,  # frame for the textbox
                                          corner_radius=20,
                                          width=window_geometry[0] / 1.5,
-                                         height=window_geometry[1] / 1.7)
+                                         height=window_geometry[1] / 1.9)
         self.option_frame.place(x=0,
                                 y=font_size * 2)
 

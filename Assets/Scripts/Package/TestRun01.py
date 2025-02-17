@@ -27,6 +27,7 @@ pressureControlDown = 0
 pressureControlUp = 0
 height = 2  # height of space between pressureControlUp and pressureControlDown in bar
 maxAllowedPressure = 0
+mean_temp = 21
 
 completeTimeStart = datetime(year=2000, month=1, day=1, hour=0, minute=0, second=0)
 completeTimeStartControl = datetime(year=2000, month=1, day=1, hour=0, minute=0, second=0)
@@ -210,6 +211,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         global controlledTimeStart
         global firstControlStartup
         global controlledTimeStart
+        global mean_temp
 
         # for testing
         # global pressure_current
@@ -436,6 +438,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
     def pdf_button_function(self):
         global pressure_values
         global test_timesteps
+        global mean_temp
+        global pressureControlMiddle
 
         if messagebox.askyesno("Ergebnis der Prüfung", "Note jetzt eingeben?"):
             if messagebox.askyesno("Ergebnis der Prüfung", "Hat der Schüler die Prüfung bestanden?"):
@@ -443,6 +447,11 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             else:
                 passed = 0
         else: passed = 2
+
+        failure_pressure = max(pressure_values[-10:])
+        test_duration_hour = (test_timesteps[-1])/3600
+        test_duration_min_fraction = test_duration_hour % 1
+        test_duration_min = (test_duration_min_fraction/10)*60
 
         grade = [0, 0]
 
@@ -594,22 +603,22 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(40, 10, "Durchschnittstemperatur:", border=False, align="L")
         pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(60, 10, "<Durchschnittstemperatur>", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.cell(60, 10, f"{mean_temp}°C", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
         pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(40, 10, "Dauerprüfdruck:", border=False, align="L")
         pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(60, 10, "<Dauerprüfdruck>", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.cell(60, 10, f"{pressureControlMiddle} bar", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
         pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(40, 10, "Berstdruck:", border=False, align="L")
         pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(60, 10, "<Berstdruck>", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.cell(60, 10, f"{failure_pressure} bar", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
         pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(40, 10, "Prüfdauer:", border=False, align="L")
         pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(60, 10, "<Prüfdauer>", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.cell(60, 10, f"{test_duration_hour}:{test_duration_min}:{test_duration_sec} Std.", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         pdf.add_page()
 
         # visual grade -------------------------------------------------------------------------------------------------

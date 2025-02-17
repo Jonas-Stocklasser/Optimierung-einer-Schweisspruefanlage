@@ -298,7 +298,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
 
         self.info5_entry_unchanged_overlay_label = ctk.CTkLabel(
             master=self.info4_entry_unchanged_overlay_label_frame,
-            text=GetItemVariables.infos_item[4],
+            text=GetItemVariables.infos_item[5],
             font=("bold", font_size))
         self.info5_entry_unchanged_overlay_label.place(x=10,
                                                        rely=0.1)

@@ -411,7 +411,6 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
                 print("first ascend start")
 
             elif firstControlStartup == 1 and pressureNow >= pressureControlMiddle:
-                GPIO.output(14, False)
                 firstControlStartup = 0
                 controlledTimeStart = datetime.now()
                 print("first ascend end")

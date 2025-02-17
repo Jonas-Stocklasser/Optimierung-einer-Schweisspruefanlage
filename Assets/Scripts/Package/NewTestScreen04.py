@@ -286,7 +286,8 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
 
         self.info5_entry = ctk.CTkEntry(master=self.entry_frame2,
                                         font=("bold", font_size),
-                                        state="disabled"
+                                        state="disabled",
+                                        width=window_geometry[0] / 6
                                         )
         self.info5_entry.place(x=10,
                                y=30 + (3 * font_size * 1.5))
@@ -319,7 +320,8 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
 
         self.info6_entry = ctk.CTkEntry(master=self.entry_frame2,
                                         font=("bold", font_size),
-                                        state="disabled"
+                                        state="disabled",
+                                        width=window_geometry[0] / 6
                                         )
         self.info6_entry.place(x=10,
                                y=45 + (5 * font_size * 1.5))

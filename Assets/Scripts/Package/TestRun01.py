@@ -449,7 +449,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         else:
             passed = 2
 
-        failure_pressure = round(max(pressure_values[-10:]),2)
+        failure_pressure = round(max(pressure_values[-10:]), 2)
         test_duration_hour = int((test_timesteps[-1]) / 3600)
         test_duration_min = int((test_timesteps[-1] % 3600) / 60)
         test_duration_sec = int(test_timesteps[-1] % 60)
@@ -460,6 +460,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         personal_folder_path = json_reader("personal_var", "personal_folder_path", main_pi_location + "../JSON/")
         personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
         json_writer(personal_json_name, "passed", passed, personal_folder_path)
+        infos_item = json_reader(personal_json_name, "infos_item", personal_folder_path)
 
         # examinee data fetching ---------------------------------------------------------------------------------------
         personal_infos_examinee = json_reader(personal_json_name, "personal_infos_examinee", personal_folder_path)
@@ -556,11 +557,6 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.set_font("helvetica", "", 12)
 
         pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(40, 10, "Art:", border=False, align="L")
-        pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(60, 10, "<Art>", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-
-        pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(40, 10, "Lieferform:", border=False, align="L")
         pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(60, 10, "<Lieferform>", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
@@ -568,7 +564,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(40, 10, "Bezeichnung:", border=False, align="L")
         pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(60, 10, "<Bezeichnung>", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.cell(60, 10, f"{infos_item[0]}", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
         pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(40, 10, "Herstellungsdatum:", border=False, align="L")
@@ -581,20 +577,14 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.cell(60, 10, "<Herstellungsverfahren>", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
         pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(40, 10, "Grundwerkstoff:", border=False, align="L")
+        pdf.cell(40, 10, "SDR:", border=False, align="L")
         pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(60, 10, "<Grundwerkstoff>", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.cell(60, 10, f"{round(infos_item[3]/infos_item[2], 2)}", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
         pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(40, 10, "Zusatzwerkstoffe:", border=False, align="L")
+        pdf.cell(40, 10, "Außendurchmesser:", border=False, align="L")
         pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(60, 10, "<Zusatzwerkstoffe>", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-
-        pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(40, 10, "Abmessungen:", border=False, align="L")
-        pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(60, 10, "<Abmessungen>", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-        pdf.ln(5)
+        pdf.cell(60, 10, f"{infos_item[3]} mm", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
         # exam data ----------------------------------------------------------------------------------------------------
         pdf.set_font("helvetica", "U", 12)
@@ -609,7 +599,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(40, 10, "Dauerprüfdruck:", border=False, align="L")
         pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(60, 10, f"{pressureControlMiddle} bar", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.cell(60, 10, f"{round(pressureControlMiddle, 2)} bar", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
         pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(40, 10, "Berstdruck:", border=False, align="L")
@@ -617,7 +607,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.cell(60, 10, f"{failure_pressure} bar", border=False, align="L", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
         pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(40, 10, "Prüfdauer:", border=False, align="L")
+        pdf.cell(40, 10, "Prüfdauer (hh:mm:ss):", border=False, align="L")
         pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(60, 10,
                  f"{str(test_duration_hour).zfill(2)}:{str(test_duration_min).zfill(2)}:{str(test_duration_sec).zfill(2)} Std.",

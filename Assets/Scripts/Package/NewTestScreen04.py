@@ -277,7 +277,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                                          height=font_size * 1.5 + 20,
                                          width=font_size * 5 + font_size * 6 + 40 + font_size * 5)
         self.button_frame.place(x=0,
-                                y=font_size * 2 + font_size * 3 + 40 + font_size * 11)
+                                y=4 * (15 + font_size * 3) + 20 + font_size * 2 + font_size * 3 + 30)
 
         self.change_button = ctk.CTkButton(master=self.button_frame,  # continue button
                                            corner_radius=10,

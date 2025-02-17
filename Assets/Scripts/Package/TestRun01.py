@@ -450,9 +450,9 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             passed = 2
 
         failure_pressure = max(pressure_values[-10:])
-        test_duration_hour = (test_timesteps[-1]) / 3600
-        test_duration_min = (test_timesteps[-1] % 3600) / 60
-        test_duration_sec = test_timesteps[-1] % 60
+        test_duration_hour = int((test_timesteps[-1]) / 3600)
+        test_duration_min = int((test_timesteps[-1] % 3600) / 60)
+        test_duration_sec = int(test_timesteps[-1] % 60)
 
         grade = [0, 0]
 
@@ -619,7 +619,9 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pdf.cell(10, 10, "", border=False, align="L")
         pdf.cell(40, 10, "Prüfdauer:", border=False, align="L")
         pdf.cell(10, 10, "", border=False, align="L")
-        pdf.cell(60, 10, f"{test_duration_hour:02}:{test_duration_min:02}:{test_duration_sec:02} Std.", border=False, align="L", new_x=XPos.LMARGIN,
+        pdf.cell(60, 10,
+                 f"{str(test_duration_hour).zfill(2)}:{str(test_duration_min).zfill(2)}:{str(test_duration_sec).zfill(2)} Std.",
+                 border=False, align="L", new_x=XPos.LMARGIN,
                  new_y=YPos.NEXT)
         pdf.add_page()
 

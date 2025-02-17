@@ -473,7 +473,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         # create diagram png -------------------------------------------------------------------------------------------
         self.ax.clear()
-        self.ax.set_title("Überdruckverlauf (letzte 60 Sekunden)")
+        self.ax.set_title("Überdruckverlauf")
         self.ax.set_xlabel("Testzeit [s]")
         self.ax.set_ylabel("Druck [Bar]")
 

@@ -11,7 +11,7 @@ import customtkinter as ctk
 import tkinter as tk
 import math
 import tkcalendar as tkc
-import datetime
+from datetime import datetime
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, GetItemVariables, back_arrow_image, main_pi_location
 from .JsonFunctions import json_writer, json_reader

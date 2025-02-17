@@ -66,7 +66,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
             entry = ctk.CTkEntry(master=self.option_frame,
                                  font=("bold", font_size),
                                  state="disabled",
-                                 width=font_size * 25,
+                                 width=font_size * 23,
                                  height=font_size * 1.5
                                  )
 

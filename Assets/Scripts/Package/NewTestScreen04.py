@@ -113,7 +113,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                                               text="Werkstoff",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size),
-                                              width=font_size * 20,
+                                              width=font_size * 25,
                                               height=font_size * 1.5)
         self.title_entry_label.place(x=10,
                                      y=10)
@@ -146,7 +146,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                                               text="Umfangsspannung σ [MPa]",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size),
-                                              width=font_size * 20,
+                                              width=font_size * 25,
                                               height=font_size * 1.5)
         self.info1_entry_label.place(x=10,
                                      y=2 * font_size * 1.5 + 25)
@@ -178,7 +178,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                                               text="SDR",
                                               text_color=GetStartupVariables.text_color_SET,
                                               font=("bold", font_size),
-                                              width=font_size * 20,
+                                              width=font_size * 25,
                                               height=font_size * 1.5)
         self.info2_entry_label.place(x=10,
                                      y=4 * font_size * 1.5 + 40)
@@ -270,6 +270,39 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info4_entry_unchanged_overlay_label.place(x=10,
                                                        rely=0.1)
 
+        # info5 entry------------------------------------------------------------
+        self.info5_entry_label = ctk.CTkLabel(master=self.entry_frame2,
+                                              fg_color=GetStartupVariables.color_SET_blue,
+                                              corner_radius=10,
+                                              text="Lieferform",
+                                              text_color=GetStartupVariables.text_color_SET,
+                                              font=("bold", font_size),
+                                              width=font_size * 25,
+                                              height=font_size * 1.5)
+        self.info5_entry_label.place(x=10,
+                                     y=25 + (2 * font_size * 1.5))
+
+        self.info5_entry = ctk.CTkEntry(master=self.entry_frame2,
+                                        font=("bold", font_size),
+                                        state="disabled"
+                                        )
+        self.info5_entry.place(x=10,
+                               y=30 + (3 * font_size * 1.5))
+
+        self.info5_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame2,
+                                                                      corner_radius=10,
+                                                                      width=window_geometry[0] / 6,
+                                                                      height=font_size * 1.5)
+        self.info5_entry_unchanged_overlay_label_frame.place(x=10,
+                                                             y=30 + (3 * font_size * 1.5))
+
+        self.info5_entry_unchanged_overlay_label = ctk.CTkLabel(
+            master=self.info4_entry_unchanged_overlay_label_frame,
+            text=GetItemVariables.infos_item[4],
+            font=("bold", font_size))
+        self.info5_entry_unchanged_overlay_label.place(x=10,
+                                                       rely=0.1)
+
         # change, save and continue button------------------------------------------------------------
 
         self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
@@ -328,12 +361,15 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info3_entry_unchanged_overlay_label_frame.place_forget()
         self.info4_entry_unchanged_overlay_label.place_forget()
         self.info4_entry_unchanged_overlay_label_frame.place_forget()
+        self.info5_entry_unchanged_overlay_label.place_forget()
+        self.info5_entry_unchanged_overlay_label_frame.place_forget()
 
         self.title_entry.configure(state="normal", placeholder_text="Titel")
         self.info1_entry.configure(state="normal", placeholder_text="xx.xx")
         self.info2_entry.configure(state="normal", placeholder_text="xx.xx")
         self.info3_entry.configure(state="normal", placeholder_text="xx.xx")
         self.info4_entry.configure(state="normal", placeholder_text="xx.xx")
+        self.info5_entry.configure(state="normal", placeholder_text="Lieferform")
 
         self.change_button.configure(state="disabled")
         self.save_button.configure(state="normal")
@@ -344,7 +380,8 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                       self.info1_entry.get(),
                       self.info2_entry.get(),
                       self.info3_entry.get(),
-                      self.info4_entry.get()]
+                      self.info4_entry.get(),
+                      self.info5_entry.get()]
 
         allowed_characters = set(string.digits + ".")
 
@@ -353,6 +390,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                 len(infos_item[2].strip()) >= 1 and
                 len(infos_item[3].strip()) >= 1 and
                 len(infos_item[4].strip()) >= 1 and
+                len(infos_item[5].strip()) >= 1 and
                 set(infos_item[1]) <= allowed_characters and
                 set(infos_item[2]) <= allowed_characters and
                 set(infos_item[3]) <= allowed_characters and
@@ -382,6 +420,10 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                                                                  y=15 + font_size * 1.5)
             self.info4_entry_unchanged_overlay_label.place(x=10,
                                                            rely=0.1)
+            self.info5_entry_unchanged_overlay_label_frame.place(x=10,
+                                                                 y=30 + (3 * font_size * 1.5))
+            self.info5_entry_unchanged_overlay_label.place(x=10,
+                                                           rely=0.1)
             self.update_labels(infos_item)
 
             self.title_entry.configure(state="disabled")
@@ -389,6 +431,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
             self.info2_entry.configure(state="disabled")
             self.info3_entry.configure(state="disabled")
             self.info4_entry.configure(state="disabled")
+            self.info5_entry.configure(state="disabled")
 
             self.change_button.configure(state="normal")
             self.save_button.configure(state="disabled")
@@ -402,22 +445,22 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                 print("Please provide tension")
                 messagebox.showinfo("Eingabefehler", "Bitte Umfangsspannung eingeben!")
             elif len(infos_item[2].strip()) < 1:
-                print("Please provide thickness")
-                messagebox.showinfo("Eingabefehler", "Bitte Nenn-Wanddicke eingeben!")
+                print("Please provide SDR")
+                messagebox.showinfo("Eingabefehler", "Bitte SDR eingeben!")
             elif len(infos_item[3].strip()) < 1:
                 print("Please provide diameter")
                 messagebox.showinfo("Eingabefehler", "Bitte Nenn-Außendurchmesser eingeben!")
             elif len(infos_item[4].strip()) < 1:
                 print("Please provide regulation period")
                 messagebox.showinfo("Eingabefehler", "Bitte Prüfdauer (Regelung) eingeben!")
+            elif len(infos_item[5].strip()) < 1:
+                print("Please provide form of delivery")
+                messagebox.showinfo("Eingabefehler", "Bitte Lieferform eingeben!")
             elif not set(infos_item[1]) <= allowed_characters or not set(infos_item[2]) <= allowed_characters or not \
                     set(infos_item[3]) <= allowed_characters or not set(infos_item[4]) <= allowed_characters:
                 print("Please only input [1 2 3 4 5 6 7 8 9 0 .]")
                 print(infos_item)
                 messagebox.showinfo("Eingabefehler", "Bitte nur erlaubte Zeichen eingeben!\n[1 2 3 4 5 6 7 8 9 0 .]")
-            elif infos_item[2] == infos_item[3]:
-                print("Those must not be the same, division by 0 error")
-                messagebox.showinfo("Division durch 0!", "eₙ und dₙ dürfen nicht gleich sein!")
 
     def update_labels(self, infos):
         self.title_entry_unchanged_overlay_label.configure(text=infos[0])
@@ -425,6 +468,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info2_entry_unchanged_overlay_label.configure(text=infos[2])
         self.info3_entry_unchanged_overlay_label.configure(text=infos[3])
         self.info4_entry_unchanged_overlay_label.configure(text=infos[4])
+        self.info5_entry_unchanged_overlay_label.configure(text=infos[5])
 
     def item_select(self, which):
         json_writer("item_var", "last_chosen_item", which, main_pi_location + "../JSON/")

@@ -96,24 +96,27 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
 
         self.instruction_label = ctk.CTkLabel(master=self.text_frame,
                                               anchor="nw",
-                                              text="Anweisungen des ausgedruckten\n"
-                                                   "Dokuments befolgen!\n"
+                                              text="Anweisungen befolgen!\n"
                                                    "\n"
-                                                   "    1. Prüfstück mit Wasser füllen\n"
+                                                   "    1. Flansch auf Prüfstück aufsetzen\n"
                                                    "\n"
-                                                   "    2. Flansch auf Prüfstück aufsetzen\n"
+                                                   "    2. Prüfstück am Flansch aufhängen\n"
                                                    "\n"
-                                                   "    3. Prüfstück am Flansch aufhängen\n"
+                                                   "    3. Entlüftungsventil öffnen!\n"
                                                    "\n"
-                                                   "    4. Prüfstück entlüften\n"
+                                                   "    4. Pumpe an Flansch anschließen\n"
                                                    "\n"
-                                                   "    5. Prüfstück in das Becken hinablassen\n"
+                                                   "    5. Prüfstück entlüften\n"
+                                                   "        -> (anschließend Ventil schließen)\n"
                                                    "\n"
-                                                   "    6. Prüfvorgang starten (erst nach Entlüftung!)\n"
+                                                   "    6. Prüfstück in das Becken hinablassen\n"
+                                                   "        -> Sensor darf nicht untertauchen"   
+                                                   "\n"
+                                                   "    7. Prüfvorgang starten (erst nach Entlüftung!)\n"
                                                    "        -> Weiter drücken\n"
                                                    "\n"
                                                    "-----------------------------------------------------------\n"
-                                                   "Pumpe toggeln - ENTER\n"
+                                                   "Pumpe einschalten (ENTER)\n"
                                                    "-----------------------------------------------------------\n",
                                               justify="left",
                                               font=("bold", font_size - 2),

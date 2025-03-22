@@ -318,8 +318,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             controlledTimeTotalUserdefined = float(infos_item[4])
             # calculated controlled pressure (from oenorm m 1861-6:2009)
             pressureControlMiddle = (20 * en * sigma) / (dn - en)
-            pressureControlUp = pressureControlMiddle + height / 2
-            pressureControlDown = pressureControlMiddle - height / 2
+            pressureControlUp = pressureControlMiddle + 1
+            pressureControlDown = pressureControlMiddle - 0.5
 
             exam_parameter = json_reader(personal_json_name, "exam_parameter", personal_folder_path)
             firstControlStartup = int(json_reader("startup_var", "firstControlStartup", main_pi_location + "../JSON/"))

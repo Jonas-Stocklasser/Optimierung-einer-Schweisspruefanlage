@@ -413,7 +413,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
     def change_entry_data_item(self):
         last_chosen_item = json_reader("item_var", "last_chosen_item", main_pi_location + "../JSON/")
         infos = json_reader("item_var", f"infos_item_{last_chosen_item}", main_pi_location + "../JSON/")
-
+        print(f"2: {last_chosen_item}")
         self.title_entry_unchanged_overlay_label.place_forget()
         self.title_entry_unchanged_overlay_label_frame.place_forget()
         self.info1_entry_unchanged_overlay_label.place_forget()
@@ -566,6 +566,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         json_writer("item_var", "last_chosen_item", which, main_pi_location + "../JSON/")
         last_chosen_item = json_reader("item_var", "last_chosen_item", main_pi_location + "../JSON/")
         infos = json_reader("item_var", f"infos_item_{last_chosen_item}", main_pi_location + "../JSON/")
+        print(f"1: {last_chosen_item}")
         self.update_labels(infos)
 
     def reset_input_new_test(self):

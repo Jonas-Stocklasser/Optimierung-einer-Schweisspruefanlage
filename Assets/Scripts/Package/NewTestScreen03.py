@@ -255,8 +255,12 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
         self.birth_date_entry_unchanged_overlay_label.place_forget()
         self.birth_date_entry_unchanged_overlay_label_frame.place_forget()
 
-        self.first_name_entry.configure(state="normal", placeholder_text=f"{GetPersonalVariables.personal_infos_examiner[0]}")
-        self.last_name_entry.configure(state="normal", placeholder_text=f"{GetPersonalVariables.personal_infos_examiner[1]}")
+        self.first_name_entry.configure(state="normal")
+        self.first_name_entry.delete(0, ctk.END)
+        self.first_name_entry.insert(0, f"{GetPersonalVariables.personal_infos_examiner[0]}")
+        self.last_name_entry.configure(state="normal")
+        self.last_name_entry.delete(0, ctk.END)
+        self.last_name_entry.insert(0, f"{GetPersonalVariables.personal_infos_examiner[1]}")
 
         self.change_button.configure(state="disabled")
         self.save_button.configure(state="normal")

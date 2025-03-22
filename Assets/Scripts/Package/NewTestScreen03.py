@@ -248,6 +248,8 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
         self.write_personal_json()
 
     def change_entry_data_examiner(self):  # make the entries typeable
+        last_chosen_examiner = json_reader("personal_var", "last_chosen_examiner", main_pi_location + "../JSON/")
+        infos = json_reader("item_var", f"infos_examiner_{last_chosen_examiner}", main_pi_location + "../JSON/")
         self.first_name_entry_unchanged_overlay_label.place_forget()
         self.first_name_entry_unchanged_overlay_label_frame.place_forget()
         self.last_name_entry_unchanged_overlay_label.place_forget()
@@ -257,10 +259,10 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
 
         self.first_name_entry.configure(state="normal")
         self.first_name_entry.delete(0, ctk.END)
-        self.first_name_entry.insert(0, f"{GetPersonalVariables.personal_infos_examiner[0]}")
+        self.first_name_entry.insert(0, f"{infos[0]}")
         self.last_name_entry.configure(state="normal")
         self.last_name_entry.delete(0, ctk.END)
-        self.last_name_entry.insert(0, f"{GetPersonalVariables.personal_infos_examiner[1]}")
+        self.last_name_entry.insert(0, f"{infos[1]}")
 
         self.change_button.configure(state="disabled")
         self.save_button.configure(state="normal")
@@ -274,7 +276,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
 
         if len(personal_infos_examiner[0].strip()) >= 1 and len(personal_infos_examiner[1].strip()) >= 1:
             self.continue_button.configure(state="normal")
-            json_writer("personal_var", ("personal_infos_examiner_" + last_chosen_examiner),
+            json_writer("personal_var", f"personal_infos_examiner_{last_chosen_examiner}",
                         personal_infos_examiner, main_pi_location + "../JSON/")
 
             self.first_name_entry_unchanged_overlay_label_frame.place(x=10,

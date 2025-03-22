@@ -249,7 +249,8 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
 
     def change_entry_data_examiner(self):  # make the entries typeable
         last_chosen_examiner = json_reader("personal_var", "last_chosen_examiner", main_pi_location + "../JSON/")
-        infos = json_reader("item_var", f"infos_examiner_{last_chosen_examiner}", main_pi_location + "../JSON/")
+        infos = json_reader("personal_var", f"personal_infos_examiner_{last_chosen_examiner}",
+                                              main_pi_location + "../JSON/")
         self.first_name_entry_unchanged_overlay_label.place_forget()
         self.first_name_entry_unchanged_overlay_label_frame.place_forget()
         self.last_name_entry_unchanged_overlay_label.place_forget()

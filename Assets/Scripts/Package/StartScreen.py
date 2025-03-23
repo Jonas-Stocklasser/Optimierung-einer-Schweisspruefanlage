@@ -96,7 +96,7 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
                                         image=pruefstueck_image)  # Here goes a render of the test object (maybe a gif)
         self.image_label.place(relx=0.5, rely=0.5, anchor="center")
 
-    def new_test_button_function(self, which):
+    def new_test_button_function(self, which): # when the new test is started all entries are reset
         json_writer("startup_var", "firstControlStartup", 1, main_pi_location + "../JSON/")
         self.master.switch_window(which)
         self.master.windows.get("1.1").reset_input_new_test()

@@ -29,22 +29,26 @@ height = 2  # height of space between pressureControlUp and pressureControlDown 
 maxAllowedPressure = 0
 mean_temp = 21
 
+# initialisation of time variables
 completeTimeStart = datetime(year=2000, month=1, day=1, hour=0, minute=0, second=0)
 completeTimeStartControl = datetime(year=2000, month=1, day=1, hour=0, minute=0, second=0)
 # initialisation of duration control
 controlledTimeStart = datetime.now()
 controlledTimeTotal = timedelta(minutes=99999)
 
-# Zeitpunktinkrement
-Zeitinkrement = 1  # in s between the measurement points
+# factor how fast it is going (1 is every 500ms and 2 is every 1000ms)
+Zeitinkrement = 1
 
+# to prevent a pressure error when testing, will be overwritten by sensor signals when a sensor is wired
 pressure_current = 4
 
+# GPIO 14 is the switch for the pump
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(14, GPIO.OUT)
 GPIO.output(14, False)
 output = 0
 
+# configuration of the 4-20mA loop breakout board
 ina = INA219(shunt_ohms=0.1,
              max_expected_amps=0.6,
              address=0x40,
@@ -198,7 +202,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         self.canvas = FigureCanvasTkAgg(self.figure, self)
         self.canvas.get_tk_widget().place(x=0, y=font_size * 5)
 
-    def to_do(self):
+    def to_do(self): # this is looped in the test
         print("Measure")
         global timer_id
         global pressure_values
@@ -214,7 +218,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         global mean_temp
 
         # for testing
-        global pressure_current
+        #global pressure_current
         # ------
 
         # timestep management
@@ -238,18 +242,18 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         pressure = (MBe / MBa) * (pressure_current - MBAWa) + MBAWe
 
         print(f"Pressure = {pressure}")
-        pressure_values.append(pressure)
+        pressure_values.append(pressure) # append values to the list to create the diagram
         temperature_values.append(temperature)
 
-        mean_temp = round(np.mean(temperature_values), 2)
+        mean_temp = round(np.mean(temperature_values), 2) # calculate the mean temperature and display it
         self.temp_label.configure(text=f"Ø {mean_temp}°C")
 
-        # Regelungszeit
+        # control time
         controlledTimeNow = datetime.now()
         if controlledTimeNow - controlledTimeStart >= controlledTimeTotal and firstControlStartup == 0:
             regelungSchalter = 2
 
-        # Regelung
+        # switch for the controlling of the pressure
         if regelungSchalter == 1:
             self.regelung("start")
 
@@ -260,7 +264,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             self.regelung("pump")
         print(regelungSchalter)
 
-        # Abbruchbedingung zu hoher Druck
+        # stop test because pressure is exceeded
         if pressure >= maxAllowedPressure:
             self.stop_button_function()
             print(maxAllowedPressure)
@@ -268,14 +272,14 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
                                       f"Prüfdruck zu hoch! {pressure}bar\nSensor könnte bei Fortfahren beschädigt werden!\nDurchführung beendet!")
             return
 
-        # Abbruchbedingung zu niedriger Druck
+        # stop test because pressure is too low
         if pressure_current < 4:
             self.stop_button_function()
             self.master.error_message("!Achtung!",
                                       "Drucksensorstrom unter 4mA! Sensor auf Fehler prüfen!\nDurchführung beendet!")
             return
 
-        # Abbruchbedingung Druckabfall pruefen
+        # stop test because pressure difference is too high
         pDiff = pressure_values[len(pressure_values) - 1] - pressure_values[len(pressure_values) - 2]
         if pDiff < -10:
             self.stop_test(pDiff)
@@ -283,8 +287,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
                                       "Druckabfall über 10bar zwischen Messpunkten!\nPrüfstückbruch erkannt\nDurchführung beendet!")
             return
 
-        self.update_plot()
-        timer_id = self.after(int(Zeitinkrement * 500), self.to_do)
+        self.update_plot() # update diagram
+        timer_id = self.after(int(Zeitinkrement * 500), self.to_do) # reinitialize the loop
 
     def start_button_function(self):
         global timer_id
@@ -312,21 +316,23 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
 
             infos_item = json_reader(personal_json_name, "infos_item", personal_folder_path)
-            sigma = float(infos_item[1])
+            sigma = float(infos_item[1]) # calculate the middle pressure of the control
             en = float(infos_item[3]) / float(infos_item[2])
             dn = float(infos_item[3])
             controlledTimeTotalUserdefined = float(infos_item[4])
             # calculated controlled pressure (from oenorm m 1861-6:2009)
             pressureControlMiddle = (20 * en * sigma) / (dn - en)
-            pressureControlUp = pressureControlMiddle + 1
-            pressureControlDown = pressureControlMiddle - 0.5
+            pressureControlUp = pressureControlMiddle + 1 # top pressure in bar added to the middle
+            pressureControlDown = pressureControlMiddle - 0.5 # bottom pressure in bar added to the middle
 
+            # fetch the exam parameters
             exam_parameter = json_reader(personal_json_name, "exam_parameter", personal_folder_path)
             firstControlStartup = int(json_reader("startup_var", "firstControlStartup", main_pi_location + "../JSON/"))
             print(exam_parameter)
 
             maxAllowedPressure = float(exam_parameter[0])
 
+            # initialize the times
             controlledTimeTotal = timedelta(minutes=controlledTimeTotalUserdefined)
 
             if completeTimeStart == completeTimeStartControl:
@@ -335,9 +341,10 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             elif completeTimeStart != completeTimeStartControl:
                 print("start time unaltered")
 
+            # start the loop
             timer_id = self.after(int(Zeitinkrement * 1000), self.to_do)
             regelungSchalter = 1
-            self.pdf_button.configure(state="disabled")
+            self.pdf_button.configure(state="disabled") # reconfigure the button states
             self.back_to_start_button.configure(state="disabled")
             self.start_button.configure(state="disabled")
             self.stop_button.configure(state="normal")
@@ -348,17 +355,17 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         global regelungSchalter
 
         if timer_id is not None:
-            self.after_cancel(timer_id)
+            self.after_cancel(timer_id) # stop the loop
         regelungSchalter = 0
         self.regelung("stop")
         timer_id = None
         self.write_personal_json()
-        self.pdf_button.configure(state="normal")
+        self.pdf_button.configure(state="normal") # reconfigure the button states
         self.start_button.configure(state="normal")
         self.stop_button.configure(state="disabled")
 
     def update_plot(self):
-        slice_num = int(60 / Zeitinkrement)  # Compute slice index once
+        slice_num = int(60 / Zeitinkrement)
 
         # Get last 60 seconds of data
         display_timesteps = test_timesteps[-slice_num:]
@@ -434,7 +441,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             GPIO.output(14, False)
             print("regelung stop")
 
-    def pdf_button_function(self):
+    def pdf_button_function(self): # create pdf
         global pressure_values
         global test_timesteps
         global mean_temp

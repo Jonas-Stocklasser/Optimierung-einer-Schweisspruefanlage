@@ -3,8 +3,8 @@
 # Author: Stocklasser
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
 # Neuer Test Fenster 3; ID=1.2
-from tkinter import messagebox
 
+from tkinter import messagebox
 import customtkinter as ctk
 import tkinter as tk
 import math
@@ -12,8 +12,6 @@ import tkcalendar as tkc
 from .JsonFunctions import json_reader, json_writer
 # Shared variables----------------------------------------
 from .SharedVar import GetStartupVariables, GetPersonalVariables, back_arrow_image, main_pi_location
-
-font_size = 1
 
 
 class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
@@ -52,7 +50,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
                                          command=lambda: self.master.confirm_go_back("1.1"),
                                          width=font_size * 1.5,
                                          height=font_size * 1.5)
-        # the command does call the switch_window method because there is unsaved content to loose
+        # the command does call the confirm method because there is unsaved content to loose
         self.back_button.place(x=(window_geometry[0] - font_size * 1.5 - 25),
                                y=0)
 
@@ -64,7 +62,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
         self.examiner_option_menu_frame.place(x=0,
                                               y=font_size * 2)
 
-        self.examiner_option_menu_label = ctk.CTkLabel(master=self.examiner_option_menu_frame,
+        self.examiner_option_menu_label = ctk.CTkLabel(master=self.examiner_option_menu_frame, # label for the option menu
                                                        fg_color=GetStartupVariables.color_SET_blue,
                                                        corner_radius=10,
                                                        text="Voreinstellungen",
@@ -75,7 +73,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
         self.examiner_option_menu_label.place(x=10,
                                               y=10)
 
-        self.options_menu_examiner = ctk.CTkOptionMenu(master=self.examiner_option_menu_frame,
+        self.options_menu_examiner = ctk.CTkOptionMenu(master=self.examiner_option_menu_frame, # option menu for 10 presets
                                                        font=("bold", font_size),
                                                        dropdown_font=("bold", font_size),
                                                        corner_radius=10,
@@ -96,7 +94,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
                                y=font_size * 2 + 2 * font_size * 1.5 + 30)
 
         # first name entry------------------------------------------------------------
-        self.first_name_entry_label = ctk.CTkLabel(master=self.entry_frame,
+        self.first_name_entry_label = ctk.CTkLabel(master=self.entry_frame, # first name label
                                                    fg_color=GetStartupVariables.color_SET_blue,
                                                    corner_radius=10,
                                                    text="Vorname",
@@ -107,7 +105,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
         self.first_name_entry_label.place(x=10,
                                           y=10)
 
-        self.first_name_entry = ctk.CTkEntry(master=self.entry_frame,
+        self.first_name_entry = ctk.CTkEntry(master=self.entry_frame, # first name entry
                                              font=("bold", font_size),
                                              state="disabled",
                                              height=font_size * 1.5,
@@ -117,13 +115,14 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
                                     y=font_size * 1.5 + 15)
 
         self.first_name_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame,
+                                                                           # first name entry unchanged overlay frame
                                                                            corner_radius=10,
                                                                            width=window_geometry[0] / 4.5 - 20,
                                                                            height=font_size * 1.5)
         self.first_name_entry_unchanged_overlay_label_frame.place(x=10,
                                                                   y=font_size * 1.5 + 15)
 
-        self.first_name_entry_unchanged_overlay_label = ctk.CTkLabel(
+        self.first_name_entry_unchanged_overlay_label = ctk.CTkLabel( # first name entry unchanged overlay
             master=self.first_name_entry_unchanged_overlay_label_frame,
             text=GetPersonalVariables.personal_infos_examiner[0],
             font=("bold", font_size))
@@ -131,7 +130,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
                                                             rely=0.1)
 
         # last name entry------------------------------------------------------------
-        self.last_name_entry_label = ctk.CTkLabel(master=self.entry_frame,
+        self.last_name_entry_label = ctk.CTkLabel(master=self.entry_frame, # last name label
                                                   fg_color=GetStartupVariables.color_SET_blue,
                                                   corner_radius=10,
                                                   text="Nachname",
@@ -142,7 +141,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
         self.last_name_entry_label.place(x=10,
                                          y=2 * font_size * 1.5 + 25)
 
-        self.last_name_entry = ctk.CTkEntry(master=self.entry_frame,
+        self.last_name_entry = ctk.CTkEntry(master=self.entry_frame, # last name entry
                                             font=("bold", font_size),
                                             state="disabled",
                                             height=font_size * 1.5,
@@ -151,13 +150,14 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
                                    y=3 * font_size * 1.5 + 30)
 
         self.last_name_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame,
+                                                                          # last name unchanged overlay frame
                                                                           corner_radius=10,
                                                                           width=window_geometry[0] / 4.5 - 20,
                                                                           height=font_size * 1.5)
         self.last_name_entry_unchanged_overlay_label_frame.place(x=10,
                                                                  y=3 * font_size * 1.5 + 30)
 
-        self.last_name_entry_unchanged_overlay_label = ctk.CTkLabel(
+        self.last_name_entry_unchanged_overlay_label = ctk.CTkLabel( # last name unchanged overlay label
             master=self.last_name_entry_unchanged_overlay_label_frame,
             text=GetPersonalVariables.personal_infos_examiner[1],
             font=("bold", font_size))
@@ -165,7 +165,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
                                                            rely=0.1)
 
         # birth date entry------------------------------------------------------------
-        self.birth_date_entry_label = ctk.CTkLabel(master=self.entry_frame,
+        self.birth_date_entry_label = ctk.CTkLabel(master=self.entry_frame, # brith date label
                                                    fg_color=GetStartupVariables.color_SET_blue,
                                                    corner_radius=10,
                                                    text="Geburtsdatum",
@@ -176,7 +176,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
         self.birth_date_entry_label.place(x=10,
                                           y=4 * font_size * 1.5 + 40)
 
-        self.birth_date_entry = tkc.DateEntry(master=self.entry_frame,
+        self.birth_date_entry = tkc.DateEntry(master=self.entry_frame, # brith date calendar entry
                                               font=("bold", int(math.floor(font_size / 1.5))),
                                               date_pattern='dd.mm.yyyy',
                                               year=1976,
@@ -187,13 +187,14 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
                                     y=5 * font_size * 1.5 + 45)
 
         self.birth_date_entry_unchanged_overlay_label_frame = ctk.CTkFrame(master=self.entry_frame,
+                                                                           # brith date unchanged overlay frame
                                                                            corner_radius=10,
                                                                            width=window_geometry[0] / 4.5 - 20,
                                                                            height=font_size * 1.5)
         self.birth_date_entry_unchanged_overlay_label_frame.place(x=10,
                                                                   y=5 * font_size * 1.5 + 45)
 
-        self.birth_date_entry_unchanged_overlay_label = ctk.CTkLabel(
+        self.birth_date_entry_unchanged_overlay_label = ctk.CTkLabel( # brith date unchanged overlay label
             master=self.birth_date_entry_unchanged_overlay_label_frame,
             text=GetPersonalVariables.personal_infos_examiner[2],
             font=("bold", font_size))
@@ -202,14 +203,14 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
 
         # change, save and continue button------------------------------------------------------------
 
-        self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
+        self.button_frame = ctk.CTkFrame(master=self,  # frame for the buttons
                                          corner_radius=20,
                                          height=font_size * 1.5 + 20,
                                          width=font_size * 5 + font_size * 6 + 40 + font_size * 5)
         self.button_frame.place(x=0,
                                 y=font_size * 2 + 2 * font_size * 1.5 + 30 + font_size * 11 + 10)
 
-        self.change_button = ctk.CTkButton(master=self.button_frame,  # continue button
+        self.change_button = ctk.CTkButton(master=self.button_frame,  # change button
                                            corner_radius=10,
                                            text="Ändern",
                                            font=("bold", font_size),
@@ -220,7 +221,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
         self.change_button.place(x=10,
                                  y=10)
 
-        self.save_button = ctk.CTkButton(master=self.button_frame,  # continue button
+        self.save_button = ctk.CTkButton(master=self.button_frame,  # save button
                                          corner_radius=10,
                                          text="Speichern",
                                          font=("bold", font_size),
@@ -259,28 +260,28 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
         self.birth_date_entry_unchanged_overlay_label_frame.place_forget()
 
         self.first_name_entry.configure(state="normal")
-        self.first_name_entry.delete(0, ctk.END)
-        self.first_name_entry.insert(0, f"{infos[0]}")
+        self.first_name_entry.delete(0, ctk.END) # delete the input
+        self.first_name_entry.insert(0, f"{infos[0]}") # insert the current value
         self.last_name_entry.configure(state="normal")
         self.last_name_entry.delete(0, ctk.END)
         self.last_name_entry.insert(0, f"{infos[1]}")
 
-        self.change_button.configure(state="disabled")
+        self.change_button.configure(state="disabled") # reconfiguration of button states
         self.save_button.configure(state="normal")
         self.continue_button.configure(state="disabled")
 
     def save_entry_data_examiner(self):
-        personal_infos_examiner = [self.first_name_entry.get(),
+        personal_infos_examiner = [self.first_name_entry.get(), # get data from entries
                                    self.last_name_entry.get(),
                                    self.birth_date_entry.get()]
         last_chosen_examiner = json_reader("personal_var", "last_chosen_examiner", main_pi_location + "../JSON/")
 
-        if len(personal_infos_examiner[0].strip()) >= 1 and len(personal_infos_examiner[1].strip()) >= 1:
+        if len(personal_infos_examiner[0].strip()) >= 1 and len(personal_infos_examiner[1].strip()) >= 1: # integrity evaluation
             self.continue_button.configure(state="normal")
             json_writer("personal_var", f"personal_infos_examiner_{last_chosen_examiner}",
                         personal_infos_examiner, main_pi_location + "../JSON/")
 
-            self.first_name_entry_unchanged_overlay_label_frame.place(x=10,
+            self.first_name_entry_unchanged_overlay_label_frame.place(x=10, # place the overlays
                                                                       y=font_size * 1.5 + 15)
             self.first_name_entry_unchanged_overlay_label.place(x=10,
                                                                 rely=0.1)
@@ -292,7 +293,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
                                                                       y=5 * font_size * 1.5 + 45)
             self.birth_date_entry_unchanged_overlay_label.place(x=10,
                                                                 rely=0.1)
-            self.update_labels(personal_infos_examiner)
+            self.update_labels(personal_infos_examiner) # update the overlays to new data
 
             self.first_name_entry.configure(state="disabled")
             self.last_name_entry.configure(state="disabled")
@@ -300,7 +301,7 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
             self.change_button.configure(state="normal")
             self.save_button.configure(state="disabled")
             self.continue_button.configure(state="normal")
-        else:
+        else: # integrity not given
             self.continue_button.configure(state="disabled")
             if len(personal_infos_examiner[0].strip()) < 1:
                 print("Please provide first name")
@@ -309,12 +310,12 @@ class NewTestScreen03(ctk.CTkFrame):  # class for the NewTestScreen03 window
                 print("Please provide last name")
                 messagebox.showinfo("Eingabefehler", "Bitte Nachnamen eingeben!")
 
-    def update_labels(self, infos):
+    def update_labels(self, infos): # update overlay labels to new data
         self.first_name_entry_unchanged_overlay_label.configure(text=infos[0])
         self.last_name_entry_unchanged_overlay_label.configure(text=infos[1])
         self.birth_date_entry_unchanged_overlay_label.configure(text=infos[2])
 
-    def examiner_select(self, which):
+    def examiner_select(self, which): # selection of examiner in the option menu
         json_writer("personal_var", "last_chosen_examiner", which, main_pi_location + "../JSON/")
         personal_infos_examiner = json_reader("personal_var", f"personal_infos_examiner_{which}",
                                               main_pi_location + "../JSON/")

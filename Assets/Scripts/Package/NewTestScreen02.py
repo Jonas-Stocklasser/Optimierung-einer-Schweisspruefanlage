@@ -3,8 +3,8 @@
 # Author: Stocklasser
 # Diplomarbeit, Optimierung einer Schweisspruefanlage
 # Neuer Test Fenster 2; ID=1.1
-from tkinter import messagebox
 
+from tkinter import messagebox
 import customtkinter as ctk
 import tkcalendar as tkc
 import math
@@ -51,7 +51,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
                                          command=lambda: self.master.confirm_go_back("1.0"),
                                          width=font_size * 1.5,
                                          height=font_size * 1.5)
-        # the command does call the switch_window method because there is unsaved content to loose
+        # the command does call the confirm method because there is unsaved content to loose
         self.back_button.place(x=(window_geometry[0] - font_size * 1.5 - 25),
                                y=0)
 
@@ -64,7 +64,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
                                y=font_size * 2)
 
         # first name entry------------------------------------------------------------
-        self.first_name_entry_label = ctk.CTkLabel(master=self.entry_frame,
+        self.first_name_entry_label = ctk.CTkLabel(master=self.entry_frame, # first name label
                                                    fg_color=GetStartupVariables.color_SET_blue,
                                                    corner_radius=10,
                                                    text="Vorname",
@@ -75,7 +75,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
         self.first_name_entry_label.place(x=10,
                                           y=10)
 
-        self.first_name_entry = ctk.CTkEntry(master=self.entry_frame,
+        self.first_name_entry = ctk.CTkEntry(master=self.entry_frame, # first name entry
                                              placeholder_text="Vorname",
                                              font=("bold", font_size),
                                              width=window_geometry[0] / 4.5 - 20
@@ -84,7 +84,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
                                     y=font_size * 1.5 + 15)
 
         # last name entry------------------------------------------------------------
-        self.last_name_entry_label = ctk.CTkLabel(master=self.entry_frame,
+        self.last_name_entry_label = ctk.CTkLabel(master=self.entry_frame, # last name label
                                                   fg_color=GetStartupVariables.color_SET_blue,
                                                   corner_radius=10,
                                                   text="Nachname",
@@ -95,7 +95,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
         self.last_name_entry_label.place(x=10,
                                          y=2 * font_size * 1.5 + 25)
 
-        self.last_name_entry = ctk.CTkEntry(master=self.entry_frame,
+        self.last_name_entry = ctk.CTkEntry(master=self.entry_frame, # last name entry
                                             placeholder_text="Nachname",
                                             font=("bold", font_size),
                                             width=window_geometry[0] / 4.5 - 20
@@ -104,7 +104,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
                                    y=3 * font_size * 1.5 + 30)
 
         # birth date entry------------------------------------------------------------
-        self.birth_date_entry_label = ctk.CTkLabel(master=self.entry_frame,
+        self.birth_date_entry_label = ctk.CTkLabel(master=self.entry_frame, # birth date label
                                                    fg_color=GetStartupVariables.color_SET_blue,
                                                    corner_radius=10,
                                                    text="Geburtsdatum",
@@ -115,7 +115,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
         self.birth_date_entry_label.place(x=10,
                                           y=4 * font_size * 1.5 + 40)
 
-        self.birth_date_entry = tkc.DateEntry(master=self.entry_frame,
+        self.birth_date_entry = tkc.DateEntry(master=self.entry_frame, # birth date calendar entry
                                               font=("bold", int(math.floor(font_size / 1.5))),
                                               date_pattern='dd.mm.yyyy',
                                               year=2000,
@@ -126,14 +126,14 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
                                     y=5 * font_size * 1.5 + 45)
 
         # save and continue button------------------------------------------------------------
-        self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
+        self.button_frame = ctk.CTkFrame(master=self,  # frame for the buttons
                                          corner_radius=20,
                                          height=font_size * 1.5 + 20,
                                          width=font_size * 6 + 20 + font_size * 5 + 10)
         self.button_frame.place(x=0,
                                 y=font_size * 2 + font_size * 11 + 10)
 
-        self.save_button = ctk.CTkButton(master=self.button_frame,  # continue button
+        self.save_button = ctk.CTkButton(master=self.button_frame,  # save button
                                          corner_radius=10,
                                          text="Speichern",
                                          font=("bold", font_size),
@@ -143,8 +143,7 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
         self.save_button.place(x=10,
                                y=10)
 
-        self.continue_button = ctk.CTkButton(master=self.button_frame,
-                                             # continue button
+        self.continue_button = ctk.CTkButton(master=self.button_frame, # continue button
                                              corner_radius=10,
                                              text="Weiter",
                                              font=("bold", font_size),
@@ -155,19 +154,19 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
         self.continue_button.place(x=font_size * 6 + 20,
                                    y=10)
 
-    def continue_button_function(self):  # method for the button actions
+    def continue_button_function(self):  # method for the continue button functionalities
         self.master.switch_window("1.2")
         self.create_examinee_folder_and_json()
 
     def save_entry_data_examinee(self):  # method to save the entry data
-        personal_infos_examinee = [self.first_name_entry.get(),
+        personal_infos_examinee = [self.first_name_entry.get(), # get the data from the entries
                                    self.last_name_entry.get(),
                                    self.birth_date_entry.get()]
         if len(personal_infos_examinee[0].strip()) >= 1 and len(personal_infos_examinee[1].strip()) >= 1:  # integrity evaluation
             self.continue_button.configure(state="normal")  # unlock the continue button
-            json_writer("personal_var", "personal_infos_examinee", personal_infos_examinee,
+            json_writer("personal_var", "personal_infos_examinee", personal_infos_examinee, # write the data to the personal JSON
                         main_pi_location + "../JSON/")
-        else:
+        else: # integrity not given
             self.continue_button.configure(state="disabled")  # lock the continue button
             if len(personal_infos_examinee[0].strip()) < 1:
                 print("Please provide first name")
@@ -176,12 +175,12 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
                 print("Please provide last name")
                 messagebox.showinfo("Eingabefehler", "Bitte Nachnamen eingeben!")
 
-    def reset_input_new_test(self):
-        self.first_name_entry.delete(0, "end")
-        self.first_name_entry.configure(placeholder_text="Vorname")
+    def reset_input_new_test(self): # reset input for new test
+        self.first_name_entry.delete(0, "end") # delete input
+        self.first_name_entry.configure(placeholder_text="Vorname") # reset placeholder text
         self.last_name_entry.delete(0, "end")
         self.last_name_entry.configure(placeholder_text="Nachname")
-        self.save_button.configure(state="normal")
+        self.save_button.configure(state="normal") # reconfigure button states
         self.continue_button.configure(state="disabled")
 
     @staticmethod
@@ -196,12 +195,12 @@ class NewTestScreen02(ctk.CTkFrame):  # class for the NewTestScreen02 window
             try:
                 os.mkdir(new_folder)
                 break
-            except FileExistsError:
+            except FileExistsError: # add a number if the name already exists
                 error_num += 1
                 error_append = str(error_num)
                 new_folder = f"{save_path}/{personal_infos_examinee[1]}_{personal_infos_examinee[0]}{error_append}"
 
-        json_creator(f"{personal_infos_examinee[1]}_{personal_infos_examinee[0]}", f"{new_folder}/",
+        json_creator(f"{personal_infos_examinee[1]}_{personal_infos_examinee[0]}", f"{new_folder}/", # write the data
                      "personal_infos_examinee", personal_infos_examinee)
         json_writer("personal_var", "personal_folder_path",
                     f"{new_folder}/", main_pi_location + "../JSON/")

@@ -28,7 +28,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         back_arrow_image.configure(size=(font_size * 0.8, font_size * 0.8))
 
         def visual_grading_widgets(name, text, y):
-            # visual grading options
+            # visual grading options, dynamically to save code
             label = ctk.CTkLabel(master=self.option_frame,
                                  fg_color=GetStartupVariables.color_SET_blue,
                                  corner_radius=10,
@@ -111,21 +111,21 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.option_frame.place(x=0,
                                 y=font_size * 2)
 
-        visual_grading_widgets("weldingBead", "Schweißwulst", 10)
+        visual_grading_widgets("weldingBead", "Schweißwulst", 10) # create the checkbox widgets
         visual_grading_widgets("weldingIndicators", "Schweißindikatoren", 30 + 2 * font_size * 1.5)
         visual_grading_widgets("damages", "Beschädigungen", 50 + 4 * font_size * 1.5)
         visual_grading_widgets("holdingClamps", "Halteklemmen", 70 + 6 * font_size * 1.5)
         visual_grading_widgets("offset", "Versatz", 90 + 8 * font_size * 1.5)
 
         # save and continue button------------------------------------------------------------
-        self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
+        self.button_frame = ctk.CTkFrame(master=self,  # frame for the buttons
                                          corner_radius=20,
                                          height=font_size * 1.5 + 20,
                                          width=font_size * 6 + 20 + font_size * 5 + 10)
         self.button_frame.place(x=0,
                                 y=font_size * 2 + window_geometry[1] / 2 + 10)
 
-        self.save_button = ctk.CTkButton(master=self.button_frame,  # continue button
+        self.save_button = ctk.CTkButton(master=self.button_frame,  # save button
                                          corner_radius=10,
                                          text="Speichern",
                                          font=("bold", font_size),
@@ -149,7 +149,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                                    y=10)
 
     def save_textbox_data(self):
-        visual_grade = [self.weldingBead_checkbox_ok.get(),
+        visual_grade = [self.weldingBead_checkbox_ok.get(), # get the checkbox states
                         self.weldingBead_checkbox_not_ok.get(),
                         self.weldingIndicators_checkbox_ok.get(),
                         self.weldingIndicators_checkbox_not_ok.get(),
@@ -171,12 +171,12 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
                 and len(visual_grade[11]) <= 35 \
                 and len(visual_grade[12]) <= 35 \
                 and len(visual_grade[13]) <= 35 \
-                and len(visual_grade[14]) <= 35:
+                and len(visual_grade[14]) <= 35: # integrity evaluation
             personal_folder_path = json_reader("personal_var", "personal_folder_path", main_pi_location + "../JSON/")
             personal_json_name = json_reader("personal_var", "personal_json_name", main_pi_location + "../JSON/")
             json_writer(personal_json_name, "visual_grade", visual_grade, personal_folder_path)
             self.continue_button.configure(state="normal")
-        else:
+        else: # integrity not given
             if sum(visual_grade_int) != 5:
                 messagebox.showinfo("Eingabefehler", "Bitte überall ein Kreuz setzen!")
                 print("Type something! An empty field is not permitted!")
@@ -198,7 +198,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
             self.save_button.configure(state="normal")
             self.continue_button.configure(state="disabled")
 
-    def reset_input_new_test(self):
+    def reset_input_new_test(self): # reset inputs for new test
         self.save_button.configure(state="normal")
         self.continue_button.configure(state="disabled")
         self.weldingBead_checkbox_ok.deselect()
@@ -217,7 +217,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         self.holdingClamps_not_ok_entry.place_forget()
         self.offset_not_ok_entry.place_forget()
 
-    def checkbox_ok_function(self, name):
+    def checkbox_ok_function(self, name): # deselect the respective other checkbox
         checkbox = getattr(self, f"{name}_checkbox_not_ok")
         entry = getattr(self, f"{name}_not_ok_entry")
         checkbox.deselect()
@@ -231,7 +231,7 @@ class NewTestScreen05(ctk.CTkFrame):  # class for the NewTestScreen05 window
         checkbox_not_ok = getattr(self, f"{name}_checkbox_not_ok")
         entry = getattr(self, f"{name}_not_ok_entry")
 
-        if checkbox_not_ok.get() == 1:
+        if checkbox_not_ok.get() == 1: # make the description entry visible
             checkbox_ok.deselect()
             entry.configure(state="normal",
                             placeholder_text="eventuelle Kurzbeschreibung des Fehlers",

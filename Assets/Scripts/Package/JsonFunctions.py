@@ -32,7 +32,7 @@ def json_reader(json_name, variable, json_path):
         read_value = data.loc[data['var'] == variable, "val"].values[0]
         return read_value
     else:
-        print("ERROR WHILE TRYING TO READ")
+        print("ERROR WHILE TRYING TO READ") # debugging if something doesnt work
         print(f"json_name : {json_name}")
         print(f"json_path : {json_path}")
         print(f"variable : {variable}")

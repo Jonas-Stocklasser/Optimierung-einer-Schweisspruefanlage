@@ -57,7 +57,7 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
                                          command=lambda: self.master.confirm_go_back("1.4"),
                                          width=font_size * 1.5,
                                          height=font_size * 1.5)
-        # the command does call the switch_window method because there is unsaved content to loose
+        # the command does call the confirm method because there is unsaved content to loose
         self.back_button.place(x=(window_geometry[0] - font_size * 1.5 - 25),
                                y=0)
 
@@ -135,14 +135,14 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
 
         # change, save and continue button------------------------------------------------------------
 
-        self.button_frame = ctk.CTkFrame(master=self,  # frame for the button
+        self.button_frame = ctk.CTkFrame(master=self,  # frame for the buttons
                                          corner_radius=20,
                                          height=font_size * 1.5 + 20,
                                          width=font_size * 5 + font_size * 6 + 40 + font_size * 5)
         self.button_frame.place(x=0,
                                 y=font_size * 2 + font_size * 3 + 40 + font_size * 4)
 
-        self.change_button = ctk.CTkButton(master=self.button_frame,  # continue button
+        self.change_button = ctk.CTkButton(master=self.button_frame,  # change button
                                            corner_radius=10,
                                            text="Ändern",
                                            font=("bold", font_size),
@@ -183,8 +183,6 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
     def change_entry_data_exam_parameter(self):
         self.pressure_entry_unchanged_overlay_label.place_forget()
         self.pressure_entry_unchanged_overlay_label_frame.place_forget()
-        """self.control_time_entry_unchanged_overlay_label.place_forget()
-        self.control_time_entry_unchanged_overlay_label_frame.place_forget()"""
 
         self.pressure_entry.configure(state="normal", placeholder_text="Druck in Bar")
 

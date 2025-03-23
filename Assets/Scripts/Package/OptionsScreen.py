@@ -44,7 +44,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
                                          command=lambda: self.master.switch_window("0"),
                                          width=font_size*1.5,
                                          height=font_size*1.5)
-        # the command doesn't call the switch_window method because there is no unsaved content to loose
+        # the command doesn't call the confirm method because there is no unsaved content to loose
         self.back_button.place(x=(window_geometry[0]-font_size*1.5-25),
                                y=0)
 

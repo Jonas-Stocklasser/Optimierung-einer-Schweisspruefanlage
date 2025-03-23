@@ -1,3 +1,6 @@
+# testing how the fpdf2 library works
+# not in final app
+
 from fpdf import FPDF
 from fpdf.enums import XPos, YPos
 from datetime import datetime

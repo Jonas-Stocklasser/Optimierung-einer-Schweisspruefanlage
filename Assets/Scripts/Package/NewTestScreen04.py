@@ -56,7 +56,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                                          command=lambda: self.master.confirm_go_back("1.2"),
                                          width=font_size * 1.5,
                                          height=font_size * 1.5)
-        # the command does call the switch_window method because there is unsaved content to loose
+        # the command does call the confirm method because there is unsaved content to loose
         self.back_button.place(x=(window_geometry[0] - font_size * 1.5 - 25),
                                y=0)
 
@@ -410,7 +410,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.master.switch_window("1.4")
         self.write_personal_json()
 
-    def change_entry_data_item(self):
+    def change_entry_data_item(self): # make the entries typeable
         last_chosen_item = json_reader("item_var", "last_chosen_item", main_pi_location + "../JSON/")
         infos = json_reader("item_var", f"infos_item_{last_chosen_item}", main_pi_location + "../JSON/")
 
@@ -430,8 +430,8 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info6_entry_unchanged_overlay_label_frame.place_forget()
 
         self.title_entry.configure(state="normal")
-        self.title_entry.delete(0, ctk.END)
-        self.title_entry.insert(0, f"{infos[0]}")
+        self.title_entry.delete(0, ctk.END) # clear the input
+        self.title_entry.insert(0, f"{infos[0]}") # input the current value
         self.info1_entry.configure(state="normal")
         self.info1_entry.delete(0, ctk.END)
         self.info1_entry.insert(0, f"{infos[1]}")
@@ -451,12 +451,12 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info6_entry.delete(0, ctk.END)
         self.info6_entry.insert(0, f"{infos[6]}")
 
-        self.change_button.configure(state="disabled")
+        self.change_button.configure(state="disabled") # reconfigure the button states
         self.save_button.configure(state="normal")
         self.continue_button.configure(state="disabled")
 
     def save_entry_data_item(self):
-        infos_item = [self.title_entry.get(),
+        infos_item = [self.title_entry.get(), # get the data from the entries
                       self.info1_entry.get(),
                       self.info2_entry.get(),
                       self.info3_entry.get(),
@@ -466,7 +466,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
 
         allowed_characters = set(string.digits + ".")
 
-        if (len(infos_item[0].strip()) >= 1 and
+        if (len(infos_item[0].strip()) >= 1 and # integrity evaluation
                 len(infos_item[1].strip()) >= 1 and
                 len(infos_item[2].strip()) >= 1 and
                 len(infos_item[3].strip()) >= 1 and
@@ -524,7 +524,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
             self.change_button.configure(state="normal")
             self.save_button.configure(state="disabled")
             self.continue_button.configure(state="normal")
-        else:
+        else: # integrity not given
             self.continue_button.configure(state="disabled")
             if len(infos_item[0].strip()) < 1:
                 print("Please provide material")
@@ -553,7 +553,7 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
                 print(infos_item)
                 messagebox.showinfo("Eingabefehler", "Bitte nur erlaubte Zeichen eingeben!\n[1 2 3 4 5 6 7 8 9 0 .]")
 
-    def update_labels(self, infos):
+    def update_labels(self, infos): # update labels to new data
         self.title_entry_unchanged_overlay_label.configure(text=infos[0])
         self.info1_entry_unchanged_overlay_label.configure(text=infos[1])
         self.info2_entry_unchanged_overlay_label.configure(text=infos[2])
@@ -562,13 +562,13 @@ class NewTestScreen04(ctk.CTkFrame):  # class for the NewTestScreen04 window
         self.info5_entry_unchanged_overlay_label.configure(text=infos[5])
         self.info6_entry_unchanged_overlay_label.configure(text=infos[6])
 
-    def item_select(self, which):
+    def item_select(self, which): # selection method of item selection menu
         json_writer("item_var", "last_chosen_item", which, main_pi_location + "../JSON/")
         last_chosen_item = json_reader("item_var", "last_chosen_item", main_pi_location + "../JSON/")
         infos = json_reader("item_var", f"infos_item_{last_chosen_item}", main_pi_location + "../JSON/")
         self.update_labels(infos)
 
-    def reset_input_new_test(self):
+    def reset_input_new_test(self): # reset inputs for new test
         self.save_button.configure(state="disabled")
         self.continue_button.configure(state="normal")
         self.change_button.configure(state="normal")

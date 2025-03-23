@@ -7,10 +7,10 @@ import os.path
 
 import customtkinter as ctk
 from tkinter import messagebox
-# Shared variables----------------------------------------
-from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location
 from tkinter import filedialog
 from .JsonFunctions import json_writer
+# Shared variables----------------------------------------
+from .SharedVar import GetStartupVariables, back_arrow_image, main_pi_location
 
 save_path = GetStartupVariables.save_path
 
@@ -64,7 +64,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
                          y=font_size * 2)
 
         # path choose------------------------------------------------------------
-        self.path_label = ctk.CTkLabel(master=self.frame,
+        self.path_label = ctk.CTkLabel(master=self.frame, # label that says path
                                        fg_color=GetStartupVariables.color_SET_blue,
                                        corner_radius=10,
                                        text="Pfad:",
@@ -75,14 +75,14 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
         self.path_label.place(x=10,
                               y=10)
 
-        self.path_display_label_frame = ctk.CTkFrame(master=self.frame,
+        self.path_display_label_frame = ctk.CTkFrame(master=self.frame, # frame for the path display label
                                                      corner_radius=10,
                                                      width=window_geometry[0] / 1.5,
                                                      height=font_size * 1.5)
         self.path_display_label_frame.place(x=window_geometry[0] / 15 + 20,
                                             y=10)
 
-        self.path_display_label = ctk.CTkLabel(master=self.path_display_label_frame,
+        self.path_display_label = ctk.CTkLabel(master=self.path_display_label_frame, # label to display the chosen path
                                                text=save_path,
                                                anchor="w",
                                                font=("bold", font_size),
@@ -92,7 +92,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
         self.path_display_label.place(x=10,
                                       y=0)
 
-        self.change_button = ctk.CTkButton(master=self.frame,  # back button
+        self.change_button = ctk.CTkButton(master=self.frame,  # button to change the path
                                            fg_color=GetStartupVariables.color_SET_blue,
                                            corner_radius=10,
                                            text="...",
@@ -103,7 +103,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
         self.change_button.place(x=window_geometry[0] / 15 + 30 + window_geometry[0] / 1.5,
                                  y=10)
 
-        self.continue_button = ctk.CTkButton(master=self.frame,  # back button
+        self.continue_button = ctk.CTkButton(master=self.frame,  # continue button
                                              fg_color=GetStartupVariables.color_SET_blue,
                                              font=("bold", font_size),
                                              corner_radius=10,
@@ -122,7 +122,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
         self.frame2.place(x=0,
                           y=font_size * 2 + font_size * 1.5 + 30)
 
-        self.help_label = ctk.CTkLabel(master=self.frame2,
+        self.help_label = ctk.CTkLabel(master=self.frame2, # label for help with the usb stick
                                        fg_color=GetStartupVariables.color_SET_blue,
                                        corner_radius=10,
                                        text="USB-Stick ist standardmäßig in /media/admin/; USB-Stick in schwarzen Port stecken!",
@@ -138,14 +138,13 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
         save_path = filedialog.askdirectory()
         if len(save_path) >= 1:
             self.path_display_label.configure(text=save_path)
-
             json_writer("startup_var", "save_path", save_path, main_pi_location + "../JSON/")
 
     def continue_button_function(self):
         global save_path
         if os.path.exists(save_path):
             self.app.switch_window("1.1")
-        else:
+        else: # test of integrity
             print("path doesnt exist")
             print(save_path)
             messagebox.showinfo("Eingabefehler!", "Der ausgewählte Pfad existiert nicht!")

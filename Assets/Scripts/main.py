@@ -57,7 +57,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
         # App closing handling
         self.protocol("WM_DELETE_WINDOW", lambda: self.close_commands())
 
-        # keybindings for the unair feature and test methods----------------------------------------
+        # keybindings for the ventilation feature and test methods----------------------------------------
         self.bind("<Return>", lambda event: TestPreparations01.unair_on(current_window))
         self.bind("<KeyRelease-Return>", lambda event: TestPreparations01.unair_off(current_window))
         self.bind("1", lambda event: TestRun01.test_stop_functionality_too_low(current_window))
@@ -74,7 +74,7 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
     def confirm_go_back(self, which):
         if messagebox.askokcancel("Wirklich zurück gehen?",
                                   "Wollen Sie wirklich zum vorherigen Bildschirm zurückgehen?"):
-            self.switch_window(which) # the which argument is passed on to the reallyswitch method
+            self.switch_window(which) # the "which" argument is passed on to the switch_window method
         else:
             pass
 
@@ -84,14 +84,14 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
     def switch_window(self, which):  # method for switching windows with the attribute "which"
         global current_window
         for window in self.windows.values():
-            window.place_forget()  # place forget every window that is in the dictionary
+            window.place_forget()  # place_forget every window that is in the dictionary
 
         if which in self.windows:
             self.windows[which].place(x=10,
                                       y=10)  # place the window with the matching index to the attribute "which" in the main window
         current_window = which # set the current window variable to the right window
 
-    def close_commands(self): # what to do if the application is closed
+    def close_commands(self): # on closing the app
         if messagebox.askokcancel("Applikation beenden", "Möchten Sie die Applikation wirklich beenden?"):
             if "4.0" in self.windows: # if the test_run_01 window is open then ensure the pump is deactivated
                 test_run_01 = self.windows["4.0"]
@@ -103,11 +103,11 @@ class App(ctk.CTk):  # main window class, every other window class is called fro
             pass
 
 
-if __name__ == "__main__":  # when the file this is in is called "main"
+if __name__ == "__main__":  # gets executed when inside the "main"
     print("startup")
     window_height = monitor.height # get the monitors height
     window_width = int(window_height * (4 / 3)) # calculate the 4:3 monitor width
     window_geometry_new = [window_width, window_height] # set the geometry to the new dimensions
     GetStartupVariables()
-    App(GetStartupVariables.name_of_app, window_geometry_new)
     # calls the App class and passes the sharedVar name_of_app as the attribute "title"
+    App(GetStartupVariables.name_of_app, window_geometry_new)

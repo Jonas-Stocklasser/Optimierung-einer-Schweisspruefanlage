@@ -44,6 +44,7 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
                                  y=0)
 
         # back button------------------------------------------------------------
+        # the command calls the confirm method because there is unsaved content to loose
         self.back_button = ctk.CTkButton(master=self,  # back button
                                          corner_radius=10,
                                          text="",
@@ -52,7 +53,6 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
                                          command=lambda: self.master.confirm_go_back("1.5"),
                                          width=font_size * 1.5,
                                          height=font_size * 1.5)
-        # the command does call the confirm method because there is unsaved content to loose
         self.back_button.place(x=(window_geometry[0] - font_size * 1.5 - 25),
                                y=0)
 
@@ -118,16 +118,7 @@ class TestPreparations01(ctk.CTkFrame):  # class for the TestPreparations01 wind
     def continue_button_function(self):
         self.master.switch_window("4.0")
 
-    def update_size(self, font_size):
-        self.indicator_bar.configure(font=("bold", font_size), height=font_size, corner_radius=font_size / 2)
-        self.back_button.configure(width=font_size,
-                                   height=font_size, corner_radius=font_size / 2)
-        back_arrow_image.configure(size=(font_size, font_size), corner_radius=font_size / 2)
-        self.continue_button.configure(font=("bold", font_size), width=font_size * 3, height=font_size * 1.5,
-                                       corner_radius=font_size / 2)
-        self.instruction_label.configure(font=("bold", font_size * 0.9), corner_radius=font_size / 2)
-
-# methods to make the evacuation of air possible
+# methods to make the ventilation of air possible
     @staticmethod
     def unair_on(current_window):
         global key_held

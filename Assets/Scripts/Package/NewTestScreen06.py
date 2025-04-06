@@ -49,6 +49,7 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
                                  y=0)
 
         # back button------------------------------------------------------------
+        # the command calls the confirm method because there is unsaved content to loose
         self.back_button = ctk.CTkButton(master=self,  # back button
                                          corner_radius=10,
                                          text="",
@@ -57,7 +58,6 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
                                          command=lambda: self.master.confirm_go_back("1.4"),
                                          width=font_size * 1.5,
                                          height=font_size * 1.5)
-        # the command does call the confirm method because there is unsaved content to loose
         self.back_button.place(x=(window_geometry[0] - font_size * 1.5 - 25),
                                y=0)
 
@@ -142,7 +142,7 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
         self.button_frame.place(x=0,
                                 y=font_size * 2 + font_size * 3 + 40 + font_size * 4)
 
-        self.change_button = ctk.CTkButton(master=self.button_frame,  # change button
+        self.change_button = ctk.CTkButton(master=self.button_frame,
                                            corner_radius=10,
                                            text="Ändern",
                                            font=("bold", font_size),
@@ -153,7 +153,7 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
         self.change_button.place(x=10,
                                  y=10)
 
-        self.save_button = ctk.CTkButton(master=self.button_frame,  # save button
+        self.save_button = ctk.CTkButton(master=self.button_frame,
                                          corner_radius=10,
                                          text="Speichern",
                                          font=("bold", font_size),
@@ -165,7 +165,6 @@ class NewTestScreen06(ctk.CTkFrame):  # class for the NewTestScreen06 window
                                y=10)
 
         self.continue_button = ctk.CTkButton(master=self.button_frame,
-                                             # continue button
                                              corner_radius=10,
                                              text="Weiter",
                                              font=("bold", font_size),

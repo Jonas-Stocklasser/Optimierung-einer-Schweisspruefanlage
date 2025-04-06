@@ -36,7 +36,8 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
                                  y=0)
 
         # back button------------------------------------------------------------
-        self.back_button = ctk.CTkButton(master=self,  # back button
+        # the command doesn't call the confirm method because there is no unsaved content to loose
+        self.back_button = ctk.CTkButton(master=self,
                                          corner_radius=10,
                                          text="",
                                          anchor="center",
@@ -44,7 +45,6 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
                                          command=lambda: self.master.switch_window("0"),
                                          width=font_size*1.5,
                                          height=font_size*1.5)
-        # the command doesn't call the confirm method because there is no unsaved content to loose
         self.back_button.place(x=(window_geometry[0]-font_size*1.5-25),
                                y=0)
 
@@ -59,7 +59,6 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
         # light mode / dark mode ------------------------------------------------------------
         # label
         self.options_light_dark_label = ctk.CTkLabel(master=self.button_frame,
-                                                     # label to describe the menu below
                                                      fg_color=GetStartupVariables.color_SET_blue,
                                                      corner_radius=10,
                                                      text="Anzeigemodus",
@@ -72,6 +71,7 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
                                             y=10)
 
         # option menu
+        # the "command" automatically passes the current value as an argument to the specified method
         self.options_light_dark_menu = ctk.CTkOptionMenu(master=self.button_frame,
                                                          # menu for light / dark
                                                          font=("bold", font_size),
@@ -81,12 +81,11 @@ class OptionsScreen(ctk.CTkFrame):  # class for the OptionsScreen window
                                                          width=window_geometry[0]/3.5-20,
                                                          height=font_size*1.5,
                                                          command=self.appearance_mode_switch)
-        # the command automatically passes the current value as an argument to the specified method
         self.options_light_dark_menu.place(x=10,
                                            y=font_size*1.5+20)
 
 
-    def appearance_mode_switch(self, mode):  # method for switching the appearance mode to dark/light mode
+    def appearance_mode_switch(self, mode):  # switches the appearance mode to dark/light mode
         if mode == "light":
             json_writer("startup_var", "appearance_mode", ["light", "dark"], main_pi_location + "../JSON/")
 

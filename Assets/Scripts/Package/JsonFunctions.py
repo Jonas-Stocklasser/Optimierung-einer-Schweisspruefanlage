@@ -8,7 +8,7 @@ import json     # json file handling library
 import pandas as pd     # a file reading library
 
 
-# method to write something to a json file
+# method to write data to a json file
 def json_writer(json_name, variable, value, json_path):
     data = pd.read_json(f"{json_path}{json_name}.json", encoding="utf-8")  # get the dataframe from the file
     index = data.index[data['var'] == variable].tolist()    # find the correct index
@@ -24,7 +24,7 @@ def json_writer(json_name, variable, value, json_path):
         data.to_json(file, orient="records", indent=2, force_ascii=False)   # write the changed dataframe to the file
 
 
-# method to read something out of a json file
+# method to read data out of a json file
 def json_reader(json_name, variable, json_path):
     with open(f"{json_path}{json_name}.json", encoding="utf-8") as file:
         data = pd.read_json(file)
@@ -32,7 +32,7 @@ def json_reader(json_name, variable, json_path):
         read_value = data.loc[data['var'] == variable, "val"].values[0]
         return read_value
     else:
-        print("ERROR WHILE TRYING TO READ") # debugging if something doesnt work
+        print("ERROR WHILE TRYING TO READ") # debugging if error appears
         print(f"json_name : {json_name}")
         print(f"json_path : {json_path}")
         print(f"variable : {variable}")

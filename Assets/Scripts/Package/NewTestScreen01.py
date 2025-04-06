@@ -42,7 +42,8 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
                                  y=0)
 
         # back button------------------------------------------------------------
-        self.back_button = ctk.CTkButton(master=self,  # back button
+        # the command calls the confirm_go_back method because there might be unsaved content to loose
+        self.back_button = ctk.CTkButton(master=self,
                                          corner_radius=10,
                                          text="",
                                          anchor="center",
@@ -50,7 +51,6 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
                                          command=lambda: self.master.confirm_go_back("0"),
                                          width=font_size * 1.5,
                                          height=font_size * 1.5)
-        # the command does call the switch_window method because there is unsaved content to loose
         self.back_button.place(x=(window_geometry[0] - font_size * 1.5 - 25),
                                y=0)
 
@@ -64,7 +64,7 @@ class NewTestScreen01(ctk.CTkFrame):  # class for the NewTestScreen01 window
                          y=font_size * 2)
 
         # path choose------------------------------------------------------------
-        self.path_label = ctk.CTkLabel(master=self.frame, # label that says path
+        self.path_label = ctk.CTkLabel(master=self.frame, # label that shows path
                                        fg_color=GetStartupVariables.color_SET_blue,
                                        corner_radius=10,
                                        text="Pfad:",

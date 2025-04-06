@@ -36,8 +36,8 @@ completeTimeStartControl = datetime(year=2000, month=1, day=1, hour=0, minute=0,
 controlledTimeStart = datetime.now()
 controlledTimeTotal = timedelta(minutes=99999)
 
-# factor how fast it is going (1 is every 500ms and 2 is every 1000ms)
-Zeitinkrement = 1
+# looping speed of the test (1 is every 500ms and 2 is every 1000ms)
+time_increment = 1
 
 # to prevent a pressure error when testing, will be overwritten by sensor signals when a sensor is wired
 pressure_current = 4
@@ -91,6 +91,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
                                  y=0)
 
         # back button------------------------------------------------------------
+        # the command calls the switch_window method because there is unsaved content to loose
         self.back_button = ctk.CTkButton(master=self,  # back button
                                          corner_radius=10,
                                          text="",
@@ -99,7 +100,6 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
                                          command=lambda: self.back_button_function(),
                                          width=font_size * 1.5,
                                          height=font_size * 1.5)
-        # the command does call the switch_window method because there is unsaved content to loose
         self.back_button.place(x=(window_geometry[0] - font_size * 1.5 - 25),
                                y=0)
 
@@ -111,7 +111,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         self.button_frame.place(x=0,
                                 y=font_size * 2)
 
-        self.temp_frame = ctk.CTkFrame(master=self,  # frame for the button
+        self.temp_frame = ctk.CTkFrame(master=self,  # frame for the temperature
                                        corner_radius=20,
                                        height=font_size * 1.5 + 20,
                                        width=font_size * 7 + 20)
@@ -133,7 +133,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
                                        y=window_geometry[0] / 1.65)
 
         # start button------------------------------------------------------------
-        self.start_button = ctk.CTkButton(master=self.button_frame,  # start button
+        self.start_button = ctk.CTkButton(master=self.button_frame,
                                           corner_radius=10,
                                           text="Start",
                                           font=("bold", font_size),
@@ -145,7 +145,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
                                 y=10)
 
         # stop button------------------------------------------------------------
-        self.stop_button = ctk.CTkButton(master=self.button_frame,  # stop button
+        self.stop_button = ctk.CTkButton(master=self.button_frame,
                                          corner_radius=10,
                                          text="Stop",
                                          font=("bold", font_size),
@@ -157,7 +157,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
                                y=10)
 
         # pdf button------------------------------------------------------------
-        self.pdf_button = ctk.CTkButton(master=self.pdf_frame,  # stop button
+        self.pdf_button = ctk.CTkButton(master=self.pdf_frame,
                                         corner_radius=10,
                                         text="Prüfbericht erstellen",
                                         font=("bold", font_size),
@@ -169,7 +169,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
                               y=10)
 
         # back to start button------------------------------------------------------------
-        self.back_to_start_button = ctk.CTkButton(master=self.back_to_start_frame,  # stop button
+        self.back_to_start_button = ctk.CTkButton(master=self.back_to_start_frame,
                                                   corner_radius=10,
                                                   text="Zurück zum Start",
                                                   font=("bold", font_size),
@@ -192,7 +192,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         self.temp_label.place(x=10,
                               y=10)
 
-        # mathplot------------------------------------------------------------
+        # matplot------------------------------------------------------------
         self.figure, self.ax = plt.subplots(figsize=(font_size / 2, font_size / 3.8))
         self.ax.set_title("Überdruckverlauf (letzte 60 Messpunkte)")
         self.ax.set_xlabel("Messpunkte [s seit Beginn]")
@@ -202,7 +202,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         self.canvas = FigureCanvasTkAgg(self.figure, self)
         self.canvas.get_tk_widget().place(x=0, y=font_size * 5)
 
-    def to_do(self): # this is looped in the test
+    def to_do(self): # to-do loop inside test
         print("Measure")
         global timer_id
         global pressure_values
@@ -210,7 +210,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         global test_timesteps
         global regelungSchalter
         global maxAllowedPressure
-        global Zeitinkrement
+        global time_increment
         global controlledTimeTotal
         global controlledTimeStart
         global firstControlStartup
@@ -218,10 +218,10 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         global mean_temp
 
         # for testing
-        #global pressure_current
+        # global pressure_current
         # ------
 
-        # timestep management
+        # timestamp management
         timestamp = datetime.now()
         seconds_passed = int((timestamp - completeTimeStart).total_seconds())
         print(seconds_passed)
@@ -264,7 +264,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             self.regelung("pump")
         print(regelungSchalter)
 
-        # stop test because pressure is exceeded
+        # stop test when pressure is exceeded
         if pressure >= maxAllowedPressure:
             self.stop_button_function()
             print(maxAllowedPressure)
@@ -272,14 +272,14 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
                                       f"Prüfdruck zu hoch! {pressure}bar\nSensor könnte bei Fortfahren beschädigt werden!\nDurchführung beendet!")
             return
 
-        # stop test because pressure is too low
+        # stop test when pressure is too low
         if pressure_current < 4:
             self.stop_button_function()
             self.master.error_message("!Achtung!",
                                       "Drucksensorstrom unter 4mA! Sensor auf Fehler prüfen!\nDurchführung beendet!")
             return
 
-        # stop test because pressure difference is too high
+        # stop test when pressure difference is too high
         pDiff = pressure_values[len(pressure_values) - 1] - pressure_values[len(pressure_values) - 2]
         if pDiff < -10:
             self.stop_test(pDiff)
@@ -288,7 +288,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             return
 
         self.update_plot() # update diagram
-        timer_id = self.after(int(Zeitinkrement * 500), self.to_do) # reinitialize the loop
+        timer_id = self.after(int(time_increment * 500), self.to_do) # reinitialize the loop
 
     def start_button_function(self):
         global timer_id
@@ -305,7 +305,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         global completeTimeStartControl
         global completeTimeStart
 
-        # Error when Sensor current is below 4mA
+        # Error when sensor current is below 4mA
         if pressure_current < 4:
             self.master.error_message("!Achtung!",
                                       "Drucksensorstrom unter 4mA! Sensor auf Fehler prüfen!\nDurchführung beendet!")
@@ -342,7 +342,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
                 print("start time unaltered")
 
             # start the loop
-            timer_id = self.after(int(Zeitinkrement * 1000), self.to_do)
+            timer_id = self.after(int(time_increment * 1000), self.to_do)
             regelungSchalter = 1
             self.pdf_button.configure(state="disabled") # reconfigure the button states
             self.back_to_start_button.configure(state="disabled")
@@ -365,7 +365,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         self.stop_button.configure(state="disabled")
 
     def update_plot(self):
-        slice_num = int(60 / Zeitinkrement)
+        slice_num = int(60 / time_increment)
 
         # Get last 60 seconds of data
         display_timesteps = test_timesteps[-slice_num:]
@@ -382,6 +382,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         # Redraw the canvas
         self.canvas.draw()
 
+    # returns temperature of the DS18B20 sensor
     def get_temperature_w1(self):
         f = open(w1temp_location, "r")
         lines = f.readlines()
@@ -391,16 +392,19 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             temperature = float(int(lines[1][temp_pos + 2:]) / 1000)
         return temperature
 
+    # stops the looping when closing the app
     def cancel_after_on_closing(self):
         global timer_id
         if timer_id is not None:
             self.after_cancel(timer_id)
             timer_id = None
 
+    # stops test when pressure difference is too high
     def stop_test(self, pDiff):
         self.stop_button_function()
         print(f"\nVersuch wegen Druckabfalls beendet!\nDruckabfall zwischen letzten Messpunkten: {pDiff}")
 
+    # controlling of pressure
     def regelung(self, what):
         global firstControlStartup
         global pressure_values
@@ -441,7 +445,8 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             GPIO.output(14, False)
             print("regelung stop")
 
-    def pdf_button_function(self): # create pdf
+    # creates pdf
+    def pdf_button_function(self):
         global pressure_values
         global test_timesteps
         global mean_temp
@@ -489,6 +494,7 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
 
         plt.savefig(f"{personal_folder_path}/Druckverlauf.png", dpi=300)
 
+        # creates pdf
         class PDF(FPDF):
             def header(self):
                 self.set_y(5)
@@ -740,7 +746,6 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
         json_writer(personal_json_name, "test_timesteps", test_timesteps, personal_folder_path)
 
     # code testing -----------------------------------------------------------------------------------------------------
-    # code test method
     @staticmethod
     def test_stop_functionality_too_low(current_window):  # press 1
         global pressure_current
@@ -748,7 +753,6 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             print(f"test: {pressure_current}")
             pressure_current = 4
 
-    # code test method
     @staticmethod
     def test_stop_functionality_normal1(current_window):  # press 2
         global pressure_current
@@ -756,7 +760,6 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             print(f"test: {pressure_current}")
             pressure_current = 3.9
 
-    # code test method
     @staticmethod
     def test_stop_functionality_normal2(current_window):  # press 3
         global pressure_current
@@ -764,7 +767,6 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             print(f"test: {pressure_current}")
             pressure_current = 15
 
-    # code test method
     @staticmethod
     def test_stop_functionality_too_high(current_window):  # press 4
         global pressure_current
@@ -772,7 +774,6 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             print(f"test: {pressure_current}")
             pressure_current = 20
 
-    # code test method
     @staticmethod
     def test_stop_functionality_pressure_up(current_window):  # press arrow key up
         global pressure_current
@@ -780,7 +781,6 @@ class TestRun01(ctk.CTkFrame):  # class for the TestRun01 window
             print(f"test: {pressure_current}")
             pressure_current += 0.5
 
-    # code test method
     @staticmethod
     def test_stop_functionality_pressure_down(current_window):  # press arrow key down
         global pressure_current

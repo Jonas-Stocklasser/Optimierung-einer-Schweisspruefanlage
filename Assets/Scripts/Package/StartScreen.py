@@ -37,7 +37,7 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
                                  y=0)
 
         # button frame------------------------------------------------------------
-        self.button_frame = ctk.CTkFrame(master=self,  # a frame for the buttons
+        self.button_frame = ctk.CTkFrame(master=self,
                                          corner_radius=20,
                                          width=window_geometry[0] / 3.5,
                                          height=font_size * 9 + 40)
@@ -45,34 +45,31 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
                                 y=font_size * 2)
 
         # new test button------------------------------------------------------------
+        # the "command" calls the App lasses switch_window function and passes "1" as the "which" attribute
         self.new_test_button = ctk.CTkButton(master=self.button_frame,
-                                             # button to start a new test
                                              corner_radius=10,
                                              text="Neuer Test",
                                              font=("bold", font_size * 2),
                                              width=window_geometry[0] / 3.5 - 20,
                                              height=font_size * 3,
                                              command=lambda: self.new_test_button_function("1.0"))
-        # the command calls the App lasses switch_window function and passes "1" as the "which" attribute
         self.new_test_button.place(x=10,
                                    y=10)
 
         # options button------------------------------------------------------------
+        # the "command" calls the App lasses switch_window function and passes "3" as the "which" attribute
         self.options_button = ctk.CTkButton(master=self.button_frame,
-                                            # button to open the OptionsScreen
                                             corner_radius=font_size / 2,
                                             text="Optionen",
                                             font=("bold", font_size * 2),
                                             width=window_geometry[0] / 3.5 - 20,
                                             height=font_size * 3,
                                             command=lambda: self.master.switch_window("3"))
-        # the command calls the App lasses switch_window function and passes "3" as the "which" attribute
         self.options_button.place(x=10,
                                   y=font_size * 3 + 20)
 
         # quit button------------------------------------------------------------
         self.quit_button = ctk.CTkButton(master=self.button_frame,
-                                         # button to open the OptionsScreen
                                          corner_radius=font_size / 2,
                                          text="Beenden",
                                          font=("bold", font_size * 2),
@@ -93,7 +90,7 @@ class StartScreen(ctk.CTkFrame):  # class for the StartScreen window
         # image label----------------------------------------
         self.image_label = ctk.CTkLabel(master=self.image_frame,  # StartScreen image
                                         text="",
-                                        image=pruefstueck_image)  # Here goes a render of the test object (maybe a gif)
+                                        image=pruefstueck_image)  # render of the test object
         self.image_label.place(relx=0.5, rely=0.5, anchor="center")
 
     def new_test_button_function(self, which): # when the new test is started all entries are reset
